@@ -2,6 +2,9 @@ const Figma = require('figma-js')
 const axios = require('axios')
 const produce = require('immer').produce
 
+const fs = require('fs')
+const path = require('path')
+
 const utils = require('./utils');
 
 let client
@@ -43,11 +46,30 @@ const fileImagesToSvgs = async (images, ids, transformers = []) => {
     return utils.combineKeysAndValuesIntoObject(ids, svgsTransformed);
 }
 
-const getSvgs = async (fileId, {
+const constructFromString = (constructorPath, objs, baseOptions = {}) => {
+    return utils.toArray(objs).map(basePath => {
+        const absolutePath = fs.existsSync(basePath) ? basePath : path.resolve(__dirname, constructorPath, `${basePath}.js`)
+        const Obj = require(absolutePath);
+        const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`;
+        const configPath = path.resolve(configBasename);
+        const options = fs.existsSync(configPath) ? {
+            ...baseOptions,
+            ...require(configPath)
+        } : baseOptions;
+        return new Obj(options);
+    })
+}
+
+const exportComponents = async (fileId, {
+    output = '',
     onlyFromPages = [],
     transformers = [],
-    updateStatusMessage = () => {}
+    outputters = [],
+    updateStatusMessage = () => { }
 } = {}) => {
+
+    transformers = constructFromString('transformers', transformers);
+    outputters = constructFromString('outputters', outputters, { output });
 
     if (!client) {
         throw new Error(`'Access Token' is missing. https://www.figma.com/developers/docs#authentication`)
@@ -76,16 +98,22 @@ const getSvgs = async (fileId, {
     updateStatusMessage('fetching svgs');
     const svgs = await fileImagesToSvgs(images, componentIds, transformers);
 
-    return produce(pages, draft => {
+    const svgsByPages = produce(pages, draft => {
         for ([pageName, components] of Object.entries(pages)) {
             for ([componentName, component] of Object.entries(components)) {
                 draft[pageName][componentName].svg = svgs[component.id];
             }
         }
     });
+
+    outputters.reduce((previousPromise, outputter) => {
+        return previousPromise.then(svgs => outputter.execute(svgs))
+    }, Promise.resolve(svgsByPages));
+
+    return svgsByPages;
 }
 
 module.exports = {
-    getSvgs,
+    exportComponents,
     setToken
 }

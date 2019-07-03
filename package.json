@@ -1,10 +1,10 @@
 {
-  "name": "figma-exporter",
+  "name": "figma-export",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
-    "figmae": "./bin/figmae.js"
+    "figma-export": "./bin/figma-export.js"
   },
   "scripts": {
     "test": "mocha",
