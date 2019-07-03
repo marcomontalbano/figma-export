@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    {
+      "removeViewBox": false
+    },
+    {
+      "removeDimensions": true
+    }
+  ]
+}
