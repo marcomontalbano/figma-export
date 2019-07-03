@@ -24,13 +24,15 @@ const applyTransformersToSvg = (svg, transformers) => {
     }, Promise.resolve(svg));
 }
 
-const fileImagesAsSvg = async (fileId, ids, transformers = []) => {
-
-    const images = (await client.fileImages(fileId, {
+const fileImages = async (fileId, ids) => {
+    return (await client.fileImages(fileId, {
         ids,
         format: 'svg',
         svg_include_id: true,
     })).data.images
+}
+
+const fileImagesToSvgs = async (images, ids, transformers = []) => {
 
     const svgs = await Promise.all(ids.map(id => images[id]).map(getSvgFromUrl));
 
@@ -43,12 +45,15 @@ const fileImagesAsSvg = async (fileId, ids, transformers = []) => {
 
 const getSvgs = async (fileId, {
     onlyFromPages = [],
-    transformers = []
+    transformers = [],
+    updateStatusMessage = () => {}
 } = {}) => {
 
     if (!client) {
         throw new Error(`'Access Token' is missing. https://www.figma.com/developers/docs#authentication`)
     }
+
+    updateStatusMessage('fetching document');
 
     const document = (await client.file(fileId)).data.document
 
@@ -65,7 +70,11 @@ const getSvgs = async (fileId, {
         throw new Error('No components found')
     }
 
-    const svgs = await fileImagesAsSvg(fileId, componentIds, transformers);
+    updateStatusMessage('fetching components');
+    const images = await fileImages(fileId, componentIds);
+
+    updateStatusMessage('fetching svgs');
+    const svgs = await fileImagesToSvgs(images, componentIds, transformers);
 
     return produce(pages, draft => {
         for ([pageName, components] of Object.entries(pages)) {
@@ -74,7 +83,6 @@ const getSvgs = async (fileId, {
             }
         }
     });
-
 }
 
 module.exports = {
