@@ -23,6 +23,12 @@ const getPages = (document, { only = [] } = {}) => {
     }, {})
 }
 
+const promiseSequentially = (promises, initialValue) => {
+    return promises.reduce((previousPromise, promise) => {
+        return previousPromise.then(response => promise(response))
+    }, Promise.resolve(initialValue));
+}
+
 const combineKeysAndValuesIntoObject = (keys, values) => {
     return values.reduce((obj, value, index) => ({
         ...obj,
@@ -32,6 +38,7 @@ const combineKeysAndValuesIntoObject = (keys, values) => {
 
 
 module.exports = {
+    promiseSequentially,
     toArray,
     getComponents,
     getPages,

@@ -1,16 +1,8 @@
 const SVGO = require('svgo')
 
-const AbstractTransformer = require('./AbstractTransformer')
-
-module.exports = class extends AbstractTransformer {
-
-    constructor(options = {}) {
-        super(options);
-
-        this.svgo = new SVGO(options);
-    }
-
-    async execute(svg) {
-        return (await this.svgo.optimize(svg)).data
+module.exports = options => {
+    const svgo = new SVGO(options);
+    return async svg => {
+        return (await svgo.optimize(svg)).data
     }
 }

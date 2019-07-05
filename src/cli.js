@@ -9,16 +9,20 @@ const path = require('path')
 const utils = require('./utils')
 const figma = require('./figma');
 
-const cli = meow(
-    `
-  figma-export
-  $ figma-export components <file-id>
-  Options
-  --output       output directory (defaults to './output')
-  --page         figma page name (defaults to 'all pages')
-  --transformer  path to transform function
-  --outputter    path to outputter function
-  `,
+const cli = meow(`usage: figma-export <command> <file-id>
+
+In order to use figma-export you need a valid Access Token.
+$ export FIGMA_TOKEN=<figma-access-token>
+
+These are all available <command>s:
+    components      Exports components from a Figma file
+
+Options:
+    --output        Output directory (defaults to './output')
+    --page          Figma page names (defaults to 'all pages')
+    --transformer   Path to transform function
+    --outputter     Path to outputter function
+`,
     {
         flags: {
             output: {
@@ -59,11 +63,6 @@ const cli_options = {
     outputter: resolveNameOrPath(cli.flags.outputter)
 }
 
-if (!fs.existsSync(output)) {
-    const err = new Error(`Folder '${output}' doesn't exist`)
-    throw err
-}
-
 figma.setToken(process.env.FIGMA_TOKEN);
 
 switch (cli_command) {
@@ -77,9 +76,13 @@ switch (cli_command) {
             transformers: cli_options.transformer,
             outputters: cli_options.outputter,
             updateStatusMessage: message => spinner.text = message
-        }).then(() => {
+        }).then(pages => {
             spinner.stop()
-        }).catch(err => console.error(err.message));
+            console.log(JSON.stringify(pages))
+        }).catch(err => {
+            spinner.stop()
+            console.error(err.message)
+        })
 
         break;
 }

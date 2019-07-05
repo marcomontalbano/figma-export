@@ -1,21 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const AbstractOutputter = require('./AbstractOutputter')
+module.exports = options => {
 
-module.exports = class extends AbstractOutputter {
-
-    constructor(options = {}) {
-        super(options);
-
-        this.options = options;
+    if (!fs.existsSync(options.output)) {
+        const err = new Error(`Folder '${options.output}' doesn't exist`)
+        throw err
     }
 
-    async execute(pages) {
+    return async pages => {
         Object.entries(pages).forEach(([pageName, page]) => {
             Object.entries(page).forEach(([filename, { svg }]) => {
                 fs.writeFile(
-                    path.resolve(this.options.output, filename + '.svg'),
+                    path.resolve(options.output, filename + '.svg'),
                     svg,
                     err => {
                         if (err) throw err;

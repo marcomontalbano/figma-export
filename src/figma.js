@@ -21,12 +21,6 @@ const getSvgFromUrl = async url => {
     })).data
 }
 
-const applyTransformersToSvg = (svg, transformers) => {
-    return transformers.reduce((previousPromise, transform) => {
-        return previousPromise.then(svg => transform.execute(svg))
-    }, Promise.resolve(svg));
-}
-
 const fileImages = async (fileId, ids) => {
     return (await client.fileImages(fileId, {
         ids,
@@ -40,7 +34,7 @@ const fileImagesToSvgs = async (images, ids, transformers = []) => {
     const svgs = await Promise.all(ids.map(id => images[id]).map(getSvgFromUrl));
 
     const svgsTransformed = await Promise.all(svgs.map(async svg => {
-        return applyTransformersToSvg(svg, transformers)
+        return utils.promiseSequentially(transformers, svg)
     }));
 
     return utils.combineKeysAndValuesIntoObject(ids, svgsTransformed);
@@ -49,14 +43,13 @@ const fileImagesToSvgs = async (images, ids, transformers = []) => {
 const constructFromString = (constructorPath, objs, baseOptions = {}) => {
     return utils.toArray(objs).map(basePath => {
         const absolutePath = fs.existsSync(basePath) ? basePath : path.resolve(__dirname, constructorPath, `${basePath}.js`)
-        const Obj = require(absolutePath);
         const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`;
         const configPath = path.resolve(configBasename);
         const options = fs.existsSync(configPath) ? {
             ...baseOptions,
             ...require(configPath)
         } : baseOptions;
-        return new Obj(options);
+        return require(absolutePath)(options);
     })
 }
 
@@ -106,9 +99,7 @@ const exportComponents = async (fileId, {
         }
     });
 
-    outputters.reduce((previousPromise, outputter) => {
-        return previousPromise.then(svgs => outputter.execute(svgs))
-    }, Promise.resolve(svgsByPages));
+    utils.promiseSequentially(outputters, svgsByPages);
 
     return svgsByPages;
 }
