@@ -39,7 +39,8 @@ Options:
             },
             outputter: {
                 type: 'string',
-                alias: 'o'
+                alias: 'o',
+                default: 'as-stdout'
             }
         },
     },
@@ -76,9 +77,8 @@ switch (cli_command) {
             transformers: cli_options.transformer,
             outputters: cli_options.outputter,
             updateStatusMessage: message => spinner.text = message
-        }).then(pages => {
+        }).then(() => {
             spinner.stop()
-            console.log(JSON.stringify(pages))
         }).catch(err => {
             spinner.stop()
             console.error(err.message)
