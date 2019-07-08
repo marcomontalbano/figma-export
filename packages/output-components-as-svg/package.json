@@ -1,0 +1,16 @@
+{
+    "name": "@figma-export/output-components-as-svg",
+    "version": "0.0.1",
+    "description": "figma-export outputter that exports components as svg",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/marcomontalbano/figma-exporter.git",
+        "directory": "packages/output-components-as-svg"
+    },
+    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "license": "MIT",
+    "scripts": {
+        "test": "echo \"Run tests from root\" && exit 1"
+    }
+}

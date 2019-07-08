@@ -25,7 +25,7 @@ const getPages = (document, { only = [] } = {}) => {
 
 const promiseSequentially = (promises, initialValue) => {
     return promises.reduce((previousPromise, promise) => {
-        return previousPromise.then(response => promise(response))
+        return previousPromise.then(response => promise(initialValue))
     }, Promise.resolve(initialValue));
 }
 

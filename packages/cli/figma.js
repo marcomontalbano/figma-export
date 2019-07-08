@@ -40,9 +40,9 @@ const fileImagesToSvgs = async (images, ids, transformers = []) => {
     return utils.combineKeysAndValuesIntoObject(ids, svgsTransformed);
 }
 
-const constructFromString = (constructorPath, objs, baseOptions = {}) => {
+const constructFromString = (type, objs, baseOptions = {}) => {
     return utils.toArray(objs).map(basePath => {
-        const absolutePath = fs.existsSync(basePath) ? basePath : path.resolve(__dirname, constructorPath, `${basePath}.js`)
+        const absolutePath = fs.existsSync(basePath) ? basePath : require.resolve(`@figma-export/${basePath}`)
         const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`;
         const configPath = path.resolve(configBasename);
         const options = fs.existsSync(configPath) ? {
@@ -61,8 +61,8 @@ const exportComponents = async (fileId, {
     updateStatusMessage = () => { }
 } = {}) => {
 
-    transformers = constructFromString('transformers', transformers);
-    outputters = constructFromString('outputters', outputters, { output });
+    transformers = constructFromString('transform', transformers);
+    outputters = constructFromString('output', outputters, { output });
 
     if (!client) {
         throw new Error(`'Access Token' is missing. https://www.figma.com/developers/docs#authentication`)
@@ -99,7 +99,7 @@ const exportComponents = async (fileId, {
         }
     });
 
-    utils.promiseSequentially(outputters, svgsByPages);
+    await Promise.all(outputters.map(outputter => outputter(svgsByPages)))
 
     return svgsByPages;
 }

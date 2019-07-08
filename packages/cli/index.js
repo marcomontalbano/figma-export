@@ -40,7 +40,7 @@ Options:
             outputter: {
                 type: 'string',
                 alias: 'o',
-                default: 'as-stdout'
+                default: 'output-components-as-stdout'
             }
         },
     },

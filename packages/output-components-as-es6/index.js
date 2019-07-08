@@ -27,7 +27,7 @@ module.exports = options => {
             });
         });
 
-        fs.writeFile( path.resolve(options.output, 'figma-components' + '.js'), code,
+        fs.writeFile(path.resolve(options.output, 'figma-components' + '.js'), code,
             err => {
                 if (err) throw err;
             }

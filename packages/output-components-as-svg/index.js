@@ -16,7 +16,6 @@ module.exports = options => {
                     svg,
                     err => {
                         if (err) throw err;
-                        console.log(` • ${filename}.svg`);
                     }
                 )
             });

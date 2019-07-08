@@ -1,3 +1,2 @@
-# figma-exporter
+# figma-export
 
-npx svgo svgs/preview.svg --disable=removeViewBox --enable=removeDimensions -o svgs/preview-clean.svg
