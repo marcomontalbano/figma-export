@@ -42,7 +42,7 @@ const fileImagesToSvgs = async (images, ids, transformers = []) => {
 
 const constructFromString = (type, objs, baseOptions = {}) => {
     return utils.toArray(objs).map(basePath => {
-        const absolutePath = fs.existsSync(basePath) ? basePath : require.resolve(`@figma-export/${basePath}`)
+        const absolutePath = fs.existsSync(basePath) ? basePath : require.resolve(basePath)
         const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`;
         const configPath = path.resolve(configBasename);
         const options = fs.existsSync(configPath) ? {

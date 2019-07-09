@@ -4,7 +4,8 @@
   ],
   "command": {
     "create": {
-      "license": "MIT"
+      "license": "MIT",
+      "access": "public"
     }
   },
   "version": "0.0.1"

@@ -1,7 +1,7 @@
 {
     "name": "@figma-export/output-components-as-es6",
     "version": "0.0.1",
-    "description": "figma-export outputter that exports components in javascript file",
+    "description": "Outputter for @figma-export that exports components in javascript file",
     "main": "index.js",
     "repository": {
         "type": "git",
@@ -10,6 +10,9 @@
     },
     "author": "Marco Montalbano <me@marcomontalbano.com>",
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "test": "echo \"Run tests from root\" && exit 1"
     }

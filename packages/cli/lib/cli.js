@@ -40,7 +40,7 @@ Options:
             outputter: {
                 type: 'string',
                 alias: 'o',
-                default: 'output-components-as-stdout'
+                default: '@figma-export/output-components-as-stdout'
             }
         },
     },

@@ -1,7 +1,7 @@
 {
     "name": "@figma-export/transform-svg-with-svgo",
     "version": "0.0.1",
-    "description": "figma-export transformer that optimizes svgs using svgo lib",
+    "description": "Transformer for @figma-export that optimizes svgs using svgo tool",
     "main": "index.js",
     "repository": {
         "type": "git",
@@ -10,6 +10,9 @@
     },
     "author": "Marco Montalbano <me@marcomontalbano.com>",
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "scripts": {
         "test": "echo \"Run tests from root\" && exit 1"
     },
