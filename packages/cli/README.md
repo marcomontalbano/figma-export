@@ -1,6 +1,6 @@
 # @figma-export/cli
 
-> Figma Export command line.
+> Command line for @figma-export.
 
 See our main repo [@figma-export](https://github.com/marcomontalbano/figma-export) for more information.
 
@@ -21,7 +21,9 @@ yarn add @figma-export/cli --dev
 ## Usage
 
 ```sh
-npx figma-export <command> <fileId>
+export FIGMA_TOKEN=<FIGMA_TOKEN>
+
+npx @figma-export/cli <command> <fileId>
 ```
 
 Available commands:

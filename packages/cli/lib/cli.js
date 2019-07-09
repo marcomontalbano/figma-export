@@ -1,5 +1,3 @@
-require('dotenv')
-
 const meow = require('meow')
 const ora = require('ora');
 

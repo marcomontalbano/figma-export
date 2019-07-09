@@ -1,7 +1,7 @@
 {
     "name": "@figma-export/cli",
     "version": "0.0.1-alpha.0",
-    "description": "Figma Export command line",
+    "description": "Command line for @figma-export",
     "main": "lib/cli.js",
     "repository": {
         "type": "git",
