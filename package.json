@@ -2,7 +2,7 @@
   "name": "figma-export",
   "private": true,
   "license": "MIT",
-  "description": "",
+  "description": "Export tool for Figma",
   "scripts": {
     "test": "mocha",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
