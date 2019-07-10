@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/marcomontalbano/figma-export"><img alt="Build Status" src="https://travis-ci.org/marcomontalbano/figma-export.svg?branch=master"></a>
-    <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/marcomontalbano/figma-export/badge.svg?branch=master"></a>
+    <a href="https://travis-ci.org/marcomontalbano/figma-export"><img alt="Build Status" src="https://travis-ci.org/marcomontalbano/figma-export.svg?branch=master" /></a>
+    <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/marcomontalbano/figma-export/badge.svg?branch=master" /></a>
 </p>
 
 
@@ -20,7 +20,7 @@ First of all you have to set the environment variable `FIGMA_TOKEN`.
 
 To do so, you need a **Personal Access Token**. You can generate one from your *Account Settings*.
 
-![Figma - Account Menu](./images/figma--account-menu.png)
+<img width="209" alt="Figma - Account Menu" src="./images/figma--account-menu.png" />
 
 Inside the Account Settings click on *Create a new personal access token* and enter a description.
 
