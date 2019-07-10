@@ -6,7 +6,11 @@
     Export tool for Figma.
 </p>
 
-# figma-export
+<p align="center">
+    <a href="https://travis-ci.org/marcomontalbano/figma-export"><img alt="Build Status" src="https://travis-ci.org/marcomontalbano/figma-export.svg?branch=master"></a>
+    <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/marcomontalbano/figma-export/badge.svg?branch=master"></a>
+</p>
+
 
 ## Getting Started
 
