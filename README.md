@@ -44,7 +44,7 @@ Following an example:
 ```json
 ...
     "scripts": {
-        "figma:export": "export FIGMA_TOKEN=<personalAccessToken> figma-export components FP7lqd1V00LUaT5zvdklkkZr"
+        "figma:export": "export FIGMA_TOKEN=<personalAccessToken> figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5"
     }
 ...
 ```

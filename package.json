@@ -5,7 +5,7 @@
   "description": "Export tool for Figma",
   "scripts": {
     "test": "mocha",
-    "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
+    "coverage": "nyc --reporter=lcov --reporter=text mocha --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
     "bootstrap": "lerna bootstrap",
     "version": "lerna version",
@@ -24,5 +24,9 @@
     "mocha": "~6.1.4",
     "nyc": "~14.1.1"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "engines": {
+    "node": ">= 8.3 <= 12.x",
+    "npm": ">= 5.3 <= 6.x"
+  }
 }
