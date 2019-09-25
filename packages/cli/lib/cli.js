@@ -16,16 +16,17 @@ These are all available <command>s:
     components      Exports components from a Figma file
 
 Options:
-    --output        Output directory (defaults to './output')
-    --page          Figma page names (defaults to 'all pages')
-    --transformer   Path to transform function
-    --outputter     Path to outputter function
+    -p, --page          Figma page names (defaults to 'all pages')
+    -o  --output        Output directory (defaults to './output')
+    -O, --outputter     Path to outputter function
+    -t, --transformer   Path to transform function
 `,
     {
         flags: {
             output: {
                 type: 'string',
-                default: 'output'
+                default: 'output',
+                alias: 'o'
             },
             page: {
                 type: 'string',
@@ -33,11 +34,11 @@ Options:
             },
             transformer: {
                 type: 'string',
-                alias: 't'
+                alias: 'T'
             },
             outputter: {
                 type: 'string',
-                alias: 'o',
+                alias: 'O',
                 default: '@figma-export/output-components-as-stdout'
             }
         },

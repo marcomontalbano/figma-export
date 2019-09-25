@@ -12,9 +12,7 @@
 </p>
 
 
-## Getting Started
-
-### Personal Access Token
+## Personal Access Token
 
 First of all you have to set the environment variable `FIGMA_TOKEN`.
 
@@ -29,6 +27,23 @@ Copy the token, this is your only chance to do so!
 ```sh
 export FIGMA_TOKEN=<personalAccessToken>
 ```
+
+## Just Try
+
+If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5 as .svg :sunglasses:
+
+```sh
+# export figma token
+export FIGMA_TOKEN=<personalAccessToken>
+
+# create the default output folder
+mkdir output
+
+# export figma components as svg
+npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
+```
+
+## Usage
 
 ### Build Process
 
@@ -101,7 +116,7 @@ module.exports = options => {
 ```sh
 npm install -g @figma-export/transform-svg-with-svgo
 
-figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -t @figma-export/transform-svg-with-svgo
+figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -T @figma-export/transform-svg-with-svgo
 ```
 
 - [@figma-export/transform-svg-with-svgo](https://www.npmjs.com/package/@figma-export/transform-svg-with-svgo)
@@ -127,7 +142,7 @@ Usage:
 ```sh
 npm install -g @figma-export/output-components-as-svg
 
-figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -o @figma-export/output-components-as-svg
+figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
 ```
 
 - [@figma-export/output-components-as-stdout](https://www.npmjs.com/package/@figma-export/output-components-as-stdout)
