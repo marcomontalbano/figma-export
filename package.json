@@ -7,9 +7,9 @@
     "test": "mocha",
     "coverage": "nyc --reporter=lcov --reporter=text mocha --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
-    "bootstrap": "lerna bootstrap",
-    "version": "lerna version",
-    "release": "lerna publish from-git --require-scripts"
+    "lerna:bootstrap": "lerna bootstrap --force-local",
+    "lerna:version": "lerna version",
+    "lerna:publish": "lerna publish from-git --require-scripts"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "nyc": {
