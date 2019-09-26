@@ -4,8 +4,7 @@ const ora = require('ora');
 const fs = require('fs')
 const path = require('path')
 
-const utils = require('./utils')
-const figma = require('./figma');
+const figma = require('@figma-export/core');
 
 const cli = meow(`usage: figma-export <command> <file-id>
 
@@ -45,8 +44,10 @@ Options:
     },
 )
 
-const resolveNameOrPath = objs => {
-    return utils.toArray(objs).map(nameOrPath => {
+const resolveNameOrPath = (objs = []) => {
+    const objsAsArray = Array.isArray(objs) ? objs : [objs];
+
+    return objsAsArray.map(nameOrPath => {
         let absolutePath = path.resolve(nameOrPath);
         return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
     })

@@ -5,7 +5,7 @@ const produce = require('immer').produce
 const fs = require('fs')
 const path = require('path')
 
-const utils = require('./utils');
+const utils = require('./lib/utils');
 
 let client
 
@@ -14,19 +14,18 @@ const setToken = token => {
 }
 
 const getSvgFromUrl = async url => {
-    return (await axios.get(url, {
-        headers: {
-            'Content-Type': 'images/svg+xml',
-        },
-    })).data
+    const response = await axios.get(url, { headers: { 'Content-Type': 'images/svg+xml' } });
+    return response.data;
 }
 
 const fileImages = async (fileId, ids) => {
-    return (await client.fileImages(fileId, {
+    const response = await client.fileImages(fileId, {
         ids,
         format: 'svg',
         svg_include_id: true,
-    })).data.images
+    });
+
+    return response.data.images
 }
 
 const fileImagesToSvgs = async (images, ids, transformers = []) => {

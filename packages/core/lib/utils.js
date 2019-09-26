@@ -1,20 +1,24 @@
 
-const toArray = (any = []) => Array.isArray(any) ? any : [any]
+const toArray = (any = []) => Array.isArray(any) ? any : [any];
 
-const getComponents = (children = [], layers = {}) => {
+const getComponents = (children = []) => {
+    let components = {};
+
     children.forEach(child => {
         if (child.type === 'COMPONENT') {
-            layers[child.name] = child
-        } else {
-            layers = { ...layers, ...getComponents(child.children, layers) }
+            components[child.name] = child;
+            return;
         }
-    })
 
-    return layers
-}
+        components = { ...components, ...getComponents(child.children) };
+    });
 
-const getPages = (document, { only = [] } = {}) => {
-    only = toArray(only);
+    return components;
+};
+
+const getPages = (document, options = {}) => {
+    const only = toArray(options.only);
+
     return document.children.reduce((accumulator, page) => {
         if (only.length === 0 || (only.length === 1 && only[0] === '') || only.includes(page.name)) {
             accumulator[page.name] = getComponents(page.children)
