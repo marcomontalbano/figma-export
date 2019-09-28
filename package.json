@@ -4,8 +4,9 @@
   "license": "MIT",
   "description": "Export tool for Figma",
   "scripts": {
-    "test": "mocha",
-    "coverage": "nyc --reporter=lcov --reporter=text mocha --reporter=dot",
+    "lint": "eslint . --ignore-pattern=node_modules",
+    "test": "mocha './{,!(node_modules)/**/}*.test.js'",
+    "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
     "lerna:bootstrap": "lerna bootstrap --force-local",
     "lerna:version": "lerna version",
@@ -20,9 +21,14 @@
   },
   "devDependencies": {
     "chai": "~4.2.0",
+    "eslint": "~6.4.0",
+    "eslint-config-airbnb-base": "~14.0.0",
+    "eslint-plugin-chai-friendly": "~0.4.1",
+    "eslint-plugin-import": "~2.18.2",
     "lerna": "^3.15.0",
-    "mocha": "~6.1.4",
-    "nyc": "~14.1.1"
+    "mocha": "~6.2.0",
+    "nyc": "~14.1.1",
+    "sinon": "~7.5.0"
   },
   "dependencies": {},
   "engines": {

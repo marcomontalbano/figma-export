@@ -1,21 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const camelCase = (str) => {
-    return str.replace(/^([A-Z])|[\s-_]+(\w)/g, function (match, p1, p2, offset) {
-        if (p2) return p2.toUpperCase();
-        return p1.toLowerCase();
-    });
-};
+const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2, offset) => {
+    if (p2) return p2.toUpperCase();
+    return p1.toLowerCase();
+});
 
-module.exports = options => {
-
+module.exports = (options) => {
     if (!fs.existsSync(options.output)) {
-        const err = new Error(`Folder '${options.output}' doesn't exist`)
-        throw err
+        const err = new Error(`Folder '${options.output}' doesn't exist`);
+        throw err;
     }
 
-    return async pages => {
+    return async (pages) => {
         let code = '';
         Object.entries(pages).forEach(([pageName, page]) => {
             Object.entries(page).forEach(([filename, { svg }]) => {
@@ -28,9 +25,8 @@ module.exports = options => {
         });
 
         fs.writeFile(path.resolve(options.output, 'figma-components' + '.js'), code,
-            err => {
+            (err) => {
                 if (err) throw err;
-            }
-        )
-    }
-}
+            });
+    };
+};

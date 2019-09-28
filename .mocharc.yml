@@ -1,3 +1,0 @@
-# https://github.com/mochajs/mocha/blob/master/example/config/.mocharc.yml
-
-spec: ./**/*.test.js
