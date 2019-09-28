@@ -24,6 +24,7 @@ module.exports = {
     'indent': ['error', 4],
     'max-len': ['error', 150],
     'no-unused-expressions': 'off',
-    'chai-friendly/no-unused-expressions': 'error'
+    'chai-friendly/no-unused-expressions': 'error',
+    'arrow-body-style': 'off'
   },
 };

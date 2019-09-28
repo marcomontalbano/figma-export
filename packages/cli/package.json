@@ -17,7 +17,6 @@
         "figma-export": "bin/figma-export"
     },
     "dependencies": {
-        "@figma-export/output-components-as-stdout": "^0.0.1-alpha.0",
         "@figma-export/core": "^0.0.1-alpha.0",
         "meow": "~5.0.0",
         "ora": "~3.4.0"

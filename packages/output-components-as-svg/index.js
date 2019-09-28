@@ -8,7 +8,7 @@ module.exports = (options) => {
     }
 
     return async (pages) => {
-        Object.entries(pages).forEach(([pageName, page]) => {
+        Object.entries(pages).forEach(([, page]) => {
             Object.entries(page).forEach(([filename, { svg }]) => {
                 fs.writeFile(
                     path.resolve(options.output, `${filename}.svg`),

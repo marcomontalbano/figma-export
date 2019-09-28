@@ -1,5 +1,4 @@
 const Figma = require('figma-js');
-const axios = require('axios');
 const { produce } = require('immer');
 
 const fs = require('fs');
@@ -13,27 +12,27 @@ const setToken = (token) => {
     client = Figma.Client({ personalAccessToken: token });
 };
 
-const getSvgFromUrl = async (url) => {
-    const response = await axios.get(url, { headers: { 'Content-Type': 'images/svg+xml' } });
-    return response.data;
-};
-
 const fileImages = async (fileId, ids) => {
-    const response = await client.fileImages(fileId, {
+    const { data: { images } = {} } = await client.fileImages(fileId, {
         ids,
         format: 'svg',
         svg_include_id: true,
     });
 
-    return response.data.images;
+    return images;
 };
 
-const fileImagesToSvgs = async (images, ids, transformers = []) => {
-    const svgs = await Promise.all(ids.map((id) => images[id]).map(getSvgFromUrl));
+const fileImagesToSvgs = async (images, transformers = []) => {
+    const svgPromises = Object.entries(images).map(async ([id, url]) => {
+        const svg = await utils.fetchAsSvgXml(url);
+        const svgTransformed = await utils.promiseSequentially(transformers, svg);
 
-    const svgsTransformed = await Promise.all(svgs.map((svg) => utils.promiseSequentially(transformers, svg)));
+        return [id, svgTransformed];
+    });
 
-    return utils.combineKeysAndValuesIntoObject(ids, svgsTransformed);
+    const svgs = await Promise.all(svgPromises);
+
+    return utils.fromEntries(svgs);
 };
 
 const constructFromString = (type, objs, baseOptions = {}) => utils.toArray(objs).map((basePath) => {
@@ -42,8 +41,11 @@ const constructFromString = (type, objs, baseOptions = {}) => utils.toArray(objs
     const configPath = path.resolve(configBasename);
     const options = fs.existsSync(configPath) ? {
         ...baseOptions,
+        // eslint-disable-next-line import/no-dynamic-require, global-require
         ...require(configPath),
     } : baseOptions;
+
+    // eslint-disable-next-line import/no-dynamic-require, global-require
     return require(absolutePath)(options);
 });
 
@@ -54,8 +56,8 @@ const exportComponents = async (fileId, {
     outputters = [],
     updateStatusMessage = () => { },
 } = {}) => {
-    transformers = constructFromString('transform', transformers);
-    outputters = constructFromString('output', outputters, { output });
+    const transformerFactories = constructFromString('transform', transformers);
+    const outputterFactories = constructFromString('output', outputters, { output });
 
     if (!client) {
         throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
@@ -63,7 +65,7 @@ const exportComponents = async (fileId, {
 
     updateStatusMessage('fetching document');
 
-    const { document } = (await client.file(fileId)).data;
+    const { data: { document } = {} } = await client.file(fileId);
 
     const pages = utils.getPages(document, { only: onlyFromPages });
 
@@ -80,17 +82,18 @@ const exportComponents = async (fileId, {
     const images = await fileImages(fileId, componentIds);
 
     updateStatusMessage('fetching svgs');
-    const svgs = await fileImagesToSvgs(images, componentIds, transformers);
+    const svgs = await fileImagesToSvgs(images, transformerFactories);
 
     const svgsByPages = produce(pages, (draft) => {
-        for ([pageName, components] of Object.entries(pages)) {
-            for ([componentName, component] of Object.entries(components)) {
+        Object.entries(pages).forEach(([pageName, components]) => {
+            Object.entries(components).forEach(([componentName, component]) => {
+                // eslint-disable-next-line no-param-reassign
                 draft[pageName][componentName].svg = svgs[component.id];
-            }
-        }
+            });
+        });
     });
 
-    await Promise.all(outputters.map((outputter) => outputter(svgsByPages)));
+    await Promise.all(outputterFactories.map((outputter) => outputter(svgsByPages)));
 
     return svgsByPages;
 };

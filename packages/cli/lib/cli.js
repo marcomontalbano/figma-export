@@ -38,7 +38,6 @@ Options:
         outputter: {
             type: 'string',
             alias: 'O',
-            default: '@figma-export/output-components-as-stdout',
         },
     },
 });

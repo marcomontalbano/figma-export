@@ -63,7 +63,7 @@ Following an example:
 ```json
 ...
     "scripts": {
-        "figma:export": "export FIGMA_TOKEN=<personalAccessToken> figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5"
+        "figma:export": "export FIGMA_TOKEN=<personalAccessToken> figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
     }
 ...
 ```
@@ -107,9 +107,17 @@ You can create you own:
 
 ```js
 module.exports = options => {
-    return async svg => {
-        return svg
-    }
+    return (svg) => new Promise((resolve, reject) => {
+        resolve(svg);
+    });
+}
+```
+
+```js
+module.exports = options => {
+    return async (svg) => {
+        return svg;
+    };
 }
 ```
 
@@ -131,9 +139,9 @@ You can create you own:
 ```js
 module.exports = options => {
     return async pages => {
-        console.clear()
-        console.log(JSON.stringify(pages))
-    }
+        console.clear();
+        console.log(JSON.stringify(pages));
+    };
 }
 ```
 
