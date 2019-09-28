@@ -1,49 +1,44 @@
-const chai = require('chai');
-const expect = chai.expect;
-
 const utils = require('./utils');
 
-const component_1 = {
+const component1 = {
     id: '10:8',
     name: 'figma-logo',
     type: 'COMPONENT',
 };
 
-const component_c2 = {
+const component2 = {
     id: '8:1',
     name: 'search',
     type: 'COMPONENT',
 };
 
-const group_1 = {
+const group1 = {
     id: '26:0',
     name: 'A Group',
     type: 'GROUP',
-    children: [component_c2]
+    children: [component2],
 };
 
-const page_1 = {
+const page1 = {
     id: '10:6',
     name: 'page1',
     type: 'CANVAS',
     children: [
-        component_1
-    ]
+        component1,
+    ],
 };
 
-const page_2 = {
+const page2 = {
     id: '10:7',
     name: 'page2',
     type: 'CANVAS',
     children: [
-        group_1
-    ]
+        group1,
+    ],
 };
-
 
 describe('Core', () => {
     describe('utils.', () => {
-
         describe('toArray', () => {
             it('should convert the element into an array if the element is not an array. If is already an array, just returns it', () => {
                 expect(utils.toArray()).to.eql([]);
@@ -61,48 +56,50 @@ describe('Core', () => {
 
             it('should get all components from a list of children', () => {
                 expect(utils.getComponents([
-                    component_1,
-                    page_2
+                    component1,
+                    page2,
                 ])).to.eql({
-                    [component_1.name]: component_1,
-                    [component_c2.name]: component_c2,
+                    [component1.name]: component1,
+                    [component2.name]: component2,
                 });
             });
         });
 
         describe('getPages', () => {
             it('should get all pages by default', () => {
-                expect(utils.getPages({ children: [page_1, page_2] })).to.have.all.keys('page1', 'page2');
+                expect(utils.getPages({ children: [page1, page2] })).to.have.all.keys('page1', 'page2');
             });
 
             it('should get all pages if "empty" list is provided', () => {
-                expect(utils.getPages({ children: [page_1, page_2] }, {
-                    only: ['']
+                expect(utils.getPages({ children: [page1, page2] }, {
+                    only: [''],
                 })).to.have.all.keys('page1', 'page2');
 
-                expect(utils.getPages({ children: [page_1, page_2] }, {
-                    only: []
+                expect(utils.getPages({ children: [page1, page2] }, {
+                    only: [],
                 })).to.have.all.keys('page1', 'page2');
 
-                expect(utils.getPages({ children: [page_1, page_2] }, {
-                    only: ''
+                expect(utils.getPages({ children: [page1, page2] }, {
+                    only: '',
                 })).to.have.all.keys('page1', 'page2');
             });
 
             it('should get all requested pages', () => {
-                expect(utils.getPages({ children: [page_1, page_2] }, {
-                    only: 'page2'
+                expect(utils.getPages({ children: [page1, page2] }, {
+                    only: 'page2',
                 })).to.have.all.keys('page2');
 
-                expect(utils.getPages({ children: [page_1, page_2] }, {
-                    only: ['page1', 'page2']
+                expect(utils.getPages({ children: [page1, page2] }, {
+                    only: ['page1', 'page2'],
                 })).to.have.all.keys('page1', 'page2');
             });
 
             it('should get zero results if a non existing page is provided', () => {
-                expect(utils.getPages({ children: [page_1, page_2] }, {
-                    only: 'page20'
-                })).to.be.an('object').that.is.empty;
+                const asd = utils.getPages({ children: [page1, page2] }, {
+                    only: 'page20',
+                });
+
+                expect(asd).to.be.an('object').that.is.empty;
             });
         });
 
@@ -110,8 +107,21 @@ describe('Core', () => {
             it('should get all components from a list of children', () => {
                 expect(utils.combineKeysAndValuesIntoObject(
                     ['a', 'b'],
-                    [1, 2])
-                ).to.eql({'a': 1, 'b': 2});
+                    [1, 2],
+                )).to.eql({ a: 1, b: 2 });
+            });
+        });
+
+        describe('promiseSequentially', () => {
+            it('should resolve promises sequentially', async () => {
+                const result = utils.promiseSequentially([
+                    (p) => Promise.resolve(`${p}e`),
+                    (p) => Promise.resolve(`${p}l`),
+                    (p) => Promise.resolve(`${p}l`),
+                    (p) => Promise.resolve(`${p}o`),
+                ], 'h');
+
+                expect(await result).to.be.equal('hello');
             });
         });
     });
