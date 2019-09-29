@@ -51,6 +51,11 @@ const getComponents = (children = []) => {
     return components;
 };
 
+const getIdsFromPages = (pages) => Object.values(pages).reduce((ids, components) => [
+    ...ids,
+    ...Object.values(components).map((component) => component.id),
+], []);
+
 const getPages = (document, options = {}) => {
     const only = toArray(options.only);
 
@@ -70,4 +75,5 @@ module.exports = {
     fetchAsSvgXml,
     getComponents,
     getPages,
+    getIdsFromPages,
 };

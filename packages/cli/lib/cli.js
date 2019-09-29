@@ -75,7 +75,7 @@ case 'components':
         onlyFromPages: options.page,
         transformers: options.transformer,
         outputters: options.outputter,
-        updateStatusMessage: (message) => { spinner.text = message; },
+        log: (message) => { spinner.text = message; },
     }).then(() => {
         spinner.stop();
     }).catch((err) => {

@@ -22,7 +22,8 @@ const fileImages = async (fileId, ids) => {
     return images;
 };
 
-const fileImagesToSvgs = async (images, transformers = []) => {
+const fileSvgs = async (fileId, ids, transformers = []) => {
+    const images = await fileImages(fileId, ids);
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
         const svg = await utils.fetchAsSvgXml(url);
         const svgTransformed = await utils.promiseSequentially(transformers, svg);
@@ -54,7 +55,7 @@ const exportComponents = async (fileId, {
     onlyFromPages = [],
     transformers = [],
     outputters = [],
-    updateStatusMessage = () => { },
+    log = () => { },
 } = {}) => {
     const transformerFactories = constructFromString('transform', transformers);
     const outputterFactories = constructFromString('output', outputters, { output });
@@ -63,26 +64,20 @@ const exportComponents = async (fileId, {
         throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
     }
 
-    updateStatusMessage('fetching document');
+    log('fetching document');
 
     const { data: { document } = {} } = await client.file(fileId);
 
     const pages = utils.getPages(document, { only: onlyFromPages });
 
-    const componentIds = Object.values(pages).reduce((ids, components) => [
-        ...ids,
-        ...Object.values(components).map((component) => component.id),
-    ], []);
+    const componentIds = utils.getIdsFromPages(pages);
 
     if (componentIds.length === 0) {
         throw new Error('No components found');
     }
 
-    updateStatusMessage('fetching components');
-    const images = await fileImages(fileId, componentIds);
-
-    updateStatusMessage('fetching svgs');
-    const svgs = await fileImagesToSvgs(images, transformerFactories);
+    log('fetching components');
+    const svgs = await fileSvgs(fileId, componentIds, transformerFactories);
 
     const svgsByPages = produce(pages, (draft) => {
         Object.entries(pages).forEach(([pageName, components]) => {
