@@ -5,7 +5,7 @@
   "description": "Export tool for Figma",
   "scripts": {
     "lint": "eslint . --ignore-pattern=node_modules",
-    "test": "mocha test-packages.js",
+    "test": "mocha test--registers.js test--packages.js",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
     "lerna:bootstrap": "lerna bootstrap --force-local",
@@ -29,7 +29,8 @@
     "mocha": "~6.2.0",
     "nock": "~11.3.5",
     "nyc": "~14.1.1",
-    "sinon": "~7.5.0"
+    "sinon": "~7.5.0",
+    "sinon-chai": "~3.3.0"
   },
   "dependencies": {},
   "engines": {

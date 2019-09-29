@@ -42,6 +42,14 @@ const page2 = {
     ],
 };
 
+module.exports = {
+    component1,
+    component2,
+    group1,
+    page1,
+    page2,
+};
+
 describe('utils.', () => {
     describe('toArray', () => {
         it('should convert the element into an array if the element is not an array. If is already an array, just returns it', () => {
