@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/core",
-    "version": "0.0.1-alpha.2",
+    "version": "0.0.1-alpha.3",
     "description": "@figma-export core functionalities",
     "main": "index.js",
     "repository": {
@@ -14,7 +14,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/output-components-as-stdout": "^0.0.1-alpha.0",
+        "@figma-export/output-components-as-stdout": "^0.0.1-alpha.3",
         "axios": "~0.19.0",
         "figma-js": "~1.8.4",
         "immer": "~3.1.3"
