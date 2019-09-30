@@ -1,15 +1,13 @@
 # @figma-export/transform-svg-with-svgo
 
-> Transformer for @figma-export that optimizes svgs using `svgo` tool.
-
-See our main repo [@figma-export](https://github.com/marcomontalbano/figma-export) for more information.
+> Transformer for [@figma-export](https://github.com/marcomontalbano/figma-export) that optimizes svgs using `svgo` tool.
 
 ## Install
 
 Using npm:
 
 ```sh
-npm install --save-dev @figma-export/transform-svg-with-svgo
+npm i -D @figma-export/transform-svg-with-svgo
 ```
 
 or using yarn:

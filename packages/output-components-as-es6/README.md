@@ -1,15 +1,13 @@
 # @figma-export/output-components-as-es6
 
-> Outputter for @figma-export that exports components in javascript file.
-
-See our main repo [@figma-export](https://github.com/marcomontalbano/figma-export) for more information.
+> Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports components in javascript file.
 
 ## Install
 
 Using npm:
 
 ```sh
-npm install --save-dev @figma-export/output-components-as-es6
+npm i -D @figma-export/output-components-as-es6
 ```
 
 or using yarn:

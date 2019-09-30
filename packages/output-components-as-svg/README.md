@@ -1,15 +1,13 @@
 # @figma-export/output-components-as-svg
 
-> Outputter for @figma-export that exports components as svg.
-
-See our main repo [@figma-export](https://github.com/marcomontalbano/figma-export) for more information.
+> Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports components as svg.
 
 ## Install
 
 Using npm:
 
 ```sh
-npm install --save-dev @figma-export/output-components-as-svg
+npm i -D @figma-export/output-components-as-svg
 ```
 
 or using yarn:

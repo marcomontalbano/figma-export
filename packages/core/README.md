@@ -1,31 +1,17 @@
-# @figma-export/cli
+# @figma-export/core
 
-> Command line for @figma-export.
-
-See our main repo [@figma-export](https://github.com/marcomontalbano/figma-export) for more information.
+> @figma-export core functionalities.
 
 ## Install
 
 Using npm:
 
 ```sh
-npm install --save-dev @figma-export/cli
+npm i -D @figma-export/core
 ```
 
 or using yarn:
 
 ```sh
-yarn add @figma-export/cli --dev
+yarn add @figma-export/core --dev
 ```
-
-## Usage
-
-```sh
-export FIGMA_TOKEN=<FIGMA_TOKEN>
-
-npx @figma-export/cli <command> <fileId>
-```
-
-Available commands:
-
-- `components`

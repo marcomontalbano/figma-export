@@ -28,6 +28,8 @@ Copy the token, this is your only chance to do so!
 export FIGMA_TOKEN=<personalAccessToken>
 ```
 
+> You can use [dotenv](https://www.npmjs.com/package/dotenv) to avoid pushing you personal token to your repository or `export` the variable using `.bash_profile`/`.bashrc` file.
+
 ## Just Try
 
 If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5 as .svg :sunglasses:
@@ -43,6 +45,16 @@ mkdir output
 npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
 ```
 
+## Packages
+
+### [@figma-export/core](packages/core)
+
+This package contains the core functionalities for `figma-export`. You can download and use it as a dependency of your project.
+
+### [@figma-export/cli](packages/cli)
+
+This package allows you to consume all core functionalities from your terminal.
+
 ## Usage
 
 ### Build Process
@@ -50,10 +62,10 @@ npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export 
 You can use `figma-export` as part of your build process.
 
 ```sh
-npm install --save-dev @figma-export/cli
+npm install --save-dev @figma-export/cli @figma-export/output-components-as-svg
 
 # or using `yarn`
-yarn add @figma-export/cli --dev
+yarn add @figma-export/cli @figma-export/output-components-as-svg --dev
 ```
 
 Now you can create a `script` command inside your `package.json`.
@@ -63,7 +75,7 @@ Following an example:
 ```json
 ...
     "scripts": {
-        "figma:export": "export FIGMA_TOKEN=<personalAccessToken> figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
+        "figma:export": "FIGMA_TOKEN=<personalAccessToken> figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
     }
 ...
 ```
@@ -90,69 +102,3 @@ yarn add @figma-export/cli --global
 ```sh
 figma-export --help
 ```
-
-## Commands
-
-### `components`
-
-```sh
-figma-export components <fileId>
-```
-
-#### transformers
-
-A transform function receives an SVG and turns it into something new.
-
-You can create you own:
-
-```js
-module.exports = options => {
-    return (svg) => new Promise((resolve, reject) => {
-        resolve(svg);
-    });
-}
-```
-
-```js
-module.exports = options => {
-    return async (svg) => {
-        return svg;
-    };
-}
-```
-
-```sh
-npm install -g @figma-export/transform-svg-with-svgo
-
-figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -T @figma-export/transform-svg-with-svgo
-```
-
-- [@figma-export/transform-svg-with-svgo](https://www.npmjs.com/package/@figma-export/transform-svg-with-svgo)
-
-
-#### outputters
-
-An output function receives a list of pages, in which each page contains components.
-
-You can create you own:
-
-```js
-module.exports = options => {
-    return async pages => {
-        console.clear();
-        console.log(JSON.stringify(pages));
-    };
-}
-```
-
-Usage: 
-
-```sh
-npm install -g @figma-export/output-components-as-svg
-
-figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
-```
-
-- [@figma-export/output-components-as-stdout](https://www.npmjs.com/package/@figma-export/output-components-as-stdout)
-- [@figma-export/output-components-as-svg](https://www.npmjs.com/package/@figma-export/output-components-as-svg)
-- [@figma-export/output-components-as-es6](https://www.npmjs.com/package/@figma-export/output-components-as-es6)
