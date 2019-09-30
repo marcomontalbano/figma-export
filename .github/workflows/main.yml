@@ -16,7 +16,9 @@ jobs:
       with:
         node-version: ${{ matrix.node }}
     - name: Project setup `npm ci`
-      run: npm ci
+      run: |
+        npm ci
+        npm run lerna:bootstrap
     - name: Run `test`
       run: npm test
 
