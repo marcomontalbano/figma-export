@@ -1,24 +1,51 @@
 {
-    "name": "@figma-export/cli",
-    "version": "0.0.1-alpha.3",
-    "description": "Command line for @figma-export",
-    "main": "lib/cli.js",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
-        "directory": "packages/cli"
-    },
-    "author": "Marco Montalbano <me@marcomontalbano.com>",
-    "license": "MIT",
-    "publishConfig": {
-        "access": "public"
-    },
-    "bin": {
-        "figma-export": "bin/figma-export"
-    },
-    "dependencies": {
-        "@figma-export/core": "^0.0.1-alpha.3",
-        "meow": "~5.0.0",
-        "ora": "~3.4.0"
-    }
+  "name": "@figma-export/cli",
+  "description": "Command line for @figma-export",
+  "version": "0.0.1-alpha.3",
+  "author": "Marco Montalbano @marcomontalbano",
+  "bin": {
+    "figma-export": "./bin/run"
+  },
+  "bugs": "https://github.com/marcomontalbano/figma-export/issues",
+  "dependencies": {
+    "@figma-export/core": "^0.0.1-alpha.3",
+    "@oclif/command": "~1.5.19",
+    "@oclif/config": "~1.13.3",
+    "@oclif/errors": "~1.2.2",
+    "@oclif/plugin-help": "~2.2.1",
+    "ora": "~4.0.2"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "~1.22.2",
+    "@oclif/test": "~1.2.5",
+    "globby": "~10.0.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/marcomontalbano/figma-export",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "figma-export",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "marcomontalbano/figma-export",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "version": "oclif-dev readme && git add README.md"
+  }
 }

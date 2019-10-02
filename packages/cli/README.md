@@ -1,3 +1,4 @@
+
 # @figma-export/cli
 
 > Command line for @figma-export.
@@ -21,7 +22,7 @@ yarn add @figma-export/cli --dev
 ```sh
 export FIGMA_TOKEN=<personalAccessToken>
 
-figma-export <command> <fileId>
+figma-export [COMMAND]
 ```
 
 ## Commands
@@ -29,7 +30,7 @@ figma-export <command> <fileId>
 ### `components`
 
 ```sh
-figma-export components <fileId>
+figma-export components [FILEID]
 ```
 
 #### transformers

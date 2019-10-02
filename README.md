@@ -85,7 +85,7 @@ Following an example:
 Alternatively you can use `npx` to use it on the fly:
 
 ```sh
-npx @figma-export/cli --help
+npx @figma-export/cli help
 ```
 
 ### Global Setup
@@ -100,5 +100,5 @@ yarn add @figma-export/cli --global
 ```
 
 ```sh
-figma-export --help
+figma-export help
 ```
