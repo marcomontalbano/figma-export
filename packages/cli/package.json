@@ -1,14 +1,14 @@
 {
   "name": "@figma-export/cli",
   "description": "Command line for @figma-export",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "author": "Marco Montalbano @marcomontalbano",
   "bin": {
     "figma-export": "./bin/run"
   },
   "bugs": "https://github.com/marcomontalbano/figma-export/issues",
   "dependencies": {
-    "@figma-export/core": "^0.0.1-alpha.3",
+    "@figma-export/core": "^0.0.1-alpha.4",
     "@oclif/command": "~1.5.19",
     "@oclif/config": "~1.13.3",
     "@oclif/errors": "~1.2.2",

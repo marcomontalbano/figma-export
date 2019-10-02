@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-components-as-svg",
-    "version": "0.0.1-alpha.3",
+    "version": "0.0.1-alpha.4",
     "description": "Outputter for @figma-export that exports components as svg",
     "main": "index.js",
     "repository": {
