@@ -23,9 +23,9 @@ describe('components', () => {
 
         test
             .stdout()
-            .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-stdout'])
+            .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-svg'])
             .it('should stdout a proper message', (ctx) => {
-                expect(ctx.stdout).to.contain('Export RSzpKJcnb6uBRQ3rOfLIyUs5 with [@figma-export/output-components-as-stdout]');
+                expect(ctx.stdout).to.contain('Export RSzpKJcnb6uBRQ3rOfLIyUs5 with [@figma-export/output-components-as-svg]');
             });
     });
 
@@ -37,7 +37,7 @@ describe('components', () => {
 
         test
             .stdout()
-            .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-stdout'])
+            .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-svg'])
             .exit(true)
             .it('should throw an error');
     });

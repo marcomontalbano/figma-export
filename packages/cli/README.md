@@ -87,6 +87,5 @@ npm install -g @figma-export/output-components-as-svg
 figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
 ```
 
-- [@figma-export/output-components-as-stdout](https://www.npmjs.com/package/@figma-export/output-components-as-stdout)
 - [@figma-export/output-components-as-svg](https://www.npmjs.com/package/@figma-export/output-components-as-svg)
 - [@figma-export/output-components-as-es6](https://www.npmjs.com/package/@figma-export/output-components-as-es6)
