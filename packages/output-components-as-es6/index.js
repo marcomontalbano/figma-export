@@ -6,12 +6,7 @@ const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) 
     return p1.toLowerCase();
 });
 
-module.exports = (options) => {
-    if (!fs.existsSync(options.output)) {
-        const err = new Error(`Folder '${options.output}' doesn't exist`);
-        throw err;
-    }
-
+module.exports = ({ output }) => {
     return async (pages) => {
         let code = '';
         Object.entries(pages).forEach(([, page]) => {
@@ -24,9 +19,7 @@ module.exports = (options) => {
             });
         });
 
-        fs.writeFile(path.resolve(options.output, 'figma-components.js'), code,
-            (err) => {
-                if (err) throw err;
-            });
+        const filePath = path.resolve(output, 'figma-components.js');
+        fs.writeFileSync(filePath, code);
     };
 };

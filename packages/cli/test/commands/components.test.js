@@ -25,7 +25,7 @@ describe('components', () => {
             .stdout()
             .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-svg'])
             .it('should stdout a proper message', (ctx) => {
-                expect(ctx.stdout).to.contain('Export RSzpKJcnb6uBRQ3rOfLIyUs5 with [@figma-export/output-components-as-svg]');
+                expect(ctx.stdout).to.contain('Exporting RSzpKJcnb6uBRQ3rOfLIyUs5 with [] as [@figma-export/output-components-as-svg]');
             });
     });
 

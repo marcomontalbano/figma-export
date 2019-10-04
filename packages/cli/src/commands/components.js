@@ -6,6 +6,8 @@ const path = require('path');
 
 const figma = require('@figma-export/core');
 
+const utils = require('../utils');
+
 const resolveNameOrPath = (nameOrPath) => {
     const absolutePath = path.resolve(nameOrPath);
     return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
@@ -25,14 +27,16 @@ class ComponentsCommand extends Command {
             },
         } = this.parse(ComponentsCommand);
 
-        this.log(`Export ${fileId} with [${outputter.join(', ')}]`);
+        this.log(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
 
         spinner.start();
 
         figma.setToken(process.env.FIGMA_TOKEN);
 
+        utils.mkdirRecursive(output);
+
         return figma.exportComponents(fileId, {
-            output: output[0],
+            output,
             onlyFromPages: page,
             transformers: transformer.map(resolveNameOrPath),
             outputters: outputter.map(resolveNameOrPath),
@@ -65,8 +69,8 @@ ComponentsCommand.flags = {
     output: commandFlags.string({
         char: 'o',
         description: 'Output directory (defaults to \'./output\')',
-        default: ['output'],
-        multiple: true,
+        default: 'output',
+        multiple: false,
     }),
     outputter: commandFlags.string({
         char: 'O',

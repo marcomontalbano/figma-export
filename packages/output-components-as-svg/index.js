@@ -1,22 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = (options) => {
-    if (!fs.existsSync(options.output)) {
-        const err = new Error(`Folder '${options.output}' doesn't exist`);
-        throw err;
-    }
-
+module.exports = ({ output }) => {
     return async (pages) => {
         Object.entries(pages).forEach(([, page]) => {
             Object.entries(page).forEach(([filename, { svg }]) => {
-                fs.writeFile(
-                    path.resolve(options.output, `${filename}.svg`),
-                    svg,
-                    (err) => {
-                        if (err) throw err;
-                    },
-                );
+                const filePath = path.resolve(output, `${filename}.svg`);
+                fs.writeFileSync(filePath, svg);
             });
         });
     };

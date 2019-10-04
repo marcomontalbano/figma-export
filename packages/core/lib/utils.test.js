@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-const { expect } = require('chai');
+const { expect } = chai;
 const nock = require('nock');
 
 const utils = require('./utils');
