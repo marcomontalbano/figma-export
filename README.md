@@ -28,7 +28,7 @@ Copy the token, this is your only chance to do so!
 export FIGMA_TOKEN=<personalAccessToken>
 ```
 
-> You can use [dotenv](https://www.npmjs.com/package/dotenv) to avoid pushing you personal token to your repository or `export` the variable using `.bash_profile`/`.bashrc` file.
+> You can also use [dotenv](https://www.npmjs.com/package/dotenv) to avoid pushing you personal token to your repository or `export` the variable using `.bash_profile`/`.bashrc` file.
 
 ## Just Try
 
@@ -37,9 +37,6 @@ If you wanna try it just run following command and you will be able to download 
 ```sh
 # export figma token
 export FIGMA_TOKEN=<personalAccessToken>
-
-# create the default output folder
-mkdir output
 
 # export figma components as svg
 npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
