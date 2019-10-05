@@ -32,15 +32,13 @@ const getPackages = () => {
     return readdirSync(packagesFolder).map((name) => resolve(packagesFolder, name)).filter(isDirectory);
 };
 
-const describePackage = (name, dirname) => {
-    describe(name, () => {
-        walkSync(`${dirname}/`).forEach(require);
-    });
-};
-
-getPackages().forEach((packagePath) => {
+const describePackage = (packagePath) => {
     const packageJson = resolve(packagePath, 'package.json');
     const { name } = require(packageJson);
 
-    describePackage(name, packagePath);
-});
+    describe(name, () => {
+        walkSync(`${packagePath}/`).forEach(require);
+    });
+};
+
+getPackages().forEach(describePackage);
