@@ -32,4 +32,25 @@ describe('outputter as es6', () => {
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch('output/figma-components.js', 'export const figmaLogo = `undefined`;');
     });
+
+    it('should throw an error if component starts with a number', async () => {
+        const page = {
+            ...figmaDocument.page1,
+            children: [figmaDocument.componentWithNumber],
+        };
+
+        sandbox.stub(fs, 'writeFileSync');
+
+        const pages = utils.getPages({ children: [page] });
+        const spyOutputter = sinon.spy(outputter);
+
+        return spyOutputter({
+            output: 'output',
+        })(pages).then(() => {
+            sinon.assert.fail();
+        }).catch((err) => {
+            expect(err).to.be.an('Error');
+            expect(err.message).to.be.equal('"1-icon" - Component names cannot start with a number.');
+        });
+    });
 });

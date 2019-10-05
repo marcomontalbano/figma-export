@@ -2,6 +2,8 @@ const { expect, test } = require('@oclif/test');
 
 const figma = require('@figma-export/core');
 
+const utils = require('../../src/utils');
+
 const runInSandbox = (run) => {
     let sandbox;
     beforeEach(() => {
@@ -18,6 +20,7 @@ describe('components', () => {
     describe('with a fileId and an outputter', () => {
         runInSandbox((sandbox) => {
             sandbox.stub(figma, 'setToken');
+            sandbox.stub(utils, 'mkdirRecursive');
             sandbox.stub(figma, 'exportComponents').returns(Promise.resolve());
         });
 
@@ -32,6 +35,7 @@ describe('components', () => {
     describe('with invalid fields (rejection)', () => {
         runInSandbox((sandbox) => {
             sandbox.stub(figma, 'setToken');
+            sandbox.stub(utils, 'mkdirRecursive');
             sandbox.stub(figma, 'exportComponents').returns(Promise.reject(new Error('Something went wrong')));
         });
 

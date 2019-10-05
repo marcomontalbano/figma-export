@@ -5,15 +5,27 @@ const nock = require('nock');
 
 const utils = require('./utils');
 
+const componentWithNumber = {
+    id: '12:3',
+    name: '1-icon',
+    type: 'COMPONENT',
+};
+
 const component1 = {
     id: '10:8',
-    name: 'figma-logo',
+    name: 'Figma-Logo',
     type: 'COMPONENT',
 };
 
 const component2 = {
     id: '8:1',
-    name: 'search',
+    name: 'Search',
+    type: 'COMPONENT',
+};
+
+const component3 = {
+    id: '9:1',
+    name: 'Login',
     type: 'COMPONENT',
 };
 
@@ -21,7 +33,7 @@ const group1 = {
     id: '26:0',
     name: 'A Group',
     type: 'GROUP',
-    children: [component2],
+    children: [component3],
 };
 
 const page1 = {
@@ -30,6 +42,7 @@ const page1 = {
     type: 'CANVAS',
     children: [
         component1,
+        component2,
     ],
 };
 
@@ -43,8 +56,10 @@ const page2 = {
 };
 
 module.exports = {
+    componentWithNumber,
     component1,
     component2,
+    component3,
     group1,
     page1,
     page2,
@@ -130,7 +145,7 @@ describe('utils.', () => {
                 page2,
             ])).to.eql({
                 [component1.name]: component1,
-                [component2.name]: component2,
+                [component3.name]: component3,
             });
         });
     });
@@ -141,7 +156,7 @@ describe('utils.', () => {
                 only: 'page2',
             });
 
-            expect(utils.getIdsFromPages(pages)).to.eql(['8:1']);
+            expect(utils.getIdsFromPages(pages)).to.eql(['9:1']);
         });
     });
 
