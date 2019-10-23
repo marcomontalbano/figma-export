@@ -30,7 +30,7 @@ describe('outputter as svg', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/Figma-Logo.svg');
-        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/Search.svg');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/page1-Figma-Logo.svg');
+        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/page1-Search.svg');
     });
 });
