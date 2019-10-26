@@ -4,8 +4,9 @@
   "license": "MIT",
   "description": "Export tool for Figma",
   "scripts": {
-    "lint": "eslint . --ignore-pattern=node_modules",
+    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output",
     "test": "mocha test--registers.js test--packages.js",
+    "test:watch": "npm test -- -w --reporter=dot",
     "posttest": "npm run lint",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "chai": "~4.2.0",
+    "chai-things": "~0.2.0",
     "eslint": "~6.4.0",
     "eslint-config-airbnb-base": "~14.0.0",
     "eslint-plugin-chai-friendly": "~0.4.1",

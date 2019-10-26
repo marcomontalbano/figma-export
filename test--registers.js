@@ -4,8 +4,10 @@
 const sinon = require('sinon');
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
+const chaiThings = require('chai-things');
 
 chai.use(sinonChai);
+chai.use(chaiThings);
 
 global.sinon = sinon;
 global.chai = chai;

@@ -136,17 +136,17 @@ describe('utils.', () => {
 
     describe('getComponents', () => {
         it('should get zero results if no children are provided', () => {
-            expect(utils.getComponents()).to.eql({});
+            expect(utils.getComponents()).to.eql([]);
         });
 
         it('should get all components from a list of children', () => {
             expect(utils.getComponents([
                 component1,
                 page2,
-            ])).to.eql({
-                [component1.name]: component1,
-                [component3.name]: component3,
-            });
+            ])).to.eql([
+                component1,
+                component3,
+            ]);
         });
     });
 
@@ -161,40 +161,44 @@ describe('utils.', () => {
     });
 
     describe('getPages', () => {
+        const document = { children: [page1, page2] };
+
         it('should get all pages by default', () => {
-            expect(utils.getPages({ children: [page1, page2] })).to.have.all.keys('page1', 'page2');
+            expect(utils.getPages(document))
+                .to.contain.an.item.with.property('name', 'page1')
+                .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get all pages if "empty" list is provided', () => {
-            expect(utils.getPages({ children: [page1, page2] }, {
-                only: [''],
-            })).to.have.all.keys('page1', 'page2');
+            expect(utils.getPages(document, { only: [''] }))
+                .to.contain.an.item.with.property('name', 'page1')
+                .to.contain.an.item.with.property('name', 'page2');
 
-            expect(utils.getPages({ children: [page1, page2] }, {
-                only: [],
-            })).to.have.all.keys('page1', 'page2');
+            expect(utils.getPages(document, { only: [] }))
+                .to.contain.an.item.with.property('name', 'page1')
+                .to.contain.an.item.with.property('name', 'page2');
 
-            expect(utils.getPages({ children: [page1, page2] }, {
-                only: '',
-            })).to.have.all.keys('page1', 'page2');
+            expect(utils.getPages(document, { only: '' }))
+                .to.contain.an.item.with.property('name', 'page1')
+                .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get all requested pages', () => {
-            expect(utils.getPages({ children: [page1, page2] }, {
-                only: 'page2',
-            })).to.have.all.keys('page2');
+            expect(utils.getPages(document, { only: 'page2' }))
+                .to.not.contain.an.item.with.property('name', 'page1')
+                .to.contain.an.item.with.property('name', 'page2');
 
-            expect(utils.getPages({ children: [page1, page2] }, {
-                only: ['page1', 'page2'],
-            })).to.have.all.keys('page1', 'page2');
+            expect(utils.getPages(document, { only: ['page1', 'page2'] }))
+                .to.contain.an.item.with.property('name', 'page1')
+                .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get zero results if a non existing page is provided', () => {
-            const asd = utils.getPages({ children: [page1, page2] }, {
+            const asd = utils.getPages(document, {
                 only: 'page20',
             });
 
-            expect(asd).to.be.an('object').that.is.empty;
+            expect(asd).to.be.an('array').that.is.empty;
         });
     });
 });

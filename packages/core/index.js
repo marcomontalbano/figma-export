@@ -1,5 +1,4 @@
 const Figma = require('figma-js');
-const { produce } = require('immer');
 
 const fs = require('fs');
 const path = require('path');
@@ -22,11 +21,11 @@ const fileImages = async (fileId, ids) => {
     return images;
 };
 
-const fileSvgs = async (fileId, ids, transformers = []) => {
+const fileSvgs = async (fileId, ids, svgTransformers = []) => {
     const images = await fileImages(fileId, ids);
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
         const svg = await utils.fetchAsSvgXml(url);
-        const svgTransformed = await utils.promiseSequentially(transformers, svg);
+        const svgTransformed = await utils.promiseSequentially(svgTransformers, svg);
 
         return [id, svgTransformed];
     });
@@ -36,9 +35,9 @@ const fileSvgs = async (fileId, ids, transformers = []) => {
     return utils.fromEntries(svgs);
 };
 
-const constructFromString = (type, objs, baseOptions = {}) => utils.toArray(objs).map((basePath) => {
+const constructFromString = (objs, baseOptions = {}) => utils.toArray(objs).map((basePath) => {
     const absolutePath = fs.existsSync(basePath) ? basePath : require.resolve(basePath);
-    const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`;
+    const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`; // TODO: remove this and read from a configuration file.""
     const configPath = path.resolve(configBasename);
     const options = fs.existsSync(configPath) ? {
         ...baseOptions,
@@ -57,8 +56,8 @@ const exportComponents = async (fileId, {
     outputters = [],
     log = () => { },
 } = {}) => {
-    const transformerFactories = constructFromString('transform', transformers);
-    const outputterFactories = constructFromString('output', outputters, { output });
+    const transformerFactories = constructFromString(transformers);
+    const outputterFactories = constructFromString(outputters, { output });
 
     if (!client) {
         throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
@@ -79,14 +78,13 @@ const exportComponents = async (fileId, {
     log('fetching components');
     const svgs = await fileSvgs(fileId, componentIds, transformerFactories);
 
-    const svgsByPages = produce(pages, (draft) => {
-        Object.entries(pages).forEach(([pageName, components]) => {
-            Object.entries(components).forEach(([componentName, component]) => {
-                // eslint-disable-next-line no-param-reassign
-                draft[pageName][componentName].svg = svgs[component.id];
-            });
-        });
-    });
+    const svgsByPages = pages.map((page) => ({
+        ...page,
+        components: page.components.map((component) => ({
+            ...component,
+            svg: svgs[component.id],
+        })),
+    }));
 
     await Promise.all(outputterFactories.map((outputter) => outputter(svgsByPages)));
 

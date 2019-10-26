@@ -8,18 +8,19 @@ const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) 
 
 module.exports = ({ output }) => {
     return async (pages) => {
-        let code = '';
-        Object.entries(pages).forEach(([, page]) => {
-            Object.entries(page).forEach(([filename, { svg }]) => {
-                const variableName = camelCase(filename);
+        pages.forEach(({ name: pageName, components }) => {
+            let code = '';
+
+            components.forEach(({ name: componentName, svg }) => {
+                const variableName = camelCase(componentName);
                 if (/^[\d]+/.test(variableName)) {
-                    throw new Error(`"${filename}" - Component names cannot start with a number.`);
+                    throw new Error(`"${componentName}" - Component names cannot start with a number.`);
                 }
                 code += `export const ${variableName} = \`${svg}\`;\n`;
             });
-        });
 
-        const filePath = path.resolve(output, 'figma-components.js');
-        fs.writeFileSync(filePath, code);
+            const filePath = path.resolve(output, `${pageName}.js`);
+            fs.writeFileSync(filePath, code);
+        });
     };
 };

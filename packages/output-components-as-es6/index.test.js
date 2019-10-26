@@ -30,7 +30,7 @@ describe('outputter as es6', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('output/figma-components.js', 'export const figmaLogo = `undefined`;');
+        expect(writeFileSync).to.be.calledWithMatch('output/page1.js', 'export const figmaLogo = `undefined`;');
     });
 
     it('should throw an error if component starts with a number', async () => {

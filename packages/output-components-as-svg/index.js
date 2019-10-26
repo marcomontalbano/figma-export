@@ -3,8 +3,8 @@ const path = require('path');
 
 module.exports = ({ output }) => {
     return async (pages) => {
-        Object.entries(pages).forEach(([pageName, page]) => {
-            Object.entries(page).forEach(([componentName, { svg }]) => {
+        pages.forEach(({ name: pageName, components }) => {
+            components.forEach(({ name: componentName, svg }) => {
                 const filePath = path.resolve(output, `${pageName}-${componentName}.svg`);
                 fs.writeFileSync(filePath, svg);
             });

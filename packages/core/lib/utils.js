@@ -37,34 +37,41 @@ const fetchAsSvgXml = (url) => {
 };
 
 const getComponents = (children = []) => {
-    let components = {};
+    let components = [];
 
     children.forEach((child) => {
         if (child.type === 'COMPONENT') {
-            components[child.name] = child;
+            components.push(child);
             return;
         }
 
-        components = { ...components, ...getComponents(child.children) };
+        components = [
+            ...components,
+            ...getComponents(child.children),
+        ];
     });
 
     return components;
 };
 
-const getIdsFromPages = (pages) => Object.values(pages).reduce((ids, components) => [
+const getIdsFromPages = (pages) => pages.reduce((ids, page) => [
     ...ids,
-    ...Object.values(components).map((component) => component.id),
+    ...page.components.map((component) => component.id),
 ], []);
 
-const getPages = (document, options = {}) => {
-    const only = toArray(options.only);
+const filterPagesByName = (pages, pageNames = []) => {
+    const only = toArray(pageNames).filter((p) => p.length);
 
-    return document.children.reduce((accumulator, page) => {
-        if (only.length === 0 || (only.length === 1 && only[0] === '') || only.includes(page.name)) {
-            accumulator[page.name] = getComponents(page.children);
-        }
-        return accumulator;
-    }, {});
+    return pages.filter((page) => only.length === 0 || only.includes(page.name));
+};
+
+const getPages = (document, options = {}) => {
+    const pages = filterPagesByName(document.children, options.only);
+
+    return pages.map((page) => ({
+        ...page,
+        components: getComponents(page.children),
+    }));
 };
 
 module.exports = {
