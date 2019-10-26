@@ -11,18 +11,12 @@ const figmaDocument = require('../core/lib/utils.test');
 const outputter = require('./index');
 
 describe('outputter as es6', () => {
-    let sandbox;
-
-    beforeEach(() => {
-        sandbox = sinon.createSandbox();
-    });
-
     afterEach(() => {
-        sandbox.restore();
+        sinon.restore();
     });
 
     it('should export all components into an es6 file', async () => {
-        const writeFileSync = sandbox.stub(fs, 'writeFileSync');
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const pages = utils.getPages({ children: [figmaDocument.page1] });
 
         await outputter({
@@ -39,7 +33,7 @@ describe('outputter as es6', () => {
             children: [figmaDocument.componentWithNumber],
         };
 
-        sandbox.stub(fs, 'writeFileSync');
+        sinon.stub(fs, 'writeFileSync');
 
         const pages = utils.getPages({ children: [page] });
         const spyOutputter = sinon.spy(outputter);

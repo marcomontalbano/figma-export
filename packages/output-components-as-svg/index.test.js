@@ -11,18 +11,12 @@ const figmaDocument = require('../core/lib/utils.test');
 const outputter = require('./index');
 
 describe('outputter as svg', () => {
-    let sandbox;
-
-    beforeEach(() => {
-        sandbox = sinon.createSandbox();
-    });
-
     afterEach(() => {
-        sandbox.restore();
+        sinon.restore();
     });
 
     it('should export all components into svg files', async () => {
-        const writeFileSync = sandbox.stub(fs, 'writeFileSync');
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const pages = utils.getPages({ children: [figmaDocument.page1] });
 
         await outputter({

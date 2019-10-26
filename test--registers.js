@@ -12,15 +12,16 @@ chai.use(chaiThings);
 global.sinon = sinon;
 global.chai = chai;
 
-let sandbox;
+let consoleSandbox;
 beforeEach(() => {
-    sandbox = sinon.createSandbox();
-    console.log = sandbox.spy();
-    console.error = sandbox.spy();
-    console.warn = sandbox.spy();
-    console.clear = sandbox.spy();
+    consoleSandbox = sinon.createSandbox();
+    console.log = consoleSandbox.spy();
+    console.error = consoleSandbox.spy();
+    console.warn = consoleSandbox.spy();
+    console.clear = consoleSandbox.spy();
+    console.info = consoleSandbox.spy();
 });
 
 afterEach(() => {
-    sandbox.restore();
+    consoleSandbox.restore();
 });

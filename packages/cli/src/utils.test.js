@@ -7,19 +7,13 @@ const fs = require('fs');
 const utils = require('./utils');
 
 describe('utils.', () => {
-    let sandbox;
-
-    beforeEach(() => {
-        sandbox = sinon.createSandbox();
-    });
-
     afterEach(() => {
-        sandbox.restore();
+        sinon.restore();
     });
 
     describe('mkdirRecursive', () => {
         it('should create a speficied folder recursively', () => {
-            sandbox.stub(fs, 'mkdirSync');
+            sinon.stub(fs, 'mkdirSync');
 
             utils.mkdirRecursive('folder/subfolder');
 
