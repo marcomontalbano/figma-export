@@ -3,7 +3,8 @@ node_modules
 .env
 coverage
 .nyc_output
-.svgo.json
 lerna-debug.log
 
 /output
+
+.figmaexportrc.js

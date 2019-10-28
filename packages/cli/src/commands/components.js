@@ -10,7 +10,10 @@ const utils = require('../utils');
 
 const resolveNameOrPath = (nameOrPath) => {
     const absolutePath = path.resolve(nameOrPath);
-    return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
+    return {
+        name: nameOrPath,
+        path: fs.existsSync(absolutePath) ? absolutePath : nameOrPath,
+    };
 };
 
 class ComponentsCommand extends Command {
@@ -24,6 +27,7 @@ class ComponentsCommand extends Command {
                 output,
                 outputter = [],
                 transformer = [],
+                config,
             },
         } = this.parse(ComponentsCommand);
 
@@ -37,6 +41,7 @@ class ComponentsCommand extends Command {
 
         return figma.exportComponents(fileId, {
             output,
+            configFile: config,
             onlyFromPages: page,
             transformers: transformer.map(resolveNameOrPath),
             outputters: outputter.map(resolveNameOrPath),
@@ -70,6 +75,12 @@ ComponentsCommand.flags = {
         char: 'o',
         description: 'Output directory (defaults to \'./output\')',
         default: 'output',
+        multiple: false,
+    }),
+    config: commandFlags.string({
+        char: 'c',
+        description: 'Configuration file (defaults to \'./.figmaexportrc.js\')',
+        default: './.figmaexportrc.js',
         multiple: false,
     }),
     outputter: commandFlags.string({

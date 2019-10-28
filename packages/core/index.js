@@ -35,60 +35,65 @@ const fileSvgs = async (fileId, ids, svgTransformers = []) => {
     return utils.fromEntries(svgs);
 };
 
-const constructFromString = (objs, baseOptions = {}) => utils.toArray(objs).map((basePath) => {
-    const absolutePath = fs.existsSync(basePath) ? basePath : require.resolve(basePath);
-    const configBasename = `.${path.basename(absolutePath).replace('.js', '.json')}`; // TODO: remove this and read from a configuration file.""
-    const configPath = path.resolve(configBasename);
-    const options = fs.existsSync(configPath) ? {
-        ...baseOptions,
-        // eslint-disable-next-line import/no-dynamic-require, global-require
-        ...require(configPath),
-    } : baseOptions;
+const constructFromString = (objects, configFile, baseOptions = {}) => {
+    const configPath = path.resolve(configFile);
 
     // eslint-disable-next-line import/no-dynamic-require, global-require
-    return require(absolutePath)(options);
-});
+    const { configs = {} } = fs.existsSync(configPath) ? require(configPath) : {};
 
-const exportComponents = async (fileId, {
-    output = '',
-    onlyFromPages = [],
-    transformers = [],
-    outputters = [],
-    log = () => { },
-} = {}) => {
-    const transformerFactories = constructFromString(transformers);
-    const outputterFactories = constructFromString(outputters, { output });
+    return objects.map((pkg) => {
+        // eslint-disable-next-line import/no-dynamic-require, global-require
+        return require(pkg.path)({
+            ...baseOptions,
+            configs: configs[pkg.name],
+        });
+    });
+};
 
-    if (!client) {
-        throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
-    }
-
-    log('fetching document');
-
-    const { data: { document } = {} } = await client.file(fileId);
-
-    const pages = utils.getPages(document, { only: onlyFromPages });
-
+const enrichPagesWithSvg = async (pages, fileId, transformerFactories) => {
     const componentIds = utils.getIdsFromPages(pages);
 
     if (componentIds.length === 0) {
         throw new Error('No components found');
     }
 
-    log('fetching components');
     const svgs = await fileSvgs(fileId, componentIds, transformerFactories);
 
-    const svgsByPages = pages.map((page) => ({
+    return pages.map((page) => ({
         ...page,
         components: page.components.map((component) => ({
             ...component,
             svg: svgs[component.id],
         })),
     }));
+};
 
-    await Promise.all(outputterFactories.map((outputter) => outputter(svgsByPages)));
+const exportComponents = async (fileId, {
+    output = '',
+    configFile,
+    onlyFromPages = [],
+    transformers = [],
+    outputters = [],
+    log = () => { },
+} = {}) => {
+    const transformerFactories = constructFromString(transformers, configFile);
+    const outputterFactories = constructFromString(outputters, configFile, { output });
 
-    return svgsByPages;
+    if (!client) {
+        throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
+    }
+
+    log('fetching document');
+    const { data: { document } = {} } = await client.file(fileId);
+
+    const pages = utils.getPages(document, { only: onlyFromPages });
+
+    log('fetching components');
+    const pagesWithSvg = await enrichPagesWithSvg(pages, fileId, transformerFactories);
+
+    await Promise.all(outputterFactories.map((outputter) => outputter(pagesWithSvg)));
+
+    return pagesWithSvg;
 };
 
 module.exports = {
