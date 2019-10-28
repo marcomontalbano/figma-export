@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/core",
-    "version": "0.0.1-alpha.5",
+    "version": "0.0.1-alpha.6",
     "description": "@figma-export core functionalities",
     "main": "index.js",
     "repository": {
