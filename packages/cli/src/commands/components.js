@@ -73,14 +73,14 @@ ComponentsCommand.flags = {
     }),
     output: commandFlags.string({
         char: 'o',
-        description: 'Output directory (defaults to \'./output\')',
+        description: 'Output directory',
         default: 'output',
         multiple: false,
     }),
     config: commandFlags.string({
         char: 'c',
-        description: 'Configuration file (defaults to \'./.figmaexportrc.js\')',
-        default: './.figmaexportrc.js',
+        description: 'Configuration file',
+        default: '.figmaexportrc.js',
         multiple: false,
     }),
     outputter: commandFlags.string({

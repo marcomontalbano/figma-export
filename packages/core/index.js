@@ -39,13 +39,13 @@ const constructFromString = (objects, configFile, baseOptions = {}) => {
     const configPath = path.resolve(configFile);
 
     // eslint-disable-next-line import/no-dynamic-require, global-require
-    const { configs = {} } = fs.existsSync(configPath) ? require(configPath) : {};
+    const { configs = [] } = fs.existsSync(configPath) ? require(configPath) : {};
 
     return objects.map((pkg) => {
         // eslint-disable-next-line import/no-dynamic-require, global-require
         return require(pkg.path)({
             ...baseOptions,
-            configs: configs[pkg.name],
+            configs: utils.fromEntries(configs)[pkg.name],
         });
     });
 };

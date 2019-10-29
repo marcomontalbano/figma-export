@@ -2,7 +2,7 @@
 
 > Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports components in javascript file.
 
-With this outputter you can export all components as variables insinde a `.js` file called with the page name.
+With this outputter you can export all components as variables inside a `.js` file called with the page name.
 
 This is a sample of the output:
 
@@ -27,7 +27,7 @@ export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="
 Using npm:
 
 ```sh
-npm i -D @figma-export/output-components-as-es6
+npm install --save-dev @figma-export/output-components-as-es6
 ```
 
 or using yarn:

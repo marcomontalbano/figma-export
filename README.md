@@ -28,7 +28,7 @@ Copy the token, this is your only chance to do so!
 export FIGMA_TOKEN=<personalAccessToken>
 ```
 
-> You can also use [dotenv](https://www.npmjs.com/package/dotenv) to avoid pushing you personal token to your repository or `export` the variable using `.bash_profile`/`.bashrc` file.
+> You can use [dotenv](https://www.npmjs.com/package/dotenv) or `export` the variable using `.bash_profile`/`.bashrc` file.
 
 ## Just Try
 
@@ -44,11 +44,11 @@ npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export 
 
 ## Packages
 
-### [@figma-export/core](packages/core)
+### [@figma-export/core](/packages/core)
 
 This package contains the core functionalities for `figma-export`. You can download and use it as a dependency of your project.
 
-### [@figma-export/cli](packages/cli)
+### [@figma-export/cli](/packages/cli)
 
 This package allows you to consume all core functionalities from your terminal.
 
@@ -72,7 +72,7 @@ Following an example:
 ```json
 ...
     "scripts": {
-        "figma:export": "FIGMA_TOKEN=<personalAccessToken> figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
+        "figma:export": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
     }
 ...
 ```

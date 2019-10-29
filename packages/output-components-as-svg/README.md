@@ -22,7 +22,7 @@ $ tree output/
 Using npm:
 
 ```sh
-npm i -D @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/output-components-as-svg
 ```
 
 or using yarn:
