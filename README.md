@@ -69,12 +69,12 @@ Now you can create a `script` command inside your `package.json`.
 
 Following an example:
 
-```json
-...
-    "scripts": {
-        "figma:export": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
-    }
-...
+```diff
+{
+  "scripts": {
++   "figma:export": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
+  }
+}
 ```
 
 ### Use it on the fly
