@@ -6,14 +6,22 @@ const path = require('path');
 
 const figma = require('@figma-export/core');
 
-const utils = require('../utils');
-
 const resolveNameOrPath = (nameOrPath) => {
     const absolutePath = path.resolve(nameOrPath);
-    return {
-        name: nameOrPath,
-        path: fs.existsSync(absolutePath) ? absolutePath : nameOrPath,
-    };
+    return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
+};
+
+const requirePackages = (packages, baseOptions = {}) => {
+    return packages.map((pkg) => {
+        if (typeof pkg === 'function') {
+            return pkg;
+        }
+
+        const pkgNameOrPath = resolveNameOrPath(pkg);
+
+        // eslint-disable-next-line import/no-dynamic-require, global-require
+        return require(pkgNameOrPath)(baseOptions);
+    });
 };
 
 class ComponentsCommand extends Command {
@@ -27,7 +35,6 @@ class ComponentsCommand extends Command {
                 output,
                 outputter = [],
                 transformer = [],
-                config,
             },
         } = this.parse(ComponentsCommand);
 
@@ -35,16 +42,11 @@ class ComponentsCommand extends Command {
 
         spinner.start();
 
-        figma.setToken(process.env.FIGMA_TOKEN);
-
-        utils.mkdirRecursive(output);
-
         return figma.exportComponents(fileId, {
-            output,
-            configFile: config,
+            token: process.env.FIGMA_TOKEN,
             onlyFromPages: page,
-            transformers: transformer.map(resolveNameOrPath),
-            outputters: outputter.map(resolveNameOrPath),
+            transformers: requirePackages(transformer),
+            outputters: requirePackages(outputter, { output }),
             log: (message) => { spinner.text = message; },
         }).then(() => {
             spinner.stop();
@@ -75,12 +77,6 @@ ComponentsCommand.flags = {
         char: 'o',
         description: 'Output directory',
         default: 'output',
-        multiple: false,
-    }),
-    config: commandFlags.string({
-        char: 'c',
-        description: 'Configuration file',
-        default: '.figmaexportrc.js',
         multiple: false,
     }),
     outputter: commandFlags.string({

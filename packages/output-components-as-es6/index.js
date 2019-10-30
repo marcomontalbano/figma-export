@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const makeDir = require('make-dir');
 
 const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) => {
     if (p2) return p2.toUpperCase();
@@ -7,6 +8,7 @@ const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) 
 });
 
 module.exports = ({ output }) => {
+    makeDir.sync(output);
     return async (pages) => {
         pages.forEach(({ name: pageName, components }) => {
             let code = '';

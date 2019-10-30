@@ -22,11 +22,8 @@ class FromConfigCommand extends Command {
         return Promise.all(commands.map(([commandName, options]) => {
             spinner.start();
 
-            figma.setToken(process.env.FIGMA_TOKEN);
-
-            // utils.mkdirRecursive(output);
-
             return figma[commandName](options.fileId, {
+                token: process.env.FIGMA_TOKEN,
                 ...options,
                 log: (message) => { spinner.text = message; },
             }).then(() => {

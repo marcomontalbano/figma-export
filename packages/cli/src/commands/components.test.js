@@ -2,14 +2,7 @@ const { expect, test } = require('@oclif/test');
 
 const figma = require('@figma-export/core');
 
-const utils = require('../utils');
-
 describe('components', () => {
-    beforeEach(() => {
-        sinon.stub(figma, 'setToken');
-        sinon.stub(utils, 'mkdirRecursive');
-    });
-
     afterEach(() => {
         sinon.restore();
     });

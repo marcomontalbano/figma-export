@@ -3,9 +3,9 @@ module.exports = {
     commands: [
         ['exportComponents', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            output: './output',
+            onlyFromPages: ['icons', 'monochrome'],
             transformers: [
-                require('./packages/transform-svg-with-svgo')({
+                require('@figma-export/transform-svg-with-svgo')({
                     plugins: [
                         { removeViewBox: false },
                         { removeDimensions: true }
@@ -13,27 +13,12 @@ module.exports = {
                 })
             ],
             outputters: [
-                require('./packages/output-components-as-svg')({
+                require('@figma-export/output-components-as-svg')({
                     output: './output'
                 }),
-                require('./packages/output-components-as-es6')({
+                require('@figma-export/output-components-as-es6')({
                     output: './output'
                 })
-            ]
-        }]
-    ],
-
-    configs: [
-        ['@figma-export/transform-svg-with-svgo', {
-            plugins: [
-                { removeViewBox: false },
-                { removeDimensions: true }
-            ]
-        }],
-        ['./packages/transform-svg-with-svgo', {
-            plugins: [
-                { removeViewBox: false },
-                { removeDimensions: true }
             ]
         }]
     ]
