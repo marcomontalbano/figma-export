@@ -35,17 +35,21 @@ const fileSvgs = async (fileId, ids, svgTransformers = []) => {
     return utils.fromEntries(svgs);
 };
 
-const constructFromString = (objects, configFile, baseOptions = {}) => {
+const constructFromString = (packages, configFile, baseOptions = {}) => {
+    if (packages.every((pkg) => typeof pkg === 'function')) {
+        return packages;
+    }
+
     const configPath = path.resolve(configFile);
 
     // eslint-disable-next-line import/no-dynamic-require, global-require
     const { configs = [] } = fs.existsSync(configPath) ? require(configPath) : {};
 
-    return objects.map((pkg) => {
+    return packages.map((pkg) => {
         // eslint-disable-next-line import/no-dynamic-require, global-require
         return require(pkg.path)({
             ...baseOptions,
-            configs: utils.fromEntries(configs)[pkg.name],
+            ...utils.fromEntries(configs)[pkg.name],
         });
     });
 };
