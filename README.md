@@ -54,6 +54,8 @@ This package allows you to consume all core functionalities from your terminal.
 
 ## Usage
 
+Typically you'll prefer to use the `cli`. Here different ways to do the same:
+
 ### Build Process
 
 You can use `figma-export` as part of your build process.
@@ -98,4 +100,62 @@ yarn add @figma-export/cli --global
 
 ```sh
 figma-export help
+```
+
+### Advanced
+
+Last but not least, you can create a configuration file and use a single command *to rule them all* :ring:
+
+Let's create the file `.figmaexportrc.js` and paste the following:
+
+```js
+module.exports = {
+
+    commands: [
+        ['exportComponents', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['icons', 'monochrome'],
+            transformers: [
+                require('@figma-export/transform-svg-with-svgo')({
+                    plugins: [
+                        { removeViewBox: false },
+                        { removeDimensions: true }
+                    ]
+                })
+            ],
+            outputters: [
+                require('@figma-export/output-components-as-svg')({
+                    output: './output'
+                })
+            ]
+        }]
+    ]
+
+};
+```
+
+now you can install the `@figma-export` dependencies that you need
+
+```sh
+npm install --save-dev @figma-export/cli @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
+```
+
+and update the `package.json`.
+
+```diff
+{
+  "scripts": {
++   "figma:export": "figma-export from-config"
+  }
+}
+```
+
+If needed you can also provide a different configuration file.
+
+```diff
+{
+  "scripts": {
++   "figma:export": "figma-export from-config .figmaexportrc.production.js"
+  }
+}
 ```

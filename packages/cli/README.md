@@ -26,11 +26,18 @@ npx figma-export COMMAND
 
 ## Commands
 
+
 ### `help`
 
 ```sh
 npx figma-export help
 ```
+
+
+### `from-config`
+
+This command is well-explained into the project README. Look at [advanced](/README.md#advanced) section.
+
 
 ### `components`
 
@@ -107,29 +114,3 @@ or install an official outputter:
 |---------|---------|
 | [`@figma-export/output-components-as-svg`](/packages/output-components-as-svg) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svg.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svg) |
 | [`@figma-export/output-components-as-es6`](/packages/output-components-as-es6) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-es6.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-es6) |
-
-
-#### .figmaexportrc.js
-
-You can create a file `.figmaexportrc.js` or use a different configuration file providing `-c` or `--config` option to `figma-export components` command.
-
-```sh
-npx figma-export components FILEID -c .figmaexportrc.prod.js -T TRANSFORMER
-```
-
-This file contains the `configs` object that you can use to provide special options to `transformers` and `outputters`.
-
-```js
-// .figmaexportrc.js
-
-module.exports = {
-  configs: [
-    ['@figma-export/transform-svg-with-svgo', {
-      plugins: [
-        { removeViewBox: false },
-        { removeDimensions: true }
-      ]
-    }]
-  ]
-};
-```
