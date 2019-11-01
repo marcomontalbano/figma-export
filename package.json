@@ -3,6 +3,10 @@
   "private": true,
   "license": "MIT",
   "description": "Export tool for Figma",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcomontalbano/figma-export"
+  },
   "scripts": {
     "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output",
     "test": "mocha test--registers.js test--packages.js",
@@ -30,6 +34,7 @@
     "eslint-plugin-chai-friendly": "~0.5.0",
     "eslint-plugin-import": "~2.18.2",
     "lerna": "~3.18.3",
+    "lerna-changelog": "~0.8.2",
     "mocha": "~6.2.2",
     "nock": "~11.3.6",
     "nyc": "~14.1.1",
