@@ -12,5 +12,8 @@
     "license": "MIT",
     "publishConfig": {
         "access": "public"
+    },
+    "dependencies": {
+        "make-dir": "~3.0.0"
     }
 }

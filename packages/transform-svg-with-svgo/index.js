@@ -1,6 +1,6 @@
 const SVGO = require('svgo');
 
-module.exports = ({ configs }) => {
-    const svgo = new SVGO(configs);
+module.exports = (options) => {
+    const svgo = new SVGO(options);
     return async (svg) => (await svgo.optimize(svg)).data;
 };
