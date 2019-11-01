@@ -4,7 +4,7 @@ const spinner = require('ora')({});
 const fs = require('fs');
 const path = require('path');
 
-const figma = require('@figma-export/core');
+const figmaExport = require('@figma-export/core');
 
 class FromConfigCommand extends Command {
     async run() {
@@ -22,7 +22,7 @@ class FromConfigCommand extends Command {
         return Promise.all(commands.map(([commandName, options]) => {
             spinner.start();
 
-            return figma[commandName](options.fileId, {
+            return figmaExport[commandName](options.fileId, {
                 token: process.env.FIGMA_TOKEN,
                 ...options,
                 log: (message) => { spinner.text = message; },

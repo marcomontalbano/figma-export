@@ -1,6 +1,6 @@
 const { expect, test } = require('@oclif/test');
 
-const figma = require('@figma-export/core');
+const figmaExport = require('@figma-export/core');
 
 describe('components', () => {
     afterEach(() => {
@@ -8,7 +8,7 @@ describe('components', () => {
     });
 
     it('should stdout a proper message with a fileId and an outputter', () => {
-        sinon.stub(figma, 'exportComponents').returns(Promise.resolve());
+        sinon.stub(figmaExport, 'components').returns(Promise.resolve());
 
         test
             .stdout()
@@ -19,7 +19,7 @@ describe('components', () => {
     });
 
     it('should throw an error with invalid fields (rejection)', () => {
-        sinon.stub(figma, 'exportComponents').returns(Promise.reject(new Error('Something went wrong')));
+        sinon.stub(figmaExport, 'components').returns(Promise.reject(new Error('Something went wrong')));
 
         test
             .stdout()

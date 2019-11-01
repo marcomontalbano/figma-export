@@ -112,7 +112,7 @@ Let's create the file `.figmaexportrc.js` and paste the following:
 module.exports = {
 
     commands: [
-        ['exportComponents', {
+        ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],
             transformers: [

@@ -1,7 +1,7 @@
 module.exports = {
 
     commands: [
-        ['exportComponents', {
+        ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],
             transformers: [
