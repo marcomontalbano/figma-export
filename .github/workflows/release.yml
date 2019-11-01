@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  github_release:
+    name: Trigger GitHub release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the new tag
+        uses: actions/checkout@v1.0.0
+
+      - name: Get tag info
+        id: tags
+        uses: babel/actions/get-release-tags@v2
+
+      - name: Generate the changelog
+        id: changelog
+        uses: babel/actions/generate-lerna-changelog@v2
+        with:
+          from: ${{ steps.tags.outputs.old }}
+          to: ${{ steps.tags.outputs.new }}
+        env:
+          GITHUB_AUTH: ${{ secrets.GH_TOKEN }}
+
+      - name: Create a draft GitHub release
+        uses: babel/actions/publish-github-release@v2
+        with:
+          tag: ${{ steps.tags.outputs.new }}
+          changelog: ${{ steps.changelog.outputs.changelog }}
+          token: ${{ secrets.GH_TOKEN }}

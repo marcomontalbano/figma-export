@@ -1,4 +1,8 @@
 {
+  "version": "0.0.1-alpha.9",
+  "changelog": {
+    "cacheDir": ".changelog"
+  },
   "packages": [
     "packages/*"
   ],
@@ -7,6 +11,5 @@
       "license": "MIT",
       "access": "public"
     }
-  },
-  "version": "0.0.1-alpha.9"
+  }
 }
