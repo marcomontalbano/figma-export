@@ -14,10 +14,8 @@
     "posttest": "npm run lint",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
-    "lerna:bootstrap": "lerna bootstrap --force-local",
     "lerna:version": "lerna version",
-    "lerna:publish": "lerna publish from-git --require-scripts",
-    "postinstall": "npm run lerna:bootstrap"
+    "postinstall": "lerna bootstrap --force-local"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "nyc": {
