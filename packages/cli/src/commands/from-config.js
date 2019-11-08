@@ -30,8 +30,7 @@ class FromConfigCommand extends Command {
                 spinner.stop();
             }).catch((err) => {
                 spinner.stop();
-                this.error(err.message, { exit: true });
-                // throw err;
+                this.error(err, { exit: true });
             });
         }));
     }
