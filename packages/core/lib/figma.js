@@ -1,15 +1,50 @@
 const Figma = require('figma-js');
-
 const utils = require('./utils');
 
-const getClient = (token) => {
-    const client = Figma.Client({ personalAccessToken: token });
+const getComponents = (children = []) => {
+    let components = [];
 
-    if (!client) {
+    children.forEach((child) => {
+        if (child.type === 'COMPONENT') {
+            components.push(child);
+            return;
+        }
+
+        components = [
+            ...components,
+            ...getComponents(child.children),
+        ];
+    });
+
+    return components;
+};
+
+const getIdsFromPages = (pages) => pages.reduce((ids, page) => [
+    ...ids,
+    ...page.components.map((component) => component.id),
+], []);
+
+const filterPagesByName = (pages, pageNames = []) => {
+    const only = utils.toArray(pageNames).filter((p) => p.length);
+
+    return pages.filter((page) => only.length === 0 || only.includes(page.name));
+};
+
+const getPages = (document, options = {}) => {
+    const pages = filterPagesByName(document.children, options.only);
+
+    return pages.map((page) => ({
+        ...page,
+        components: getComponents(page.children),
+    }));
+};
+
+const getClient = (token) => {
+    if (!token) {
         throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
     }
 
-    return client;
+    return Figma.Client({ personalAccessToken: token });
 };
 
 const fileImages = async (client, fileId, ids) => {
@@ -37,7 +72,7 @@ const fileSvgs = async (client, fileId, ids, svgTransformers = []) => {
 };
 
 const enrichPagesWithSvg = async (client, fileId, pages, svgTransformers) => {
-    const componentIds = utils.getIdsFromPages(pages);
+    const componentIds = getIdsFromPages(pages);
 
     if (componentIds.length === 0) {
         throw new Error('No components found');
@@ -54,26 +89,12 @@ const enrichPagesWithSvg = async (client, fileId, pages, svgTransformers) => {
     }));
 };
 
-const components = async (fileId, {
-    token,
-    onlyFromPages = [],
-    transformers = [],
-    outputters = [],
-    log = () => {},
-} = {}) => {
-    const client = getClient(token);
-
-    log('fetching document');
-    const { data: { document } = {} } = await client.file(fileId);
-
-    const pages = utils.getPages(document, { only: onlyFromPages });
-
-    log('fetching components');
-    const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, transformers);
-
-    await Promise.all(outputters.map((outputter) => outputter(pagesWithSvg)));
-
-    return pagesWithSvg;
+module.exports = {
+    getComponents,
+    getPages,
+    getIdsFromPages,
+    getClient,
+    fileImages,
+    fileSvgs,
+    enrichPagesWithSvg,
 };
-
-module.exports = components;

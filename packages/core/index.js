@@ -1,4 +1,4 @@
-const components = require('./lib/components');
+const components = require('./lib/export-components');
 
 module.exports = {
     components,

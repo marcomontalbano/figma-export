@@ -5,66 +5,6 @@ const nock = require('nock');
 
 const utils = require('./utils');
 
-const componentWithNumber = {
-    id: '12:3',
-    name: '1-icon',
-    type: 'COMPONENT',
-};
-
-const component1 = {
-    id: '10:8',
-    name: 'Figma-Logo',
-    type: 'COMPONENT',
-};
-
-const component2 = {
-    id: '8:1',
-    name: 'Search',
-    type: 'COMPONENT',
-};
-
-const component3 = {
-    id: '9:1',
-    name: 'Login',
-    type: 'COMPONENT',
-};
-
-const group1 = {
-    id: '26:0',
-    name: 'A Group',
-    type: 'GROUP',
-    children: [component3],
-};
-
-const page1 = {
-    id: '10:6',
-    name: 'page1',
-    type: 'CANVAS',
-    children: [
-        component1,
-        component2,
-    ],
-};
-
-const page2 = {
-    id: '10:7',
-    name: 'page2',
-    type: 'CANVAS',
-    children: [
-        group1,
-    ],
-};
-
-module.exports = {
-    componentWithNumber,
-    component1,
-    component2,
-    component3,
-    group1,
-    page1,
-    page2,
-};
-
 describe('utils.', () => {
     describe('toArray', () => {
         it('should convert the element into an array if the element is not an array. If is already an array, just returns it', () => {
@@ -86,15 +26,6 @@ describe('utils.', () => {
                 firstname: 'john',
                 lastname: 'doe',
             });
-        });
-    });
-
-    describe('combineKeysAndValuesIntoObject', () => {
-        it('should get all components from a list of children', () => {
-            expect(utils.combineKeysAndValuesIntoObject(
-                ['a', 'b'],
-                [1, 2],
-            )).to.eql({ a: 1, b: 2 });
         });
     });
 
@@ -123,82 +54,12 @@ describe('utils.', () => {
         });
 
         it('should fetch the svg code from a url', async () => {
-            nock('https://s3-us-west-2.amazonaws.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
-                .get('/figma-alpha-api/img/7d80/9a7f/49ce9d382e188bc37b1fa83f83ff7c3f')
+            nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
+                .get('/image.svg')
                 .reply(200, '<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>');
 
-            const svgUrl = 'https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/7d80/9a7f/49ce9d382e188bc37b1fa83f83ff7c3f';
-            const svg = await utils.fetchAsSvgXml(svgUrl);
-
+            const svg = await utils.fetchAsSvgXml('https://example.com/image.svg');
             expect(svg).to.deep.equal('<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>');
-        });
-    });
-
-    describe('getComponents', () => {
-        it('should get zero results if no children are provided', () => {
-            expect(utils.getComponents()).to.eql([]);
-        });
-
-        it('should get all components from a list of children', () => {
-            expect(utils.getComponents([
-                component1,
-                page2,
-            ])).to.eql([
-                component1,
-                component3,
-            ]);
-        });
-    });
-
-    describe('getIdsFromPages', () => {
-        it('should get component ids from specified pages', () => {
-            const pages = utils.getPages({ children: [page1, page2] }, {
-                only: 'page2',
-            });
-
-            expect(utils.getIdsFromPages(pages)).to.eql(['9:1']);
-        });
-    });
-
-    describe('getPages', () => {
-        const document = { children: [page1, page2] };
-
-        it('should get all pages by default', () => {
-            expect(utils.getPages(document))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-        });
-
-        it('should get all pages if "empty" list is provided', () => {
-            expect(utils.getPages(document, { only: [''] }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-
-            expect(utils.getPages(document, { only: [] }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-
-            expect(utils.getPages(document, { only: '' }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-        });
-
-        it('should get all requested pages', () => {
-            expect(utils.getPages(document, { only: 'page2' }))
-                .to.not.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-
-            expect(utils.getPages(document, { only: ['page1', 'page2'] }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-        });
-
-        it('should get zero results if a non existing page is provided', () => {
-            const asd = utils.getPages(document, {
-                only: 'page20',
-            });
-
-            expect(asd).to.be.an('array').that.is.empty;
         });
     });
 });

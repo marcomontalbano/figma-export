@@ -19,11 +19,6 @@ const promiseSequentially = (promiseFactories, initialValue) => {
     return promise;
 };
 
-const combineKeysAndValuesIntoObject = (keys, values) => values.reduce((obj, value, index) => ({
-    ...obj,
-    [keys[index]]: value,
-}), {});
-
 const fetchAsSvgXml = (url) => {
     if (!/https?:\/\/.*/.test(url)) {
         throw new TypeError('Only absolute URLs are supported');
@@ -36,51 +31,9 @@ const fetchAsSvgXml = (url) => {
     }).then((response) => response.data);
 };
 
-const getComponents = (children = []) => {
-    let components = [];
-
-    children.forEach((child) => {
-        if (child.type === 'COMPONENT') {
-            components.push(child);
-            return;
-        }
-
-        components = [
-            ...components,
-            ...getComponents(child.children),
-        ];
-    });
-
-    return components;
-};
-
-const getIdsFromPages = (pages) => pages.reduce((ids, page) => [
-    ...ids,
-    ...page.components.map((component) => component.id),
-], []);
-
-const filterPagesByName = (pages, pageNames = []) => {
-    const only = toArray(pageNames).filter((p) => p.length);
-
-    return pages.filter((page) => only.length === 0 || only.includes(page.name));
-};
-
-const getPages = (document, options = {}) => {
-    const pages = filterPagesByName(document.children, options.only);
-
-    return pages.map((page) => ({
-        ...page,
-        components: getComponents(page.children),
-    }));
-};
-
 module.exports = {
     toArray,
     fromEntries,
     promiseSequentially,
-    combineKeysAndValuesIntoObject,
     fetchAsSvgXml,
-    getComponents,
-    getPages,
-    getIdsFromPages,
 };

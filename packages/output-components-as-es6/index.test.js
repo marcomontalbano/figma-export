@@ -5,8 +5,8 @@ const { expect } = chai;
 
 const fs = require('fs');
 
-const utils = require('../core/lib/utils');
-const figmaDocument = require('../core/lib/utils.test');
+const figmaDocument = require('../core/lib/_config.test');
+const figma = require('../core/lib/figma');
 
 const outputter = require('./index');
 
@@ -17,7 +17,7 @@ describe('outputter as es6', () => {
 
     it('should export all components into an es6 file', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
-        const pages = utils.getPages({ children: [figmaDocument.page1] });
+        const pages = figma.getPages({ children: [figmaDocument.page1] });
 
         await outputter({
             output: 'output',
@@ -35,7 +35,7 @@ describe('outputter as es6', () => {
 
         sinon.stub(fs, 'writeFileSync');
 
-        const pages = utils.getPages({ children: [page] });
+        const pages = figma.getPages({ children: [page] });
         const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({
