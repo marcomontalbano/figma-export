@@ -1,7 +1,14 @@
 {
   "version": "0.0.1-alpha.10",
   "changelog": {
-    "cacheDir": ".changelog"
+    "cacheDir": ".changelog",
+    "labels": {
+      "PR: Beauty :nail_care:": ":nail_care: Beauty",
+      "PR: Bug Fix :bug:": ":bug: Bug Fix",
+      "PR: Dependencies :up:": ":up: Dependencies",
+      "PR: Documentation :memo:": ":memo: Documentation",
+      "PR: New Feature :rocket:": ":rocket: New Feature"
+    }
   },
   "packages": [
     "packages/*"
