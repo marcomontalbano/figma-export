@@ -13,10 +13,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: Project setup `npm install`
-        run: npm install
-        env:
-          CI: true
+      - name: Project setup `npm ci`
+        run: npm ci
       - name: Run `publish`
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
