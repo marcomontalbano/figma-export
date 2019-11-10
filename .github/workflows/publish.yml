@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: Project setup `npm ci`
-        run: npm ci
+      - name: Project setup `npm install`
+        run: npm install
         env:
           CI: true
       - name: Run `publish`
