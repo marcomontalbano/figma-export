@@ -1,0 +1,20 @@
+.root-icon {
+    position: absolute;
+    left: -9999px;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+
+    fill: #64B5F6;
+    transition: fill .2s;
+
+    &:hover {
+        fill: #1976D2;
+    }
+}
