@@ -6,13 +6,13 @@ const path = require('path');
 
 const figmaExport = require('@figma-export/core');
 
-class FromConfigCommand extends Command {
+class UseConfigCommand extends Command {
     async run() {
         const {
             args: {
                 config,
             },
-        } = this.parse(FromConfigCommand);
+        } = this.parse(UseConfigCommand);
 
         const configPath = path.resolve(config);
 
@@ -22,7 +22,7 @@ class FromConfigCommand extends Command {
         return Promise.all(commands.map(([commandName, options]) => {
             spinner.start();
 
-            return figmaExport[commandName](options.fileId, {
+            return figmaExport[commandName]({
                 token: process.env.FIGMA_TOKEN,
                 ...options,
                 log: (message) => { spinner.text = message; },
@@ -36,10 +36,10 @@ class FromConfigCommand extends Command {
     }
 }
 
-FromConfigCommand.description = `Exports from configuration file
+UseConfigCommand.description = `export using a configuration file
 `;
 
-FromConfigCommand.args = [
+UseConfigCommand.args = [
     {
         name: 'config',
         default: '.figmaexportrc.js',
@@ -47,4 +47,4 @@ FromConfigCommand.args = [
     },
 ];
 
-module.exports = FromConfigCommand;
+module.exports = UseConfigCommand;

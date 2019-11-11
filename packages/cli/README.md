@@ -34,7 +34,7 @@ npx figma-export help
 ```
 
 
-### `from-config`
+### `use-config`
 
 This command is well-explained into the project README. Look at [advanced](/README.md#advanced) section.
 
