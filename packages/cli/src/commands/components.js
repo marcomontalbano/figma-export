@@ -38,7 +38,7 @@ class ComponentsCommand extends Command {
             },
         } = this.parse(ComponentsCommand);
 
-        this.log(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
+        spinner.info(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
 
         spinner.start();
 
