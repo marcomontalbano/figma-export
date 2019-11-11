@@ -22,7 +22,7 @@ class FromConfigCommand extends Command {
         return Promise.all(commands.map(([commandName, options]) => {
             spinner.start();
 
-            return figmaExport[commandName](options.fileId, {
+            return figmaExport[commandName]({
                 token: process.env.FIGMA_TOKEN,
                 ...options,
                 log: (message) => { spinner.text = message; },

@@ -42,7 +42,8 @@ class ComponentsCommand extends Command {
 
         spinner.start();
 
-        return figmaExport.components(fileId, {
+        return figmaExport.components({
+            fileId,
             token: process.env.FIGMA_TOKEN,
             onlyFromPages: page,
             transformers: requirePackages(transformer),

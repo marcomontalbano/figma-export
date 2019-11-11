@@ -1,7 +1,8 @@
 const figma = require('./figma');
 
-const components = async (fileId, {
+const components = async ({
     token,
+    fileId,
     onlyFromPages = [],
     transformers = [],
     outputters = [],
