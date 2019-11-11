@@ -145,7 +145,7 @@ and update the `package.json`.
 ```diff
 {
   "scripts": {
-+   "figma:export": "figma-export from-config"
++   "figma:export": "figma-export use-config"
   }
 }
 ```
@@ -155,7 +155,7 @@ If needed you can also provide a different configuration file.
 ```diff
 {
   "scripts": {
-+   "figma:export": "figma-export from-config .figmaexportrc.production.js"
++   "figma:export": "figma-export use-config .figmaexportrc.production.js"
   }
 }
 ```

@@ -58,7 +58,7 @@ class ComponentsCommand extends Command {
     }
 }
 
-ComponentsCommand.description = `Exports components from a Figma file
+ComponentsCommand.description = `export components from a Figma file
 `;
 
 ComponentsCommand.args = [
