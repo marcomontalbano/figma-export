@@ -1,6 +1,6 @@
 name: Node CI
 
-on: [push]
+on: ["push", "pull_request"]
 
 jobs:
   test:
@@ -36,14 +36,10 @@ jobs:
     - name: Run `coverage`
       run: npm run coverage
     - name: Export `coverage`
-      env:
-        NODE_COVERALLS_DEBUG: 0
-        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        COVERALLS_GIT_COMMIT: ${{ github.sha }}
-        COVERALLS_GIT_BRANCH: ${{ github.ref }}
-      run: |
-        npm install coveralls
-        cat coverage/lcov.info | ./node_modules/.bin/coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
+        path-to-lcov: ./coverage/lcov.info # optional (default value)
     - name: Upload `coverage` artifact
       uses: actions/upload-artifact@v1
       with:
