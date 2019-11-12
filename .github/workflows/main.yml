@@ -21,34 +21,34 @@ jobs:
       run: npm test
 
 
-  # coverage:
-  #   needs: [test]
-  #   runs-on: ubuntu-latest
+  coverage:
+    needs: [test]
+    runs-on: ubuntu-latest
         
-  #   steps:
-  #   - uses: actions/checkout@v1
-  #   - uses: actions/setup-node@v1
-  #     with:
-  #       node-version: 10.x
-  #   - name: Project setup `npm ci`
-  #     run: npm ci
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - name: Project setup `npm ci`
+      run: npm ci
 
-  #   - name: Run `coverage`
-  #     run: npm run coverage
-  #   - name: Export `coverage`
-  #     env:
-  #       NODE_COVERALLS_DEBUG: 0
-  #       COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-  #       COVERALLS_GIT_COMMIT: ${{ github.sha }}
-  #       COVERALLS_GIT_BRANCH: ${{ github.ref }}
-  #     run: |
-  #       npm install coveralls
-  #       cat coverage/lcov.info | ./node_modules/.bin/coveralls
-  #   - name: Upload `coverage` artifact
-  #     uses: actions/upload-artifact@v1
-  #     with:
-  #       name: coverage
-  #       path: coverage/lcov-report
+    - name: Run `coverage`
+      run: npm run coverage
+    - name: Export `coverage`
+      env:
+        NODE_COVERALLS_DEBUG: 0
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        COVERALLS_GIT_COMMIT: ${{ github.sha }}
+        COVERALLS_GIT_BRANCH: ${{ github.ref }}
+      run: |
+        npm install coveralls
+        cat coverage/lcov.info | ./node_modules/.bin/coveralls
+    - name: Upload `coverage` artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage
+        path: coverage/lcov-report
 
 
   # stryker:
@@ -70,26 +70,3 @@ jobs:
   #     with:
   #       name: stryker
   #       path: reports/mutation/html
-
-
-  # publish:
-  #   needs: [test, coverage]
-  #   runs-on: ubuntu-latest
-        
-  #   steps:
-  #   - uses: actions/checkout@v1
-  #     if: github.ref == 'refs/heads/master'
-  #   - uses: actions/setup-node@v1
-  #     if: github.ref == 'refs/heads/master'
-  #     with:
-  #       node-version: 10.x
-  #   - name: Project setup `npm ci && npm run build`
-  #     if: github.ref == 'refs/heads/master'
-  #     run: |
-  #       npm ci
-  #       npm run build --if-present
-  #     env:
-  #       CI: true
-  #   - name: Run `publish`
-  #     if: github.ref == 'refs/heads/master'
-  #     run: npm run publish --if-present
