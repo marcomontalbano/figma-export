@@ -7,7 +7,7 @@ const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) 
     return p1.toLowerCase();
 });
 
-module.exports = ({ output }) => {
+module.exports = ({ output, useBase64 = false }) => {
     makeDir.sync(output);
     return async (pages) => {
         pages.forEach(({ name: pageName, components }) => {
@@ -18,7 +18,7 @@ module.exports = ({ output }) => {
                 if (/^[\d]+/.test(variableName)) {
                     throw new Error(`"${componentName}" - Component names cannot start with a number.`);
                 }
-                code += `export const ${variableName} = \`${svg}\`;\n`;
+                code += `export const ${variableName} = \`${useBase64 ? Buffer.from(svg).toString('base64') : svg}\`;\n`;
             });
 
             const filePath = path.resolve(output, `${pageName}.js`);

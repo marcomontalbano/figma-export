@@ -24,7 +24,27 @@ describe('outputter as es6', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('output/page1.js', 'export const figmaLogo = `undefined`;');
+        expect(writeFileSync).to.be.calledWithMatch(
+            'output/page1.js',
+            'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
+        );
+    });
+
+    it('should export all components into an es6 file using base64 encoding if set', async () => {
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const pages = figma.getPages({ children: [figmaDocument.page1] });
+
+        await outputter({
+            output: 'output',
+            useBase64: true,
+        })(pages);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync).to.be.calledWithMatch(
+            'output/page1.js',
+            // eslint-disable-next-line max-len
+            'export const figmaLogo = `PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA0MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=`;',
+        );
     });
 
     it('should throw an error if component starts with a number', async () => {

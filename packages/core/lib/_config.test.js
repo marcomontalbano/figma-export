@@ -1,4 +1,13 @@
 
+const svg = {
+    domain: 'https://s3-us-west-2.amazonaws.com',
+    path: '/figma-alpha-api/img/7d80/9a7f/49ce9d382e188bc37b1fa83f83ff7c3f',
+    content: '<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>',
+    get url() {
+        return `${this.domain}${this.path}`;
+    },
+};
+
 const componentWithNumber = {
     id: '12:3',
     name: '1-icon',
@@ -9,18 +18,21 @@ const component1 = {
     id: '10:8',
     name: 'Figma-Logo',
     type: 'COMPONENT',
+    svg: svg.content,
 };
 
 const component2 = {
     id: '8:1',
     name: 'Search',
     type: 'COMPONENT',
+    svg: '<svg id="c2"></svg>',
 };
 
 const component3 = {
     id: '9:1',
     name: 'Login',
     type: 'COMPONENT',
+    svg: '<svg id="c3"></svg>',
 };
 
 const group1 = {
@@ -47,15 +59,6 @@ const page2 = {
     children: [
         group1,
     ],
-};
-
-const svg = {
-    domain: 'https://s3-us-west-2.amazonaws.com',
-    path: '/figma-alpha-api/img/7d80/9a7f/49ce9d382e188bc37b1fa83f83ff7c3f',
-    content: '<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>',
-    get url() {
-        return `${this.domain}${this.path}`;
-    },
 };
 
 module.exports = {
