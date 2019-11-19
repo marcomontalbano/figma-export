@@ -14,14 +14,18 @@ module.exports = {
             ],
             outputters: [
                 require('../output-components-as-es6')({
-                    output: './svg-es6-base64',
+                    output: './output/es6-base64',
                     useBase64: true,
                 }),
+                require('../output-components-as-es6')({
+                    output: './output/es6-datauri',
+                    useDataUri: true,
+                }),
                 // require('../output-components-as-svgstore')({
-                //     output: './svg-svgstore',
+                //     output: './output/svgstore',
                 // }),
                 // require('../output-components-as-svgstore')({
-                //     output: './svg-svgstore-monochrome',
+                //     output: './output/svgstore-monochrome',
                 //     options: {
                 //         prefix: 'monochrome-',
                 //         cleanSymbols: ['fill']
