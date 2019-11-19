@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { h, Fragment } from 'preact';
 
 import * as figmaMonochrome from '../output/es6-datauri/monochrome';
