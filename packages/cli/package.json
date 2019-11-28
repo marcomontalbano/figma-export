@@ -13,7 +13,7 @@
     "@oclif/config": "~1.13.3",
     "@oclif/errors": "~1.2.2",
     "@oclif/plugin-help": "~2.2.1",
-    "ora": "~4.0.2"
+    "ora": "~4.0.3"
   },
   "devDependencies": {
     "@oclif/dev-cli": "~1.22.2",
