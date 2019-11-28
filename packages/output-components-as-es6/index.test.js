@@ -47,13 +47,13 @@ describe('outputter as es6', () => {
         );
     });
 
-    it('should export all components into an es6 file using dataUri if set', async () => {
+    it('should export all components into an es6 file using dataUrl if set', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const pages = figma.getPages({ children: [figmaDocument.page1] });
 
         await outputter({
             output: 'output',
-            useDataUri: true,
+            useDataUrl: true,
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;

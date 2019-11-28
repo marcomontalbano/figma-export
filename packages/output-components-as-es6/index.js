@@ -23,7 +23,7 @@ module.exports = ({
     variablePrefix = '',
     variableSuffix = '',
     useBase64 = false,
-    useDataUri = false,
+    useDataUrl = false,
 }) => {
     makeDir.sync(output);
     return async (pages) => {
@@ -39,7 +39,7 @@ module.exports = ({
                 case useBase64:
                     variableValue = Buffer.from(svg).toString('base64');
                     break;
-                case useDataUri:
+                case useDataUrl:
                     variableValue = svgToMiniDataURI(svg);
                     break;
                 }
