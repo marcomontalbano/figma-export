@@ -18,7 +18,13 @@ const getVariableName = (componentName) => {
     return variableName;
 };
 
-module.exports = ({ output, useBase64 = false, useDataUri = false }) => {
+module.exports = ({
+    output,
+    variablePrefix = '',
+    variableSuffix = '',
+    useBase64 = false,
+    useDataUri = false,
+}) => {
     makeDir.sync(output);
     return async (pages) => {
         pages.forEach(({ name: pageName, components }) => {
@@ -38,7 +44,7 @@ module.exports = ({ output, useBase64 = false, useDataUri = false }) => {
                     break;
                 }
 
-                code += `export const ${variableName} = \`${variableValue}\`;\n`;
+                code += `export const ${variablePrefix}${variableName}${variableSuffix} = \`${variableValue}\`;\n`;
             });
 
             const filePath = path.resolve(output, `${pageName}.js`);
