@@ -8,7 +8,7 @@ module.exports = {
                 require('../output-components-as-es6')({
                     output: './output/es6-datauri-octicons',
                     variablePrefix: 'o_',
-                    useDataUri: true,
+                    useDataUrl: true,
                 })
             ]
         }],
@@ -23,7 +23,7 @@ module.exports = {
                 }),
                 require('../output-components-as-es6')({
                     output: './output/es6-datauri',
-                    useDataUri: true,
+                    useDataUrl: true,
                 }),
                 // require('../output-components-as-svgstore')({
                 //     output: './output/svgstore',
