@@ -1,17 +1,27 @@
 /* eslint-disable react/no-danger */
 import { h, render, Fragment } from 'preact';
+import SvgOcticons from './Hero';
+import SvgAsES6ComponentDataUrl from './SvgAsES6ComponentDataUrl';
 import SvgAsES6ComponentBase64 from './SvgAsES6ComponentBase64';
-import SvgAsES6ComponentDataUri from './SvgAsES6ComponentDataUri';
+import GitHubLink from './GitHubLink';
 
 const App = () => (
     <Fragment>
-        <div>
-            <SvgAsES6ComponentBase64 />
+        <div class="container hero figma-gradient with-opacity-05">
+            <section>
+                <h1 class="figma-gradient text title">@figma-export</h1>
+                <p>Export tool for Figma</p>
+                <p>
+                    You can easily export your figma components
+                    and use them directly into your website
+                </p>
+            </section>
+            <SvgOcticons />
         </div>
-        <div>
-            <SvgAsES6ComponentDataUri />
-        </div>
+        <GitHubLink />
+        <SvgAsES6ComponentDataUrl />
+        <SvgAsES6ComponentBase64 />
     </Fragment>
 );
 
-render(<App />, document.body);
+render(<App />, document.getElementById('root'));

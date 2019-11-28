@@ -2,16 +2,20 @@ module.exports = {
 
     commands: [
         ['components', {
+            fileId: 'FP7lqd1V00LUaT5zvdklkkZr',
+            onlyFromPages: ['Octicons'],
+            outputters: [
+                require('../output-components-as-es6')({
+                    output: './output/es6-datauri-octicons',
+                    variablePrefix: 'o_',
+                    useDataUri: true,
+                })
+            ]
+        }],
+
+        ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],
-            transformers: [
-                require('../transform-svg-with-svgo')({
-                    plugins: [
-                        { removeViewBox: false },
-                        { removeDimensions: true }
-                    ]
-                })
-            ],
             outputters: [
                 require('../output-components-as-es6')({
                     output: './output/es6-base64',

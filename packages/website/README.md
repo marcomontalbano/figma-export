@@ -1,11 +1,3 @@
-# `website`
+# website
 
-> TODO: description
-
-## Usage
-
-```
-const website = require('website');
-
-// TODO: DEMONSTRATE API
-```
+It's just a website :smile:

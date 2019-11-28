@@ -2,14 +2,13 @@
     "private": true,
     "name": "@figma-export/website",
     "version": "0.0.1-alpha.12",
-    "description": "Outputter for @figma-export that exports components as svg",
+    "description": "Website for @figma-export",
     "author": "Marco Montalbano <marcomontalbano.work@gmail.com>",
     "homepage": "http://marcomontalbano.github.io/figma-export",
     "license": "MIT",
     "scripts": {
-        "figma:export": "figma-export use-config",
-        "prestart": "npm run figma:export",
-        "prebuild": "npm run figma:export",
+        "prestart": "figma-export use-config",
+        "prebuild": "figma-export use-config",
         "start": "parcel index.html",
         "build": "parcel build index.html"
     },
