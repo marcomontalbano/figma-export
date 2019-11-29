@@ -7,6 +7,10 @@
 </p>
 
 <p align="center">
+    You can easily and automatically export your figma components and use them directly into your website.
+</p>
+
+<p align="center">
     <a href="https://github.com/marcomontalbano/figma-export"><img alt="Build Status" src="https://github.com/marcomontalbano/figma-export/workflows/Node%20CI/badge.svg" /></a>
     <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/marcomontalbano/figma-export/badge.svg?branch=master" /></a>
 </p>
