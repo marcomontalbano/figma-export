@@ -30,6 +30,23 @@ describe('outputter as es6', () => {
         );
     });
 
+    it('should use "variablePrefix" and "variableSuffix" options to prepend or append a text to the variable name', async () => {
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const pages = figma.getPages({ children: [figmaDocument.page1] });
+
+        await outputter({
+            output: 'output',
+            variablePrefix: 'i',
+            variableSuffix: 'my ico',
+        })(pages);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync).to.be.calledWithMatch(
+            'output/page1.js',
+            'export const iFigmaLogoMyIco = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
+        );
+    });
+
     it('should export all components into an es6 file using base64 encoding if set', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const pages = figma.getPages({ children: [figmaDocument.page1] });
