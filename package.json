@@ -8,7 +8,7 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "postinstall": "lerna bootstrap --force-local",
+    "postinstall": "lerna exec npm install --stream",
     "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist",
     "test": "mocha test--registers.js test--packages.js",
     "test:watch": "npm test -- -w --reporter=dot",
