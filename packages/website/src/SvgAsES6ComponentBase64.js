@@ -8,7 +8,7 @@ import { figmaExport, figmaLogo } from '../output/es6-base64/icons';
 const props = {
     title: (
         <Fragment>
-            Export to <code class="figma-gradient with-opacity-10">.js</code> as <code class="figma-gradient with-opacity-10">Base 64</code>
+            Export your icons as <code class="figma-gradient with-opacity-10">Base 64</code>
         </Fragment>
     ),
     description: 'The .js file contains all components with Base 64 encoding. If you want to use it into your images you need to prepend the Data URL "data:image/svg+xml;base64,"',
