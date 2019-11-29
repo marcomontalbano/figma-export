@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { h } from 'preact';
 
 const CodeBlock = ({

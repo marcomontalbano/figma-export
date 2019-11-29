@@ -1,4 +1,3 @@
-/* eslint-disable react/no-danger */
 import { h, render, Fragment } from 'preact';
 import SvgOcticons from './Hero';
 import SvgAsES6ComponentDataUrl from './SvgAsES6ComponentDataUrl';

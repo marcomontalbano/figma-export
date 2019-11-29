@@ -1,4 +1,4 @@
-/* eslint-disable react/no-danger */
+/* eslint-disable import/no-unresolved */
 import { h } from 'preact';
 
 import { iconMarkGithub } from '../output/es6-dataurl-octicons/Octicons';
