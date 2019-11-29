@@ -12,7 +12,7 @@ const App = () => (
                 <h1 class="figma-gradient text title">@figma-export</h1>
                 <p>Export tool for Figma</p>
                 <p>
-                    You can easily export your figma components
+                    You can easily and automatically export your figma components
                     and use them directly into your website
                 </p>
             </section>

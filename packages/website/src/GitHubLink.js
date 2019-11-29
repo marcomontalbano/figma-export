@@ -1,13 +1,13 @@
 /* eslint-disable react/no-danger */
 import { h } from 'preact';
 
-import { o_markGithub } from '../output/es6-datauri-octicons/Octicons';
+import { iconMarkGithub } from '../output/es6-dataurl-octicons/Octicons';
 
 const GitHubLink = () => (
     <div className="github-link">
         <a href="https://github.com/marcomontalbano/figma-export">
             @figma-export
-            <img src={o_markGithub} alt="GitHub logo" />
+            <img src={iconMarkGithub} alt="GitHub logo" />
         </a>
     </div>
 );

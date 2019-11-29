@@ -6,8 +6,8 @@ module.exports = {
             onlyFromPages: ['Octicons'],
             outputters: [
                 require('../output-components-as-es6')({
-                    output: './output/es6-datauri-octicons',
-                    variablePrefix: 'o_',
+                    output: './output/es6-dataurl-octicons',
+                    variablePrefix: 'icon',
                     useDataUrl: true,
                 })
             ]
@@ -22,7 +22,7 @@ module.exports = {
                     useBase64: true,
                 }),
                 require('../output-components-as-es6')({
-                    output: './output/es6-datauri',
+                    output: './output/es6-dataurl',
                     useDataUrl: true,
                 }),
                 // require('../output-components-as-svgstore')({

@@ -2,8 +2,8 @@
 import { h, Fragment } from 'preact';
 
 import CodeBlock from './CodeBlock';
-import * as figmaMonochrome from '../output/es6-datauri/monochrome';
-import { figmaExport, figmaLogo } from '../output/es6-datauri/icons';
+import * as figmaMonochrome from '../output/es6-dataurl/monochrome';
+import { figmaExport, figmaLogo } from '../output/es6-dataurl/icons';
 
 const props = {
     title: (
@@ -23,8 +23,8 @@ const props = {
                 onlyFromPages: ['Octicons'],
                 outputters: [
                     require('@figma-export/output-components-as-es6')({
-                        output: './output/es6-datauri',
-                        useDataUri: true,
+                        output: './output/es6-dataurl',
+                        useDataUrl: true,
                     })
                 ]
             }]
@@ -37,10 +37,10 @@ const SvgAsES6ComponentDataUrl = () => (
         <Fragment>
             <img className="icon" src={figmaExport} />
             <img className="icon" src={figmaLogo} />
+            <img className="icon" src={figmaMonochrome.figmaRed} />
+            <img className="icon" src={figmaMonochrome.figmaPurple} />
             <img className="icon" src={figmaMonochrome.figmaBlue} />
             <img className="icon" src={figmaMonochrome.figmaGreen} />
-            <img className="icon" src={figmaMonochrome.figmaPurple} />
-            <img className="icon" src={figmaMonochrome.figmaRed} />
         </Fragment>
     </CodeBlock>
 );

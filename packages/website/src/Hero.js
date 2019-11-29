@@ -1,8 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import { h } from 'preact';
 
-import * as Octicons from '../output/es6-datauri-octicons/Octicons';
-import { figmaArrow } from '../output/es6-datauri/icons';
+import * as Octicons from '../output/es6-dataurl-octicons/Octicons';
+import { figmaArrow } from '../output/es6-dataurl/icons';
 
 import figmaImage from '../images/figma-octicons.png';
 
