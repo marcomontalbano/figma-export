@@ -9,10 +9,11 @@ const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) 
 });
 
 const getVariableName = (componentName) => {
-    const variableName = camelCase(componentName);
+    const trimmedComponentName = componentName.trim();
+    const variableName = camelCase(trimmedComponentName);
 
     if (/^[\d]+/.test(variableName)) {
-        throw new Error(`"${componentName}" - Component names cannot start with a number.`);
+        throw new Error(`"${trimmedComponentName}" - Component names cannot start with a number.`);
     }
 
     return variableName;
@@ -31,7 +32,7 @@ module.exports = ({
             let code = '';
 
             components.forEach(({ name: componentName, svg }) => {
-                const variableName = getVariableName(componentName);
+                const variableName = getVariableName(`${variablePrefix} ${componentName} ${variableSuffix}`);
                 let variableValue = svg;
 
                 // eslint-disable-next-line default-case
@@ -44,7 +45,7 @@ module.exports = ({
                     break;
                 }
 
-                code += `export const ${variablePrefix}${variableName}${variableSuffix} = \`${variableValue}\`;\n`;
+                code += `export const ${variableName} = \`${variableValue}\`;\n`;
             });
 
             const filePath = path.resolve(output, `${pageName}.js`);
