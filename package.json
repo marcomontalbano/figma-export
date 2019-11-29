@@ -8,14 +8,16 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output",
+    "postinstall": "lerna bootstrap --force-local",
+    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist",
     "test": "mocha test--registers.js test--packages.js",
     "test:watch": "npm test -- -w --reporter=dot",
     "posttest": "npm run lint",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
     "lerna:version": "lerna version",
-    "postinstall": "lerna bootstrap --force-local"
+    "website:start": "lerna run --scope @figma-export/website start --stream",
+    "website:build": "lerna run --scope @figma-export/website build --stream"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "nyc": {
@@ -29,6 +31,7 @@
     "chai-things": "~0.2.0",
     "eslint": "~6.7.1",
     "eslint-config-airbnb-base": "~14.0.0",
+    "eslint-config-developit": "~1.1.1",
     "eslint-plugin-chai-friendly": "~0.5.0",
     "eslint-plugin-import": "~2.18.2",
     "lerna": "~3.19.0",

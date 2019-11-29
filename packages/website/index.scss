@@ -1,0 +1,245 @@
+$color-palette-1: #f24e1e;
+$color-palette-2: #a259ff;
+$color-palette-3: #1abcfe;
+$color-palette-4: #0acf83;
+
+$color-link: #64B5F6;
+$color-link-hover: #1976D2;
+
+@mixin for-desktop-up {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
+body {
+    margin: 0;
+    font-family: Lato;
+    font-weight: 200;
+    font-size: 16px;
+    line-height: 1.4em;
+    letter-spacing: 1px;
+}
+
+a {
+    color: $color-link;
+    transition: color .4s;
+    &:hover {
+        color: $color-link-hover;
+    }
+}
+
+.title {
+    font-size: 2.8em;
+    line-height: 2em;
+}
+
+pre[class*=language-] {
+    padding: 1.5em 2em;
+    font-size: 0.8em;
+    line-height: 1.8em;
+}
+
+.figma-gradient {
+    background: $color-palette-1;
+    background: linear-gradient(90deg, $color-palette-1 0%, $color-palette-2 33%, $color-palette-3 66%, $color-palette-4 100%);
+
+    @at-root code {
+        padding: 5px;
+        margin: 0 2px;
+        border-radius: 3px;
+    }
+
+    &.with-opacity-05 {
+        background: linear-gradient(270deg, fade-out($color-palette-1, .95) 0%, fade-out($color-palette-2, .95) 33%, fade-out($color-palette-3, .95) 66%, fade-out($color-palette-4, .95) 100%);
+    }
+
+    &.with-opacity-10 {
+        background: linear-gradient(270deg, fade-out($color-palette-1, .90) 0%, fade-out($color-palette-2, .90) 33%, fade-out($color-palette-3, .90) 66%, fade-out($color-palette-4, .90) 100%);
+    }
+
+    &.text {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent
+    }
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 25px;
+
+    .title, section {
+        font-weight: 200;
+        margin: 0 auto;
+        display: inline-block;
+    }
+
+    @include for-desktop-up {
+        min-height: 635px;
+        height: 100vh;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+    }
+
+    .octicons {
+
+        padding: 40px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    
+        @include for-desktop-up {
+            flex-wrap: nowrap;
+        }
+    
+        .figma-screen {
+            flex: 0 0 auto;
+            width: 100%;
+    
+            img {
+                box-shadow: 0px 0px 8px 0px #a8a8af;
+                max-width: 100%;
+            }
+    
+            @include for-desktop-up {
+                width: 35vw;
+            }
+        }
+    
+        .figma-export {
+            text-align: center;
+
+            .title {
+                font-size: 1.8em;
+                line-height: 1.2em;
+                margin: 30px 0 35px;
+                font-weight: 200;
+                letter-spacing: 1px;
+            }
+        }
+    
+        .figma-arrow {
+            height: 12px;
+            margin-top: 50px;
+            display: none;
+        
+            @include for-desktop-up {
+                display: inline-block;
+            }
+        }
+    
+        .icons {
+            overflow: hidden;
+            position: relative;
+            -webkit-mask-image: linear-gradient(#fff 80%, transparent);
+            mask-image: linear-gradient(#fff 80%, transparent);
+            width: 100%;
+            height: 250px;
+    
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+    
+            @include for-desktop-up {
+                width: 35vw;
+                height: calc(35vw - 170px);
+            }
+    
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+}
+
+.svgstore {
+    position: absolute;
+    left: -9999px;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+    margin: 10px;
+
+    fill: $color-link;
+    transition: fill .2s;
+
+    &:hover {
+        fill: $color-link-hover;
+    }
+}
+
+.container {
+    padding: 0 15px;
+}
+
+.code-block {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    margin: 60px 0 15px 0;
+
+    @include for-desktop-up {
+        align-items: center;
+        flex-direction: row;
+    }
+
+    &--text {
+        h3, p {
+            padding: 0px 5%;
+        }
+
+        h3 {
+            line-height: 2em;
+            margin: 0.5em 0;
+        }
+    }
+
+    > div {
+        flex: 0 1 45%;
+        text-align: center;
+        
+        &.code-block--code {
+            flex: 0 1 55%;
+        }
+    }
+
+    @include for-desktop-up {
+        &:nth-child(odd) > div.code-block--code {
+            order: -1;
+        }
+    }
+}
+
+.github-link {
+    position: relative;
+    bottom: 10px;
+    right: 0;
+    font-size: 0.8em;
+    padding: 0 15px;
+    float: right;
+    line-height: 2em;
+
+    @include for-desktop-up {
+        position: absolute;
+    }
+
+    a {
+        display: flex;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    img {
+        margin-left: 8px;
+        width: 16px;
+    }
+}

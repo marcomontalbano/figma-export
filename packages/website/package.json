@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@figma-export/website",
+    "version": "0.0.1-alpha.12",
+    "description": "Website for @figma-export",
+    "author": "Marco Montalbano <marcomontalbano.work@gmail.com>",
+    "homepage": "http://marcomontalbano.github.io/figma-export",
+    "license": "MIT",
+    "scripts": {
+        "prestart": "figma-export use-config",
+        "prebuild": "figma-export use-config",
+        "start": "parcel index.html",
+        "build": "parcel build index.html"
+    },
+    "devDependencies": {
+        "@figma-export/cli": "^1.0.0",
+        "parcel-bundler": "~1.12.4",
+        "sass": "~1.23.7"
+    },
+    "dependencies": {
+        "preact": "~10.0.5"
+    }
+}
