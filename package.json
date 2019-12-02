@@ -8,7 +8,7 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "postinstall": "lerna exec npm install --stream",
+    "postinstall": "lerna bootstrap --force-local",
     "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist",
     "test": "mocha test--registers.js test--packages.js",
     "test:watch": "npm test -- -w --reporter=dot",
@@ -16,6 +16,8 @@
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
     "lerna:version": "lerna version",
+    "lerna:install": "lerna exec npm install --stream",
+    "lerna:update": "lerna exec npm update --stream",
     "website:start": "lerna run --scope @figma-export/website start --stream",
     "website:build": "lerna run --scope @figma-export/website build --stream"
   },
