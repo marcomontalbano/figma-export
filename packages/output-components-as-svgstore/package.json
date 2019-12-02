@@ -1,0 +1,20 @@
+{
+    "name": "@figma-export/output-components-as-svgstore",
+    "version": "1.0.0",
+    "description": "Outputter for @figma-export that exports components in svg file ( SVG Sprites )",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+        "directory": "packages/output-components-as-svgstore"
+    },
+    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "make-dir": "~3.0.0",
+        "svgstore": "~3.0.0-2"
+    }
+}
