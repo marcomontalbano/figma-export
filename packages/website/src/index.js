@@ -1,8 +1,9 @@
-import { h, render, Fragment } from 'preact';
+import { render, Fragment } from 'preact';
+
 import SvgOcticons from './Hero';
-import SvgAsES6ComponentDataUrl from './SvgAsES6ComponentDataUrl';
-import SvgAsES6ComponentBase64 from './SvgAsES6ComponentBase64';
 import GitHubLink from './GitHubLink';
+import ComponentsAsES6 from './output-components/ComponentsAsES6';
+import ComponentsAsSvgstore from './output-components/ComponentsAsSvgstore';
 
 const App = () => (
     <Fragment>
@@ -18,8 +19,8 @@ const App = () => (
             <SvgOcticons />
         </div>
         <GitHubLink />
-        <SvgAsES6ComponentDataUrl />
-        <SvgAsES6ComponentBase64 />
+        <ComponentsAsES6 />
+        <ComponentsAsSvgstore />
     </Fragment>
 );
 
