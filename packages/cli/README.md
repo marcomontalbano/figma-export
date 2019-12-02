@@ -112,5 +112,7 @@ or install an official outputter:
 
 | Package | Version |
 |---------|---------|
-| [`@figma-export/output-components-as-svg`](/packages/output-components-as-svg) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svg.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svg) |
 | [`@figma-export/output-components-as-es6`](/packages/output-components-as-es6) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-es6.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-es6) |
+| [`@figma-export/output-components-as-stdout`](/packages/output-components-as-stdout) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-stdout.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-stdout) |
+| [`@figma-export/output-components-as-svg`](/packages/output-components-as-svg) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svg.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svg) |
+| [`@figma-export/output-components-as-svgstore`](/packages/output-components-as-svgstore) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svgstore.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svgstore) |
