@@ -1,9 +1,12 @@
-/* eslint-disable import/no-unresolved */
-import { h, Fragment } from 'preact';
+import { Fragment } from 'preact';
 
-import CodeBlock from './CodeBlock';
-import * as figmaMonochrome from '../output/es6-base64/monochrome';
-import { figmaExport, figmaLogo } from '../output/es6-base64/icons';
+import CodeBlock from '../CodeBlock';
+
+// eslint-disable-next-line import/no-unresolved
+import * as figmaMonochrome from '../../output/es6-base64/monochrome';
+
+// eslint-disable-next-line import/no-unresolved
+import { figmaExport, figmaLogo } from '../../output/es6-base64/icons';
 
 const props = {
     title: (
@@ -11,7 +14,13 @@ const props = {
             Export your icons as <code class="figma-gradient with-opacity-10">Base 64</code>
         </Fragment>
     ),
-    description: 'The .js file contains all components with Base 64 encoding. If you want to use it into your images you need to prepend the Data URL "data:image/svg+xml;base64,"',
+    description: (
+        <Fragment>
+            The .js file contains all components with Base 64 encoding.
+            If you want to use it into your images you need to prepend the
+            Data URL <code>data:image/svg+xml;base64,</code>
+        </Fragment>
+    ),
     code: `module.exports = {
         commands: [
             ['components', {

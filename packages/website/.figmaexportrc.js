@@ -25,16 +25,18 @@ module.exports = {
                     output: './output/es6-dataurl',
                     useDataUrl: true,
                 }),
-                // require('../output-components-as-svgstore')({
-                //     output: './output/svgstore',
-                // }),
-                // require('../output-components-as-svgstore')({
-                //     output: './output/svgstore-monochrome',
-                //     options: {
-                //         prefix: 'monochrome-',
-                //         cleanSymbols: ['fill']
-                //     }
-                // }),
+
+                require('../output-components-as-svgstore')({
+                    output: './output/svgstore',
+                }),
+
+                require('../output-components-as-svgstore')({
+                    output: './output/svgstore-monochrome',
+                    iconPrefix: 'unfilled-',
+                    options: {
+                        cleanSymbols: ['fill']
+                    }
+                }),
             ]
         }]
     ]

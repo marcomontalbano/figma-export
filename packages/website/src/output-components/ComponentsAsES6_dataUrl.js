@@ -1,9 +1,12 @@
-/* eslint-disable import/no-unresolved */
-import { h, Fragment } from 'preact';
+import { Fragment } from 'preact';
 
-import CodeBlock from './CodeBlock';
-import * as figmaMonochrome from '../output/es6-dataurl/monochrome';
-import { figmaExport, figmaLogo } from '../output/es6-dataurl/icons';
+import CodeBlock from '../CodeBlock';
+
+// eslint-disable-next-line import/no-unresolved
+import * as figmaMonochrome from '../../output/es6-dataurl/monochrome';
+
+// eslint-disable-next-line import/no-unresolved
+import { figmaExport, figmaLogo } from '../../output/es6-dataurl/icons';
 
 const props = {
     title: (

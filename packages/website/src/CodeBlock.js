@@ -1,12 +1,10 @@
-import { h } from 'preact';
-
 const CodeBlock = ({
     title,
     description,
     code,
     children
 }) => (
-    <div className="container code-block">
+    <div className="code-block">
         <div class="code-block--text">
             <h3>{title}</h3>
             <p>{description}</p>

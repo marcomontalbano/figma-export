@@ -12,6 +12,14 @@ $color-link-hover: #1976D2;
     }
 }
 
+.text-center {
+    text-align: center;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
 body {
     margin: 0;
     font-family: Lato;
@@ -181,11 +189,15 @@ pre[class*=language-] {
     padding: 0 15px;
 }
 
+.section-block {
+    margin: 60px 0;
+}
+
 .code-block {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    margin: 60px 0 15px 0;
+    margin: 15px 0;
 
     @include for-desktop-up {
         align-items: center;

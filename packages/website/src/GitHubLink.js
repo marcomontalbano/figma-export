@@ -1,6 +1,5 @@
-/* eslint-disable import/no-unresolved */
-import { h } from 'preact';
 
+// eslint-disable-next-line import/no-unresolved
 import { iconMarkGithub } from '../output/es6-dataurl-octicons/Octicons';
 
 const GitHubLink = () => (
