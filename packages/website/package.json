@@ -13,7 +13,7 @@
         "build": "parcel build index.html"
     },
     "devDependencies": {
-        "@babel/core": "~7.7.4",
+        "@babel/core": "~7.7.5",
         "@babel/plugin-transform-react-jsx": "~7.7.4",
         "@figma-export/cli": "^1.1.0",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
@@ -21,6 +21,6 @@
         "sass": "~1.23.7"
     },
     "dependencies": {
-        "preact": "~10.0.5"
+        "preact": "~10.1.1"
     }
 }
