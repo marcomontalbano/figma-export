@@ -15,6 +15,9 @@
     "packages/*"
   ],
   "command": {
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
+    },
     "create": {
       "license": "MIT",
       "access": "public"
