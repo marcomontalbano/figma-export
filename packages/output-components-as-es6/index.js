@@ -3,21 +3,7 @@ const path = require('path');
 const makeDir = require('make-dir');
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
-const camelCase = (str) => str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2) => {
-    if (p2) return p2.toUpperCase();
-    return p1.toLowerCase();
-});
-
-const getVariableName = (componentName) => {
-    const trimmedComponentName = componentName.trim();
-    const variableName = camelCase(trimmedComponentName);
-
-    if (/^[\d]+/.test(variableName)) {
-        throw new Error(`"${trimmedComponentName}" - Component names cannot start with a number.`);
-    }
-
-    return variableName;
-};
+const { getVariableName } = require('./utils');
 
 module.exports = ({
     output,
@@ -43,6 +29,10 @@ module.exports = ({
                 case useDataUrl:
                     variableValue = svgToMiniDataURI(svg);
                     break;
+                }
+
+                if (code.includes(`export const ${variableName} =`)) {
+                    throw new Error(`Component "${componentName}" has an error: two components cannot have a same name.`);
                 }
 
                 code += `export const ${variableName} = \`${variableValue}\`;\n`;

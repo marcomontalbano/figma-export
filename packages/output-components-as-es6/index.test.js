@@ -98,7 +98,28 @@ describe('outputter as es6', () => {
             sinon.assert.fail();
         }).catch((err) => {
             expect(err).to.be.an('Error');
-            expect(err.message).to.be.equal('"1-icon" - Component names cannot start with a number.');
+            expect(err.message).to.be.equal('"1-icon" thrown an error: component names cannot start with a number.');
+        });
+    });
+
+    it('should throw an error if two or more components have the same name', async () => {
+        const page = {
+            ...figmaDocument.page1,
+            children: [figmaDocument.component1, figmaDocument.component1],
+        };
+
+        sinon.stub(fs, 'writeFileSync');
+
+        const pages = figma.getPages({ children: [page] });
+        const spyOutputter = sinon.spy(outputter);
+
+        return spyOutputter({
+            output: 'output',
+        })(pages).then(() => {
+            sinon.assert.fail();
+        }).catch((err) => {
+            expect(err).to.be.an('Error');
+            expect(err.message).to.be.equal('Component "Figma-Logo" has an error: two components cannot have a same name.');
         });
     });
 });

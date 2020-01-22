@@ -1,18 +1,26 @@
+const { basename, dirname } = require('path');
+
 const Figma = require('figma-js');
 const utils = require('./utils');
 
 const getComponents = (children = []) => {
     let components = [];
 
-    children.forEach((child) => {
-        if (child.type === 'COMPONENT') {
-            components.push(child);
+    children.forEach((component) => {
+        if (component.type === 'COMPONENT') {
+            components.push({
+                ...component,
+                figmaExport: {
+                    dirname: dirname(component.name),
+                    basename: basename(component.name),
+                },
+            });
             return;
         }
 
         components = [
             ...components,
-            ...getComponents(child.children),
+            ...getComponents(component.children),
         ];
     });
 

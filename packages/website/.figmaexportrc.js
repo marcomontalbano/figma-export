@@ -15,8 +15,12 @@ module.exports = {
 
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome'],
+            onlyFromPages: ['icons', 'monochrome', 'unit-test'],
             outputters: [
+                require('../output-components-as-svg')({
+                    output: './output/svg',
+                }),
+
                 require('../output-components-as-es6')({
                     output: './output/es6-base64',
                     useBase64: true,

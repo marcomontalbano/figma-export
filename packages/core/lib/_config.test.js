@@ -19,6 +19,10 @@ const component1 = {
     name: 'Figma-Logo',
     type: 'COMPONENT',
     svg: svg.content,
+    figmaExport: {
+        dirname: '.',
+        basename: 'Figma-Logo',
+    },
 };
 
 const component2 = {
@@ -33,6 +37,10 @@ const component3 = {
     name: 'Login',
     type: 'COMPONENT',
     svg: '<svg id="c3"></svg>',
+    figmaExport: {
+        dirname: '.',
+        basename: 'Login',
+    },
 };
 
 const group1 = {
