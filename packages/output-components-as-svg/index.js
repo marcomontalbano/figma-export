@@ -3,12 +3,11 @@ const path = require('path');
 const makeDir = require('make-dir');
 
 module.exports = ({ output }) => {
-    makeDir.sync(output);
     return async (pages) => {
         pages.forEach(({ name: pageName, components }) => {
-            components.forEach(({ name: componentName, svg }) => {
-                const filePath = path.resolve(output, `${pageName}-${componentName}.svg`);
-                fs.writeFileSync(filePath, svg);
+            components.forEach(({ svg, figmaExport }) => {
+                const filePath = makeDir.sync(path.resolve(output, figmaExport.dirname));
+                fs.writeFileSync(path.resolve(filePath, `${pageName}-${figmaExport.basename}.svg`), svg);
             });
         });
     };

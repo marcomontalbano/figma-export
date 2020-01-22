@@ -98,7 +98,7 @@ describe('outputter as es6', () => {
             sinon.assert.fail();
         }).catch((err) => {
             expect(err).to.be.an('Error');
-            expect(err.message).to.be.equal('"1-icon" - Component names cannot start with a number.');
+            expect(err.message).to.be.equal('"1-icon" thrown an error: component names cannot start with a number.');
         });
     });
 });
