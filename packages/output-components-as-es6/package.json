@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-components-as-es6",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Outputter for @figma-export that exports components in javascript file",
     "main": "index.js",
     "repository": {
