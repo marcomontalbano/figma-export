@@ -21,6 +21,8 @@ export const figmaExport = `<svg width="60" height="60" viewBox="0 0 60 60" fill
 export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"> ... </svg>`;
 ```
 
+> **Tip**: A component named `icon/eye` will be exported as variable named `iconEye`.
+
 ## Install
 
 Using npm:

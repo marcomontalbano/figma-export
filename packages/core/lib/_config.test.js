@@ -14,6 +14,12 @@ const componentWithNumber = {
     type: 'COMPONENT',
 };
 
+const componentWithSlashedName = {
+    id: '9:10',
+    name: 'icon/eye',
+    type: 'COMPONENT',
+};
+
 const component1 = {
     id: '10:8',
     name: 'Figma-Logo',
@@ -69,12 +75,23 @@ const page2 = {
     ],
 };
 
+const createPage = (children) => ({
+    children: [{
+        id: '10:8',
+        name: 'fakePage',
+        type: 'CANVAS',
+        children,
+    }],
+});
+
 module.exports = {
     componentWithNumber,
+    componentWithSlashedName,
     component1,
     component2,
     component3,
     group1,
+    createPage,
     page1,
     page2,
     svg,
