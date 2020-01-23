@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@figma-export/website",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "Website for @figma-export",
     "author": "Marco Montalbano <marcomontalbano.work@gmail.com>",
     "homepage": "http://marcomontalbano.github.io/figma-export",
@@ -15,7 +15,7 @@
     "devDependencies": {
         "@babel/core": "~7.8.3",
         "@babel/plugin-transform-react-jsx": "~7.8.3",
-        "@figma-export/cli": "^1.1.1",
+        "@figma-export/cli": "^1.2.0",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
         "parcel-bundler": "~1.12.4",
         "sass": "~1.25.0"
