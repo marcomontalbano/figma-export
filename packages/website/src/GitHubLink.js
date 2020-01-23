@@ -1,5 +1,5 @@
 
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import { iconMarkGithub } from '../output/es6-dataurl-octicons/Octicons';
 
 const GitHubLink = () => (

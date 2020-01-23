@@ -2,10 +2,10 @@ import { Fragment } from 'preact';
 
 import CodeBlock from '../CodeBlock';
 
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import * as figmaMonochrome from '../../output/es6-dataurl/monochrome';
 
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import { figmaExport, figmaLogo } from '../../output/es6-dataurl/icons';
 
 const props = {
