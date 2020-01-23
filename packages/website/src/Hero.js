@@ -1,7 +1,7 @@
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import * as Octicons from '../output/es6-dataurl-octicons/Octicons';
 
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import { figmaArrow } from '../output/es6-dataurl/icons';
 
 import figmaImage from '../images/figma-octicons.png';
