@@ -4,18 +4,30 @@
 
 With this outputter you can export all components as svg into the specified output folder.
 
-This is a sample of the output:
+This is a sample of the output from this [Figma file](https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5):
 
 ```sh
 $ tree output/
-# output/
-# ├── icons-figma-export.svg
-# ├── icons-figma-logo.svg
-# ├── monochrome-figma-blue.svg
-# ├── monochrome-figma-green.svg
-# ├── monochrome-figma-purple.svg
-# └── monochrome-figma-red.svg
+# output
+# ├── icons
+# │   ├── figma-arrow.svg
+# │   ├── figma-export.svg
+# │   └── figma-logo.svg
+# ├── monochrome
+# │   ├── figma-blue.svg
+# │   ├── figma-green.svg
+# │   ├── figma-purple.svg
+# │   └── figma-red.svg
+# └── unit-test
+#     ├── figma
+#     │   ├── logo
+#     │   │   ├── main (bright).svg
+#     │   │   └── main.svg
+#     │   └── logo.svg
+#     └── figma default logo.svg
 ```
+
+> **Tip**: A component named `icon/eye` will be exported as `eye.svg` inside the `icon` folder.
 
 ## Install
 

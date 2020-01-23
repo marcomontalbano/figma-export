@@ -27,4 +27,47 @@ describe('outputter as svg', () => {
         expect(writeFileSync.firstCall).to.be.calledWithMatch('output/page1-Figma-Logo.svg');
         expect(writeFileSync.secondCall).to.be.calledWithMatch('output/page1-Search.svg');
     });
+
+    it('should create folder if component names contain slashes', async () => {
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const fakePages = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
+        const pages = figma.getPages(fakePages);
+
+        await outputter({
+            output: 'output',
+        })(pages);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/fakePage-eye.svg');
+    });
+
+    describe('options', () => {
+        const fakePages = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
+        const pages = figma.getPages(fakePages);
+
+        it('should be able to customize "basename"', async () => {
+            const writeFileSync = sinon.stub(fs, 'writeFileSync');
+
+            await outputter({
+                output: 'output',
+                getBasename: (options) => `${options.basename}.svg`,
+            })(pages);
+
+            expect(writeFileSync).to.be.calledOnce;
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/eye.svg');
+        });
+
+        it('should be able to customize "dirname"', async () => {
+            const writeFileSync = sinon.stub(fs, 'writeFileSync');
+
+            await outputter({
+                output: 'output',
+                getBasename: (options) => `${options.basename}.svg`,
+                getDirname: (options) => `${options.pageName}/${options.dirname}`,
+            })(pages);
+
+            expect(writeFileSync).to.be.calledOnce;
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/eye.svg');
+        });
+    });
 });
