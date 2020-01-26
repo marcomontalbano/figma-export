@@ -41,8 +41,8 @@ const SvgAsSvgstoreMonochromeComponent = () => (
     <CodeBlock {...props}>
         <Fragment>
             <div className="svgstore" dangerouslySetInnerHTML={{ __html: figmaIcons }} />
-            <svg className="icon"><use href="#unfilled-icons-figma-export" /></svg>
-            <svg className="icon"><use href="#unfilled-icons-figma-logo" /></svg>
+            <svg className="icon"><use href="#[unfilled] icons/figma-export" /></svg>
+            <svg className="icon"><use href="#[unfilled] icons/figma-logo" /></svg>
         </Fragment>
     </CodeBlock>
 );

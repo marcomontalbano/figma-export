@@ -10,7 +10,8 @@ This is a sample of the output:
 $ tree output/
 # output/
 # ├── icons.svg
-# └── monochrome.svg
+# ├── monochrome.svg
+# └── unit-test.svg
 ```
 
 Probably you already know what <a target="_blank" rel="noopener noreferrer" href="https://css-tricks.com/css-sprites/">CSS Sprites</a> are, basically you can combine multiple images into a single image file and use it on a website.

@@ -14,7 +14,7 @@ module.exports = ({
             const sprites = svgstore(options);
 
             components.forEach(({ name: componentName, svg }) => {
-                sprites.add(`${iconPrefix}${pageName}-${componentName}`, svg);
+                sprites.add(`${iconPrefix}${pageName}/${componentName}`, svg);
             });
 
             const filePath = path.resolve(output, `${pageName}.svg`);
