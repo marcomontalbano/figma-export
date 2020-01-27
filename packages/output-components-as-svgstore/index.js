@@ -5,7 +5,7 @@ const svgstore = require('svgstore');
 
 module.exports = ({
     output,
-    iconPrefix = '',
+    getIconId = (options) => `${options.pageName}/${options.componentName}`,
     options = {},
 }) => {
     makeDir.sync(output);
@@ -13,8 +13,14 @@ module.exports = ({
         pages.forEach(({ name: pageName, components }) => {
             const sprites = svgstore(options);
 
-            components.forEach(({ name: componentName, svg }) => {
-                sprites.add(`${iconPrefix}${pageName}/${componentName}`, svg);
+            components.forEach(({ name: componentName, svg, figmaExport }) => {
+                const opts = {
+                    pageName,
+                    componentName,
+                    ...figmaExport,
+                };
+
+                sprites.add(getIconId(opts), svg);
             });
 
             const filePath = path.resolve(output, `${pageName}.svg`);

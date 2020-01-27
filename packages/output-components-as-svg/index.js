@@ -9,9 +9,10 @@ module.exports = ({
 }) => {
     return async (pages) => {
         pages.forEach(({ name: pageName, components }) => {
-            components.forEach(({ svg, figmaExport }) => {
+            components.forEach(({ name: componentName, svg, figmaExport }) => {
                 const options = {
                     pageName,
+                    componentName,
                     ...figmaExport,
                 };
                 const filePath = makeDir.sync(path.resolve(output, getDirname(options)));
