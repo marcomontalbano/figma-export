@@ -15,6 +15,7 @@ module.exports = ({
                     componentName,
                     ...figmaExport,
                 };
+
                 const filePath = makeDir.sync(path.resolve(output, getDirname(options)));
                 fs.writeFileSync(path.resolve(filePath, getBasename(options)), svg);
             });

@@ -4,6 +4,7 @@
 const { expect } = chai;
 
 const fs = require('fs');
+const { camelCase } = require('@figma-export/output-components-utils');
 
 const figmaDocument = require('../core/lib/_config.test');
 const figma = require('../core/lib/figma');
@@ -36,8 +37,7 @@ describe('outputter as es6', () => {
 
         await outputter({
             output: 'output',
-            variablePrefix: 'i',
-            variableSuffix: 'my ico',
+            getVariableName: (options) => camelCase(`i ${options.componentName} my ico`),
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;

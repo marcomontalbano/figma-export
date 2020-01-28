@@ -2,13 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const makeDir = require('make-dir');
 const svgToMiniDataURI = require('mini-svg-data-uri');
-
-const { getVariableName } = require('./utils');
+const { camelCase } = require('@figma-export/output-components-utils');
 
 module.exports = ({
     output,
-    variablePrefix = '',
-    variableSuffix = '',
+    getVariableName = (options) => camelCase(options.componentName.trim()),
     useBase64 = false,
     useDataUrl = false,
 }) => {
@@ -17,17 +15,29 @@ module.exports = ({
         pages.forEach(({ name: pageName, components }) => {
             let code = '';
 
-            components.forEach(({ name: componentName, svg }) => {
-                const variableName = getVariableName(`${variablePrefix} ${componentName} ${variableSuffix}`);
-                let variableValue = svg;
+            components.forEach(({ name: componentName, svg, figmaExport }) => {
+                const options = {
+                    pageName,
+                    componentName,
+                    ...figmaExport,
+                };
 
-                // eslint-disable-next-line default-case
+                const variableName = getVariableName(options);
+                let variableValue;
+
+                if (/^[\d]+/.test(variableName)) {
+                    throw new Error(`"${componentName.trim()}" thrown an error: component names cannot start with a number.`);
+                }
+
                 switch (true) {
                 case useBase64:
                     variableValue = Buffer.from(svg).toString('base64');
                     break;
                 case useDataUrl:
                     variableValue = svgToMiniDataURI(svg);
+                    break;
+                default:
+                    variableValue = svg;
                     break;
                 }
 
