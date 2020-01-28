@@ -25,5 +25,6 @@ describe('outputter as svgstore', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch('output/page1.svg');
+        expect(writeFileSync.getCall(0).args[1].toString()).to.be.contain('id="page1/Figma-Logo"');
     });
 });

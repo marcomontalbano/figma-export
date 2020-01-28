@@ -24,8 +24,8 @@ describe('outputter as svg', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/page1-Figma-Logo.svg');
-        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/page1-Search.svg');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/page1/Figma-Logo.svg');
+        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/page1/Search.svg');
     });
 
     it('should create folder if component names contain slashes', async () => {
@@ -38,7 +38,7 @@ describe('outputter as svg', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/fakePage-eye.svg');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/eye.svg');
     });
 
     describe('options', () => {
@@ -50,11 +50,11 @@ describe('outputter as svg', () => {
 
             await outputter({
                 output: 'output',
-                getBasename: (options) => `${options.basename}.svg`,
+                getBasename: (options) => `${options.pageName}-${options.basename}.svg`,
             })(pages);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/eye.svg');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/fakePage-eye.svg');
         });
 
         it('should be able to customize "dirname"', async () => {
@@ -62,12 +62,12 @@ describe('outputter as svg', () => {
 
             await outputter({
                 output: 'output',
-                getBasename: (options) => `${options.basename}.svg`,
-                getDirname: (options) => `${options.pageName}/${options.dirname}`,
+                getBasename: (options) => `${options.pageName}-${options.basename}.svg`,
+                getDirname: (options) => `${options.dirname}`,
             })(pages);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/eye.svg');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/fakePage-eye.svg');
         });
     });
 });

@@ -41,12 +41,12 @@ const SvgAsSvgstoreComponent = () => (
         <Fragment>
             <div className="svgstore" dangerouslySetInnerHTML={{ __html: figmaMonochrome }} />
             <div className="svgstore" dangerouslySetInnerHTML={{ __html: figmaIcons }} />
-            <svg className="icon"><use href="#icons-figma-export" /></svg>
-            <svg className="icon"><use href="#icons-figma-logo" /></svg>
-            <svg className="icon"><use href="#monochrome-figma-red" /></svg>
-            <svg className="icon"><use href="#monochrome-figma-purple" /></svg>
-            <svg className="icon"><use href="#monochrome-figma-blue" /></svg>
-            <svg className="icon"><use href="#monochrome-figma-green" /></svg>
+            <svg className="icon"><use href="#icons/figma-export" /></svg>
+            <svg className="icon"><use href="#icons/figma-logo" /></svg>
+            <svg className="icon"><use href="#monochrome/figma-red" /></svg>
+            <svg className="icon"><use href="#monochrome/figma-purple" /></svg>
+            <svg className="icon"><use href="#monochrome/figma-blue" /></svg>
+            <svg className="icon"><use href="#monochrome/figma-green" /></svg>
         </Fragment>
     </CodeBlock>
 );
