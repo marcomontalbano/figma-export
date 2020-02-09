@@ -16,6 +16,7 @@
         "@babel/core": "~7.8.3",
         "@babel/plugin-transform-react-jsx": "~7.8.3",
         "@figma-export/cli": "^1.2.0",
+        "@figma-export/output-components-utils": "^1.2.0",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
         "parcel-bundler": "~1.12.4",
         "sass": "~1.25.0"

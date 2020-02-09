@@ -1,13 +1,15 @@
+const { camelCase } = require('@figma-export/output-components-utils');
+
 module.exports = {
 
     commands: [
         ['components', {
-            fileId: 'FP7lqd1V00LUaT5zvdklkkZr',
+            fileId: 'e7Jl5rSEwq7ekSyFJFxA2D',
             onlyFromPages: ['Octicons'],
             outputters: [
                 require('../output-components-as-es6')({
                     output: './output/es6-dataurl-octicons',
-                    variablePrefix: 'icon',
+                    getVariableName: (options) => camelCase(`icon ${options.componentName}`),
                     useDataUrl: true,
                 })
             ]
