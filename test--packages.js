@@ -17,7 +17,7 @@ const walkSync = (dir, startDir = dir) => {
         }
 
         const isNodeModules = /node_modules/.test(dir);
-        const isTestFile = /\.test\.js$/.test(file);
+        const isTestFile = /\.test\.[j|t]s$/.test(file);
 
         if (!isNodeModules && isTestFile) {
             filelist.push(`${dir}${file}`);

@@ -8,10 +8,11 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
+    "clean": "rm -rf node_modules/ */*/node_modules",
     "postinstall": "lerna bootstrap --force-local",
     "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist",
-    "test": "mocha test--registers.js test--packages.js",
-    "test:watch": "npm test -- -w --reporter=dot",
+    "test": "mocha",
+    "test:watch": "npm test -- --watch --reporter=dot",
     "posttest": "npm run lint",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
@@ -20,6 +21,7 @@
     "lerna:update": "lerna exec npm update --stream",
     "lerna:ncu": "lerna exec 'ncu -u' --stream",
     "website:start": "lerna run --scope @figma-export/website start --stream",
+    "build": "tsc --build packages/**/tsconfig.json",
     "prewebsite:build": "lerna bootstrap --force-local",
     "website:build": "lerna run --scope @figma-export/website build --stream"
   },
@@ -27,10 +29,13 @@
   "nyc": {
     "all": false,
     "include": [
-      "**/*.js"
+      "**/*.js",
+      "**/*.ts"
     ]
   },
   "devDependencies": {
+    "@types/chai": "~4.2.7",
+    "@types/mocha": "~5.2.7",
     "chai": "~4.2.0",
     "chai-things": "~0.2.0",
     "eslint": "~6.8.0",
@@ -46,7 +51,9 @@
     "nock": "~11.7.2",
     "nyc": "~15.0.0",
     "sinon": "~8.1.1",
-    "sinon-chai": "~3.4.0"
+    "sinon-chai": "~3.4.0",
+    "ts-node": "~8.6.2",
+    "typescript": "~3.7.5"
   },
   "dependencies": {},
   "engines": {
