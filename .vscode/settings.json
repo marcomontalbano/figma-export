@@ -1,0 +1,5 @@
+{
+    "eslint.enable": true,
+    "eslint.lintTask.enable": true,
+    "eslint.lintTask.options": ". --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist --ext .js,.ts",
+}

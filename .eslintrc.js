@@ -11,6 +11,35 @@ module.exports = {
   plugins: [
     'chai-friendly'
   ],
+  overrides: [
+    {
+      files: ['**.ts'],
+      parser: '@typescript-eslint/parser',
+      extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:import/typescript',
+      ],
+      plugins: [
+        '@typescript-eslint'
+      ],
+      rules: {
+        'import/prefer-default-export': 'off',
+        'import/extensions': [
+          'error',
+          'always',
+          {
+            ts: 'never',
+            tsx: 'never',
+            js: 'never',
+            jsx: 'never'
+          }
+        ]
+      }
+    }
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
