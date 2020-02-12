@@ -1,18 +1,28 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 
-const sinon = require('sinon');
-const chai = require('chai');
-const sinonChai = require('sinon-chai');
-const chaiThings = require('chai-things');
+import sinon from 'sinon';
+import chai from 'chai';
+import sinonChai from 'sinon-chai';
+import chaiThings from 'chai-things';
 
 chai.use(sinonChai);
 chai.use(chaiThings);
 
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace NodeJS {
+        interface Global {
+            sinon: sinon.SinonStatic;
+            chai: Chai.ChaiStatic;
+        }
+    }
+}
+
 global.sinon = sinon;
 global.chai = chai;
 
-let consoleSandbox;
+let consoleSandbox: sinon.SinonSandbox;
 beforeEach(() => {
     consoleSandbox = sinon.createSandbox();
     console.log = consoleSandbox.spy();

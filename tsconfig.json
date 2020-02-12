@@ -10,9 +10,6 @@
     "declaration": true,
     "lib": ["es6"]
   },
-  "include": [
-    "**/*.ts",
-  ],
   "exclude": [
     "**/dist",
     "**/*.test.ts"

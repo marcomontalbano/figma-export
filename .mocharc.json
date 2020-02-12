@@ -2,5 +2,5 @@
     "extension": ["js", "ts"],
     "spec": "packages/**/*.test.ts",
     "require": "ts-node/register",
-    "file": ["test--registers.js", "test--packages.js"]
+    "file": ["test--registers.ts", "test--packages.js"]
   }
