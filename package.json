@@ -8,24 +8,30 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "clean": "rm -rf node_modules/ */*/node_modules",
+    "clean": "rm -rf node_modules/ output/ */*/node_modules */*/output */*/dist */*/tsconfig.tsbuildinfo",
+
     "postinstall": "lerna bootstrap --force-local",
+
+    "build": "tsc --build packages/**/tsconfig.json",
+    "prepublish": "npm run build",
+
     "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist --ext .js,.ts",
     "pretest": "npm run build",
+    "posttest": "npm run lint",
     "test": "mocha",
     "test:watch": "npm test -- --watch --reporter=dot",
-    "posttest": "npm run lint",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
+
+    "prewebsite:start": "npm run build",
+    "website:start": "lerna run --scope @figma-export/website start --stream",
+    "prewebsite:build": "lerna bootstrap --force-local",
+    "website:build": "lerna run --scope @figma-export/website build --stream",
+
     "lerna:version": "lerna version",
     "lerna:install": "lerna exec npm install --stream",
     "lerna:update": "lerna exec npm update --stream",
-    "lerna:ncu": "lerna exec 'ncu -u' --stream",
-    "prewebsite:start": "npm run build",
-    "website:start": "lerna run --scope @figma-export/website start --stream",
-    "build": "tsc --build packages/**/tsconfig.json",
-    "prewebsite:build": "lerna bootstrap --force-local",
-    "website:build": "lerna run --scope @figma-export/website build --stream"
+    "lerna:ncu": "lerna exec 'ncu -u' --stream"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "nyc": {

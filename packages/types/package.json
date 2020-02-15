@@ -1,13 +1,13 @@
 {
-    "name": "@figma-export/output-components-utils",
+    "name": "@figma-export/types",
     "version": "1.2.0",
-    "description": "Utils for @figma-export outputters",
+    "description": "Type definition for @figma-export",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
-        "directory": "packages/output-components-utils"
+        "directory": "packages/types"
     },
     "author": "Marco Montalbano <me@marcomontalbano.com>",
     "license": "MIT",

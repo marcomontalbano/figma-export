@@ -6,10 +6,10 @@ const { expect } = chai;
 const fs = require('fs');
 const { camelCase } = require('@figma-export/output-components-utils');
 
-const figmaDocument = require('../core/lib/_config.test');
-const figma = require('../core/lib/figma');
+const figmaDocument = require('../../core/lib/_config.test');
+const figma = require('../../core/lib/figma');
 
-const outputter = require('./dist').default;
+const outputter = require('../dist').default;
 
 describe('outputter as es6', () => {
     afterEach(() => {

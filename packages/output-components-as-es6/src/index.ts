@@ -3,43 +3,14 @@ import path from 'path';
 import makeDir from 'make-dir';
 import { camelCase } from '@figma-export/output-components-utils';
 
+import {
+    TransformerType,
+    OutputComponentsAsEs6OptionType,
+    OptionType,
+} from './types';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const svgToMiniDataURI = require('mini-svg-data-uri');
-
-
-type FigmaExportType = {
-    dirname: string;
-    basename: string;
-}
-
-type OptionType = {
-    componentName: string;
-    pageName: string;
-} & FigmaExportType;
-
-
-type PageType = {
-    id: string;
-    name: string;
-    type: string;
-    components: ComponentType[];
-};
-
-type ComponentType = {
-    name: string;
-    svg: string;
-    figmaExport: FigmaExportType;
-}
-
-type TransformerType = (pages: Array<PageType>) => Promise<void>;
-type OutputterType = (pages: PageType[]) => Promise<void>;
-
-type OutputComponentsAsEs6OptionType = {
-    output: string;
-    useBase64?: boolean;
-    useDataUrl?: boolean;
-    getVariableName?: (options: OptionType) => string;
-}
 
 export default ({
     output,
