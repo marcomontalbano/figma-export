@@ -9,7 +9,7 @@ const { camelCase } = require('@figma-export/output-components-utils');
 const figmaDocument = require('../../core/lib/_config.test');
 const figma = require('../../core/lib/figma');
 
-const outputter = require('../dist').default;
+const outputter = require('../dist');
 
 describe('outputter as es6', () => {
     afterEach(() => {

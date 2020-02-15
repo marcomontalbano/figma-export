@@ -7,7 +7,7 @@ module.exports = {
             fileId: 'e7Jl5rSEwq7ekSyFJFxA2D',
             onlyFromPages: ['Octicons'],
             outputters: [
-                require('../output-components-as-es6/dist')({
+                require('../output-components-as-es6')({
                     output: './output/es6-dataurl-octicons',
                     getVariableName: (options) => camelCase(`icon ${options.componentName}`),
                     useDataUrl: true,
@@ -23,11 +23,11 @@ module.exports = {
                     output: './output/svg',
                 }),
 
-                require('../output-components-as-es6/dist')({
+                require('../output-components-as-es6')({
                     output: './output/es6-base64',
                     useBase64: true,
                 }),
-                require('../output-components-as-es6/dist')({
+                require('../output-components-as-es6')({
                     output: './output/es6-dataurl',
                     useDataUrl: true,
                 }),

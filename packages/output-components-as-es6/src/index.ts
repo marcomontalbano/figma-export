@@ -12,7 +12,7 @@ import {
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
-export default ({
+export = ({
     output,
     getVariableName = (options): string => camelCase(options.componentName.trim()),
     useBase64 = false,
