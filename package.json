@@ -38,8 +38,10 @@
     "eslint-config-developit": "~1.1.1",
     "eslint-plugin-chai-friendly": "~0.5.0",
     "eslint-plugin-import": "~2.20.0",
+    "husky": "~4.2.3",
     "lerna": "~3.20.2",
     "lerna-changelog": "~1.0.0",
+    "lint-staged": "~10.0.7",
     "mocha": "~7.0.0",
     "nock": "~11.7.2",
     "nyc": "~15.0.0",
@@ -50,5 +52,15 @@
   "engines": {
     "node": ">= 8.3 <= 12.x",
     "npm": ">= 5.3 <= 6.x"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm test"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
