@@ -1,15 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const makeDir = require('make-dir');
-const svgstore = require('svgstore');
+import fs from 'fs';
+import path from 'path';
+import makeDir from 'make-dir';
+import svgstore from 'svgstore';
 
-module.exports = ({
+import {
+    TransformerType,
+    OutputComponentsAsSvgstoreOptionType,
+} from './types';
+
+export = ({
     output,
-    getIconId = (options) => `${options.pageName}/${options.componentName}`,
+    getIconId = (options): string => `${options.pageName}/${options.componentName}`,
     options = {},
-}) => {
+}: OutputComponentsAsSvgstoreOptionType): TransformerType => {
     makeDir.sync(output);
-    return async (pages) => {
+    return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             const sprites = svgstore(options);
 

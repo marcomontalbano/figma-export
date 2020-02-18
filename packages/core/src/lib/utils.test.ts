@@ -1,9 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import { expect } from 'chai';
+import nock from 'nock';
 
-const { expect } = chai;
-const nock = require('nock');
-
-const utils = require('./utils');
+import * as utils from './utils';
 
 describe('utils.', () => {
     describe('toArray', () => {
@@ -32,10 +30,10 @@ describe('utils.', () => {
     describe('promiseSequentially', () => {
         it('should resolve promises sequentially', async () => {
             const result = utils.promiseSequentially([
-                (p) => Promise.resolve(`${p}e`),
-                (p) => Promise.resolve(`${p}l`),
-                (p) => Promise.resolve(`${p}l`),
-                (p) => Promise.resolve(`${p}o`),
+                (p: string): Promise<string> => Promise.resolve(`${p}e`),
+                (p: string): Promise<string> => Promise.resolve(`${p}l`),
+                (p: string): Promise<string> => Promise.resolve(`${p}l`),
+                (p: string): Promise<string> => Promise.resolve(`${p}o`),
             ], 'h');
 
             expect(await result).to.be.equal('hello');
@@ -44,10 +42,6 @@ describe('utils.', () => {
 
     describe('fetchAsSvgXml', () => {
         it('should throw a TypeError if the url is not valid', () => {
-            expect(() => {
-                utils.fetchAsSvgXml();
-            }).to.throw(TypeError, 'Only absolute URLs are supported');
-
             expect(() => {
                 utils.fetchAsSvgXml('this is not a url!');
             }).to.throw(TypeError, 'Only absolute URLs are supported');

@@ -1,13 +1,18 @@
-const fs = require('fs');
-const path = require('path');
-const makeDir = require('make-dir');
+import fs from 'fs';
+import path from 'path';
+import makeDir from 'make-dir';
 
-module.exports = ({
+import {
+    OutputComponentsAsSvgOptionType,
+    TransformerType,
+} from './types';
+
+export = ({
     output,
-    getDirname = (options) => `${options.pageName}${path.sep}${options.dirname}`,
-    getBasename = (options) => `${options.basename}.svg`,
-}) => {
-    return async (pages) => {
+    getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
+    getBasename = (options): string => `${options.basename}.svg`,
+}: OutputComponentsAsSvgOptionType): TransformerType => {
+    return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             components.forEach(({ name: componentName, svg, figmaExport }) => {
                 const options = {

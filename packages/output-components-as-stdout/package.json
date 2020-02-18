@@ -2,7 +2,8 @@
     "name": "@figma-export/output-components-as-stdout",
     "version": "1.0.0",
     "description": "Outputter for @figma-export that outputs components in console as json",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/marcomontalbano/figma-exporter.git",

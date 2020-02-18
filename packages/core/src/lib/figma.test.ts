@@ -1,10 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import sinon from 'sinon';
+import { expect } from 'chai';
+import nock from 'nock';
 
-const { expect } = chai;
-const nock = require('nock');
+import { ClientInterface } from 'figma-js';
 
-const figmaDocument = require('./_config.test');
-const figma = require('./figma');
+import * as figmaDocument from './_config.test';
+import * as figma from './figma';
 
 describe('figma.', () => {
     beforeEach(() => {
@@ -21,7 +22,7 @@ describe('figma.', () => {
         it('should get all components from a list of children', () => {
             expect(figma.getComponents([
                 figmaDocument.component1,
-                figmaDocument.page2,
+                figmaDocument.group1,
             ])).to.eql([
                 figmaDocument.component1,
                 figmaDocument.component3,
@@ -31,7 +32,8 @@ describe('figma.', () => {
 
     describe('getIdsFromPages', () => {
         it('should get component ids from specified pages', () => {
-            const pages = figma.getPages({ children: [figmaDocument.page1, figmaDocument.page2] }, {
+            const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
+            const pages = figma.getPages(document, {
                 only: 'page2',
             });
 
@@ -40,7 +42,7 @@ describe('figma.', () => {
     });
 
     describe('getPages', () => {
-        const document = { children: [figmaDocument.page1, figmaDocument.page2] };
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
 
         it('should get all pages by default', () => {
             expect(figma.getPages(document))
@@ -84,7 +86,7 @@ describe('figma.', () => {
     describe('getFigmaClient', () => {
         it('should not create a figma client if no token is provided', () => {
             expect(() => {
-                figma.getClient();
+                figma.getClient('');
             }).to.throw(Error);
         });
     });
@@ -92,6 +94,7 @@ describe('figma.', () => {
     describe('fileImages', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
+                ...({} as ClientInterface),
                 fileImages: sinon.stub().returns({
                     data: {
                         images: {
@@ -107,6 +110,7 @@ describe('figma.', () => {
             expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
                 ids: ['A1', 'B2'],
                 format: 'svg',
+                // eslint-disable-next-line @typescript-eslint/camelcase
                 svg_include_id: true,
             });
 
@@ -120,6 +124,7 @@ describe('figma.', () => {
     describe('fileSvgs', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
+                ...({} as ClientInterface),
                 fileImages: sinon.stub().returns({
                     data: {
                         images: {
@@ -134,6 +139,7 @@ describe('figma.', () => {
             expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
                 ids: ['A1'],
                 format: 'svg',
+                // eslint-disable-next-line @typescript-eslint/camelcase
                 svg_include_id: true,
             });
 

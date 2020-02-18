@@ -9,25 +9,20 @@
   },
   "scripts": {
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/output */*/dist */*/tsconfig.tsbuildinfo",
-
     "postinstall": "lerna bootstrap --force-local",
-
     "build": "tsc --build packages/**/tsconfig.json",
     "prepublish": "npm run build",
-
     "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist --ext .js,.ts",
     "pretest": "npm run build",
     "posttest": "npm run lint",
-    "test": "mocha",
+    "test": "TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
     "test:watch": "npm test -- --watch --reporter=dot",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
     "coverage:watch": "npx nodemon --exec npm run coverage",
-
     "prewebsite:start": "npm run build",
     "website:start": "lerna run --scope @figma-export/website start --stream",
     "prewebsite:build": "lerna bootstrap --force-local",
     "website:build": "lerna run --scope @figma-export/website build --stream",
-
     "lerna:version": "lerna version",
     "lerna:install": "lerna exec npm install --stream",
     "lerna:update": "lerna exec npm update --stream",
@@ -44,6 +39,7 @@
   "devDependencies": {
     "@types/chai": "~4.2.7",
     "@types/chai-things": "0.0.34",
+    "@types/figma": "~1.0.2",
     "@types/mocha": "~5.2.7",
     "@types/node": "~13.7.1",
     "@types/sinon": "~7.5.1",
@@ -75,7 +71,7 @@
     "npm": ">= 5.3 <= 6.x"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js,ts}": [
       "npm test"
     ]
   },

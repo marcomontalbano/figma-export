@@ -1,14 +1,12 @@
-/* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
+import sinon from 'sinon';
+import { expect } from 'chai';
 
-const { expect } = chai;
+import fs from 'fs';
 
-const fs = require('fs');
+import * as figmaDocument from '../../core/src/lib/_config.test';
+import * as figma from '../../core/src/lib/figma';
 
-const figmaDocument = require('../core/lib/_config.test');
-const figma = require('../core/lib/figma');
-
-const outputter = require('./index');
+import outputter = require('./index');
 
 describe('outputter as svg', () => {
     afterEach(() => {
@@ -17,7 +15,8 @@ describe('outputter as svg', () => {
 
     it('should export all components into svg files', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
-        const pages = figma.getPages({ children: [figmaDocument.page1] });
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
+        const pages = figma.getPages(document);
 
         await outputter({
             output: 'output',

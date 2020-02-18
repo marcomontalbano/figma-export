@@ -1,6 +1,6 @@
-import { camelCase } from './index';
+import { expect } from 'chai';
 
-const { expect } = chai;
+import { camelCase } from './index';
 
 describe('utils', () => {
     it('camelCase', async () => {

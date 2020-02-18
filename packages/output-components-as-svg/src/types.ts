@@ -8,9 +8,8 @@ export type OptionType = {
 export type TransformerType = (pages: Array<FigmaExportPageNode>) => Promise<void>;
 export type OutputterType = (pages: FigmaExportPageNode[]) => Promise<void>;
 
-export type OutputComponentsAsEs6OptionType = {
+export type OutputComponentsAsSvgOptionType = {
     output: string;
-    useBase64?: boolean;
-    useDataUrl?: boolean;
-    getVariableName?: (options: OptionType) => string;
+    getDirname?: (options: OptionType) => string;
+    getBasename?: (options: OptionType) => string;
 }

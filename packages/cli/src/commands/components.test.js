@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
+const sinon = require('sinon');
 const { expect, test } = require('@oclif/test');
 
 const figmaExport = require('@figma-export/core');

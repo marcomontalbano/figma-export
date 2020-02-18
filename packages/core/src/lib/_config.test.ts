@@ -1,3 +1,4 @@
+import { FigmaExportComponentNode } from '@figma-export/types';
 
 const svg = {
     domain: 'https://s3-us-west-2.amazonaws.com',
@@ -20,7 +21,8 @@ const componentWithSlashedName = {
     type: 'COMPONENT',
 };
 
-const component1 = {
+const component1: FigmaExportComponentNode = {
+    ...({} as ComponentNode),
     id: '10:8',
     name: 'Figma-Logo',
     type: 'COMPONENT',
@@ -31,14 +33,20 @@ const component1 = {
     },
 };
 
-const component2 = {
+const component2: FigmaExportComponentNode = {
+    ...({} as ComponentNode),
     id: '8:1',
     name: 'Search',
     type: 'COMPONENT',
     svg: '<svg id="c2"></svg>',
+    figmaExport: {
+        dirname: '.',
+        basename: 'Figma-Search',
+    },
 };
 
-const component3 = {
+const component3: FigmaExportComponentNode = {
+    ...({} as ComponentNode),
     id: '9:1',
     name: 'Login',
     type: 'COMPONENT',
@@ -49,50 +57,60 @@ const component3 = {
     },
 };
 
-const group1 = {
+const group1: GroupNode = {
+    ...({} as GroupNode),
     id: '26:0',
     name: 'A Group',
     type: 'GROUP',
     children: [component3],
 };
 
-const page1 = {
+const page1: PageNode = {
+    ...({} as PageNode),
     id: '10:6',
     name: 'page1',
-    type: 'CANVAS',
+    type: 'PAGE',
     children: [
         component1,
         component2,
     ],
 };
 
-const page2 = {
+const page2: PageNode = {
+    ...({} as PageNode),
     id: '10:7',
     name: 'page2',
-    type: 'CANVAS',
+    type: 'PAGE',
     children: [
         group1,
     ],
 };
 
-const createPage = (children) => ({
+const createDocument = (props: any): DocumentNode => ({
+    ...({} as DocumentNode),
+    ...props,
+});
+
+const createPage = (children: any): DocumentNode => ({
+    ...({} as DocumentNode),
     children: [{
+        ...({} as PageNode),
         id: '10:8',
         name: 'fakePage',
-        type: 'CANVAS',
         children,
     }],
 });
 
-module.exports = {
+export {
     componentWithNumber,
     componentWithSlashedName,
     component1,
     component2,
     component3,
     group1,
-    createPage,
     page1,
     page2,
     svg,
+    createPage,
+    createDocument,
 };

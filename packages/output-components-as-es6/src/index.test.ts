@@ -1,24 +1,27 @@
 /* eslint-disable no-console */
-/* eslint-disable import/no-extraneous-dependencies */
 
-const { expect } = chai;
+import sinon from 'sinon';
+import { expect } from 'chai';
 
-const fs = require('fs');
-const { camelCase } = require('@figma-export/output-components-utils');
+import fs from 'fs';
+import { camelCase } from '@figma-export/output-components-utils';
 
-const figmaDocument = require('../../core/lib/_config.test');
-const figma = require('../../core/lib/figma');
+import { FigmaExportPageNode } from '@figma-export/types';
 
-const outputter = require('../dist');
+import * as figmaDocument from '../../core/src/lib/_config.test';
+import * as figma from '../../core/src/lib/figma';
+
+import outputter = require('./index');
 
 describe('outputter as es6', () => {
     afterEach(() => {
-        global.sinon.restore();
+        sinon.restore();
     });
 
     it('should export all components into an es6 file', async () => {
-        const writeFileSync = global.sinon.stub(fs, 'writeFileSync');
-        const pages = figma.getPages({ children: [figmaDocument.page1] });
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
+        const pages: FigmaExportPageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -32,8 +35,9 @@ describe('outputter as es6', () => {
     });
 
     it('should use "variablePrefix" and "variableSuffix" options to prepend or append a text to the variable name', async () => {
-        const writeFileSync = global.sinon.stub(fs, 'writeFileSync');
-        const pages = figma.getPages({ children: [figmaDocument.page1] });
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
+        const pages: FigmaExportPageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -48,8 +52,9 @@ describe('outputter as es6', () => {
     });
 
     it('should export all components into an es6 file using base64 encoding if set', async () => {
-        const writeFileSync = global.sinon.stub(fs, 'writeFileSync');
-        const pages = figma.getPages({ children: [figmaDocument.page1] });
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
+        const pages: FigmaExportPageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -65,8 +70,9 @@ describe('outputter as es6', () => {
     });
 
     it('should export all components into an es6 file using dataUrl if set', async () => {
-        const writeFileSync = global.sinon.stub(fs, 'writeFileSync');
-        const pages = figma.getPages({ children: [figmaDocument.page1] });
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
+        const pages: FigmaExportPageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -87,15 +93,16 @@ describe('outputter as es6', () => {
             children: [figmaDocument.componentWithNumber],
         };
 
-        global.sinon.stub(fs, 'writeFileSync');
+        sinon.stub(fs, 'writeFileSync');
 
-        const pages = figma.getPages({ children: [page] });
-        const spyOutputter = global.sinon.spy(outputter);
+        const document = figmaDocument.createDocument({ children: [page] });
+        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({
             output: 'output',
         })(pages).then(() => {
-            global.sinon.assert.fail();
+            sinon.assert.fail();
         }).catch((err) => {
             expect(err).to.be.an('Error');
             expect(err.message).to.be.equal('"1-icon" thrown an error: component names cannot start with a number.');
@@ -108,15 +115,16 @@ describe('outputter as es6', () => {
             children: [figmaDocument.component1, figmaDocument.component1],
         };
 
-        global.sinon.stub(fs, 'writeFileSync');
+        sinon.stub(fs, 'writeFileSync');
 
-        const pages = figma.getPages({ children: [page] });
-        const spyOutputter = global.sinon.spy(outputter);
+        const document = figmaDocument.createDocument({ children: [page] });
+        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({
             output: 'output',
         })(pages).then(() => {
-            global.sinon.assert.fail();
+            sinon.assert.fail();
         }).catch((err) => {
             expect(err).to.be.an('Error');
             expect(err.message).to.be.equal('Component "Figma-Logo" has an error: two components cannot have a same name.');

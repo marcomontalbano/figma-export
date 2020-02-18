@@ -9,19 +9,6 @@ import chaiThings from 'chai-things';
 chai.use(sinonChai);
 chai.use(chaiThings);
 
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace NodeJS {
-        interface Global {
-            sinon: sinon.SinonStatic;
-            chai: Chai.ChaiStatic;
-        }
-    }
-}
-
-global.sinon = sinon;
-global.chai = chai;
-
 let consoleSandbox: sinon.SinonSandbox;
 beforeEach(() => {
     consoleSandbox = sinon.createSandbox();

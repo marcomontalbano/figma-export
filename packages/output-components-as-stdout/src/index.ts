@@ -1,4 +1,4 @@
 /* eslint-disable no-console */
-module.exports = () => async (pages) => {
+export = () => async (pages: any): Promise<void> => {
     console.log(JSON.stringify(pages));
 };

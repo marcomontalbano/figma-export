@@ -38,6 +38,12 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      files: ['**.test.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      }
     }
   ],
   globals: {
