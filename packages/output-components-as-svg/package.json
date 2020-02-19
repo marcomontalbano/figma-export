@@ -17,5 +17,8 @@
     "dependencies": {
         "@figma-export/types": "^1.2.0",
         "make-dir": "~3.0.0"
+    },
+    "engines": {
+        "node": ">= 8.3 <= 13.x"
     }
 }

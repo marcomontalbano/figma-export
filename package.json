@@ -67,8 +67,7 @@
   },
   "dependencies": {},
   "engines": {
-    "node": ">= 8.3 <= 12.x",
-    "npm": ">= 5.3 <= 6.x"
+    "node": ">= 8.3 <= 13.x"
   },
   "lint-staged": {
     "*.{js,ts}": [
