@@ -26,7 +26,7 @@
     "lerna:version": "lerna version",
     "lerna:install": "lerna exec npm install --stream",
     "lerna:update": "lerna exec npm update --stream",
-    "lerna:ncu": "lerna exec 'ncu -u' --stream"
+    "lerna:ncu": "lerna exec 'npx npm-check-updates -u' --stream"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "nyc": {

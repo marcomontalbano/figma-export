@@ -48,7 +48,7 @@
     "type": "git",
     "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
     "directory": "packages/cli"
-},
+  },
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
