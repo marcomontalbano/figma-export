@@ -18,6 +18,14 @@ module.exports = {
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome', 'unit-test'],
+            transformers: [
+                require('../transform-svg-with-svgo')({
+                    plugins: [
+                        { removeViewBox: false },
+                        { removeDimensions: true },
+                    ]
+                })
+            ],
             outputters: [
                 require('../output-components-as-svg')({
                     output: './output/svg',
