@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import makeDir from 'make-dir';
 import svgstore from 'svgstore';
 
@@ -7,6 +5,9 @@ import {
     TransformerType,
     OutputComponentsAsSvgstoreOptionType,
 } from './types';
+
+import fs = require('fs');
+import path = require('path');
 
 export = ({
     output,

@@ -1,17 +1,20 @@
-const { Command, flags: commandFlags } = require('@oclif/command');
-const spinner = require('ora')({});
 
-const fs = require('fs');
-const path = require('path');
+import { Command, flags as commandFlags } from '@oclif/command';
 
-const figmaExport = require('@figma-export/core');
+import * as figmaExport from '@figma-export/core';
 
-const resolveNameOrPath = (nameOrPath) => {
+import fs = require('fs');
+import path = require('path');
+import ora = require('ora');
+
+const spinner = ora({});
+
+const resolveNameOrPath = (nameOrPath: string): string => {
     const absolutePath = path.resolve(nameOrPath);
     return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
 };
 
-const requirePackages = (packages, baseOptions = {}) => {
+const requirePackages = (packages: Function[], baseOptions = {}): Function[] => {
     return packages.map((pkg) => {
         if (typeof pkg === 'function') {
             return pkg;
@@ -19,13 +22,13 @@ const requirePackages = (packages, baseOptions = {}) => {
 
         const pkgNameOrPath = resolveNameOrPath(pkg);
 
-        // eslint-disable-next-line import/no-dynamic-require, global-require
+        // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires
         return require(pkgNameOrPath)(baseOptions);
     });
 };
 
 class ComponentsCommand extends Command {
-    async run() {
+    async run(): Promise<void> {
         const {
             args: {
                 fileId,
@@ -42,18 +45,18 @@ class ComponentsCommand extends Command {
 
         spinner.start();
 
-        return figmaExport.components({
+        figmaExport.components({
             fileId,
-            token: process.env.FIGMA_TOKEN,
+            token: process.env.FIGMA_TOKEN || '',
             onlyFromPages: page,
             transformers: requirePackages(transformer),
             outputters: requirePackages(outputter, { output }),
-            log: (message) => { spinner.text = message; },
+            log: (message: string) => { spinner.text = message; },
         }).then(() => {
             spinner.stop();
-        }).catch((err) => {
+        }).catch((err: Error) => {
             spinner.stop();
-            this.error(err, { exit: true });
+            this.error(err, { exit: 1 });
         });
     }
 }

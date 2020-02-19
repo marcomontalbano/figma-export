@@ -3,7 +3,6 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 
-import fs from 'fs';
 import { camelCase } from '@figma-export/output-components-utils';
 
 import { FigmaExportPageNode } from '@figma-export/types';
@@ -11,6 +10,7 @@ import { FigmaExportPageNode } from '@figma-export/types';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
+import fs = require('fs');
 import outputter = require('./index');
 
 describe('outputter as es6', () => {

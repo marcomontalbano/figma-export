@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
-const sinon = require('sinon');
-const { expect, test } = require('@oclif/test');
+import sinon from 'sinon';
+import { expect, test } from '@oclif/test';
 
-const figmaExport = require('@figma-export/core');
+import * as figmaExport from '@figma-export/core';
 
 describe('components', () => {
     afterEach(() => {
@@ -11,7 +11,7 @@ describe('components', () => {
     });
 
     it('should stdout a proper message with a fileId and an outputter', () => {
-        sinon.stub(figmaExport, 'components').returns(Promise.resolve());
+        sinon.stub(figmaExport, 'components').returns(Promise.resolve([]));
 
         test
             .stdout()
@@ -27,7 +27,7 @@ describe('components', () => {
         test
             .stdout()
             .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-svg'])
-            .exit(true)
+            .exit(1)
             .it();
     });
 });

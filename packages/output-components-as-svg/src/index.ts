@@ -1,11 +1,11 @@
-import fs from 'fs';
-import path from 'path';
-import makeDir from 'make-dir';
-
 import {
     OutputComponentsAsSvgOptionType,
     TransformerType,
 } from './types';
+
+import fs = require('fs');
+import path = require('path');
+import makeDir = require('make-dir');
 
 export = ({
     output,

@@ -1,11 +1,10 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 
-import fs from 'fs';
-
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
+import fs = require('fs');
 import outputter = require('./index');
 
 describe('outputter as svgstore', () => {

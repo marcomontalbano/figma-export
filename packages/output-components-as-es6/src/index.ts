@@ -1,5 +1,3 @@
-import fs from 'fs';
-import path from 'path';
 import makeDir from 'make-dir';
 import { camelCase } from '@figma-export/output-components-utils';
 
@@ -8,6 +6,9 @@ import {
     OutputComponentsAsEs6OptionType,
     OptionType,
 } from './types';
+
+import fs = require('fs');
+import path = require('path');
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const svgToMiniDataURI = require('mini-svg-data-uri');
