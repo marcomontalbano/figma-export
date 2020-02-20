@@ -1,10 +1,7 @@
 import * as Figma from 'figma-js';
 
 import { basename, dirname } from 'path';
-import {
-    FigmaExportComponentNode,
-    FigmaExportPageNode,
-} from '@figma-export/types';
+import { FigmaExport } from '@figma-export/types';
 
 import {
     toArray,
@@ -13,8 +10,8 @@ import {
     fromEntries,
 } from './utils';
 
-const getComponents = (children: readonly SceneNode[] = []): FigmaExportComponentNode[] => {
-    let components: FigmaExportComponentNode[] = [];
+const getComponents = (children: readonly SceneNode[] = []): FigmaExport.ComponentNode[] => {
+    let components: FigmaExport.ComponentNode[] = [];
 
     children.forEach((component: any) => {
         if (component.type === 'COMPONENT') {
@@ -46,7 +43,7 @@ type FigmaExportPagesOptions = {
     only?: string | string[];
 }
 
-const getPages = (document: DocumentNode, options: FigmaExportPagesOptions = {}): FigmaExportPageNode[] => {
+const getPages = (document: DocumentNode, options: FigmaExportPagesOptions = {}): FigmaExport.PageNode[] => {
     const pages = filterPagesByName(document.children, options.only);
 
     return pages.map((page) => ({
@@ -55,7 +52,7 @@ const getPages = (document: DocumentNode, options: FigmaExportPagesOptions = {})
     }));
 };
 
-const getIdsFromPages = (pages: FigmaExportPageNode[]): string[] => pages.reduce((ids: string[], page) => [
+const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => pages.reduce((ids: string[], page) => [
     ...ids,
     ...page.components.map((component: ComponentNode) => component.id),
 ], []);
@@ -97,8 +94,8 @@ const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: stri
     return fromEntries(svgs);
 };
 
-const enrichPagesWithSvg = async (client: Figma.ClientInterface, fileId: string, pages: FigmaExportPageNode[], svgTransformers: any[]):
-    Promise<FigmaExportPageNode[]> => {
+const enrichPagesWithSvg = async (client: Figma.ClientInterface, fileId: string, pages: FigmaExport.PageNode[], svgTransformers: any[]):
+    Promise<FigmaExport.PageNode[]> => {
     const componentIds = getIdsFromPages(pages);
 
     if (componentIds.length === 0) {

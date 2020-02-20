@@ -39,7 +39,6 @@
   "devDependencies": {
     "@types/chai": "~4.2.7",
     "@types/chai-things": "0.0.34",
-    "@types/figma": "~1.0.2",
     "@types/mocha": "~5.2.7",
     "@types/node": "~13.7.1",
     "@types/sinon": "~7.5.1",

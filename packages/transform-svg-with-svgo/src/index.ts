@@ -1,10 +1,8 @@
 import SVGO from 'svgo';
 
-import { StringTransformer } from './types';
+import { FigmaExport } from '@figma-export/types';
 
-module.exports = (options: {}): StringTransformer => {
+export = (options: SVGO.Options): FigmaExport.StringTransformer => {
     const svgo = new SVGO(options);
-    return async (svg): Promise<string> => {
-        return (await svgo.optimize(svg)).data;
-    };
+    return async (svg): Promise<string> => (await svgo.optimize(svg)).data;
 };

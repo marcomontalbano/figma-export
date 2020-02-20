@@ -1,13 +1,27 @@
-export type FigmaExportType = {
-    dirname: string;
-    basename: string;
-}
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace FigmaExport {
 
-export type FigmaExportComponentNode = ComponentNode & {
-    figmaExport: FigmaExportType;
-    svg: string;
-}
+    export type ComponentExtras = {
+        dirname: string;
+        basename: string;
+    }
 
-export type FigmaExportPageNode = PageNode & {
-    components: FigmaExportComponentNode[];
-};
+    export interface ComponentNode extends globalThis.ComponentNode {
+        figmaExport: ComponentExtras;
+        svg: string;
+    }
+
+    export interface PageNode extends globalThis.PageNode {
+        components: ComponentNode[];
+    }
+
+    export type StringTransformer = (str: string) => Promise<string>
+
+    export type Outputter = (pages: PageNode[]) => Promise<void>
+
+    export type OptionType = {
+        componentName: string;
+        pageName: string;
+    } & ComponentExtras;
+
+}

@@ -1,6 +1,4 @@
-import {
-    FigmaExportPageNode,
-} from '@figma-export/types/src';
+import { FigmaExport } from '@figma-export/types/src';
 import { Document } from 'figma-js';
 
 import {
@@ -21,7 +19,7 @@ export const components = async ({
     transformers = [],
     outputters = [],
     log = (msg: string): void => { console.log(msg); },
-}: FigmaExportComponentsProps): Promise<FigmaExportPageNode[]> => {
+}: FigmaExportComponentsProps): Promise<FigmaExport.PageNode[]> => {
     const client = getClient(token);
 
     log('fetching document');

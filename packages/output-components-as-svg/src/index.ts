@@ -1,17 +1,20 @@
-import {
-    OutputComponentsAsSvgOptionType,
-    TransformerType,
-} from './types';
+import { FigmaExport } from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
 import makeDir = require('make-dir');
 
+type Options = {
+    output: string;
+    getDirname?: (options: FigmaExport.OptionType) => string;
+    getBasename?: (options: FigmaExport.OptionType) => string;
+}
+
 export = ({
     output,
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getBasename = (options): string => `${options.basename}.svg`,
-}: OutputComponentsAsSvgOptionType): TransformerType => {
+}: Options): FigmaExport.Outputter => {
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             components.forEach(({ name: componentName, svg, figmaExport }) => {

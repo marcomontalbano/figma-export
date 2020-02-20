@@ -16,5 +16,8 @@
     },
     "engines": {
         "node": ">= 8.3 <= 13.x"
+    },
+    "dependencies": {
+        "@types/figma": "~1.0.2"
     }
 }

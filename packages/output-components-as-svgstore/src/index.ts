@@ -1,19 +1,22 @@
 import makeDir from 'make-dir';
 import svgstore from 'svgstore';
 
-import {
-    TransformerType,
-    OutputComponentsAsSvgstoreOptionType,
-} from './types';
+import { FigmaExport } from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
+
+type Options = {
+    output: string;
+    options?: {};
+    getIconId?: (options: FigmaExport.OptionType) => string;
+}
 
 export = ({
     output,
     getIconId = (options): string => `${options.pageName}/${options.componentName}`,
     options = {},
-}: OutputComponentsAsSvgstoreOptionType): TransformerType => {
+}: Options): FigmaExport.Outputter => {
     makeDir.sync(output);
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {

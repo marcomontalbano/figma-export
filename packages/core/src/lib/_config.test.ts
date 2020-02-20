@@ -1,4 +1,4 @@
-import { FigmaExportComponentNode } from '@figma-export/types';
+import { FigmaExport } from '@figma-export/types';
 
 const svg = {
     domain: 'https://s3-us-west-2.amazonaws.com',
@@ -21,7 +21,7 @@ const componentWithSlashedName = {
     type: 'COMPONENT',
 };
 
-const component1: FigmaExportComponentNode = {
+const component1: FigmaExport.ComponentNode = {
     ...({} as ComponentNode),
     id: '10:8',
     name: 'Figma-Logo',
@@ -33,7 +33,7 @@ const component1: FigmaExportComponentNode = {
     },
 };
 
-const component2: FigmaExportComponentNode = {
+const component2: FigmaExport.ComponentNode = {
     ...({} as ComponentNode),
     id: '8:1',
     name: 'Search',
@@ -45,7 +45,7 @@ const component2: FigmaExportComponentNode = {
     },
 };
 
-const component3: FigmaExportComponentNode = {
+const component3: FigmaExport.ComponentNode = {
     ...({} as ComponentNode),
     id: '9:1',
     name: 'Login',

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 
 import { camelCase } from '@figma-export/output-components-utils';
 
-import { FigmaExportPageNode } from '@figma-export/types';
+import { FigmaExport } from '@figma-export/types';
 
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
@@ -21,7 +21,7 @@ describe('outputter as es6', () => {
     it('should export all components into an es6 file', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -37,7 +37,7 @@ describe('outputter as es6', () => {
     it('should use "variablePrefix" and "variableSuffix" options to prepend or append a text to the variable name', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -54,7 +54,7 @@ describe('outputter as es6', () => {
     it('should export all components into an es6 file using base64 encoding if set', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -72,7 +72,7 @@ describe('outputter as es6', () => {
     it('should export all components into an es6 file using dataUrl if set', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
 
         await outputter({
             output: 'output',
@@ -96,7 +96,7 @@ describe('outputter as es6', () => {
         sinon.stub(fs, 'writeFileSync');
 
         const document = figmaDocument.createDocument({ children: [page] });
-        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
         const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({
@@ -118,7 +118,7 @@ describe('outputter as es6', () => {
         sinon.stub(fs, 'writeFileSync');
 
         const document = figmaDocument.createDocument({ children: [page] });
-        const pages: FigmaExportPageNode[] = figma.getPages(document);
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
         const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({

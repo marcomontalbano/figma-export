@@ -1,11 +1,7 @@
 import makeDir from 'make-dir';
 import { camelCase } from '@figma-export/output-components-utils';
 
-import {
-    TransformerType,
-    OutputComponentsAsEs6OptionType,
-    OptionType,
-} from './types';
+import { FigmaExport } from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
@@ -13,12 +9,19 @@ import path = require('path');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const svgToMiniDataURI = require('mini-svg-data-uri');
 
+type Options = {
+    output: string;
+    useBase64?: boolean;
+    useDataUrl?: boolean;
+    getVariableName?: (options: FigmaExport.OptionType) => string;
+}
+
 export = ({
     output,
     getVariableName = (options): string => camelCase(options.componentName.trim()),
     useBase64 = false,
     useDataUrl = false,
-}: OutputComponentsAsEs6OptionType): TransformerType => {
+}: Options): FigmaExport.Outputter => {
     makeDir.sync(output);
     return async (pages): Promise<void> => {
         pages.forEach((page) => {
@@ -29,7 +32,7 @@ export = ({
             components.forEach((component) => {
                 const { name: componentName, svg, figmaExport } = component;
 
-                const options: OptionType = {
+                const options = {
                     pageName,
                     componentName,
                     ...figmaExport,
