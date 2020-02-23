@@ -11,8 +11,8 @@ const getTestFiles = (dir: string, startDir: string = dir): string[] => {
     let filelist: string[] = [];
     const files = readdirSync(dir);
 
-    files.forEach((file) => {
-        if (isDirectory(dir + file)) {
+    files.forEach((file: string) => {
+        if (isDirectory(`${dir}${file}`)) {
             filelist = [...filelist, ...getTestFiles(`${dir}${file}/`, startDir)];
             return;
         }
@@ -30,7 +30,7 @@ const getTestFiles = (dir: string, startDir: string = dir): string[] => {
 
 const getPackages = (): string[] => {
     const packagesFolder: string = resolve('packages');
-    return readdirSync(packagesFolder).map((filename) => resolve(packagesFolder, filename)).filter(isDirectory);
+    return readdirSync(packagesFolder).map((filename: string) => resolve(packagesFolder, filename)).filter(isDirectory);
 };
 
 const describePackage = (packagePath: string): void => {
