@@ -10,10 +10,12 @@ import {
     fromEntries,
 } from './utils';
 
-const getComponents = (children: readonly SceneNode[] = []): FigmaExport.ComponentNode[] => {
+type NodeWithChildren = FigmaExport.ComponentNode | GroupNode | FrameNode | InstanceNode | BooleanOperationNode;
+
+const getComponents = (children: readonly NodeWithChildren[] = []): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
-    children.forEach((component: any) => {
+    children.forEach((component: NodeWithChildren) => {
         if (component.type === 'COMPONENT') {
             components.push({
                 ...component,
@@ -27,7 +29,7 @@ const getComponents = (children: readonly SceneNode[] = []): FigmaExport.Compone
 
         components = [
             ...components,
-            ...getComponents((component.children as ComponentNode[])),
+            ...getComponents((component.children as NodeWithChildren[])),
         ];
     });
 
@@ -48,7 +50,7 @@ const getPages = (document: DocumentNode, options: FigmaExportPagesOptions = {})
 
     return pages.map((page) => ({
         ...page,
-        components: getComponents(page.children),
+        components: getComponents(page.children as readonly FigmaExport.ComponentNode[]),
     }));
 };
 
@@ -80,7 +82,7 @@ type FigmaExportFileSvg = {
     [key: string]: string;
 }
 
-const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: string[], svgTransformers: any[] = []): Promise<FigmaExportFileSvg> => {
+const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: string[], svgTransformers: Function[] = []): Promise<FigmaExportFileSvg> => {
     const images = await fileImages(client, fileId, ids);
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
         const svg = await fetchAsSvgXml(url);
@@ -94,7 +96,7 @@ const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: stri
     return fromEntries(svgs);
 };
 
-const enrichPagesWithSvg = async (client: Figma.ClientInterface, fileId: string, pages: FigmaExport.PageNode[], svgTransformers: any[]):
+const enrichPagesWithSvg = async (client: Figma.ClientInterface, fileId: string, pages: FigmaExport.PageNode[], svgTransformers: Function[]):
     Promise<FigmaExport.PageNode[]> => {
     const componentIds = getIdsFromPages(pages);
 

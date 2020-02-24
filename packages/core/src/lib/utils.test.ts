@@ -6,7 +6,7 @@ import * as utils from './utils';
 describe('utils.', () => {
     describe('toArray', () => {
         it('should convert the element into an array if the element is not an array. If is already an array, just returns it', () => {
-            expect(utils.toArray()).to.eql([]);
+            expect(utils.toArray('')).to.eql(['']);
             expect(utils.toArray('this is a string')).to.eql(['this is a string']);
             expect(utils.toArray(2)).to.eql([2]);
             expect(utils.toArray([5])).to.eql([5]);
@@ -34,9 +34,9 @@ describe('utils.', () => {
                 (p: string): Promise<string> => Promise.resolve(`${p}l`),
                 (p: string): Promise<string> => Promise.resolve(`${p}l`),
                 (p: string): Promise<string> => Promise.resolve(`${p}o`),
-            ], 'h');
+            ], 3);
 
-            expect(await result).to.be.equal('hello');
+            expect(await result).to.be.equal('3ello');
         });
     });
 

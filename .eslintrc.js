@@ -11,6 +11,23 @@ module.exports = {
   plugins: [
     'chai-friendly'
   ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+    expect: true,
+    sinon: true,
+    chai: true
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+  },
+  rules: {
+    'indent': ['error', 4],
+    'max-len': ['error', 160],
+    'no-unused-expressions': 'off',
+    'chai-friendly/no-unused-expressions': 'error',
+    'arrow-body-style': 'off'
+  },
   overrides: [
     {
       files: ['**.ts'],
@@ -46,21 +63,4 @@ module.exports = {
       }
     }
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-    expect: true,
-    sinon: true,
-    chai: true
-  },
-  parserOptions: {
-    ecmaVersion: 2018,
-  },
-  rules: {
-    'indent': ['error', 4],
-    'max-len': ['error', 150],
-    'no-unused-expressions': 'off',
-    'chai-friendly/no-unused-expressions': 'error',
-    'arrow-body-style': 'off'
-  },
 };

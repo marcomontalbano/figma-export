@@ -7,9 +7,13 @@ import {
     enrichPagesWithSvg,
 } from './figma';
 
-type FigmaExportComponentsProps = {
-    [key: string]: any;
+type Options = {
     token: string;
+    fileId: string;
+    onlyFromPages?: string[];
+    transformers?: Function[];
+    outputters?: Function[];
+    log?: (msg: string) => void;
 }
 
 export const components = async ({
@@ -18,8 +22,11 @@ export const components = async ({
     onlyFromPages = [],
     transformers = [],
     outputters = [],
-    log = (msg: string): void => { console.log(msg); },
-}: FigmaExportComponentsProps): Promise<FigmaExport.PageNode[]> => {
+    log = (msg): void => {
+        // eslint-disable-next-line no-console
+        console.log(msg);
+    },
+}: Options): Promise<FigmaExport.PageNode[]> => {
     const client = getClient(token);
 
     log('fetching document');
@@ -30,7 +37,7 @@ export const components = async ({
     log('fetching components');
     const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, transformers);
 
-    await Promise.all(outputters.map((outputter: Function) => outputter(pagesWithSvg)));
+    await Promise.all(outputters.map((outputter) => outputter(pagesWithSvg)));
 
     return pagesWithSvg;
 };

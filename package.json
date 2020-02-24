@@ -18,7 +18,7 @@
     "test": "TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
     "test:watch": "npm test -- --watch --reporter=dot",
     "coverage": "nyc --reporter=lcov --reporter=text npm test -- --reporter=dot",
-    "coverage:watch": "npx nodemon --exec npm run coverage",
+    "coverage:watch": "npx nodemon -e js,mjs,ts --exec npm run coverage",
     "prewebsite:start": "npm run build",
     "website:start": "lerna run --scope @figma-export/website start --stream",
     "prewebsite:build": "lerna bootstrap --force-local",

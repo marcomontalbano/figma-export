@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-const toArray = (any: any = []): Array<any> => (Array.isArray(any) ? any : [any]);
+const toArray = <T extends unknown>(any: T): T[] => (Array.isArray(any) ? any : [any]);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fromEntries = (iterable: any[][]): { [key: string]: any } => {
     return [...iterable].reduce((obj: { [key: string]: {} }, [key, val]) => {
         // eslint-disable-next-line no-param-reassign
@@ -10,7 +11,7 @@ const fromEntries = (iterable: any[][]): { [key: string]: any } => {
     }, {});
 };
 
-const promiseSequentially = (promiseFactories: Function[], initialValue: any): Promise<any> => {
+const promiseSequentially = (promiseFactories: Function[], initialValue: unknown): Promise<unknown> => {
     const promise = promiseFactories.reduce((previousPromise, promiseFactory) => {
         return previousPromise.then((value) => promiseFactory(value));
     }, Promise.resolve(initialValue));

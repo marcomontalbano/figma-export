@@ -4,6 +4,7 @@ import { camelCase } from './index';
 
 describe('utils', () => {
     it('camelCase', async () => {
+        expect(camelCase('')).to.eql('');
         expect(camelCase('a')).to.eql('a');
         expect(camelCase('a word')).to.eql('aWord');
         expect(camelCase('a 5 number')).to.eql('a5Number');

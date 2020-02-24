@@ -39,8 +39,9 @@ class UseConfigCommand extends Command {
 
             return figmaExporter({
                 token: process.env.FIGMA_TOKEN || '',
+                fileId: '',
                 ...options,
-                log: (message: string) => { spinner.text = message; },
+                log: (message) => { spinner.text = message; },
             }).then(() => {
                 spinner.stop();
             }).catch((err: Error) => {
