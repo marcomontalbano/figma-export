@@ -15,7 +15,15 @@ jobs:
           node-version: 10.x
       - name: Project setup `npm ci`
         run: npm ci
-      - name: Run `publish`
+      - name: Run `publish` PRERELEASE
+        if: 'github.event.release.prerelease'
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          ./node_modules/.bin/lerna publish from-git --dist-tag next --require-scripts --yes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Run `publish` PRODUCTION
+        if: '!github.event.release.prerelease'
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
           ./node_modules/.bin/lerna publish from-git --require-scripts --yes
