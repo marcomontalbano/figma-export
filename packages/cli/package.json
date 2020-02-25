@@ -15,8 +15,7 @@
     "@oclif/config": "~1.14.0",
     "@oclif/errors": "~1.2.2",
     "@oclif/plugin-help": "~2.2.3",
-    "ora": "~4.0.3",
-    "tslib": "~1.10.0"
+    "ora": "~4.0.3"
   },
   "devDependencies": {
     "@oclif/dev-cli": "~1.22.2",
