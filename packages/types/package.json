@@ -1,0 +1,23 @@
+{
+    "name": "@figma-export/types",
+    "version": "1.2.0",
+    "description": "Type definition for @figma-export",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+        "directory": "packages/types"
+    },
+    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "engines": {
+        "node": ">= 8.3 <= 13.x"
+    },
+    "dependencies": {
+        "@types/figma": "~1.0.2"
+    }
+}

@@ -23,5 +23,8 @@
     },
     "dependencies": {
         "preact": "~10.2.1"
+    },
+    "engines": {
+        "node": ">= 8.3 <= 13.x"
     }
 }

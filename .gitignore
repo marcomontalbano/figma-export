@@ -7,5 +7,7 @@ lerna-debug.log
 .changelog
 
 /output
+**/dist
+*.tsbuildinfo
 
 /.figmaexportrc.js
