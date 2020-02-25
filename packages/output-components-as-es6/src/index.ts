@@ -13,7 +13,7 @@ type Options = {
     output: string;
     useBase64?: boolean;
     useDataUrl?: boolean;
-    getVariableName?: (options: FigmaExport.OptionType) => string;
+    getVariableName?: (options: FigmaExport.OutputterParamOption) => string;
 }
 
 export = ({

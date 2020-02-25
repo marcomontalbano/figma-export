@@ -19,7 +19,7 @@ export namespace FigmaExport {
 
     export type Outputter = (pages: PageNode[]) => Promise<void>
 
-    export type OptionType = {
+    export type OutputterParamOption = {
         componentName: string;
         pageName: string;
     } & ComponentExtras;

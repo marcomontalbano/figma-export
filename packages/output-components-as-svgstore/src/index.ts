@@ -9,7 +9,7 @@ import path = require('path');
 type Options = {
     output: string;
     options?: {};
-    getIconId?: (options: FigmaExport.OptionType) => string;
+    getIconId?: (options: FigmaExport.OutputterParamOption) => string;
 }
 
 export = ({

@@ -6,8 +6,8 @@ import makeDir = require('make-dir');
 
 type Options = {
     output: string;
-    getDirname?: (options: FigmaExport.OptionType) => string;
-    getBasename?: (options: FigmaExport.OptionType) => string;
+    getDirname?: (options: FigmaExport.OutputterParamOption) => string;
+    getBasename?: (options: FigmaExport.OutputterParamOption) => string;
 }
 
 export = ({
