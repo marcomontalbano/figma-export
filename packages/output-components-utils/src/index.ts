@@ -10,4 +10,9 @@ const camelCase = (str: string): string => {
     }, '');
 };
 
-export { camelCase };
+const pascalCase = (str: string): string => upperFirst(camelCase(str));
+
+export {
+    camelCase,
+    pascalCase,
+};
