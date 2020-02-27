@@ -69,7 +69,7 @@
     "node": ">= 8.3 <= 13.x"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "!(*.d).{js,ts}": [
       "npm test"
     ]
   },
