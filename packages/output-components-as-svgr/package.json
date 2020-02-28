@@ -1,0 +1,26 @@
+{
+    "name": "@figma-export/output-components-as-svgr",
+    "version": "2.0.0-alpha.1",
+    "description": "Outputter for @figma-export that exports components as React components using svgr",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+        "directory": "packages/output-components-as-svgr"
+    },
+    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "@figma-export/output-components-utils": "^2.0.0-alpha.1",
+        "@figma-export/types": "^2.0.0-alpha.1",
+        "@svgr/core": "~5.2.0",
+        "make-dir": "~3.0.0"
+    },
+    "engines": {
+        "node": ">= 8.3 <= 13.x"
+    }
+}

@@ -20,6 +20,7 @@ const componentWithSlashedName = {
     id: '9:10',
     name: 'icon/eye',
     type: 'COMPONENT',
+    svg: svg.content,
 };
 
 const component1: FigmaExport.ComponentNode = {
