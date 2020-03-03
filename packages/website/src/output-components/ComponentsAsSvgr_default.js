@@ -3,8 +3,13 @@ import { Fragment } from 'preact';
 
 import CodeBlock from '../CodeBlock';
 
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import * as FigmaMonochrome from '../../output/svgr/monochrome';
+
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import * as FigmaIcons from '../../output/svgr/icons';
+
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import { Squirrel } from '../../output/svgr-octicons/Octicons';
 
 const props = {
