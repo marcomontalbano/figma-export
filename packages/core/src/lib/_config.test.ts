@@ -40,7 +40,7 @@ const component2: FigmaExport.ComponentNode = {
     id: '8:1',
     name: 'Search',
     type: 'COMPONENT',
-    svg: '<svg id="c2"></svg>',
+    svg: svg.content,
     figmaExport: {
         dirname: '.',
         basename: 'Figma-Search',
@@ -52,7 +52,7 @@ const component3: FigmaExport.ComponentNode = {
     id: '9:1',
     name: 'Login',
     type: 'COMPONENT',
-    svg: '<svg id="c3"></svg>',
+    svg: svg.content,
     figmaExport: {
         dirname: '.',
         basename: 'Login',
