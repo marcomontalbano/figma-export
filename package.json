@@ -12,7 +12,7 @@
     "postinstall": "lerna bootstrap --force-local",
     "build": "tsc --build packages/**/tsconfig.json",
     "prepublish": "npm run build",
-    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist --ext .js,.ts",
+    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.ts",
     "pretest": "npm run build",
     "posttest": "npm run lint",
     "test": "TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
@@ -68,14 +68,9 @@
   "engines": {
     "node": ">= 8.3 <= 13.x"
   },
-  "lint-staged": {
-    "!(*.d).{js,ts}": [
-      "npm test"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged -c ./lint-staged.config.js"
     }
   }
 }

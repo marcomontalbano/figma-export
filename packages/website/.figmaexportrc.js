@@ -11,7 +11,17 @@ module.exports = {
                     output: './output/es6-dataurl-octicons',
                     getVariableName: (options) => camelCase(`icon ${options.componentName}`),
                     useDataUrl: true,
-                })
+                }),
+
+                require('../output-components-as-svgr')({
+                    output: './output/svgr-octicons',
+                    getSvgrConfig: () => ({
+                        template: ({ template }, opts, { componentName, props, jsx, exports }) => template.ast`
+                            const ${componentName} = (${props}) => (${jsx});
+                            ${exports}
+                        `
+                    })
+                }),
             ]
         }],
 
@@ -29,6 +39,16 @@ module.exports = {
             outputters: [
                 require('../output-components-as-svg')({
                     output: './output/svg',
+                }),
+
+                require('../output-components-as-svgr')({
+                    output: './output/svgr',
+                    getSvgrConfig: () => ({
+                        template: ({ template }, opts, { componentName, props, jsx, exports }) => template.ast`
+                            const ${componentName} = (${props}) => (${jsx});
+                            ${exports}
+                        `
+                    })
                 }),
 
                 require('../output-components-as-es6')({
