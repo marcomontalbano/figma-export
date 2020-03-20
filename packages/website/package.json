@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@figma-export/website",
-    "version": "2.0.0-alpha.2",
+    "version": "2.0.0-alpha.3",
     "description": "Website for @figma-export",
     "author": "Marco Montalbano <marcomontalbano.work@gmail.com>",
     "homepage": "http://marcomontalbano.github.io/figma-export",
@@ -15,8 +15,8 @@
     "devDependencies": {
         "@babel/core": "~7.9.0",
         "@babel/plugin-transform-react-jsx": "~7.9.0",
-        "@figma-export/cli": "^2.0.0-alpha.2",
-        "@figma-export/output-components-utils": "^2.0.0-alpha.2",
+        "@figma-export/cli": "^2.0.0-alpha.3",
+        "@figma-export/output-components-utils": "^2.0.0-alpha.3",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
         "parcel-bundler": "~1.12.4",
         "sass": "~1.26.3"
