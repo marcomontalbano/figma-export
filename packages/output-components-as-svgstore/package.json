@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@figma-export/types": "^2.0.0-alpha.1",
-        "make-dir": "~3.0.0",
+        "make-dir": "~3.0.2",
         "svgstore": "~3.0.0-2"
     },
     "engines": {
