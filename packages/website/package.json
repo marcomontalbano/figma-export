@@ -13,16 +13,16 @@
         "build": "parcel build index.html"
     },
     "devDependencies": {
-        "@babel/core": "~7.8.3",
-        "@babel/plugin-transform-react-jsx": "~7.8.3",
+        "@babel/core": "~7.9.0",
+        "@babel/plugin-transform-react-jsx": "~7.9.0",
         "@figma-export/cli": "^2.0.0-alpha.2",
         "@figma-export/output-components-utils": "^2.0.0-alpha.2",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
         "parcel-bundler": "~1.12.4",
-        "sass": "~1.25.0"
+        "sass": "~1.26.3"
     },
     "dependencies": {
-        "preact": "~10.2.1"
+        "preact": "~10.3.4"
     },
     "engines": {
         "node": ">= 8.3 <= 13.x"
