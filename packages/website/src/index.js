@@ -1,9 +1,10 @@
 import { render, Fragment } from 'preact';
 
-import SvgOcticons from './Hero';
+import SvgOcticons from './SvgOcticons';
 import GitHubLink from './GitHubLink';
 import ComponentsAsES6 from './output-components/ComponentsAsES6';
 import ComponentsAsSvgstore from './output-components/ComponentsAsSvgstore';
+import ComponentsAsSvgr from './output-components/ComponentsAsSvgr';
 
 const App = () => (
     <Fragment>
@@ -21,6 +22,7 @@ const App = () => (
         <GitHubLink />
         <ComponentsAsES6 />
         <ComponentsAsSvgstore />
+        <ComponentsAsSvgr />
     </Fragment>
 );
 

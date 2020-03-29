@@ -6,7 +6,7 @@ import { figmaArrow } from '../output/es6-dataurl/icons';
 
 import figmaImage from '../images/figma-octicons.png';
 
-const Hero = () => (
+const SvgOcticons = () => (
     <div className="octicons">
         <div className="figma-screen">
             <img src={figmaImage} />
@@ -24,4 +24,4 @@ const Hero = () => (
     </div>
 );
 
-export default Hero;
+export default SvgOcticons;
