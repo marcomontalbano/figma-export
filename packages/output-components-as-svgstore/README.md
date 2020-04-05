@@ -53,7 +53,7 @@ require('@figma-export/output-components-as-svgstore')({
 
 > *defaults may change, please refer to `./src/index.ts`*
 
-`options` is the [svgstore configuration](https://github.com/svgstore/svgstore#options) object.
+`svgstoreConfig` is the [svgstore configuration](https://github.com/svgstore/svgstore#options) object.
 
 ## Install
 
