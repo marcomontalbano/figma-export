@@ -27,7 +27,7 @@ const props = {
                 outputters: [
                     require('@figma-export/output-components-as-svgstore')({
                         output: './output/svgstore-monochrome',
-                        options: {
+                        svgstoreConfig: {
                             cleanSymbols: ['fill']
                         }
                     })
