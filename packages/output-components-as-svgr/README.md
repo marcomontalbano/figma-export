@@ -35,6 +35,48 @@ $ tree output/
 
 > **Tip**: A figma component named `icon/eye` will be exported as `Eye.jsx` inside the `icon` folder. Another `index.js` file will be created inside the `icon` folder and this will export directly the `Eye` component.
 
+## .figmaexportrc.js
+
+You can easily add this outputter to your `.figmaexportrc.js`:
+
+```js
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            outputters: [
+                require('@figma-export/output-components-as-svgr')({
+                    output: './output'
+                })
+            ]
+        }],
+    ]
+}
+```
+
+`output` is **mandatory**.
+
+`getDirname`, `getComponentName`, `getFileExtension` and `getSvgrConfig` are **optional**.
+
+```js
+const path = require('path');
+const { pascalCase } = require('@figma-export/output-components-utils');
+
+...
+
+require('@figma-export/output-components-as-svgr')({
+    output: './output',
+    getDirname: (options) => `${options.pageName}${path.sep}${options.dirname}`,
+    getComponentName: (options) => `${pascalCase(options.basename)}`,
+    getFileExtension: (options) => '.jsx',
+    getSvgrConfig: (options) => ({}),
+})
+```
+
+> *defaults may change, please refer to `./src/index.ts`*
+
+`getSvgrConfig` is a function that returns the [SVGR configuration](https://react-svgr.com/docs/options/) object.
+
 ## Install
 
 Using npm:

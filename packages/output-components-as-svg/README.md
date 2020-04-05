@@ -29,6 +29,43 @@ $ tree output/
 
 > **Tip**: A component named `icon/eye` will be exported as `eye.svg` inside the `icon` folder.
 
+## .figmaexportrc.js
+
+You can easily add this outputter to your `.figmaexportrc.js`:
+
+```js
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            outputters: [
+                require('@figma-export/output-components-as-svg')({
+                    output: './output'
+                })
+            ]
+        }],
+    ]
+}
+```
+
+`output` is **mandatory**.
+
+`getDirname` and `getBasename` are **optional**.
+
+```js
+const path = require('path');
+
+...
+
+require('@figma-export/output-components-as-svg')({
+    output: './output',
+    getDirname: (options) => `${options.pageName}${path.sep}${options.dirname}`,
+    getBasename: (options) => `${options.basename}.svg`,
+})
+```
+
+> *defaults may change, please refer to `./src/index.ts`*
+
 ## Install
 
 Using npm:

@@ -20,6 +20,41 @@ Probably you already know what <a target="_blank" rel="noopener noreferrer" href
 
 You can read more on <a target="_blank" rel="noopener noreferrer" href="https://css-tricks.com/svg-sprites-use-better-icon-fonts/">Icon System with SVG Sprites</a> article where you can find how to use them.
 
+## .figmaexportrc.js
+
+You can easily add this outputter to your `.figmaexportrc.js`:
+
+```js
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            outputters: [
+                require('@figma-export/output-components-as-svgstore')({
+                    output: './output'
+                })
+            ]
+        }],
+    ]
+}
+```
+
+`output` is **mandatory**.
+
+`getIconId` and `options` are **optional**.
+
+```js
+require('@figma-export/output-components-as-svgstore')({
+    output: './output',
+    getIconId: (options) => `${options.pageName}/${options.componentName}`,
+    options: {},
+})
+```
+
+> *defaults may change, please refer to `./src/index.ts`*
+
+`options` is the [svgstore configuration](https://github.com/svgstore/svgstore#options) object.
+
 ## Install
 
 Using npm:
