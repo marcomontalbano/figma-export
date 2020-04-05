@@ -23,6 +23,44 @@ export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="
 
 > **Tip**: A component named `icon/eye` will be exported as variable named `iconEye`.
 
+## .figmaexportrc.js
+
+You can easily add this outputter to your `.figmaexportrc.js`:
+
+```js
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            outputters: [
+                require('@figma-export/output-components-as-es6')({
+                    output: './output'
+                })
+            ]
+        }],
+    ]
+}
+```
+
+`output` is **mandatory**.
+
+`getVariableName`, `useBase64` and `useDataUrl` are **optional**.
+
+```js
+const { camelCase } = require('@figma-export/output-components-utils');
+
+...
+
+require('@figma-export/output-components-as-es6')({
+    output: './output',
+    getVariableName: (options) => camelCase(options.componentName.trim()),
+    useBase64: false,
+    useDataUrl: false,
+})
+```
+
+> *defaults may change, please refer to `./src/index.ts`*
+
 ## Install
 
 Using npm:
