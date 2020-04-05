@@ -41,13 +41,13 @@ module.exports = {
 
 `output` is **mandatory**.
 
-`getIconId` and `options` are **optional**.
+`getIconId` and `svgstoreConfig` are **optional**.
 
 ```js
 require('@figma-export/output-components-as-svgstore')({
     output: './output',
     getIconId: (options) => `${options.pageName}/${options.componentName}`,
-    options: {},
+    svgstoreConfig: {},
 })
 ```
 

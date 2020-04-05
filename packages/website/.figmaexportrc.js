@@ -67,7 +67,7 @@ module.exports = {
                 require('../output-components-as-svgstore')({
                     output: './output/svgstore-monochrome',
                     getIconId: (options) => `[unfilled] ${options.pageName}/${options.componentName}`,
-                    options: {
+                    svgstoreConfig: {
                         cleanSymbols: ['fill']
                     }
                 }),
