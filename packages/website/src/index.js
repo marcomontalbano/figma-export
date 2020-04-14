@@ -1,4 +1,4 @@
-import { render, Fragment } from 'preact';
+import { render, Fragment, hydrate } from 'preact';
 
 import SvgOcticons from './SvgOcticons';
 import GitHubLink from './GitHubLink';
@@ -26,4 +26,11 @@ const App = () => (
     </Fragment>
 );
 
-render(<App />, document.getElementById('root'));
+const rootElement = document.getElementById('root');
+
+if (rootElement.hasChildNodes()) {
+    hydrate(<App />, rootElement);
+}
+else {
+    render(<App />, rootElement);
+}

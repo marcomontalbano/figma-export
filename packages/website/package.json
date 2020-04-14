@@ -4,13 +4,20 @@
     "version": "2.1.0",
     "description": "Website for @figma-export",
     "author": "Marco Montalbano <marcomontalbano.work@gmail.com>",
-    "homepage": "http://marcomontalbano.github.io/figma-export",
+    "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {
-        "prestart": "figma-export use-config",
-        "prebuild": "figma-export use-config",
+        "clean": "rimraf dist output",
+        "export": "figma-export use-config",
+        "prestart": "run-s export",
         "start": "parcel index.html",
-        "build": "parcel build index.html"
+        "prebuild": "run-s clean export",
+        "build": "parcel build index.html",
+        "postbuild": "react-snap",
+        "serve": "npx serve dist"
+    },
+    "reactSnap": {
+        "source": "dist"
     },
     "devDependencies": {
         "@babel/core": "~7.9.0",
@@ -18,7 +25,10 @@
         "@figma-export/cli": "^2.0.0",
         "@figma-export/output-components-utils": "^2.0.0",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
+        "npm-run-all": "~4.1.5",
         "parcel-bundler": "~1.12.4",
+        "react-snap": "~1.23.0",
+        "rimraf": "~3.0.2",
         "sass": "~1.26.3"
     },
     "dependencies": {
