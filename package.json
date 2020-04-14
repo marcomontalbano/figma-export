@@ -23,6 +23,7 @@
     "website:start": "lerna run --scope @figma-export/website start --stream",
     "prewebsite:build": "lerna bootstrap --force-local",
     "website:build": "lerna run --scope @figma-export/website build --stream",
+    "website:serve": "lerna run --scope @figma-export/website serve --stream",
     "lerna:version": "lerna version",
     "lerna:install": "lerna exec npm install --stream",
     "lerna:update": "lerna exec npm update --stream",
