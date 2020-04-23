@@ -32,6 +32,7 @@ module.exports = {
     commands: [
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['icons', 'monochrome', 'unit-test'],
             outputters: [
                 require('@figma-export/output-components-as-es6')({
                     output: './output'

@@ -22,8 +22,8 @@ const props = {
     code: `module.exports = {
         commands: [
             ['components', {
-                fileId: 'FP7lqd1V00LUaT5zvdklkkZr',
-                onlyFromPages: ['Octicons'],
+                fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                onlyFromPages: ['icons'],
                 outputters: [
                     require('@figma-export/output-components-as-svgstore')({
                         output: './output/svgstore-monochrome',

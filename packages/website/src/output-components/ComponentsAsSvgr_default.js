@@ -10,7 +10,7 @@ import * as FigmaMonochrome from '../../output/svgr/monochrome';
 import * as FigmaIcons from '../../output/svgr/icons';
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
-import { Squirrel } from '../../output/svgr-octicons/Octicons';
+import { Squirrel } from '../../output/svgr-octicons/octicons-by-github';
 
 const props = {
     title: (
@@ -22,14 +22,14 @@ const props = {
         <Fragment>
             You can easily import the generated <code>.jsx</code> files into your project and
             start using your Figma components as React components.<br />
-            <code>import {`{ Squirrel }`} from './output/Octicons';</code>
+            <code>import {`{ Squirrel }`} from './output/octicons-by-github';</code>
         </Fragment>
     ),
     code: `module.exports = {
         commands: [
             ['components', {
-                fileId: 'FP7lqd1V00LUaT5zvdklkkZr',
-                onlyFromPages: ['Octicons'],
+                fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                onlyFromPages: ['octicons-by-github'],
                 outputters: [
                     require('@figma-export/output-components-as-svgr')({
                         output: './output'
