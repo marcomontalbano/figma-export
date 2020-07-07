@@ -15,6 +15,6 @@
         "access": "public"
     },
     "engines": {
-        "node": ">= 8.3 <= 13.x"
+        "node": ">= 8.3 <= 14.x"
     }
 }

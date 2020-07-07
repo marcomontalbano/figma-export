@@ -33,7 +33,7 @@ export = ({
             });
 
             const filePath = path.resolve(output, `${pageName}.svg`);
-            fs.writeFileSync(filePath, sprites);
+            fs.writeFileSync(filePath, sprites.toString({}));
         });
     };
 };
