@@ -11,8 +11,8 @@ type Options = {
     token: string;
     fileId: string;
     onlyFromPages?: string[];
-    transformers?: Function[];
-    outputters?: Function[];
+    transformers?: FigmaExport.StringTransformer[];
+    outputters?: FigmaExport.Outputter[];
     log?: (msg: string) => void;
 }
 

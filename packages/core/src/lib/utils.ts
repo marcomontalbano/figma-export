@@ -4,13 +4,14 @@ const toArray = <T extends unknown>(any: T): T[] => (Array.isArray(any) ? any : 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fromEntries = (iterable: any[][]): { [key: string]: any } => {
-    return [...iterable].reduce((obj: { [key: string]: {} }, [key, val]) => {
+    return [...iterable].reduce((obj: { [key: string]: unknown }, [key, val]) => {
         // eslint-disable-next-line no-param-reassign
         obj[key] = val;
         return obj;
     }, {});
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const promiseSequentially = (promiseFactories: Function[], initialValue: unknown): Promise<unknown> => {
     const promise = promiseFactories.reduce((previousPromise, promiseFactory) => {
         return previousPromise.then((value) => promiseFactory(value));

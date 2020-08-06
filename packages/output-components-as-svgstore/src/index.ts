@@ -1,14 +1,19 @@
+/* eslint-disable import/order */
+
 import makeDir from 'make-dir';
 import svgstore from 'svgstore';
 
 import { FigmaExport } from '@figma-export/types';
+
+import { Options as SvgStoreOptions } from './svgstore';
 
 import fs = require('fs');
 import path = require('path');
 
 type Options = {
     output: string;
-    svgstoreConfig?: {};
+    /** https://www.npmjs.com/package/svgstore#options */
+    svgstoreConfig?: SvgStoreOptions;
     getIconId?: (options: FigmaExport.OutputterParamOption) => string;
 }
 

@@ -71,7 +71,6 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
     const response = await client.fileImages(fileId, {
         ids,
         format: 'svg',
-        // eslint-disable-next-line @typescript-eslint/camelcase
         svg_include_id: true,
     });
 
@@ -82,7 +81,12 @@ type FigmaExportFileSvg = {
     [key: string]: string;
 }
 
-const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: string[], svgTransformers: Function[] = []): Promise<FigmaExportFileSvg> => {
+const fileSvgs = async (
+    client: Figma.ClientInterface,
+    fileId: string,
+    ids: string[],
+    svgTransformers: FigmaExport.StringTransformer[] = [],
+): Promise<FigmaExportFileSvg> => {
     const images = await fileImages(client, fileId, ids);
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
         const svg = await fetchAsSvgXml(url);
@@ -96,8 +100,12 @@ const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: stri
     return fromEntries(svgs);
 };
 
-const enrichPagesWithSvg = async (client: Figma.ClientInterface, fileId: string, pages: FigmaExport.PageNode[], svgTransformers: Function[]):
-    Promise<FigmaExport.PageNode[]> => {
+const enrichPagesWithSvg = async (
+    client: Figma.ClientInterface,
+    fileId: string,
+    pages: FigmaExport.PageNode[],
+    svgTransformers: FigmaExport.StringTransformer[],
+): Promise<FigmaExport.PageNode[]> => {
     const componentIds = getIdsFromPages(pages);
 
     if (componentIds.length === 0) {

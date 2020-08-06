@@ -1,9 +1,9 @@
 module.exports = {
-  extends: [
-    'airbnb-base',
-    'eslint-config-developit',
-  ],
-  rules: {
-    'indent': ['error', 4],
-  },
+    extends: [
+        'airbnb-base',
+        'eslint-config-developit'
+    ],
+    rules: {
+        indent: ['error', 4]
+    }
 };

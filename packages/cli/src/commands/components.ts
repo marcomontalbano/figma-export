@@ -1,7 +1,7 @@
-
 import { Command, flags as commandFlags } from '@oclif/command';
 
 import * as figmaExport from '@figma-export/core';
+import { FigmaExport } from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
@@ -14,7 +14,8 @@ const resolveNameOrPath = (nameOrPath: string): string => {
     return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
 };
 
-const requirePackages = (packages: Function[], baseOptions = {}): Function[] => {
+// eslint-disable-next-line @typescript-eslint/ban-types
+const requirePackages = <T extends Function>(packages: (T | string)[], baseOptions = {}): T[] => {
     return packages.map((pkg) => {
         if (typeof pkg === 'function') {
             return pkg;
@@ -49,8 +50,8 @@ class ComponentsCommand extends Command {
             fileId,
             token: process.env.FIGMA_TOKEN || '',
             onlyFromPages: page,
-            transformers: requirePackages(transformer),
-            outputters: requirePackages(outputter, { output }),
+            transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
+            outputters: requirePackages<FigmaExport.Outputter>(outputter, { output }),
             log: (message: string) => { spinner.text = message; },
         }).then(() => {
             spinner.stop();

@@ -6,7 +6,10 @@ import fs = require('fs');
 import path = require('path');
 import ora = require('ora');
 
-type FigmaExportCommand = [string, {}];
+type FigmaExportCommand = [
+    string,
+    Record<string, unknown>
+];
 
 const spinner = ora({});
 
