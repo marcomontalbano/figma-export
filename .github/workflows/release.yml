@@ -9,14 +9,14 @@ jobs:
     name: Trigger GitHub release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the new tag
+      - name: Checkout 🛎️
         uses: actions/checkout@v1.0.0
 
-      - name: Get tag info
+      - name: Get tag info 🏷
         id: tags
         uses: babel/actions/get-release-tags@v2
 
-      - name: Generate the changelog
+      - name: Generate the changelog 📝
         id: changelog
         uses: babel/actions/generate-lerna-changelog@v2
         with:
@@ -25,7 +25,7 @@ jobs:
         env:
           GITHUB_AUTH: ${{ secrets.GH_TOKEN }}
 
-      - name: Create a draft GitHub release
+      - name: Create a draft GitHub release 🎁
         uses: babel/actions/publish-github-release@v2
         with:
           tag: ${{ steps.tags.outputs.new }}

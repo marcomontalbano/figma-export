@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FigmaExport } from '@figma-export/types';
+import * as Figma from 'figma-js';
 
 const svg = {
     domain: 'https://s3-us-west-2.amazonaws.com',
@@ -24,7 +25,7 @@ const componentWithSlashedName = {
 };
 
 const component1: FigmaExport.ComponentNode = {
-    ...({} as ComponentNode),
+    ...({} as Figma.Component),
     id: '10:8',
     name: 'Figma-Logo',
     type: 'COMPONENT',
@@ -36,7 +37,7 @@ const component1: FigmaExport.ComponentNode = {
 };
 
 const component2: FigmaExport.ComponentNode = {
-    ...({} as ComponentNode),
+    ...({} as Figma.Component),
     id: '8:1',
     name: 'Search',
     type: 'COMPONENT',
@@ -48,7 +49,7 @@ const component2: FigmaExport.ComponentNode = {
 };
 
 const component3: FigmaExport.ComponentNode = {
-    ...({} as ComponentNode),
+    ...({} as Figma.Component),
     id: '9:1',
     name: 'Login',
     type: 'COMPONENT',
@@ -59,44 +60,44 @@ const component3: FigmaExport.ComponentNode = {
     },
 };
 
-const group1: GroupNode = {
-    ...({} as GroupNode),
+const group1: Figma.Group = {
+    ...({} as Figma.Group),
     id: '26:0',
     name: 'A Group',
     type: 'GROUP',
     children: [component3],
 };
 
-const page1: PageNode = {
-    ...({} as PageNode),
+const page1: Figma.Canvas = {
+    ...({} as Figma.Canvas),
     id: '10:6',
     name: 'page1',
-    type: 'PAGE',
+    type: 'CANVAS',
     children: [
         component1,
         component2,
     ],
 };
 
-const page2: PageNode = {
-    ...({} as PageNode),
+const page2: Figma.Canvas = {
+    ...({} as Figma.Canvas),
     id: '10:7',
     name: 'page2',
-    type: 'PAGE',
+    type: 'CANVAS',
     children: [
         group1,
     ],
 };
 
-const createDocument = (props: any): DocumentNode => ({
-    ...({} as DocumentNode),
+const createDocument = (props: any): Figma.Document => ({
+    ...({} as Figma.Document),
     ...props,
 });
 
-const createPage = (children: any): DocumentNode => ({
-    ...({} as DocumentNode),
+const createPage = (children: any): Figma.Document => ({
+    ...({} as Figma.Document),
     children: [{
-        ...({} as PageNode),
+        ...({} as Figma.Canvas),
         id: '10:8',
         name: 'fakePage',
         children,

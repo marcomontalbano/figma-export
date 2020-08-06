@@ -18,6 +18,6 @@
         "node": ">= 10.13 <= 14.x"
     },
     "dependencies": {
-        "@types/figma": "~1.0.3"
+        "figma-js": "~1.11.0"
     }
 }

@@ -1,4 +1,4 @@
-import { FigmaExport } from '@figma-export/types/src';
+import { FigmaExport } from '@figma-export/types';
 import { Document } from 'figma-js';
 
 import {
@@ -32,7 +32,11 @@ export const components = async ({
     log('fetching document');
     const { data: { document } = {} }: { data?: { document?: Document } } = await client.file(fileId);
 
-    const pages = getPages((document as unknown as DocumentNode), { only: onlyFromPages });
+    if (!document) {
+        throw new Error('\'document\' is missing.');
+    }
+
+    const pages = getPages((document), { only: onlyFromPages });
 
     log('fetching components');
     const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, transformers);
