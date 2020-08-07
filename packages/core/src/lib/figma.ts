@@ -10,12 +10,12 @@ import {
     fromEntries,
 } from './utils';
 
-type NodeWithChildren = FigmaExport.ComponentNode | GroupNode | FrameNode | InstanceNode | BooleanOperationNode;
+type NodeWithChildren = FigmaExport.ComponentNode | Figma.Group | Figma.Frame | Figma.Instance | Figma.BooleanGroup;
 
 const getComponents = (children: readonly NodeWithChildren[] = []): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
-    children.forEach((component: NodeWithChildren) => {
+    children.forEach((component) => {
         if (component.type === 'COMPONENT') {
             components.push({
                 ...component,
@@ -36,7 +36,7 @@ const getComponents = (children: readonly NodeWithChildren[] = []): FigmaExport.
     return components;
 };
 
-const filterPagesByName = (pages: readonly PageNode[], pageNames: string | string[] = []): PageNode[] => {
+const filterPagesByName = (pages: readonly Figma.Canvas[], pageNames: string | string[] = []): Figma.Canvas[] => {
     const only = toArray(pageNames).filter((p) => p.length);
     return pages.filter((page) => only.length === 0 || only.includes(page.name));
 };
@@ -45,8 +45,8 @@ type FigmaExportPagesOptions = {
     only?: string | string[];
 }
 
-const getPages = (document: DocumentNode, options: FigmaExportPagesOptions = {}): FigmaExport.PageNode[] => {
-    const pages = filterPagesByName(document.children, options.only);
+const getPages = (document: Figma.Document, options: FigmaExportPagesOptions = {}): FigmaExport.PageNode[] => {
+    const pages = filterPagesByName(document.children as Figma.Canvas[], options.only);
 
     return pages.map((page) => ({
         ...page,
@@ -56,7 +56,7 @@ const getPages = (document: DocumentNode, options: FigmaExportPagesOptions = {})
 
 const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => pages.reduce((ids: string[], page) => [
     ...ids,
-    ...page.components.map((component: ComponentNode) => component.id),
+    ...page.components.map((component) => component.id),
 ], []);
 
 const getClient = (token: string): Figma.ClientInterface => {
@@ -71,7 +71,6 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
     const response = await client.fileImages(fileId, {
         ids,
         format: 'svg',
-        // eslint-disable-next-line @typescript-eslint/camelcase
         svg_include_id: true,
     });
 
@@ -82,7 +81,12 @@ type FigmaExportFileSvg = {
     [key: string]: string;
 }
 
-const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: string[], svgTransformers: Function[] = []): Promise<FigmaExportFileSvg> => {
+const fileSvgs = async (
+    client: Figma.ClientInterface,
+    fileId: string,
+    ids: string[],
+    svgTransformers: FigmaExport.StringTransformer[] = [],
+): Promise<FigmaExportFileSvg> => {
     const images = await fileImages(client, fileId, ids);
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
         const svg = await fetchAsSvgXml(url);
@@ -96,8 +100,12 @@ const fileSvgs = async (client: Figma.ClientInterface, fileId: string, ids: stri
     return fromEntries(svgs);
 };
 
-const enrichPagesWithSvg = async (client: Figma.ClientInterface, fileId: string, pages: FigmaExport.PageNode[], svgTransformers: Function[]):
-    Promise<FigmaExport.PageNode[]> => {
+const enrichPagesWithSvg = async (
+    client: Figma.ClientInterface,
+    fileId: string,
+    pages: FigmaExport.PageNode[],
+    svgTransformers: FigmaExport.StringTransformer[],
+): Promise<FigmaExport.PageNode[]> => {
     const componentIds = getIdsFromPages(pages);
 
     if (componentIds.length === 0) {

@@ -1,4 +1,3 @@
-
 const upperFirst = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
 const lowerFirst = (str: string): string => str.charAt(0).toLowerCase() + str.slice(1);

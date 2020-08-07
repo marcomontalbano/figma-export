@@ -1,11 +1,10 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import svgr from '@svgr/core';
-
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
-
 import fs = require('fs');
+
 import makeDir = require('make-dir');
 import outputter = require('./index');
 

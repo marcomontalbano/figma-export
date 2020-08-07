@@ -1,5 +1,6 @@
-declare module '@svgr/core' {
-    type config = {};
-    type state = {};
-    function sync(svg: string, config: config, state: state): string;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Config, State } from './src/svgr';
+
+declare global {
+    export function sync(svg: string, config: Config, state: State): string;
 }

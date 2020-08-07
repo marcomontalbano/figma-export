@@ -1,7 +1,7 @@
-
 import { FigmaExport } from '@figma-export/types';
 import { pascalCase } from '@figma-export/output-components-utils';
 import svgr from '@svgr/core';
+import { Config, State } from './svgr';
 
 import fs = require('fs');
 import path = require('path');
@@ -12,7 +12,12 @@ type Options = {
     getDirname?: (options: FigmaExport.OutputterParamOption) => string;
     getComponentName?: (options: FigmaExport.OutputterParamOption) => string;
     getFileExtension?: (options: FigmaExport.OutputterParamOption) => string;
-    getSvgrConfig?: (options: FigmaExport.OutputterParamOption) => svgr.config;
+
+    /**
+     * SVGR ships with a handful of customizable options, usable in both the CLI and API.
+     * https://react-svgr.com/docs/options/
+     */
+    getSvgrConfig?: (options: FigmaExport.OutputterParamOption) => Config;
 }
 
 type IndexJs = {
@@ -24,7 +29,7 @@ export = ({
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getComponentName = (options): string => `${pascalCase(options.basename)}`,
     getFileExtension = (): string => '.jsx',
-    getSvgrConfig = (): svgr.config => ({}),
+    getSvgrConfig = (): Config => ({ }),
 }: Options): FigmaExport.Outputter => {
     makeDir.sync(output);
     const indexJs: IndexJs = {};
@@ -45,7 +50,7 @@ export = ({
                 indexJs[filePath].push(`export { default as ${reactComponentName} } from './${basename}';`);
 
                 const svgrConfig = getSvgrConfig(options);
-                const svgrState = { componentName: reactComponentName };
+                const svgrState: State = { componentName: reactComponentName };
 
                 const jsCode = svgr.sync(svg, svgrConfig, svgrState);
 

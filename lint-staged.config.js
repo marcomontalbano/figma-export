@@ -1,3 +1,3 @@
 module.exports = {
-    '!(*.d).{js,ts}': () => 'npm test',
+    '!(*.d).{js,ts}': () => 'yarn test',
 };

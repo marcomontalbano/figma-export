@@ -9,20 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - name: Checkout 🛎️
+        uses: actions/checkout@v1
+
+      - name: Node 🧰
+        uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: Project setup `npm ci`
-        run: npm ci
-      - name: Run `publish` PRERELEASE
+
+      - name: Install 📦
+        run: yarn --frozen-lockfile
+
+      - name: Publish 🚀 PRERELEASE
         if: 'github.event.release.prerelease'
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
           ./node_modules/.bin/lerna publish from-git --dist-tag next --require-scripts --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Run `publish` PRODUCTION
+
+      - name: Publish 🚀 PRODUCTION
         if: '!github.event.release.prerelease'
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN

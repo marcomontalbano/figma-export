@@ -20,8 +20,8 @@
         "source": "dist"
     },
     "devDependencies": {
-        "@babel/core": "~7.9.0",
-        "@babel/plugin-transform-react-jsx": "~7.9.0",
+        "@babel/core": "~7.11.1",
+        "@babel/plugin-transform-react-jsx": "~7.10.4",
         "@figma-export/cli": "^2.2.0",
         "@figma-export/output-components-utils": "^2.2.0",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
@@ -29,12 +29,12 @@
         "parcel-bundler": "~1.12.4",
         "react-snap": "~1.23.0",
         "rimraf": "~3.0.2",
-        "sass": "~1.26.3"
+        "sass": "~1.26.10"
     },
     "dependencies": {
-        "preact": "~10.3.4"
+        "preact": "~10.4.6"
     },
     "engines": {
-        "node": ">= 8.3 <= 14.x"
+        "node": ">= 10.13 <= 14.x"
     }
 }

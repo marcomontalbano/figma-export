@@ -4,6 +4,7 @@ import { expect } from 'chai';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
+// eslint-disable-next-line import/order
 import fs = require('fs');
 import outputter = require('./index');
 

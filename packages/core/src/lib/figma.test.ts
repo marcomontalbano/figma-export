@@ -110,7 +110,6 @@ describe('figma.', () => {
             expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
                 ids: ['A1', 'B2'],
                 format: 'svg',
-                // eslint-disable-next-line @typescript-eslint/camelcase
                 svg_include_id: true,
             });
 
@@ -139,7 +138,6 @@ describe('figma.', () => {
             expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
                 ids: ['A1'],
                 format: 'svg',
-                // eslint-disable-next-line @typescript-eslint/camelcase
                 svg_include_id: true,
             });
 

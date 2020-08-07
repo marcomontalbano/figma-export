@@ -1,9 +1,6 @@
-declare module 'svgstore' {
-    interface SvgStore {
-        add: (id: string, svg: string, options?: {}) => SvgStore;
-        toString: (options: {}) => string;
-    }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Options, SvgStore } from './src/svgstore';
 
-    function svgstore(options: {}): SvgStore;
-    export = svgstore;
+declare global {
+    export function svgstore(options: Options): SvgStore;
 }

@@ -16,10 +16,10 @@
     },
     "dependencies": {
         "@figma-export/types": "^2.2.0",
-        "make-dir": "~3.0.2",
+        "make-dir": "~3.1.0",
         "svgstore": "~3.0.0-2"
     },
     "engines": {
-        "node": ">= 8.3 <= 14.x"
+        "node": ">= 10.13 <= 14.x"
     }
 }

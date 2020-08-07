@@ -1,3 +1,5 @@
+import * as Figma from 'figma-js';
+
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace FigmaExport {
 
@@ -6,12 +8,12 @@ export namespace FigmaExport {
         basename: string;
     }
 
-    export interface ComponentNode extends globalThis.ComponentNode {
+    export interface ComponentNode extends Figma.Component {
         figmaExport: ComponentExtras;
         svg: string;
     }
 
-    export interface PageNode extends globalThis.PageNode {
+    export interface PageNode extends Figma.Canvas {
         components: ComponentNode[];
     }
 

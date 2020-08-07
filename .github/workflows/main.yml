@@ -8,17 +8,22 @@ jobs:
 
     strategy:
       matrix:
-        node: [8.x, 10.x, 12.x, 13.x, 14.x]
+        node: [10.x, 12.x, 13.x, 14.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
+    - name: Checkout 🛎️
+      uses: actions/checkout@v1
+
+    - name: Node 🧰
+      uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-    - name: Project setup `npm ci`
-      run: npm ci
-    - name: Run `test`
-      run: npm test
+
+    - name: Install 📦
+      run: yarn --frozen-lockfile
+
+    - name: Test 🐛
+      run: yarn test
 
 
   coverage:
@@ -26,20 +31,26 @@ jobs:
     runs-on: ubuntu-latest
         
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
+    - name: Checkout 🛎️
+      uses: actions/checkout@v1
+
+    - name: Node 🧰
+      uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - name: Project setup `npm ci`
-      run: npm ci
 
-    - name: Run `coverage`
-      run: npm run coverage
+    - name: Install 📦
+      run: yarn --frozen-lockfile
+
+    - name: Coverage 🌈
+      run: yarn coverage
+
     - name: Export `coverage`
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.github_token }}
         path-to-lcov: ./coverage/lcov.info # optional (default value)
+
     - name: Upload `coverage` artifact
       uses: actions/upload-artifact@v1
       with:
@@ -52,15 +63,20 @@ jobs:
   #   runs-on: ubuntu-latest
         
   #   steps:
-  #   - uses: actions/checkout@v1
-  #   - uses: actions/setup-node@v1
+  #   - name: Checkout 🛎️
+  #     uses: actions/checkout@v1
+
+  #   - name: Node 🧰
+  #     uses: actions/setup-node@v1
   #     with:
   #       node-version: 12.x
-  #   - name: Project setup `npm ci`
-  #     run: npm ci
 
-  #   - name: Run `stryker`
-  #     run: npm run stryker
+  #   - name: Install 📦
+  #     run: yarn --frozen-lockfile
+
+  #   - name: Stryker 👾
+  #     run: yarn stryker
+
   #   - name: Upload `stryker` artifact
   #     uses: actions/upload-artifact@v1
   #     with:
