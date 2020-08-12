@@ -7,6 +7,9 @@ import { ClientInterface } from 'figma-js';
 import * as figmaDocument from './_config.test';
 import * as figma from './figma';
 
+import { file } from './_mocks_/figma.files';
+import { fileNodes, nodeIds } from './_mocks_/figma.fileNodes';
+
 describe('figma.', () => {
     beforeEach(() => {
         nock(figmaDocument.svg.domain, { reqheaders: { 'Content-Type': 'images/svg+xml' } })
@@ -144,6 +147,61 @@ describe('figma.', () => {
             expect(fileSvgs).to.deep.equal({
                 A1: figmaDocument.svg.content,
             });
+        });
+    });
+
+    describe('fetchStyles', () => {
+        it('should fetch style from a specified Figma fileId', async () => {
+            const client = {
+                ...({} as ClientInterface),
+                file: sinon.stub().resolves({
+                    data: {
+                        styles: {
+                            '121:10': { name: 'color-1' },
+                            '131:20': { name: 'color-2' },
+                        },
+                    },
+                }),
+                fileNodes: sinon.stub().resolves({
+                    data: {
+                        nodes: {
+                            '121:10': {
+                                document: { id: '121:10', name: 'color-1' },
+                            },
+                            '131:20': {
+                                document: { id: '131:20', name: 'color-2' },
+                            },
+                        },
+                    },
+                }),
+            };
+
+            const styleNodes = await figma.fetchStyles(client, 'ABC123');
+
+            expect(client.file).to.have.been.calledOnceWith('ABC123');
+            expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: ['121:10', '131:20'] });
+
+            expect(styleNodes.length).to.equal(2);
+            expect(styleNodes).to.deep.equal([
+                { id: '121:10', name: 'color-1' },
+                { id: '131:20', name: 'color-2' },
+            ]);
+        });
+
+        it('should fetch style from a specified Figma fileId using a real example (mocked)', async () => {
+            const client = {
+                ...({} as ClientInterface),
+                file: sinon.stub().resolves({ data: file }),
+                fileNodes: sinon.stub().resolves({ data: fileNodes }),
+            };
+
+            const styleNodes = await figma.fetchStyles(client, 'ABC123');
+
+            expect(client.file).to.have.been.calledOnceWith('ABC123');
+            expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds });
+
+            expect(styleNodes.length).to.equal(14);
+            expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.name).to.equal('color-1');
         });
     });
 });

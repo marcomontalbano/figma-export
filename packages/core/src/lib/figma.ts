@@ -45,6 +45,18 @@ type FigmaExportPagesOptions = {
     only?: string | string[];
 }
 
+const fetchStyles = async (client: Figma.ClientInterface, fileId: string): Promise<(Figma.Node | undefined)[]> => {
+    const { data: { styles } = {} } = await client.file(fileId);
+
+    if (!styles) {
+        throw new Error('\'styles\' are missing.');
+    }
+
+    const { data: { nodes } } = await client.fileNodes(fileId, { ids: Object.keys(styles) });
+
+    return Object.values(nodes).map((node) => node?.document);
+};
+
 const getPages = (document: Figma.Document, options: FigmaExportPagesOptions = {}): FigmaExport.PageNode[] => {
     const pages = filterPagesByName(document.children as Figma.Canvas[], options.only);
 
@@ -124,6 +136,7 @@ const enrichPagesWithSvg = async (
 };
 
 export {
+    fetchStyles,
     getComponents,
     getPages,
     getIdsFromPages,
