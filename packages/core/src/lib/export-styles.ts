@@ -1,8 +1,7 @@
 import { FigmaExport } from '@figma-export/types';
 
-import {
-    getClient, fetchStyles,
-} from './figma';
+import { getClient } from './figma';
+import { fetchStyles, parseFigmaStyles } from './figmaStyles';
 
 type Options = {
     token: string;
@@ -27,11 +26,11 @@ export const styles = async ({
 
     log('fetching styles');
     const styleNodes = await fetchStyles(client, fileId);
-    console.log(styleNodes);
 
     log('parsing styles');
     // TODO: convert figma Styles to CSS Like
-    // const parsedStyles = await parseFigmaStyles(styleNodes, transformers);
+    const parsedStyles = await parseFigmaStyles(styleNodes);
+    console.log(JSON.stringify(parsedStyles, undefined, 4));
 
     // TODO: send the parsed style to outputter
     // await Promise.all(outputters.map((outputter) => outputter(parsedStyles)));
