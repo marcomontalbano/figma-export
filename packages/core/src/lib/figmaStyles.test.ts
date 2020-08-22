@@ -15,6 +15,15 @@ const nodeIds = Object.keys(fileNodes.nodes);
 
 describe('figmaStyles.', () => {
     describe('fetch', () => {
+        it('should throw an error if styles are not present', async () => {
+            const client = {
+                ...({} as Figma.ClientInterface),
+                file: sinon.stub().resolves({ data: {} }),
+            };
+
+            await expect(figmaStyles.fetchStyles(client, 'ABC123')).to.be.rejectedWith(Error, '\'styles\' are missing.');
+        });
+
         it('should fetch style from a specified Figma fileId', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),

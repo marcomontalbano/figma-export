@@ -1,22 +1,15 @@
 import * as Figma from 'figma-js';
 
-interface Colorable {
+type ExtractableColor = {
     opacity?: number;
     color?: Figma.Color
-}
-
-interface Color {
-    r: number
-    g: number
-    b: number
-    a: number
 }
 
 /**
  * A color-stop's <color> value, followed by one or two optional stop positions.
  */
 interface GradientStop {
-    color: Color,
+    color: Figma.Color,
     position: number
 }
 
@@ -34,7 +27,7 @@ interface GradientLinear {
     gradientStops: GradientStop[]
 }
 
-const extractColor = (paint: Colorable): (Color | undefined) => {
+const extractColor = (paint: ExtractableColor): (Figma.Color | undefined) => {
     if (!paint.color) {
         return undefined;
     }
@@ -57,13 +50,13 @@ const extractColor = (paint: Colorable): (Color | undefined) => {
 };
 
 const extractGradientLinear = (paint: Figma.Paint): (GradientLinear | undefined) => {
-    if (!paint.gradientStops) {
+    if (!paint.gradientStops || !paint.gradientHandlePositions) {
         return undefined;
     }
 
     const gradientStops: GradientStop[] = [];
 
-    const [startPoint, endPoint] = paint.gradientHandlePositions || [];
+    const [startPoint, endPoint] = paint.gradientHandlePositions;
     const deltaY = (endPoint.y - startPoint.y);
     const deltaX = (endPoint.x - startPoint.x);
     const deg = ((Math.atan2(deltaY, deltaX) * 180) / Math.PI) + 90;
@@ -85,8 +78,9 @@ const extractGradientLinear = (paint: Figma.Paint): (GradientLinear | undefined)
 };
 
 const getColorStyles = (fill: Figma.Paint): Record<string, unknown> | undefined => {
-    if (fill.type === 'SOLID' && fill.color) {
+    if (fill.type === 'SOLID') {
         const color = extractColor(fill);
+
         if (color) {
             return {
                 type: fill.type,
@@ -125,17 +119,17 @@ const parseFigmaStyles = (nodes: ((Figma.Style & Figma.Node) | undefined)[]): an
             };
         }
 
-        if (node?.styleType === 'EFFECT' && node?.type === 'RECTANGLE') {
-            // TODO: Effect Styles
-        }
+        // if (node?.styleType === 'EFFECT' && node?.type === 'RECTANGLE') {
+        //     // TODO: Effect Styles
+        // }
 
-        if (node?.styleType === 'TEXT' && node?.type === 'TEXT') {
-            // TODO: Text Styles
-        }
+        // if (node?.styleType === 'TEXT' && node?.type === 'TEXT') {
+        //     // TODO: Text Styles
+        // }
 
-        if (node?.styleType === 'GRID' && node?.type === 'FRAME') {
-            // TODO: Grid Styles
-        }
+        // if (node?.styleType === 'GRID' && node?.type === 'FRAME') {
+        //     // TODO: Grid Styles
+        // }
 
         return undefined;
     }).filter((node) => node);

@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import nock from 'nock';
 
-import { ClientInterface } from 'figma-js';
+import * as Figma from 'figma-js';
 
 import * as figmaDocument from './_config.test';
 import * as figma from './figma';
@@ -12,6 +12,10 @@ describe('figma.', () => {
         nock(figmaDocument.svg.domain, { reqheaders: { 'Content-Type': 'images/svg+xml' } })
             .get(figmaDocument.svg.path)
             .reply(200, figmaDocument.svg.content);
+    });
+
+    afterEach(() => {
+        sinon.restore();
     });
 
     describe('getComponents', () => {
@@ -27,17 +31,6 @@ describe('figma.', () => {
                 figmaDocument.component1,
                 figmaDocument.component3,
             ]);
-        });
-    });
-
-    describe('getIdsFromPages', () => {
-        it('should get component ids from specified pages', () => {
-            const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
-            const pages = figma.getPages(document, {
-                only: 'page2',
-            });
-
-            expect(figma.getIdsFromPages(pages)).to.eql(['9:1']);
         });
     });
 
@@ -83,18 +76,35 @@ describe('figma.', () => {
         });
     });
 
-    describe('getFigmaClient', () => {
+    describe('getIdsFromPages', () => {
+        it('should get component ids from specified pages', () => {
+            const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
+            const pages = figma.getPages(document, {
+                only: 'page2',
+            });
+
+            expect(figma.getIdsFromPages(pages)).to.eql(['9:1']);
+        });
+    });
+
+    describe('getClient', () => {
         it('should not create a figma client if no token is provided', () => {
             expect(() => {
                 figma.getClient('');
             }).to.throw(Error);
+        });
+
+        it('should create a figma client providing a token', () => {
+            sinon.spy(Figma, 'Client');
+            figma.getClient('token1234');
+            expect(Figma.Client).to.have.been.calledOnceWith({ personalAccessToken: 'token1234' });
         });
     });
 
     describe('fileImages', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
-                ...({} as ClientInterface),
+                ...({} as Figma.ClientInterface),
                 fileImages: sinon.stub().returns({
                     data: {
                         images: {
@@ -123,7 +133,7 @@ describe('figma.', () => {
     describe('fileSvgs', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
-                ...({} as ClientInterface),
+                ...({} as Figma.ClientInterface),
                 fileImages: sinon.stub().returns({
                     data: {
                         images: {
@@ -145,5 +155,9 @@ describe('figma.', () => {
                 A1: figmaDocument.svg.content,
             });
         });
+    });
+
+    describe.skip('enrichPagesWithSvg', () => {
+        it('TODO: move here test from "export-components.test.ts"');
     });
 });

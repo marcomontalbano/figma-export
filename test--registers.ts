@@ -5,9 +5,11 @@ import sinon from 'sinon';
 import chai from 'chai';
 import sinonChai from 'sinon-chai';
 import chaiThings from 'chai-things';
+import chaiAsPromises from 'chai-as-promised';
 
 chai.use(sinonChai);
 chai.use(chaiThings);
+chai.use(chaiAsPromises);
 
 let consoleSandbox: sinon.SinonSandbox;
 beforeEach(() => {

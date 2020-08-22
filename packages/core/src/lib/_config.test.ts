@@ -89,6 +89,14 @@ const page2: Figma.Canvas = {
     ],
 };
 
+const pageWithoutComponents: Figma.Canvas = {
+    ...({} as Figma.Canvas),
+    id: '10:7',
+    name: 'page2',
+    type: 'CANVAS',
+    children: [],
+};
+
 const createDocument = (props: any): Figma.Document => ({
     ...({} as Figma.Document),
     ...props,
@@ -113,6 +121,7 @@ export {
     group1,
     page1,
     page2,
+    pageWithoutComponents,
     svg,
     createPage,
     createDocument,
