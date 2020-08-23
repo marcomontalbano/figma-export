@@ -5,11 +5,24 @@ type ExtractableColor = {
     color?: Figma.Color
 }
 
+type Color = {
+    /** Red channel value, between 0 and 255 */
+    readonly r: number;
+    /** Green channel value, between 0 and 255 */
+    readonly g: number;
+    /** Blue channel value, between 0 and 255 */
+    readonly b: number;
+    /** Alpha channel value, between 0 and 1 */
+    readonly a: number;
+    /** rgba() Function as a string */
+    rgba: string
+}
+
 /**
  * A color-stop's <color> value, followed by one or two optional stop positions.
  */
-interface GradientStop {
-    color: Figma.Color,
+type GradientStop = {
+    color: Color,
     position: number
 }
 
@@ -18,7 +31,7 @@ interface GradientStop {
  * Its result is an object of the <gradient> data type, which is a special kind of <image>.
  * @url https://developer.mozilla.org/en-US/docs/Web/CSS/linear-gradient
  */
-interface GradientLinear {
+type GradientLinear = {
     /**
      * The gradient line's angle of direction. A value of 0deg is equivalent to to top; increasing values rotate clockwise from there.
      * @default 180deg
@@ -27,12 +40,14 @@ interface GradientLinear {
     gradientStops: GradientStop[]
 }
 
-const extractColor = (paint: ExtractableColor): (Figma.Color | undefined) => {
+const extractColor = (paint: ExtractableColor): (Color | undefined) => {
     if (!paint.color) {
         return undefined;
     }
 
-    const {
+    const convert = (color: number) => parseInt((color * 255).toFixed(0), 10);
+
+    let {
         r = 0,
         g = 0,
         b = 0,
@@ -41,11 +56,17 @@ const extractColor = (paint: ExtractableColor): (Figma.Color | undefined) => {
 
     const { opacity } = paint;
 
+    r = convert(r);
+    g = convert(g);
+    b = convert(b);
+    a = opacity || a;
+
     return {
-        r: parseInt((r * 255).toFixed(0), 10),
-        g: parseInt((g * 255).toFixed(0), 10),
-        b: parseInt((b * 255).toFixed(0), 10),
-        a: opacity || a,
+        r,
+        g,
+        b,
+        a,
+        rgba: `rgba(${r}, ${g}, ${b}, ${a})`,
     };
 };
 
@@ -77,15 +98,32 @@ const extractGradientLinear = (paint: Figma.Paint): (GradientLinear | undefined)
     };
 };
 
-const getColorStyles = (fill: Figma.Paint): Record<string, unknown> | undefined => {
+type BasicStyle = {
+    visible: boolean
+    value: string
+}
+
+type ColorStyleSolid = {
+    type: 'SOLID'
+    color: Color
+}
+
+type ColorStyleGradientLinear = {
+    type: 'GRADIENT_LINEAR'
+} & GradientLinear
+
+type ColorStyle = BasicStyle & (ColorStyleSolid | ColorStyleGradientLinear);
+
+const createColorStyles = (fill: Figma.Paint): ColorStyle | undefined => {
     if (fill.type === 'SOLID') {
         const color = extractColor(fill);
 
         if (color) {
             return {
                 type: fill.type,
+                visible: fill.visible !== false,
                 color,
-                value: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+                value: color.rgba,
             };
         }
     }
@@ -95,9 +133,10 @@ const getColorStyles = (fill: Figma.Paint): Record<string, unknown> | undefined 
         if (gradient) {
             return {
                 type: fill.type,
+                visible: fill.visible !== false,
                 ...gradient,
                 value: `linear-gradient(${gradient.angle}, ${gradient.gradientStops.map((stop) => {
-                    return `rgba(${stop.color.r}, ${stop.color.g}, ${stop.color.b}, ${stop.color.a}) ${stop.position}%`;
+                    return `${stop.color.rgba} ${stop.position}%`;
                 }).join(', ')})`,
             };
         }
@@ -106,33 +145,108 @@ const getColorStyles = (fill: Figma.Paint): Record<string, unknown> | undefined 
     return undefined;
 };
 
-const parseFigmaStyles = (nodes: ((Figma.Style & Figma.Node) | undefined)[]): any[] => {
-    return nodes.map((node) => {
-        // Color Styles
-        if (node?.styleType === 'FILL' && node?.type === 'RECTANGLE') {
+type EffectStyleShadow = {
+    type: 'DROP_SHADOW' | 'INNER_SHADOW'
+    color: Color
+    offset: Figma.Vector2
+    blurRadius: number
+    spreadRadius: number
+}
+
+type EffectStyleLayerBlur = {
+    type: 'LAYER_BLUR'
+    blurRadius: number
+}
+
+type EffectStyle = BasicStyle & (EffectStyleShadow | EffectStyleLayerBlur)
+
+const createEffectStyle = (effect: Figma.Effect): EffectStyle | undefined => {
+    if (effect.type === 'DROP_SHADOW' || effect.type === 'INNER_SHADOW') {
+        const color = extractColor(effect);
+        const spreadRadius = 0;
+        const inset = effect.type === 'INNER_SHADOW';
+
+        if (color && effect.offset) {
             return {
-                styleType: 'FILL',
-                // TODO: sanitize the property "name"
-                name: node.name,
-                comment: node.description,
-                fills: node.fills.map(getColorStyles),
+                type: effect.type,
+                visible: effect.visible,
+                color,
+                offset: effect.offset,
+                blurRadius: effect.radius,
+                spreadRadius,
+                value: `${inset ? 'inset ' : ''}${effect.offset.x}px ${effect.offset.y}px ${effect.radius}px ${spreadRadius}px ${color.rgba}`,
+            };
+        }
+    }
+
+    if (effect.type === 'LAYER_BLUR') {
+        return {
+            type: effect.type,
+            visible: effect.visible,
+            blurRadius: effect.radius,
+            value: `blur(${effect.radius}px)`,
+        };
+    }
+
+    return undefined;
+};
+
+type FigmaExportPaintStyle = {
+    styleType: 'FILL'
+    fills: ColorStyle[]
+}
+
+type FigmaExportEffectStyle = {
+    styleType: 'EFFECT'
+    effects: EffectStyle[]
+}
+
+type FigmaExportStyle = {
+    name: string
+    comment: string
+    visible: boolean
+    originalNode: Figma.Style & Figma.Node
+} & (FigmaExportPaintStyle | FigmaExportEffectStyle)
+
+const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
+    return value !== null && value !== undefined;
+};
+
+const parseFigmaStyles = (nodes: (Figma.Style & Figma.Node)[]): FigmaExportStyle[] => {
+    return nodes.map((node) => {
+        const basicNode = {
+            name: node.name,
+            comment: node.description,
+            visible: node.visible !== false,
+            originalNode: node,
+        };
+
+        if (node.styleType === 'FILL' && node.type === 'RECTANGLE') {
+            return {
+                ...basicNode,
+                styleType: node.styleType,
+                fills: node.fills.map(createColorStyles).filter(notEmpty),
             };
         }
 
-        // if (node?.styleType === 'EFFECT' && node?.type === 'RECTANGLE') {
-        //     // TODO: Effect Styles
-        // }
+        if (node.styleType === 'EFFECT' && node.type === 'RECTANGLE') {
+            return {
+                ...basicNode,
+                styleType: node.styleType,
+                effects: node.effects.map(createEffectStyle).filter(notEmpty),
+            };
+        }
 
-        // if (node?.styleType === 'TEXT' && node?.type === 'TEXT') {
+        // if (node.styleType === 'TEXT' && node.type === 'TEXT') {
         //     // TODO: Text Styles
         // }
 
-        // if (node?.styleType === 'GRID' && node?.type === 'FRAME') {
+        // if (node.styleType === 'GRID' && node.type === 'FRAME') {
         //     // TODO: Grid Styles
         // }
 
         return undefined;
-    }).filter((node) => node);
+    }).filter(notEmpty);
 };
 
 const fetchStyles = async (client: Figma.ClientInterface, fileId: string): Promise<(Figma.Style & Figma.Node)[]> => {

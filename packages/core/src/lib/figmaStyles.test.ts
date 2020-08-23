@@ -13,6 +13,16 @@ import fileNodes from './_mocks_/figma.fileNodes.json';
 
 const nodeIds = Object.keys(fileNodes.nodes);
 
+const getNode = (styleNodes: (Figma.Style & Figma.Node)[], name: string): Figma.Style & Figma.Node => {
+    const node = styleNodes.find((n) => n.name === name);
+
+    if (!node) {
+        throw new Error('\'node\' cannot be undefined');
+    }
+
+    return node;
+};
+
 describe('figmaStyles.', () => {
     describe('fetch', () => {
         it('should throw an error if styles are not present', async () => {
@@ -73,7 +83,8 @@ describe('figmaStyles.', () => {
             expect(client.file).to.have.been.calledOnceWith('ABC123');
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds });
 
-            expect(styleNodes.length).to.equal(23);
+            expect(styleNodes.length).to.equal(27);
+            expect(styleNodes.filter((node) => node.visible !== false).length).to.equal(27 - 3);
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.name).to.equal('color-1');
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.styleType).to.equal('FILL');
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.type).to.equal('RECTANGLE');
@@ -95,22 +106,26 @@ describe('figmaStyles.', () => {
 
         describe('Color Styles', () => {
             it('should parse a solid color', () => {
-                const node = styleNodes.find((n) => n.name === 'color-2');
+                const node = getNode(styleNodes, 'color-2');
 
                 const parsed = figmaStyles.parseFigmaStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
                         styleType: 'FILL',
+                        visible: true,
                         name: 'color-2',
                         comment: 'Purple',
+                        originalNode: node,
                         fills: [{
                             type: 'SOLID',
+                            visible: true,
                             color: {
                                 r: 162,
                                 g: 89,
                                 b: 255,
                                 a: 1,
+                                rgba: 'rgba(162, 89, 255, 1)',
                             },
                             value: 'rgba(162, 89, 255, 1)',
                         }],
@@ -119,22 +134,26 @@ describe('figmaStyles.', () => {
             });
 
             it('should parse a solid color with alpha (with comment on multi-line)', () => {
-                const node = styleNodes.find((n) => n.name === 'color-alpha-50');
+                const node = getNode(styleNodes, 'color-alpha-50');
 
                 const parsed = figmaStyles.parseFigmaStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
                         styleType: 'FILL',
+                        visible: true,
                         name: 'color-alpha-50',
                         comment: 'Red color with 50% opacity +\nComment on multi-line.',
+                        originalNode: node,
                         fills: [{
                             type: 'SOLID',
+                            visible: true,
                             color: {
                                 r: 242,
                                 g: 78,
                                 b: 30,
                                 a: 0.5,
+                                rgba: 'rgba(242, 78, 30, 0.5)',
                             },
                             value: 'rgba(242, 78, 30, 0.5)',
                         }],
@@ -143,25 +162,161 @@ describe('figmaStyles.', () => {
             });
 
             it('should parse a linear gradient', () => {
-                const node = styleNodes.find((n) => n.name === 'color-linear-gradient-complex');
+                const node = getNode(styleNodes, 'color-linear-gradient-complex');
 
                 const parsed = figmaStyles.parseFigmaStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
                         styleType: 'FILL',
+                        visible: true,
                         name: 'color-linear-gradient-complex',
                         comment: '',
+                        originalNode: node,
                         fills: [{
                             type: 'GRADIENT_LINEAR',
+                            visible: true,
                             angle: '135deg',
                             gradientStops: [
-                                { color: { r: 242, g: 78, b: 30, a: 1 }, position: 0 },
-                                { color: { r: 184, g: 89, b: 255, a: 1 }, position: 34.375 },
-                                { color: { r: 10, g: 207, b: 131, a: 1 }, position: 64.583 },
-                                { color: { r: 26, g: 188, b: 254, a: 1 }, position: 100 },
+                                { color: { r: 242, g: 78, b: 30, a: 1, rgba: 'rgba(242, 78, 30, 1)' }, position: 0 },
+                                { color: { r: 184, g: 89, b: 255, a: 1, rgba: 'rgba(184, 89, 255, 1)' }, position: 34.375 },
+                                { color: { r: 10, g: 207, b: 131, a: 1, rgba: 'rgba(10, 207, 131, 1)' }, position: 64.583 },
+                                { color: { r: 26, g: 188, b: 254, a: 1, rgba: 'rgba(26, 188, 254, 1)' }, position: 100 },
                             ],
                             value: 'linear-gradient(135deg, rgba(242, 78, 30, 1) 0%, rgba(184, 89, 255, 1) 34.375%, rgba(10, 207, 131, 1) 64.583%, rgba(26, 188, 254, 1) 100%)',
+                        }],
+                    },
+                ]);
+            });
+        });
+
+        describe('Effect Styles', () => {
+            it('should not parse a non visible effect style', () => {
+                const originalNode = getNode(styleNodes, 'inner-shadow');
+                const node = {
+                    ...originalNode,
+                    effects: [{
+                        ...(originalNode as Figma.Rectangle).effects[0],
+                        visible: false,
+                    }],
+                };
+
+                const parsed = figmaStyles.parseFigmaStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'EFFECT',
+                        visible: true,
+                        name: 'inner-shadow',
+                        comment: '',
+                        originalNode: node,
+                        effects: [{
+                            type: 'INNER_SHADOW',
+                            visible: false,
+                            offset: {
+                                x: 4,
+                                y: 5,
+                            },
+                            blurRadius: 10,
+                            spreadRadius: 0,
+                            color: {
+                                r: 242,
+                                g: 78,
+                                b: 30,
+                                a: 0.5,
+                                rgba: 'rgba(242, 78, 30, 0.5)',
+                            },
+                            value: 'inset 4px 5px 10px 0px rgba(242, 78, 30, 0.5)',
+                        }],
+                    },
+                ]);
+            });
+
+            it('should parse a Inner Shadow effect', () => {
+                const node = getNode(styleNodes, 'inner-shadow');
+
+                const parsed = figmaStyles.parseFigmaStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'EFFECT',
+                        visible: true,
+                        name: 'inner-shadow',
+                        comment: '',
+                        originalNode: node,
+                        effects: [{
+                            type: 'INNER_SHADOW',
+                            visible: true,
+                            offset: {
+                                x: 4,
+                                y: 5,
+                            },
+                            blurRadius: 10,
+                            spreadRadius: 0,
+                            color: {
+                                r: 242,
+                                g: 78,
+                                b: 30,
+                                a: 0.5,
+                                rgba: 'rgba(242, 78, 30, 0.5)',
+                            },
+                            value: 'inset 4px 5px 10px 0px rgba(242, 78, 30, 0.5)',
+                        }],
+                    },
+                ]);
+            });
+
+            it('should parse a Drop Shadow effect', () => {
+                const node = getNode(styleNodes, 'drop-shadow');
+
+                const parsed = figmaStyles.parseFigmaStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'EFFECT',
+                        visible: true,
+                        name: 'drop-shadow',
+                        comment: '',
+                        originalNode: node,
+                        effects: [{
+                            type: 'DROP_SHADOW',
+                            visible: true,
+                            offset: {
+                                x: 3,
+                                y: 4,
+                            },
+                            blurRadius: 7,
+                            spreadRadius: 0,
+                            color: {
+                                r: 0,
+                                g: 0,
+                                b: 0,
+                                a: 0.25,
+                                rgba: 'rgba(0, 0, 0, 0.25)',
+                            },
+                            value: '3px 4px 7px 0px rgba(0, 0, 0, 0.25)',
+                        }],
+                    },
+                ]);
+            });
+
+            it('should parse a Layer Blur effect', () => {
+                const node = getNode(styleNodes, 'layer-blur');
+
+                const parsed = figmaStyles.parseFigmaStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'EFFECT',
+                        visible: true,
+                        name: 'layer-blur',
+                        comment: '',
+                        originalNode: node,
+                        effects: [{
+                            type: 'LAYER_BLUR',
+                            visible: true,
+                            blurRadius: 4,
+                            value: 'blur(4px)',
                         }],
                     },
                 ]);
