@@ -191,6 +191,127 @@ const createEffectStyle = (effect: Figma.Effect): EffectStyle | undefined => {
     return undefined;
 };
 
+type TextTransform = 'none' | 'uppercase' | 'lowercase' | 'capitalize'
+type TextDecoration = 'none' | 'line-through' | 'underline'
+type FontVariant = 'normal' | 'small-caps' | 'all-small-caps'
+type FontStyle = 'normal' | 'italic'
+type TextAlign = 'left' | 'right' | 'center' | 'justify'
+type VerticalAlign = 'top' | 'middle' | 'bottom'
+
+type TextStyle = {
+    /** Font family of text (standard name) */
+    fontFamily: string;
+    /** Numeric font weight */
+    fontWeight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+    /** Font size in px */
+    fontSize: number;
+    /** Line height in px */
+    lineHeightPx: number;
+    /** Space between characters in px */
+    letterSpacing: number;
+
+    /** text-transform property, default is none */
+    textTransform: TextTransform
+    /** font-variant property, default is none */
+    fontVariant: FontVariant
+    /** text-decoration property, default is none */
+    textDecoration: TextDecoration
+    /** font-style property, default is normal */
+    fontStyle: FontStyle
+    /** text-align property */
+    textAlign: TextAlign
+    /** text-align property */
+    verticalAlign: VerticalAlign
+}
+
+const translateTextTransform = (figmaTextCase?: string): TextTransform => {
+    const map: { [key: string]: TextTransform } = {
+        undefined: 'none',
+        UPPER: 'uppercase',
+        LOWER: 'lowercase',
+        TITLE: 'capitalize',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return map[figmaTextCase!] || map.undefined;
+};
+
+const translateFontVariant = (figmaTextCase?: string): FontVariant => {
+    const map: { [key: string]: FontVariant } = {
+        undefined: 'normal',
+        SMALL_CAPS: 'small-caps',
+        SMALL_CAPS_FORCED: 'all-small-caps',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return map[figmaTextCase!] || map.undefined;
+};
+
+const translateTextDecoration = (figmaTextDecoration?: string): TextDecoration => {
+    const map: { [key: string]: TextDecoration } = {
+        undefined: 'none',
+        STRIKETHROUGH: 'line-through',
+        UNDERLINE: 'underline',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return map[figmaTextDecoration!] || map.undefined;
+};
+
+const translateTextAlign = (figmaTextAlignHorizontal: string): TextAlign => {
+    const map: { [key: string]: TextAlign } = {
+        LEFT: 'left',
+        RIGHT: 'right',
+        CENTER: 'center',
+        JUSTIFIED: 'justify',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return map[figmaTextAlignHorizontal];
+};
+
+const translateVerticalAlign = (figmaTextAlignVertical: string): VerticalAlign => {
+    const map: { [key: string]: VerticalAlign } = {
+        TOP: 'top',
+        CENTER: 'middle',
+        BOTTOM: 'bottom',
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return map[figmaTextAlignVertical];
+};
+
+const createTextStyle = (textNode: Figma.Style & Figma.Text): TextStyle => {
+    const {
+        italic, fontWeight, fontSize, lineHeightPx, fontFamily,
+        letterSpacing, textAlignHorizontal,
+        textCase, textDecoration,
+        textAlignVertical,
+    } = textNode.style;
+
+    const verticalAlign = translateVerticalAlign(textAlignVertical);
+    const textAlign = translateTextAlign(textAlignHorizontal);
+    const fontVariant = translateFontVariant(textCase);
+    const fontStyle: FontStyle = italic ? 'italic' : 'normal';
+
+    return {
+        fontFamily,
+        fontWeight,
+        fontSize,
+        lineHeightPx,
+        letterSpacing,
+        fontVariant,
+        fontStyle,
+        textAlign,
+        verticalAlign,
+        textTransform: translateTextTransform(textCase),
+        textDecoration: translateTextDecoration(textDecoration),
+
+        // eslint-disable-next-line max-len
+        // value: `${fontStyle} ${fontVariant === 'all-small-caps' ? 'normal' : fontVariant} ${fontWeight} ${fontSize}px/${lineHeightPx / fontSize} "${fontFamily}"`,
+    };
+};
+
 type FigmaExportPaintStyle = {
     styleType: 'FILL'
     fills: ColorStyle[]
@@ -201,12 +322,17 @@ type FigmaExportEffectStyle = {
     effects: EffectStyle[]
 }
 
+type FigmaExportTextStyle = {
+    styleType: 'TEXT'
+    style: TextStyle
+}
+
 type FigmaExportStyle = {
     name: string
     comment: string
     visible: boolean
     originalNode: Figma.Style & Figma.Node
-} & (FigmaExportPaintStyle | FigmaExportEffectStyle)
+} & (FigmaExportPaintStyle | FigmaExportEffectStyle | FigmaExportTextStyle)
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
     return value !== null && value !== undefined;
@@ -237,9 +363,13 @@ const parseFigmaStyles = (nodes: (Figma.Style & Figma.Node)[]): FigmaExportStyle
             };
         }
 
-        // if (node.styleType === 'TEXT' && node.type === 'TEXT') {
-        //     // TODO: Text Styles
-        // }
+        if (node.styleType === 'TEXT' && node.type === 'TEXT') {
+            return {
+                ...basicNode,
+                styleType: node.styleType,
+                style: createTextStyle(node),
+            };
+        }
 
         // if (node.styleType === 'GRID' && node.type === 'FRAME') {
         //     // TODO: Grid Styles

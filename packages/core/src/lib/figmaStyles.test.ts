@@ -83,8 +83,8 @@ describe('figmaStyles.', () => {
             expect(client.file).to.have.been.calledOnceWith('ABC123');
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds });
 
-            expect(styleNodes.length).to.equal(27);
-            expect(styleNodes.filter((node) => node.visible !== false).length).to.equal(27 - 3);
+            expect(styleNodes.length).to.equal(28);
+            expect(styleNodes.filter((node) => node.visible !== false).length).to.equal(28 - 3);
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.name).to.equal('color-1');
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.styleType).to.equal('FILL');
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.type).to.equal('RECTANGLE');
@@ -318,6 +318,37 @@ describe('figmaStyles.', () => {
                             blurRadius: 4,
                             value: 'blur(4px)',
                         }],
+                    },
+                ]);
+            });
+        });
+
+        describe('Text Styles', () => {
+            it('should parse a Text style', () => {
+                const node = getNode(styleNodes, 'h1');
+
+                const parsed = figmaStyles.parseFigmaStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'TEXT',
+                        visible: true,
+                        name: 'h1',
+                        comment: '',
+                        originalNode: node,
+                        style: {
+                            fontFamily: 'Spinnaker',
+                            fontSize: 24,
+                            fontStyle: 'normal',
+                            fontVariant: 'normal',
+                            fontWeight: 400,
+                            letterSpacing: 2,
+                            lineHeightPx: 30,
+                            textAlign: 'left',
+                            textDecoration: 'underline',
+                            textTransform: 'capitalize',
+                            verticalAlign: 'top',
+                        },
                     },
                 ]);
             });

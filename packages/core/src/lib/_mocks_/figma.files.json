@@ -44609,6 +44609,17 @@
                                     "b": 0.11764705926179886,
                                     "a": 1.0
                                 }
+                            },
+                            {
+                                "blendMode": "NORMAL",
+                                "visible": false,
+                                "type": "SOLID",
+                                "color": {
+                                    "r": 1.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 1.0
+                                }
                             }
                         ],
                         "strokeWeight": 4.0,
@@ -44652,7 +44663,7 @@
                                     "x": 3.0,
                                     "y": 4.0
                                 },
-                                "radius": 3.0
+                                "radius": 7.0
                             }
                         ]
                     },
@@ -44822,7 +44833,7 @@
                                     "x": 3.0,
                                     "y": 4.0
                                 },
-                                "radius": 3.0
+                                "radius": 7.0
                             }
                         ]
                     },
@@ -44900,9 +44911,9 @@
                                         "blendMode": "NORMAL",
                                         "type": "SOLID",
                                         "color": {
-                                            "r": 0.0,
-                                            "g": 0.0,
-                                            "b": 0.0,
+                                            "r": 0.10196078568696976,
+                                            "g": 0.73725491762161255,
+                                            "b": 0.99607843160629272,
                                             "a": 1.0
                                         }
                                     }
@@ -44910,6 +44921,10 @@
                                 "strokes": [],
                                 "strokeWeight": 1.0,
                                 "strokeAlign": "OUTSIDE",
+                                "styles": {
+                                    "fill": "121:17",
+                                    "text": "122:18"
+                                },
                                 "effects": [],
                                 "characters": "Regular Text",
                                 "style": {
@@ -44926,10 +44941,61 @@
                                     "lineHeightUnit": "INTRINSIC_%"
                                 },
                                 "characterStyleOverrides": [],
-                                "styleOverrideTable": {},
+                                "styleOverrideTable": {}
+                            },
+                            {
+                                "id": "400:18",
+                                "name": "regular-text",
+                                "type": "TEXT",
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteBoundingBox": {
+                                    "x": -428.0,
+                                    "y": 539.0,
+                                    "width": 67.0,
+                                    "height": 16.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.039215687662363052,
+                                            "g": 0.81176471710205078,
+                                            "b": 0.51372551918029785,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "OUTSIDE",
                                 "styles": {
-                                    "text": "122:18"
-                                }
+                                    "fill": "121:18",
+                                    "text": "400:33"
+                                },
+                                "effects": [],
+                                "characters": "Deleted Text",
+                                "style": {
+                                    "fontFamily": "Roboto Condensed",
+                                    "fontPostScriptName": "RobotoCondensed-Bold",
+                                    "fontWeight": 700,
+                                    "textCase": "LOWER",
+                                    "textAutoResize": "WIDTH_AND_HEIGHT",
+                                    "textDecoration": "STRIKETHROUGH",
+                                    "fontSize": 14.0,
+                                    "textAlignHorizontal": "CENTER",
+                                    "textAlignVertical": "TOP",
+                                    "letterSpacing": 0.0,
+                                    "lineHeightPx": 16.406250,
+                                    "lineHeightPercent": 100.0,
+                                    "lineHeightUnit": "INTRINSIC_%"
+                                },
+                                "characterStyleOverrides": [],
+                                "styleOverrideTable": {}
                             },
                             {
                                 "id": "122:15",
@@ -44939,7 +45005,7 @@
                                 "absoluteBoundingBox": {
                                     "x": -428.0,
                                     "y": 472.0,
-                                    "width": 92.0,
+                                    "width": 99.0,
                                     "height": 21.0
                                 },
                                 "constraints": {
@@ -44951,9 +45017,9 @@
                                         "blendMode": "NORMAL",
                                         "type": "SOLID",
                                         "color": {
-                                            "r": 0.0,
-                                            "g": 0.0,
-                                            "b": 0.0,
+                                            "r": 0.63529413938522339,
+                                            "g": 0.34901961684226990,
+                                            "b": 1.0,
                                             "a": 1.0
                                         }
                                     }
@@ -44961,12 +45027,17 @@
                                 "strokes": [],
                                 "strokeWeight": 1.0,
                                 "strokeAlign": "OUTSIDE",
+                                "styles": {
+                                    "fill": "121:16",
+                                    "text": "122:16"
+                                },
                                 "effects": [],
                                 "characters": "H2 sub-title",
                                 "style": {
                                     "fontFamily": "Roboto",
                                     "fontPostScriptName": null,
                                     "fontWeight": 400,
+                                    "textCase": "SMALL_CAPS_FORCED",
                                     "textAutoResize": "WIDTH_AND_HEIGHT",
                                     "fontSize": 18.0,
                                     "textAlignHorizontal": "LEFT",
@@ -44977,10 +45048,7 @@
                                     "lineHeightUnit": "INTRINSIC_%"
                                 },
                                 "characterStyleOverrides": [],
-                                "styleOverrideTable": {},
-                                "styles": {
-                                    "text": "122:16"
-                                }
+                                "styleOverrideTable": {}
                             },
                             {
                                 "id": "122:13",
@@ -44989,9 +45057,9 @@
                                 "blendMode": "PASS_THROUGH",
                                 "absoluteBoundingBox": {
                                     "x": -428.0,
-                                    "y": 429.0,
-                                    "width": 78.0,
-                                    "height": 28.0
+                                    "y": 427.0,
+                                    "width": 101.0,
+                                    "height": 30.0
                                 },
                                 "constraints": {
                                     "vertical": "TOP",
@@ -45002,7 +45070,18 @@
                                         "blendMode": "NORMAL",
                                         "type": "SOLID",
                                         "color": {
-                                            "r": 0.0,
+                                            "r": 0.94901961088180542,
+                                            "g": 0.30588236451148987,
+                                            "b": 0.11764705926179886,
+                                            "a": 1.0
+                                        }
+                                    },
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "visible": false,
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
                                             "g": 0.0,
                                             "b": 0.0,
                                             "a": 1.0
@@ -45012,26 +45091,31 @@
                                 "strokes": [],
                                 "strokeWeight": 1.0,
                                 "strokeAlign": "OUTSIDE",
+                                "styles": {
+                                    "fill": "121:10",
+                                    "text": "122:14"
+                                },
                                 "effects": [],
                                 "characters": "H1 title",
                                 "style": {
                                     "fontFamily": "Spinnaker",
                                     "fontPostScriptName": "Spinnaker-Regular",
                                     "fontWeight": 400,
+                                    "paragraphSpacing": 4.0,
+                                    "textCase": "TITLE",
                                     "textAutoResize": "WIDTH_AND_HEIGHT",
+                                    "textDecoration": "UNDERLINE",
                                     "fontSize": 24.0,
                                     "textAlignHorizontal": "LEFT",
                                     "textAlignVertical": "TOP",
-                                    "letterSpacing": 0.0,
-                                    "lineHeightPx": 28.1250,
-                                    "lineHeightPercent": 100.0,
-                                    "lineHeightUnit": "INTRINSIC_%"
+                                    "letterSpacing": 2.0,
+                                    "lineHeightPx": 30.0,
+                                    "lineHeightPercent": 106.66667175292969,
+                                    "lineHeightPercentFontSize": 125.0,
+                                    "lineHeightUnit": "PIXELS"
                                 },
                                 "characterStyleOverrides": [],
-                                "styleOverrideTable": {},
-                                "styles": {
-                                    "text": "122:14"
-                                }
+                                "styleOverrideTable": {}
                             },
                             {
                                 "id": "122:10",
@@ -45086,7 +45170,7 @@
                             "x": -428.0,
                             "y": 356.0,
                             "width": 174.0,
-                            "height": 168.0
+                            "height": 199.0
                         },
                         "constraints": {
                             "vertical": "TOP",
@@ -45135,6 +45219,17 @@
                                             "r": 0.94901961088180542,
                                             "g": 0.30588236451148987,
                                             "b": 0.11764705926179886,
+                                            "a": 1.0
+                                        }
+                                    },
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "visible": false,
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
                                             "a": 1.0
                                         }
                                     }
@@ -45245,7 +45340,7 @@
                                             "x": 3.0,
                                             "y": 4.0
                                         },
-                                        "radius": 3.0
+                                        "radius": 7.0
                                     }
                                 ]
                             },
@@ -46223,6 +46318,17 @@
                                             "r": 0.94901961088180542,
                                             "g": 0.30588236451148987,
                                             "b": 0.11764705926179886,
+                                            "a": 1.0
+                                        }
+                                    },
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "visible": false,
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
                                             "a": 1.0
                                         }
                                     }
@@ -47503,6 +47609,12 @@
             "styleType": "EFFECT",
             "description": ""
         },
+        "400:33": {
+            "key": "91b12525958848768963670014469c0d108f1c05",
+            "name": "deleted-text",
+            "styleType": "TEXT",
+            "description": ""
+        },
         "254:1": {
             "key": "6a6e935eeeeba50804fa8b585c83b3e9345a4292",
             "name": "black",
@@ -47523,8 +47635,8 @@
         }
     },
     "name": "Figma Export",
-    "lastModified": "2020-08-23T08:48:28.820803Z",
-    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/cfa7c4e3-d033-4261-b7f8-b4292ddb46b3?Expires=1598832000&Signature=TNu3PZPMMBwr1sV5M6sE3oURzUWZMQ6vnwKTx8Yihnor7PlD6gcxRYaPd45i7VcBuIFIfmrJv7QPyp4jUmy7dpqgMolqL7fvIm30WwRvijqhV5T6-HGz3rAub0YhKuR-pqG9BZc6Xwvz6IRy~t3vmmSZeQM6OLlFKgYQ6t4dM-vZRYPP-RqejGLAg5uQEtci2Wg9yulvSFq1x8sLILie4AnQu0Cl~azo9ZgLdPZaFIyCr5Ye4lLGuGV3MYoL8emMyhlq12l~2T6lf81DKp67oOQS6gfoyX~EvUFkeGh9TfKg7pAFSDT~slb4Kz0pWS0cgejQk6mR-8DB7mX7m1f~Qw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    "version": "431380103",
+    "lastModified": "2020-08-24T18:54:01.338964Z",
+    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/2c78ef9d-68ae-4a11-b141-98e48fb16812?Expires=1599436800&Signature=MSSThvf1c~QTgSeBHiZqi5l78wACbHsTgRkOST239RhRqeimRu3rA9uf2poP38yHgmOSScDoAr4BDDKHk6mi~Vr9UoMvUwH4kNiSykhP68eftHTJGVXCfp7MoJ9n78vRoupWu~Xr9pXkfA5rCwTYX1bKsjj8XTfr~GWEU00~yzXyiwYBSKszTel3f1GCKbhtIcFkgh8kYZPpBhqOt0lTCgXMWTXK2q4PReOpcLtOgvc0mJbO4-k5MOERfgfQg4cV98KIj0w~D1q5su2KjmDULi1Qt4gr~gKvhLtUqjHU4Ea-Dryf9XwV~eRSGfGfNlQFkwD-PA~Pk6JYHFca42B~Ng__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+    "version": "432858726",
     "role": "owner"
 }
