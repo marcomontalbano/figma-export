@@ -1,7 +1,7 @@
 import { Command, flags as commandFlags } from '@oclif/command';
 
 import * as figmaExport from '@figma-export/core';
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
@@ -51,7 +51,7 @@ class ComponentsCommand extends Command {
             token: process.env.FIGMA_TOKEN || '',
             onlyFromPages: page,
             transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
-            outputters: requirePackages<FigmaExport.Outputter>(outputter, { output }),
+            outputters: requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
             log: (message: string) => { spinner.text = message; },
         }).then(() => {
             spinner.stop();

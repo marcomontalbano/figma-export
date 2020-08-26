@@ -1,14 +1,14 @@
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import { getClient } from './figma';
-import { fetchStyles, parseFigmaStyles } from './figmaStyles';
+import { fetchStyles, parseStyles } from './figmaStyles';
 
 type Options = {
     token: string;
     fileId: string;
     onlyFromPages?: string[];
-    transformers?: FigmaExport.StringTransformer[];
-    outputters?: FigmaExport.Outputter[];
+    // transformers?: FigmaExport.StringTransformer[];
+    outputters?: FigmaExport.StyleOutputter[];
     log?: (msg: string) => void;
 }
 
@@ -16,24 +16,21 @@ export const styles = async ({
     token,
     fileId,
     // transformers = [],
-    // outputters = [],
+    outputters = [],
     log = (msg): void => {
         // eslint-disable-next-line no-console
         console.log(msg);
     },
-}: Options): Promise<number[]> => {
+}: Options): Promise<FigmaExport.Style[]> => {
     const client = getClient(token);
 
     log('fetching styles');
     const styleNodes = await fetchStyles(client, fileId);
 
     log('parsing styles');
-    // TODO: convert figma Styles to CSS Like
-    const parsedStyles = await parseFigmaStyles(styleNodes);
-    console.log(JSON.stringify(parsedStyles, undefined, 4));
+    const parsedStyles = await parseStyles(styleNodes);
 
-    // TODO: send the parsed style to outputter
-    // await Promise.all(outputters.map((outputter) => outputter(parsedStyles)));
+    await Promise.all(outputters.map((outputter) => outputter(parsedStyles)));
 
-    return [];
+    return parsedStyles;
 };

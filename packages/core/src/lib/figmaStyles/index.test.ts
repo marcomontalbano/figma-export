@@ -5,15 +5,16 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 
 import * as Figma from 'figma-js';
+import * as FigmaExport from '@figma-export/types';
 
-import * as figmaStyles from './figmaStyles';
+import * as figmaStyles from './index';
 
-import file from './_mocks_/figma.files.json';
-import fileNodes from './_mocks_/figma.fileNodes.json';
+import file from '../_mocks_/figma.files.json';
+import fileNodes from '../_mocks_/figma.fileNodes.json';
 
 const nodeIds = Object.keys(fileNodes.nodes);
 
-const getNode = (styleNodes: (Figma.Style & Figma.Node)[], name: string): Figma.Style & Figma.Node => {
+const getNode = (styleNodes: FigmaExport.StyleNode[], name: string): FigmaExport.StyleNode => {
     const node = styleNodes.find((n) => n.name === name);
 
     if (!node) {
@@ -92,7 +93,7 @@ describe('figmaStyles.', () => {
     });
 
     describe('parse', () => {
-        let styleNodes: (Figma.Style & Figma.Node)[] = [];
+        let styleNodes: FigmaExport.StyleNode[] = [];
 
         beforeEach(async () => {
             const client = {
@@ -108,7 +109,7 @@ describe('figmaStyles.', () => {
             it('should parse a solid color', () => {
                 const node = getNode(styleNodes, 'color-2');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -136,7 +137,7 @@ describe('figmaStyles.', () => {
             it('should parse a solid color with alpha (with comment on multi-line)', () => {
                 const node = getNode(styleNodes, 'color-alpha-50');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -164,7 +165,7 @@ describe('figmaStyles.', () => {
             it('should parse a linear gradient', () => {
                 const node = getNode(styleNodes, 'color-linear-gradient-complex');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -201,7 +202,7 @@ describe('figmaStyles.', () => {
                     }],
                 };
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -217,6 +218,7 @@ describe('figmaStyles.', () => {
                                 x: 4,
                                 y: 5,
                             },
+                            inset: true,
                             blurRadius: 10,
                             spreadRadius: 0,
                             color: {
@@ -235,7 +237,7 @@ describe('figmaStyles.', () => {
             it('should parse a Inner Shadow effect', () => {
                 const node = getNode(styleNodes, 'inner-shadow');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -251,6 +253,7 @@ describe('figmaStyles.', () => {
                                 x: 4,
                                 y: 5,
                             },
+                            inset: true,
                             blurRadius: 10,
                             spreadRadius: 0,
                             color: {
@@ -269,7 +272,7 @@ describe('figmaStyles.', () => {
             it('should parse a Drop Shadow effect', () => {
                 const node = getNode(styleNodes, 'drop-shadow');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -285,6 +288,7 @@ describe('figmaStyles.', () => {
                                 x: 3,
                                 y: 4,
                             },
+                            inset: false,
                             blurRadius: 7,
                             spreadRadius: 0,
                             color: {
@@ -303,7 +307,7 @@ describe('figmaStyles.', () => {
             it('should parse a Layer Blur effect', () => {
                 const node = getNode(styleNodes, 'layer-blur');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {
@@ -327,7 +331,7 @@ describe('figmaStyles.', () => {
             it('should parse a Text style', () => {
                 const node = getNode(styleNodes, 'h1');
 
-                const parsed = figmaStyles.parseFigmaStyles([node]);
+                const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
                     {

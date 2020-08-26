@@ -1,4 +1,4 @@
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
@@ -6,15 +6,15 @@ import makeDir = require('make-dir');
 
 type Options = {
     output: string;
-    getDirname?: (options: FigmaExport.OutputterParamOption) => string;
-    getBasename?: (options: FigmaExport.OutputterParamOption) => string;
+    getDirname?: (options: FigmaExport.ComponentOutputterParamOption) => string;
+    getBasename?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 }
 
 export = ({
     output,
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getBasename = (options): string => `${options.basename}.svg`,
-}: Options): FigmaExport.Outputter => {
+}: Options): FigmaExport.ComponentOutputter => {
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             components.forEach(({ name: componentName, svg, figmaExport }) => {

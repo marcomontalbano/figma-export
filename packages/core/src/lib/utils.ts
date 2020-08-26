@@ -32,9 +32,14 @@ const fetchAsSvgXml = (url: string): Promise<string> => {
     }).then((response) => response.data);
 };
 
+const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
+    return value !== null && value !== undefined;
+};
+
 export {
     toArray,
     fromEntries,
     promiseSequentially,
     fetchAsSvgXml,
+    notEmpty,
 };

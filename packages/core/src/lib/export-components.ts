@@ -1,18 +1,14 @@
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 import { Document } from 'figma-js';
 
-import {
-    getClient,
-    getPages,
-    enrichPagesWithSvg,
-} from './figma';
+import { getClient, getPages, enrichPagesWithSvg } from './figma';
 
 type Options = {
     token: string;
     fileId: string;
     onlyFromPages?: string[];
     transformers?: FigmaExport.StringTransformer[];
-    outputters?: FigmaExport.Outputter[];
+    outputters?: FigmaExport.ComponentOutputter[];
     log?: (msg: string) => void;
 }
 

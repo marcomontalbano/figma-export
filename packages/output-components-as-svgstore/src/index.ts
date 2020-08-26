@@ -3,7 +3,7 @@
 import makeDir from 'make-dir';
 import svgstore from 'svgstore';
 
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import { Options as SvgStoreOptions } from './svgstore';
 
@@ -14,14 +14,14 @@ type Options = {
     output: string;
     /** https://www.npmjs.com/package/svgstore#options */
     svgstoreConfig?: SvgStoreOptions;
-    getIconId?: (options: FigmaExport.OutputterParamOption) => string;
+    getIconId?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 }
 
 export = ({
     output,
     getIconId = (options): string => `${options.pageName}/${options.componentName}`,
     svgstoreConfig = {},
-}: Options): FigmaExport.Outputter => {
+}: Options): FigmaExport.ComponentOutputter => {
     makeDir.sync(output);
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {

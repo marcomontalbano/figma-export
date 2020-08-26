@@ -1,7 +1,7 @@
 import makeDir from 'make-dir';
 import { camelCase } from '@figma-export/output-components-utils';
 
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
@@ -13,7 +13,7 @@ type Options = {
     output: string;
     useBase64?: boolean;
     useDataUrl?: boolean;
-    getVariableName?: (options: FigmaExport.OutputterParamOption) => string;
+    getVariableName?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 }
 
 export = ({
@@ -21,7 +21,7 @@ export = ({
     getVariableName = (options): string => camelCase(options.componentName.trim()),
     useBase64 = false,
     useDataUrl = false,
-}: Options): FigmaExport.Outputter => {
+}: Options): FigmaExport.ComponentOutputter => {
     makeDir.sync(output);
     return async (pages): Promise<void> => {
         pages.forEach((page) => {
@@ -46,15 +46,15 @@ export = ({
                 }
 
                 switch (true) {
-                case useBase64:
-                    variableValue = Buffer.from(svg).toString('base64');
-                    break;
-                case useDataUrl:
-                    variableValue = svgToMiniDataURI(svg);
-                    break;
-                default:
-                    variableValue = svg;
-                    break;
+                    case useBase64:
+                        variableValue = Buffer.from(svg).toString('base64');
+                        break;
+                    case useDataUrl:
+                        variableValue = svgToMiniDataURI(svg);
+                        break;
+                    default:
+                        variableValue = svg;
+                        break;
                 }
 
                 if (jsCode.includes(`export const ${variableName} =`)) {

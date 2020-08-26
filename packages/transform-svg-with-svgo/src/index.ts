@@ -1,6 +1,6 @@
 import SVGO from 'svgo';
 
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 export = (options: SVGO.Options): FigmaExport.StringTransformer => {
     const svgo = new SVGO(options);

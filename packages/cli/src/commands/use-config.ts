@@ -47,12 +47,12 @@ class UseConfigCommand extends Command {
             spinner.start();
 
             switch (commandName) {
-            case 'components':
-                return handlePromise(figmaExport.components, options);
-            case 'styles':
-                return handlePromise(figmaExport.styles, options);
-            default:
-                throw new Error(`Command ${commandName} is not found.`);
+                case 'components':
+                    return handlePromise(figmaExport.components, options);
+                case 'styles':
+                    return handlePromise(figmaExport.styles, options);
+                default:
+                    throw new Error(`Command ${commandName} is not found.`);
             }
         }));
     }
