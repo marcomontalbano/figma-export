@@ -11,3 +11,4 @@ lerna-debug.log
 *.tsbuildinfo
 
 /.figmaexportrc.js
+/.figmaexportrc.ts

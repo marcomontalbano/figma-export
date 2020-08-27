@@ -1,7 +1,7 @@
 import * as Figma from 'figma-js';
 
 import { basename, dirname } from 'path';
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import {
     toArray,

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 
 import { camelCase } from '@figma-export/output-components-utils';
 
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';

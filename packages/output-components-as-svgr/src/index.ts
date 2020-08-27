@@ -1,4 +1,4 @@
-import { FigmaExport } from '@figma-export/types';
+import * as FigmaExport from '@figma-export/types';
 import { pascalCase } from '@figma-export/output-components-utils';
 import svgr from '@svgr/core';
 import { Config, State } from './svgr';
@@ -9,15 +9,15 @@ import makeDir = require('make-dir');
 
 type Options = {
     output: string;
-    getDirname?: (options: FigmaExport.OutputterParamOption) => string;
-    getComponentName?: (options: FigmaExport.OutputterParamOption) => string;
-    getFileExtension?: (options: FigmaExport.OutputterParamOption) => string;
+    getDirname?: (options: FigmaExport.ComponentOutputterParamOption) => string;
+    getComponentName?: (options: FigmaExport.ComponentOutputterParamOption) => string;
+    getFileExtension?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 
     /**
      * SVGR ships with a handful of customizable options, usable in both the CLI and API.
      * https://react-svgr.com/docs/options/
      */
-    getSvgrConfig?: (options: FigmaExport.OutputterParamOption) => Config;
+    getSvgrConfig?: (options: FigmaExport.ComponentOutputterParamOption) => Config;
 }
 
 type IndexJs = {
@@ -30,7 +30,7 @@ export = ({
     getComponentName = (options): string => `${pascalCase(options.basename)}`,
     getFileExtension = (): string => '.jsx',
     getSvgrConfig = (): Config => ({ }),
-}: Options): FigmaExport.Outputter => {
+}: Options): FigmaExport.ComponentOutputter => {
     makeDir.sync(output);
     const indexJs: IndexJs = {};
     return async (pages): Promise<void> => {

@@ -26,31 +26,34 @@ class UseConfigCommand extends Command {
         // eslint-disable-next-line import/no-dynamic-require, global-require
         const { commands = [] } = fs.existsSync(configPath) ? require(configPath) : {};
 
-        Promise.all(commands.map((command: FigmaExportCommand) => {
-            const [commandName, options] = command;
-
-            spinner.start();
-
-            let figmaExporter;
-            switch (commandName) {
-            case 'components':
-                figmaExporter = figmaExport.components;
-                break;
-            default:
-                throw new Error(`Command ${commandName} is not found.`);
-            }
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const handlePromise = (figmaExporter: (options: any) => Promise<any>, options: Record<string, unknown>) => {
             return figmaExporter({
                 token: process.env.FIGMA_TOKEN || '',
                 fileId: '',
                 ...options,
-                log: (message) => { spinner.text = message; },
+                log: (message: string) => { spinner.text = message; },
             }).then(() => {
                 spinner.stop();
             }).catch((err: Error) => {
                 spinner.stop();
                 this.error(err, { exit: 1 });
             });
+        };
+
+        Promise.all(commands.map((command: FigmaExportCommand) => {
+            const [commandName, options] = command;
+
+            spinner.start();
+
+            switch (commandName) {
+                case 'components':
+                    return handlePromise(figmaExport.components, options);
+                case 'styles':
+                    return handlePromise(figmaExport.styles, options);
+                default:
+                    throw new Error(`Command ${commandName} is not found.`);
+            }
         }));
     }
 }
