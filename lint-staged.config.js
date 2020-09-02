@@ -1,3 +1,3 @@
 module.exports = {
-    '!(*.d).{js,ts}': () => ['yarn lint --fix', 'yarn coverage', 'git add .'],
+    '!(*.d).{js,ts}': () => ['yarn lint --fix', 'yarn coverage'],
 };

@@ -53,7 +53,9 @@ describe('utils.', () => {
                 .reply(200, '<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>');
 
             const svg = await utils.fetchAsSvgXml('https://example.com/image.svg');
-            expect(svg).to.deep.equal('<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>');
+            expect(svg).to.deep.equal(
+                '<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>',
+            );
         });
     });
 });

@@ -84,8 +84,8 @@ describe('figmaStyles.', () => {
             expect(client.file).to.have.been.calledOnceWith('ABC123');
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds });
 
-            expect(styleNodes.length).to.equal(28);
-            expect(styleNodes.filter((node) => node.visible !== false).length).to.equal(28 - 3);
+            expect(styleNodes.length).to.equal(30);
+            expect(styleNodes.filter((node) => node.visible !== false).length).to.equal(30 - 3);
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.name).to.equal('color-1');
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.styleType).to.equal('FILL');
             expect(styleNodes.filter((node) => node?.id === '121:10')[0]?.type).to.equal('RECTANGLE');
@@ -186,6 +186,56 @@ describe('figmaStyles.', () => {
                             ],
                             value: 'linear-gradient(135deg, rgba(242, 78, 30, 1) 0%, rgba(184, 89, 255, 1) 34.375%, rgba(10, 207, 131, 1) 64.583%, rgba(26, 188, 254, 1) 100%)',
                         }],
+                    },
+                ]);
+            });
+
+            it('should parse a combination of colors and keep the right order', () => {
+                const node = getNode(styleNodes, 'color-multi-gradient');
+
+                const parsed = figmaStyles.parseStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'FILL',
+                        visible: true,
+                        name: 'color-multi-gradient',
+                        comment: 'This color is composed by two linear gradient and one solid color',
+                        originalNode: node,
+                        fills: [
+                            {
+                                type: 'GRADIENT_LINEAR',
+                                visible: true,
+                                angle: '180deg',
+                                gradientStops: [
+                                    { color: { r: 255, g: 255, b: 255, a: 1, rgba: 'rgba(255, 255, 255, 1)' }, position: 0 },
+                                    { color: { r: 255, g: 255, b: 255, a: 0, rgba: 'rgba(255, 255, 255, 0)' }, position: 100 },
+                                ],
+                                value: 'linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
+                            },
+                            {
+                                type: 'GRADIENT_LINEAR',
+                                visible: true,
+                                angle: '90deg',
+                                gradientStops: [
+                                    { color: { r: 184, g: 89, b: 255, a: 1, rgba: 'rgba(184, 89, 255, 1)' }, position: 0 },
+                                    { color: { r: 255, g: 255, b: 255, a: 0, rgba: 'rgba(255, 255, 255, 0)' }, position: 100 },
+                                ],
+                                value: 'linear-gradient(90deg, rgba(184, 89, 255, 1) 0%, rgba(255, 255, 255, 0) 100%)',
+                            },
+                            {
+                                type: 'SOLID',
+                                visible: true,
+                                color: {
+                                    a: 1,
+                                    b: 131,
+                                    g: 207,
+                                    r: 10,
+                                    rgba: 'rgba(10, 207, 131, 1)',
+                                },
+                                value: 'rgba(10, 207, 131, 1)',
+                            },
+                        ],
                     },
                 ]);
             });
@@ -322,6 +372,68 @@ describe('figmaStyles.', () => {
                             blurRadius: 4,
                             value: 'blur(4px)',
                         }],
+                    },
+                ]);
+            });
+
+            it('should parse a combination of effects and keep the right order', () => {
+                const node = getNode(styleNodes, 'mixed-effects');
+
+                const parsed = figmaStyles.parseStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'EFFECT',
+                        visible: true,
+                        name: 'mixed-effects',
+                        comment: 'This mixed effect will not consider the Layer Blur.\nBlur and Shadow are not compatible.',
+                        originalNode: node,
+                        effects: [
+                            {
+                                type: 'INNER_SHADOW',
+                                visible: true,
+                                offset: {
+                                    x: 0,
+                                    y: 4,
+                                },
+                                inset: true,
+                                blurRadius: 4,
+                                spreadRadius: 0,
+                                color: {
+                                    r: 0,
+                                    g: 0,
+                                    b: 0,
+                                    a: 0.25,
+                                    rgba: 'rgba(0, 0, 0, 0.25)',
+                                },
+                                value: 'inset 0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                            },
+                            {
+                                type: 'DROP_SHADOW',
+                                visible: true,
+                                offset: {
+                                    x: 0,
+                                    y: 4,
+                                },
+                                inset: false,
+                                blurRadius: 4,
+                                spreadRadius: 0,
+                                color: {
+                                    r: 0,
+                                    g: 0,
+                                    b: 0,
+                                    a: 0.25,
+                                    rgba: 'rgba(0, 0, 0, 0.25)',
+                                },
+                                value: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+                            },
+                            {
+                                type: 'LAYER_BLUR',
+                                visible: true,
+                                blurRadius: 4,
+                                value: 'blur(4px)',
+                            },
+                        ],
                     },
                 ]);
             });

@@ -25,7 +25,7 @@ module.exports = {
         indent: ['error', 4, {
             SwitchCase: 1,
         }],
-        'max-len': ['error', 160],
+        'max-len': ['error', 140],
         'no-unused-expressions': 'off',
         'chai-friendly/no-unused-expressions': 'error',
         'arrow-body-style': 'off',

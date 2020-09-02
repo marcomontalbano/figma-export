@@ -102,7 +102,10 @@ const parse = (node: FigmaExport.StyleNode): FigmaExport.StyleTypeFill | undefin
     if (node.styleType === 'FILL' && node.type === 'RECTANGLE') {
         return {
             styleType: 'FILL',
-            fills: node.fills.map(createFillStyles).filter(notEmpty),
+            fills: Array.from(node.fills)
+                .reverse()
+                .map(createFillStyles)
+                .filter(notEmpty),
         };
     }
 

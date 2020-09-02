@@ -30,6 +30,8 @@ describe('outputter as es6', () => {
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
             'output/page1.js',
+
+            // eslint-disable-next-line max-len
             'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
         );
     });
@@ -47,6 +49,8 @@ describe('outputter as es6', () => {
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
             'output/page1.js',
+
+            // eslint-disable-next-line max-len
             'export const iFigmaLogoMyIco = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
         );
     });
