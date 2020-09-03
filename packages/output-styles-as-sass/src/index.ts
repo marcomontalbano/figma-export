@@ -18,6 +18,8 @@ export = ({
     getFilename = () => '_variables',
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
+        const extension = getExtension();
+
         let text = '';
 
         styles.forEach((style) => {
@@ -30,7 +32,7 @@ export = ({
                             .map((fill) => fill.value)
                             .join(', ');
 
-                        text += writeVariable(style.comment, style.name, value, getExtension());
+                        text += writeVariable(style.comment, style.name, value, extension);
 
                         break;
                     }
@@ -49,7 +51,7 @@ export = ({
                             .join(', ');
 
                         // TODO: add to documentation. "you cannot combine shadow and blur effects"
-                        text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue, getExtension());
+                        text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue, extension);
 
                         break;
                     }
@@ -69,7 +71,7 @@ export = ({
                             "vertical-align": ${style.style.verticalAlign}
                         )`;
 
-                        text += writeVariable(style.comment, style.name, value, getExtension());
+                        text += writeVariable(style.comment, style.name, value, extension);
 
                         break;
                     }
@@ -82,6 +84,6 @@ export = ({
         });
 
         const filePath = makeDir.sync(path.resolve(output));
-        fs.writeFileSync(path.resolve(filePath, `${getFilename()}.${getExtension().toLowerCase()}`), text);
+        fs.writeFileSync(path.resolve(filePath, `${getFilename()}.${extension.toLowerCase()}`), text);
     };
 };
