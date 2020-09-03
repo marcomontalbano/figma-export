@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/transform-svg-with-svgo",
-    "version": "3.0.0-alpha.1",
+    "version": "3.0.0-alpha.2",
     "description": "Transformer for @figma-export that optimizes svgs using svgo tool",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -15,7 +15,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^3.0.0-alpha.1",
+        "@figma-export/types": "^3.0.0-alpha.2",
         "@types/svgo": "~1.3.3",
         "svgo": "~1.3.2"
     },
