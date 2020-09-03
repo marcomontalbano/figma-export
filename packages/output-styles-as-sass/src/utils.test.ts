@@ -5,13 +5,13 @@ import { writeVariable } from './utils';
 describe('utils', () => {
     describe('writeVariable', () => {
         describe('SCSS', () => {
-            const variableType = 'SCSS';
+            const extension = 'SCSS';
 
             it('should be able to print-out simple variable', () => {
                 const text = writeVariable(
                     'This is a comment',
                     'variable-name', '#fff',
-                    variableType,
+                    extension,
                 );
 
                 expect(text).to.eql(
@@ -25,7 +25,7 @@ describe('utils', () => {
             });
 
             it('should be able to print-out simple variable with an empty comment', () => {
-                const text = writeVariable('', 'variable-name', '#fff', variableType);
+                const text = writeVariable('', 'variable-name', '#fff', extension);
                 expect(text).to.eql('\n\n$variable-name: #fff;\n');
             });
 
@@ -33,7 +33,7 @@ describe('utils', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
                     'variable-name', '#fff',
-                    variableType,
+                    extension,
                 );
 
                 expect(text).to.eql(
@@ -51,7 +51,7 @@ describe('utils', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
                     'variable-name', '(\n"color-1": #fff,\n"color-2": #000\n)',
-                    variableType,
+                    extension,
                 );
 
                 expect(text).to.eql(
@@ -70,13 +70,13 @@ describe('utils', () => {
         });
 
         describe('SASS', () => {
-            const variableType = 'SASS';
+            const extension = 'SASS';
 
             it('should be able to print-out simple variable', () => {
                 const text = writeVariable(
                     'This is a comment',
                     'variable-name', '#fff',
-                    variableType,
+                    extension,
                 );
 
                 expect(text).to.eql(
@@ -90,7 +90,7 @@ describe('utils', () => {
             });
 
             it('should be able to print-out simple variable with an empty comment', () => {
-                const text = writeVariable('', 'variable-name', '#fff', variableType);
+                const text = writeVariable('', 'variable-name', '#fff', extension);
                 expect(text).to.eql('\n\n$variable-name: #fff\n');
             });
 
@@ -98,7 +98,7 @@ describe('utils', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
                     'variable-name', '#fff',
-                    variableType,
+                    extension,
                 );
 
                 expect(text).to.eql(
@@ -116,7 +116,7 @@ describe('utils', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
                     'variable-name', '(\n"color-1": #fff,\n"color-2": #000\n)',
-                    variableType,
+                    extension,
                 );
 
                 expect(text).to.eql(

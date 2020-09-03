@@ -1,6 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
 import { writeVariable } from './utils';
-import { VariableType } from './types';
+import { Extension } from './types';
 
 import fs = require('fs');
 import path = require('path');
@@ -8,7 +8,7 @@ import makeDir = require('make-dir');
 
 type Options = {
     output: string;
-    getExtension?: () => VariableType;
+    getExtension?: () => Extension;
     getFilename?: () => string;
 }
 

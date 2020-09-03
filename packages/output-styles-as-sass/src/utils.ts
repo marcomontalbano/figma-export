@@ -1,4 +1,4 @@
-import { VariableType } from './types';
+import { Extension } from './types';
 
 const sanitizeText = (text: string): string => {
     return text
@@ -14,9 +14,9 @@ const writeComment = (message: string): string => {
 };
 
 // eslint-disable-next-line consistent-return
-const createVariable = (name: string, value: string, type: VariableType): string => {
+const createVariable = (name: string, value: string, extension: Extension): string => {
     // eslint-disable-next-line default-case
-    switch (type) {
+    switch (extension) {
         case 'SCSS':
             return `$${name}: ${value};`;
         case 'SASS':
@@ -24,11 +24,11 @@ const createVariable = (name: string, value: string, type: VariableType): string
     }
 };
 
-export const writeVariable = (comment: string, name: string, value: string, type: VariableType): string => {
+export const writeVariable = (comment: string, name: string, value: string, extension: Extension): string => {
     if (value) {
         return sanitizeText(`
             ${writeComment(comment)}
-            ${createVariable(name, value, type)}
+            ${createVariable(name, value, extension)}
         `);
     }
 
