@@ -27,7 +27,8 @@ export = ({
                     case 'FILL': {
                         const value = style.fills
                             .filter((fill) => fill.visible)
-                            .reduce((acc, fill, index) => `${acc}${index > 0 ? ', ' : ''}${fill.value}`, '');
+                            .map((fill) => fill.value)
+                            .join(', ');
 
                         text += writeVariable(style.comment, style.name, value, getExtension());
 
@@ -35,14 +36,17 @@ export = ({
                     }
 
                     case 'EFFECT': {
-                        const visibles = style.effects.filter((effect) => effect.visible);
-                        const boxShadowValue = visibles
-                            .filter((effect) => effect.type === 'INNER_SHADOW' || effect.type === 'DROP_SHADOW')
-                            .reduce((acc, effect, index) => `${acc}${index > 0 ? ', ' : ''}${effect.value}`, '');
+                        const visibleEffects = style.effects.filter((effect) => effect.visible);
 
-                        const filterBlurValue = visibles
+                        const boxShadowValue = visibleEffects
+                            .filter((effect) => effect.type === 'INNER_SHADOW' || effect.type === 'DROP_SHADOW')
+                            .map((effect) => effect.value)
+                            .join(', ');
+
+                        const filterBlurValue = visibleEffects
                             .filter((effect) => effect.type === 'LAYER_BLUR')
-                            .reduce((acc, effect, index) => `${acc}${index > 0 ? ', ' : ''}${effect.value}`, '');
+                            .map((effect) => effect.value)
+                            .join(', ');
 
                         // TODO: add to documentation. "you cannot combine shadow and blur effects"
                         text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue, getExtension());
