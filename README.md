@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-    You can easily and automatically export your figma components and use them directly into your website.
+    You can easily and automatically export your figma components and styles and use them directly into your website.
 </p>
 
 <p align="center">
@@ -116,6 +116,15 @@ Let's create the file `.figmaexportrc.js` and paste the following:
 module.exports = {
 
     commands: [
+        ['styles', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['figma-styles'],
+            outputters: [
+                require('@figma-export/output-styles-as-sass')({
+                    output: './output/styles'
+                })
+            ]
+        }],
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],
@@ -129,7 +138,7 @@ module.exports = {
             ],
             outputters: [
                 require('@figma-export/output-components-as-svg')({
-                    output: './output'
+                    output: './output/components'
                 })
             ]
         }]
@@ -141,7 +150,7 @@ module.exports = {
 now you can install the `@figma-export` dependencies that you need
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
 ```
 
 and update the `package.json`.

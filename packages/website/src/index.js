@@ -5,6 +5,7 @@ import GitHubLink from './GitHubLink';
 import ComponentsAsES6 from './output-components/ComponentsAsES6';
 import ComponentsAsSvgstore from './output-components/ComponentsAsSvgstore';
 import ComponentsAsSvgr from './output-components/ComponentsAsSvgr';
+import FigmaStyles from './output-styles/FigmaStyles';
 
 const App = () => (
     <Fragment>
@@ -13,8 +14,9 @@ const App = () => (
                 <h1 class="figma-gradient text title">@figma-export</h1>
                 <p>Export tool for Figma</p>
                 <p>
-                    You can easily and automatically export your figma components
-                    and use them directly into your website
+                    You can easily and automatically export your
+                    figma <code class="figma-gradient with-opacity-10">components</code> and <code class="figma-gradient with-opacity-10">styles</code> and
+                    use them directly into your website
                 </p>
             </section>
             <SvgOcticons />
@@ -23,6 +25,7 @@ const App = () => (
         <ComponentsAsES6 />
         <ComponentsAsSvgstore />
         <ComponentsAsSvgr />
+        <FigmaStyles />
     </Fragment>
 );
 

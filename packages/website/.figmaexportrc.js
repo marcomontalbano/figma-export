@@ -3,6 +3,16 @@ const { camelCase } = require('@figma-export/output-components-utils');
 module.exports = {
 
     commands: [
+        ['styles', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['figma-styles'],
+            outputters: [
+                require('../output-styles-as-sass')({
+                    output: './output/figma-styles'
+                }),
+            ]
+        }],
+
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['octicons-by-github'],
