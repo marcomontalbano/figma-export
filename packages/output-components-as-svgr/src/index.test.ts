@@ -32,7 +32,10 @@ describe('outputter as svgr', () => {
         expect(writeFileSync).to.be.calledThrice;
         expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/FigmaLogo.jsx');
         expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/Search.jsx');
-        expect(writeFileSync.thirdCall).to.be.calledWithMatch('output/fakePage/index.js', "export { default as FigmaLogo } from './FigmaLogo.jsx';");
+        expect(writeFileSync.thirdCall).to.be.calledWithMatch(
+            'output/fakePage/index.js',
+            'export { default as FigmaLogo } from \'./FigmaLogo.jsx\';',
+        );
     });
 
     it('should create folder if component names contain slashes', async () => {

@@ -44479,28 +44479,822 @@
                 "type": "CANVAS",
                 "children": [
                     {
-                        "id": "124:9",
-                        "name": "Frame 1",
-                        "type": "FRAME",
+                        "id": "420:6",
+                        "name": "Missing Feature",
+                        "type": "GROUP",
                         "blendMode": "PASS_THROUGH",
                         "children": [
                             {
-                                "id": "124:11",
-                                "name": "Rectangle 2",
+                                "id": "420:4",
+                                "name": "Missing Feature - bg",
                                 "type": "RECTANGLE",
                                 "blendMode": "PASS_THROUGH",
                                 "absoluteBoundingBox": {
-                                    "x": 419.0,
-                                    "y": 114.0,
-                                    "width": 147.0,
-                                    "height": 280.0
+                                    "x": 90.0,
+                                    "y": -323.0,
+                                    "width": 1013.0,
+                                    "height": 878.0
                                 },
                                 "constraints": {
                                     "vertical": "TOP",
                                     "horizontal": "LEFT"
                                 },
-                                "layoutAlign": "CENTER",
                                 "fills": [
+                                    {
+                                        "opacity": 0.079999998211860657,
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "effects": [],
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
+                                ]
+                            },
+                            {
+                                "id": "420:3",
+                                "name": "Effect Styles - Missing Feature",
+                                "type": "GROUP",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "376:8",
+                                        "name": "background-blur",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 131.0,
+                                            "y": 74.0,
+                                            "width": 100.0,
+                                            "height": 100.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.94901961088180542,
+                                                    "g": 0.30588236451148987,
+                                                    "b": 0.11764705926179886,
+                                                    "a": 1.0
+                                                }
+                                            },
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "visible": false,
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 1.0,
+                                                    "g": 0.0,
+                                                    "b": 0.0,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 5.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "121:10",
+                                            "effect": "376:9"
+                                        },
+                                        "effects": [
+                                            {
+                                                "type": "BACKGROUND_BLUR",
+                                                "visible": true,
+                                                "radius": 4.0
+                                            }
+                                        ],
+                                        "cornerRadius": 10.0,
+                                        "rectangleCornerRadii": [
+                                            10.0,
+                                            10.0,
+                                            10.0,
+                                            10.0
+                                        ]
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": 131.0,
+                                    "y": 74.0,
+                                    "width": 100.0,
+                                    "height": 100.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "clipsContent": false,
+                                "background": [],
+                                "fills": [],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "backgroundColor": {
+                                    "r": 0.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 0.0
+                                },
+                                "effects": []
+                            },
+                            {
+                                "id": "420:2",
+                                "name": "Color Styles - Missing Feature",
+                                "type": "GROUP",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "339:6",
+                                        "name": "color-image",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 356.0,
+                                            "y": -235.0,
+                                            "width": 125.0,
+                                            "height": 50.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "IMAGE",
+                                                "scaleMode": "FILL",
+                                                "imageRef": "fa58454b70245545d8e5cafcfb9734a0ece9cfd8"
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "339:7"
+                                        },
+                                        "effects": [],
+                                        "cornerRadius": 10.0,
+                                        "rectangleCornerRadii": [
+                                            10.0,
+                                            10.0,
+                                            10.0,
+                                            10.0
+                                        ]
+                                    },
+                                    {
+                                        "id": "336:0",
+                                        "name": "color-diamond-gradient",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 281.0,
+                                            "y": -235.0,
+                                            "width": 50.0,
+                                            "height": 50.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "GRADIENT_DIAMOND",
+                                                "gradientHandlePositions": [
+                                                    {
+                                                        "x": 0.50,
+                                                        "y": 0.49999999999999994
+                                                    },
+                                                    {
+                                                        "x": 0.50,
+                                                        "y": 0.99999999999999989
+                                                    },
+                                                    {
+                                                        "x": 0.0,
+                                                        "y": 0.50
+                                                    }
+                                                ],
+                                                "gradientStops": [
+                                                    {
+                                                        "color": {
+                                                            "r": 0.039215687662363052,
+                                                            "g": 0.81176471710205078,
+                                                            "b": 0.51372551918029785,
+                                                            "a": 1.0
+                                                        },
+                                                        "position": 0.0
+                                                    },
+                                                    {
+                                                        "color": {
+                                                            "r": 0.039215687662363052,
+                                                            "g": 0.81176471710205078,
+                                                            "b": 0.51372551918029785,
+                                                            "a": 0.0
+                                                        },
+                                                        "position": 1.0
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "339:3"
+                                        },
+                                        "effects": [],
+                                        "cornerRadius": 10.0,
+                                        "rectangleCornerRadii": [
+                                            10.0,
+                                            10.0,
+                                            10.0,
+                                            10.0
+                                        ]
+                                    },
+                                    {
+                                        "id": "336:1",
+                                        "name": "color-angular-gradient",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 206.0,
+                                            "y": -235.0,
+                                            "width": 50.0,
+                                            "height": 50.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "GRADIENT_ANGULAR",
+                                                "gradientHandlePositions": [
+                                                    {
+                                                        "x": 0.50,
+                                                        "y": 0.49999999999999994
+                                                    },
+                                                    {
+                                                        "x": 0.50,
+                                                        "y": 0.99999999999999989
+                                                    },
+                                                    {
+                                                        "x": 0.0,
+                                                        "y": 0.50
+                                                    }
+                                                ],
+                                                "gradientStops": [
+                                                    {
+                                                        "color": {
+                                                            "r": 0.10196078568696976,
+                                                            "g": 0.73725491762161255,
+                                                            "b": 0.99607843160629272,
+                                                            "a": 1.0
+                                                        },
+                                                        "position": 0.0
+                                                    },
+                                                    {
+                                                        "color": {
+                                                            "r": 0.10196078568696976,
+                                                            "g": 0.73725491762161255,
+                                                            "b": 0.99607843160629272,
+                                                            "a": 0.0
+                                                        },
+                                                        "position": 1.0
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "339:2"
+                                        },
+                                        "effects": [],
+                                        "cornerRadius": 10.0,
+                                        "rectangleCornerRadii": [
+                                            10.0,
+                                            10.0,
+                                            10.0,
+                                            10.0
+                                        ]
+                                    },
+                                    {
+                                        "id": "336:2",
+                                        "name": "color-radial-gradient",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 131.0,
+                                            "y": -235.0,
+                                            "width": 50.0,
+                                            "height": 50.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "GRADIENT_RADIAL",
+                                                "gradientHandlePositions": [
+                                                    {
+                                                        "x": 0.49999999999999978,
+                                                        "y": 0.49999999999999994
+                                                    },
+                                                    {
+                                                        "x": 0.49999999999999967,
+                                                        "y": 0.99999999999999989
+                                                    },
+                                                    {
+                                                        "x": -2.2204460492503131e-16,
+                                                        "y": 0.49999999999999989
+                                                    }
+                                                ],
+                                                "gradientStops": [
+                                                    {
+                                                        "color": {
+                                                            "r": 0.63529413938522339,
+                                                            "g": 0.34901961684226990,
+                                                            "b": 1.0,
+                                                            "a": 1.0
+                                                        },
+                                                        "position": 0.0
+                                                    },
+                                                    {
+                                                        "color": {
+                                                            "r": 0.63529413938522339,
+                                                            "g": 0.34901961684226990,
+                                                            "b": 1.0,
+                                                            "a": 0.0
+                                                        },
+                                                        "position": 1.0
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "339:1"
+                                        },
+                                        "effects": [],
+                                        "cornerRadius": 10.0,
+                                        "rectangleCornerRadii": [
+                                            10.0,
+                                            10.0,
+                                            10.0,
+                                            10.0
+                                        ]
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": 131.0,
+                                    "y": -235.0,
+                                    "width": 350.0,
+                                    "height": 50.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "clipsContent": false,
+                                "background": [],
+                                "fills": [],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "backgroundColor": {
+                                    "r": 0.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 0.0
+                                },
+                                "effects": []
+                            },
+                            {
+                                "id": "420:5",
+                                "name": "Missing Features",
+                                "type": "TEXT",
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteBoundingBox": {
+                                    "x": 131.0,
+                                    "y": -302.0,
+                                    "width": 275.0,
+                                    "height": 42.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "OUTSIDE",
+                                "effects": [],
+                                "characters": "Missing Features",
+                                "style": {
+                                    "fontFamily": "Roboto",
+                                    "fontPostScriptName": null,
+                                    "fontWeight": 400,
+                                    "textAutoResize": "WIDTH_AND_HEIGHT",
+                                    "fontSize": 36.0,
+                                    "textAlignHorizontal": "LEFT",
+                                    "textAlignVertical": "TOP",
+                                    "letterSpacing": 0.0,
+                                    "lineHeightPx": 42.18750,
+                                    "lineHeightPercent": 100.0,
+                                    "lineHeightUnit": "INTRINSIC_%"
+                                },
+                                "characterStyleOverrides": [],
+                                "styleOverrideTable": {}
+                            }
+                        ],
+                        "absoluteBoundingBox": {
+                            "x": 90.0,
+                            "y": -323.0,
+                            "width": 1013.0,
+                            "height": 878.0
+                        },
+                        "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "LEFT"
+                        },
+                        "clipsContent": false,
+                        "background": [],
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1.0,
+                        "strokeAlign": "INSIDE",
+                        "backgroundColor": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 0.0
+                        },
+                        "effects": []
+                    },
+                    {
+                        "id": "420:1",
+                        "name": "Grid Styles",
+                        "type": "GROUP",
+                        "blendMode": "PASS_THROUGH",
+                        "children": [
+                            {
+                                "id": "124:9",
+                                "name": "Frame 1",
+                                "type": "FRAME",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "124:11",
+                                        "name": "Rectangle 2",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 583.0,
+                                            "y": 45.0,
+                                            "width": 147.0,
+                                            "height": 280.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "layoutAlign": "CENTER",
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.10196078568696976,
+                                                    "g": 0.73725491762161255,
+                                                    "b": 0.99607843160629272,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 5.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "121:17"
+                                        },
+                                        "effects": []
+                                    },
+                                    {
+                                        "id": "124:10",
+                                        "name": "Rectangle 1",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 740.0,
+                                            "y": 45.0,
+                                            "width": 302.0,
+                                            "height": 280.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "layoutAlign": "CENTER",
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.039215687662363052,
+                                                    "g": 0.81176471710205078,
+                                                    "b": 0.51372551918029785,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "styles": {
+                                            "fill": "121:18",
+                                            "effect": "296:7"
+                                        },
+                                        "effects": [
+                                            {
+                                                "type": "LAYER_BLUR",
+                                                "visible": true,
+                                                "radius": 4.0
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": 573.0,
+                                    "y": 35.0,
+                                    "width": 479.0,
+                                    "height": 300.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "clipsContent": true,
+                                "background": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.94901961088180542,
+                                            "g": 0.30588236451148987,
+                                            "b": 0.11764705926179886,
+                                            "a": 1.0
+                                        }
+                                    },
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "visible": false,
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokeWeight": 4.0,
+                                "strokeAlign": "OUTSIDE",
+                                "backgroundColor": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                },
+                                "styles": {
+                                    "strokes": "121:10",
+                                    "effect": "124:8"
+                                },
+                                "layoutMode": "HORIZONTAL",
+                                "itemSpacing": 10.0,
+                                "horizontalPadding": 10.0,
+                                "verticalPadding": 10.0,
+                                "exportSettings": [
+                                    {
+                                        "suffix": "",
+                                        "format": "PNG",
+                                        "constraint": {
+                                            "type": "SCALE",
+                                            "value": 1.0
+                                        }
+                                    }
+                                ],
+                                "effects": [
+                                    {
+                                        "type": "DROP_SHADOW",
+                                        "visible": true,
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.250
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": 3.0,
+                                            "y": 4.0
+                                        },
+                                        "radius": 7.0
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "124:16",
+                                "name": "Frame 2",
+                                "type": "FRAME",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "124:17",
+                                        "name": "Rectangle 3",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": 603.0,
+                                            "y": 397.0,
+                                            "width": 90.0,
+                                            "height": 60.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "CENTER",
+                                            "horizontal": "CENTER"
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.76862746477127075,
+                                                    "g": 0.76862746477127075,
+                                                    "b": 0.76862746477127075,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "effects": []
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": 573.0,
+                                    "y": 367.0,
+                                    "width": 360.0,
+                                    "height": 159.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "clipsContent": true,
+                                "background": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.63529413938522339,
+                                            "g": 0.34901961684226990,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.63529413938522339,
+                                            "g": 0.34901961684226990,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "backgroundColor": {
+                                    "r": 0.63529413938522339,
+                                    "g": 0.34901961684226990,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                },
+                                "layoutGrids": [
+                                    {
+                                        "pattern": "GRID",
+                                        "sectionSize": 10.0,
+                                        "visible": true,
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.10000000149011612
+                                        },
+                                        "alignment": "MIN",
+                                        "gutterSize": 0,
+                                        "offset": 0,
+                                        "count": -1
+                                    }
+                                ],
+                                "styles": {
+                                    "grid": "124:18"
+                                },
+                                "effects": []
+                            },
+                            {
+                                "id": "124:19",
+                                "name": "Rectangle 4",
+                                "type": "RECTANGLE",
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteBoundingBox": {
+                                    "x": 573.0,
+                                    "y": -281.0,
+                                    "width": 234.0,
+                                    "height": 255.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 0.44705882668495178,
+                                            "b": 0.38431373238563538,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [
                                     {
                                         "blendMode": "NORMAL",
                                         "type": "SOLID",
@@ -44512,378 +45306,56 @@
                                         }
                                     }
                                 ],
-                                "strokes": [],
-                                "strokeWeight": 5.0,
+                                "strokeWeight": 7.0,
                                 "strokeAlign": "INSIDE",
                                 "styles": {
-                                    "fill": "121:17"
-                                },
-                                "effects": []
-                            },
-                            {
-                                "id": "124:10",
-                                "name": "Rectangle 1",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": 576.0,
-                                    "y": 114.0,
-                                    "width": 302.0,
-                                    "height": 280.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "layoutAlign": "CENTER",
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "SOLID",
-                                        "color": {
-                                            "r": 0.039215687662363052,
-                                            "g": 0.81176471710205078,
-                                            "b": 0.51372551918029785,
-                                            "a": 1.0
-                                        }
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 1.0,
-                                "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "121:18",
-                                    "effect": "296:7"
+                                    "fill": "121:12",
+                                    "stroke": "121:17",
+                                    "effect": "124:8"
                                 },
                                 "effects": [
                                     {
-                                        "type": "LAYER_BLUR",
+                                        "type": "DROP_SHADOW",
                                         "visible": true,
-                                        "radius": 4.0
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.250
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": 3.0,
+                                            "y": 4.0
+                                        },
+                                        "radius": 7.0
                                     }
                                 ]
                             }
                         ],
                         "absoluteBoundingBox": {
-                            "x": 409.0,
-                            "y": 104.0,
+                            "x": 573.0,
+                            "y": -281.0,
                             "width": 479.0,
-                            "height": 300.0
+                            "height": 807.0
                         },
                         "constraints": {
                             "vertical": "TOP",
                             "horizontal": "LEFT"
                         },
-                        "clipsContent": true,
-                        "background": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "fills": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "strokes": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 0.94901961088180542,
-                                    "g": 0.30588236451148987,
-                                    "b": 0.11764705926179886,
-                                    "a": 1.0
-                                }
-                            },
-                            {
-                                "blendMode": "NORMAL",
-                                "visible": false,
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 0.0,
-                                    "b": 0.0,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "strokeWeight": 4.0,
-                        "strokeAlign": "OUTSIDE",
-                        "backgroundColor": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "styles": {
-                            "strokes": "121:10",
-                            "effect": "124:8"
-                        },
-                        "layoutMode": "HORIZONTAL",
-                        "itemSpacing": 10.0,
-                        "horizontalPadding": 10.0,
-                        "verticalPadding": 10.0,
-                        "exportSettings": [
-                            {
-                                "suffix": "",
-                                "format": "PNG",
-                                "constraint": {
-                                    "type": "SCALE",
-                                    "value": 1.0
-                                }
-                            }
-                        ],
-                        "effects": [
-                            {
-                                "type": "DROP_SHADOW",
-                                "visible": true,
-                                "color": {
-                                    "r": 0.0,
-                                    "g": 0.0,
-                                    "b": 0.0,
-                                    "a": 0.250
-                                },
-                                "blendMode": "NORMAL",
-                                "offset": {
-                                    "x": 3.0,
-                                    "y": 4.0
-                                },
-                                "radius": 7.0
-                            }
-                        ]
-                    },
-                    {
-                        "id": "124:16",
-                        "name": "Frame 2",
-                        "type": "FRAME",
-                        "blendMode": "PASS_THROUGH",
-                        "children": [
-                            {
-                                "id": "124:17",
-                                "name": "Rectangle 3",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": 499.0,
-                                    "y": 599.0,
-                                    "width": 90.0,
-                                    "height": 60.0
-                                },
-                                "constraints": {
-                                    "vertical": "CENTER",
-                                    "horizontal": "CENTER"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "SOLID",
-                                        "color": {
-                                            "r": 0.76862746477127075,
-                                            "g": 0.76862746477127075,
-                                            "b": 0.76862746477127075,
-                                            "a": 1.0
-                                        }
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 1.0,
-                                "strokeAlign": "INSIDE",
-                                "effects": []
-                            }
-                        ],
-                        "absoluteBoundingBox": {
-                            "x": 469.0,
-                            "y": 569.0,
-                            "width": 360.0,
-                            "height": 159.0
-                        },
-                        "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                        },
-                        "clipsContent": true,
-                        "background": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "fills": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 1.0,
-                                    "b": 1.0,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
+                        "clipsContent": false,
+                        "background": [],
+                        "fills": [],
                         "strokes": [],
                         "strokeWeight": 1.0,
                         "strokeAlign": "INSIDE",
                         "backgroundColor": {
-                            "r": 1.0,
-                            "g": 1.0,
-                            "b": 1.0,
-                            "a": 1.0
-                        },
-                        "layoutGrids": [
-                            {
-                                "pattern": "GRID",
-                                "sectionSize": 10.0,
-                                "visible": true,
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 0.0,
-                                    "b": 0.0,
-                                    "a": 0.10000000149011612
-                                },
-                                "alignment": "MIN",
-                                "gutterSize": 0,
-                                "offset": 0,
-                                "count": -1
-                            }
-                        ],
-                        "styles": {
-                            "grid": "124:18"
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 0.0
                         },
                         "effects": []
-                    },
-                    {
-                        "id": "124:19",
-                        "name": "Rectangle 4",
-                        "type": "RECTANGLE",
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                            "x": 532.0,
-                            "y": -316.0,
-                            "width": 234.0,
-                            "height": 255.0
-                        },
-                        "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                        },
-                        "fills": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 1.0,
-                                    "g": 0.44705882668495178,
-                                    "b": 0.38431373238563538,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "strokes": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 0.10196078568696976,
-                                    "g": 0.73725491762161255,
-                                    "b": 0.99607843160629272,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "strokeWeight": 7.0,
-                        "strokeAlign": "INSIDE",
-                        "styles": {
-                            "fill": "121:12",
-                            "stroke": "121:17",
-                            "effect": "124:8"
-                        },
-                        "effects": [
-                            {
-                                "type": "DROP_SHADOW",
-                                "visible": true,
-                                "color": {
-                                    "r": 0.0,
-                                    "g": 0.0,
-                                    "b": 0.0,
-                                    "a": 0.250
-                                },
-                                "blendMode": "NORMAL",
-                                "offset": {
-                                    "x": 3.0,
-                                    "y": 4.0
-                                },
-                                "radius": 7.0
-                            }
-                        ]
-                    },
-                    {
-                        "id": "124:20",
-                        "name": "Book Title",
-                        "type": "TEXT",
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                            "x": 599.0,
-                            "y": -228.0,
-                            "width": 54.0,
-                            "height": 14.0
-                        },
-                        "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                        },
-                        "fills": [
-                            {
-                                "blendMode": "NORMAL",
-                                "type": "SOLID",
-                                "color": {
-                                    "r": 0.0,
-                                    "g": 0.0,
-                                    "b": 0.0,
-                                    "a": 1.0
-                                }
-                            }
-                        ],
-                        "strokes": [],
-                        "strokeWeight": 1.0,
-                        "strokeAlign": "OUTSIDE",
-                        "effects": [],
-                        "characters": "Book Title",
-                        "style": {
-                            "fontFamily": "Roboto",
-                            "fontPostScriptName": null,
-                            "fontWeight": 400,
-                            "textAutoResize": "WIDTH_AND_HEIGHT",
-                            "fontSize": 12.0,
-                            "textAlignHorizontal": "LEFT",
-                            "textAlignVertical": "TOP",
-                            "letterSpacing": 0.0,
-                            "lineHeightPx": 14.06250,
-                            "lineHeightPercent": 100.0,
-                            "lineHeightUnit": "INTRINSIC_%"
-                        },
-                        "characterStyleOverrides": [],
-                        "styleOverrideTable": {}
                     },
                     {
                         "id": "122:11",
@@ -45197,12 +45669,167 @@
                         "blendMode": "PASS_THROUGH",
                         "children": [
                             {
-                                "id": "376:8",
-                                "name": "background-blur",
+                                "id": "376:11",
+                                "name": "mixed-effects",
                                 "type": "RECTANGLE",
                                 "blendMode": "PASS_THROUGH",
                                 "absoluteBoundingBox": {
                                     "x": -303.0,
+                                    "y": 206.0,
+                                    "width": 100.0,
+                                    "height": 100.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 5.0,
+                                "strokeAlign": "INSIDE",
+                                "effects": [
+                                    {
+                                        "type": "DROP_SHADOW",
+                                        "visible": true,
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.250
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": 0.0,
+                                            "y": 4.0
+                                        },
+                                        "radius": 4.0
+                                    },
+                                    {
+                                        "type": "INNER_SHADOW",
+                                        "visible": true,
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.250
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": 0.0,
+                                            "y": 4.0
+                                        },
+                                        "radius": 4.0
+                                    }
+                                ],
+                                "styles": {
+                                    "effect": "433:8"
+                                },
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
+                                ]
+                            },
+                            {
+                                "id": "433:7",
+                                "name": "mixed-effects",
+                                "type": "RECTANGLE",
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteBoundingBox": {
+                                    "x": -178.0,
+                                    "y": 206.0,
+                                    "width": 100.0,
+                                    "height": 100.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 5.0,
+                                "strokeAlign": "INSIDE",
+                                "effects": [
+                                    {
+                                        "type": "LAYER_BLUR",
+                                        "visible": true,
+                                        "radius": 4.0
+                                    },
+                                    {
+                                        "type": "DROP_SHADOW",
+                                        "visible": true,
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.250
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": 0.0,
+                                            "y": 4.0
+                                        },
+                                        "radius": 4.0
+                                    },
+                                    {
+                                        "type": "INNER_SHADOW",
+                                        "visible": true,
+                                        "color": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.250
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": 0.0,
+                                            "y": 4.0
+                                        },
+                                        "radius": 4.0
+                                    }
+                                ],
+                                "styles": {
+                                    "effect": "376:13"
+                                },
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
+                                ]
+                            },
+                            {
+                                "id": "376:7",
+                                "name": "layer-blur",
+                                "type": "RECTANGLE",
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteBoundingBox": {
+                                    "x": -428.0,
                                     "y": 206.0,
                                     "width": 100.0,
                                     "height": 100.0
@@ -45239,48 +45866,6 @@
                                 "strokeAlign": "INSIDE",
                                 "styles": {
                                     "fill": "121:10",
-                                    "effect": "376:9"
-                                },
-                                "effects": [
-                                    {
-                                        "type": "BACKGROUND_BLUR",
-                                        "visible": true,
-                                        "radius": 4.0
-                                    }
-                                ]
-                            },
-                            {
-                                "id": "376:7",
-                                "name": "layer-blur",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": -428.0,
-                                    "y": 206.0,
-                                    "width": 100.0,
-                                    "height": 100.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "SOLID",
-                                        "color": {
-                                            "r": 0.63529413938522339,
-                                            "g": 0.34901961684226990,
-                                            "b": 1.0,
-                                            "a": 1.0
-                                        }
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 5.0,
-                                "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "121:16",
                                     "effect": "296:7"
                                 },
                                 "effects": [
@@ -45289,6 +45874,13 @@
                                         "visible": true,
                                         "radius": 4.0
                                     }
+                                ],
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
                                 ]
                             },
                             {
@@ -45311,9 +45903,9 @@
                                         "blendMode": "NORMAL",
                                         "type": "SOLID",
                                         "color": {
-                                            "r": 0.039215687662363052,
-                                            "g": 0.81176471710205078,
-                                            "b": 0.51372551918029785,
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
                                             "a": 1.0
                                         }
                                     }
@@ -45321,10 +45913,6 @@
                                 "strokes": [],
                                 "strokeWeight": 5.0,
                                 "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "121:18",
-                                    "effect": "124:8"
-                                },
                                 "effects": [
                                     {
                                         "type": "DROP_SHADOW",
@@ -45342,6 +45930,75 @@
                                         },
                                         "radius": 7.0
                                     }
+                                ],
+                                "styles": {
+                                    "effect": "124:8"
+                                },
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
+                                ]
+                            },
+                            {
+                                "id": "376:14",
+                                "name": "inner-shadow-bottom",
+                                "type": "RECTANGLE",
+                                "blendMode": "PASS_THROUGH",
+                                "absoluteBoundingBox": {
+                                    "x": -303.0,
+                                    "y": 81.0,
+                                    "width": 100.0,
+                                    "height": 100.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 5.0,
+                                "strokeAlign": "INSIDE",
+                                "effects": [
+                                    {
+                                        "type": "INNER_SHADOW",
+                                        "visible": true,
+                                        "color": {
+                                            "r": 0.94901961088180542,
+                                            "g": 0.30588236451148987,
+                                            "b": 0.11764705926179886,
+                                            "a": 0.50
+                                        },
+                                        "blendMode": "NORMAL",
+                                        "offset": {
+                                            "x": -4.0,
+                                            "y": -5.0
+                                        },
+                                        "radius": 10.0
+                                    }
+                                ],
+                                "styles": {
+                                    "effect": "376:15"
+                                },
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
                                 ]
                             },
                             {
@@ -45364,9 +46021,9 @@
                                         "blendMode": "NORMAL",
                                         "type": "SOLID",
                                         "color": {
-                                            "r": 0.10196078568696976,
-                                            "g": 0.73725491762161255,
-                                            "b": 0.99607843160629272,
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
                                             "a": 1.0
                                         }
                                     }
@@ -45374,10 +46031,6 @@
                                 "strokes": [],
                                 "strokeWeight": 5.0,
                                 "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "121:17",
-                                    "effect": "376:2"
-                                },
                                 "effects": [
                                     {
                                         "type": "INNER_SHADOW",
@@ -45395,138 +46048,16 @@
                                         },
                                         "radius": 10.0
                                     }
-                                ]
-                            },
-                            {
-                                "id": "376:14",
-                                "name": "inner-shadow",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": -303.0,
-                                    "y": 81.0,
-                                    "width": 100.0,
-                                    "height": 100.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "SOLID",
-                                        "color": {
-                                            "r": 0.10196078568696976,
-                                            "g": 0.73725491762161255,
-                                            "b": 0.99607843160629272,
-                                            "a": 1.0
-                                        }
-                                    }
                                 ],
-                                "strokes": [],
-                                "strokeWeight": 5.0,
-                                "strokeAlign": "INSIDE",
                                 "styles": {
-                                    "fill": "121:17",
-                                    "effect": "376:15"
+                                    "effect": "376:2"
                                 },
-                                "effects": [
-                                    {
-                                        "type": "INNER_SHADOW",
-                                        "visible": true,
-                                        "color": {
-                                            "r": 0.94901961088180542,
-                                            "g": 0.30588236451148987,
-                                            "b": 0.11764705926179886,
-                                            "a": 0.50
-                                        },
-                                        "blendMode": "NORMAL",
-                                        "offset": {
-                                            "x": -4.0,
-                                            "y": -5.0
-                                        },
-                                        "radius": 10.0
-                                    }
-                                ]
-                            },
-                            {
-                                "id": "376:11",
-                                "name": "inner-shadow",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": -178.0,
-                                    "y": 206.0,
-                                    "width": 100.0,
-                                    "height": 100.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "SOLID",
-                                        "color": {
-                                            "r": 1.0,
-                                            "g": 0.44705882668495178,
-                                            "b": 0.38431373238563538,
-                                            "a": 1.0
-                                        }
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 5.0,
-                                "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "121:12",
-                                    "effect": "376:13"
-                                },
-                                "effects": [
-                                    {
-                                        "type": "BACKGROUND_BLUR",
-                                        "visible": true,
-                                        "radius": 4.0
-                                    },
-                                    {
-                                        "type": "LAYER_BLUR",
-                                        "visible": true,
-                                        "radius": 4.0
-                                    },
-                                    {
-                                        "type": "DROP_SHADOW",
-                                        "visible": true,
-                                        "color": {
-                                            "r": 0.0,
-                                            "g": 0.0,
-                                            "b": 0.0,
-                                            "a": 0.250
-                                        },
-                                        "blendMode": "NORMAL",
-                                        "offset": {
-                                            "x": 0.0,
-                                            "y": 4.0
-                                        },
-                                        "radius": 4.0
-                                    },
-                                    {
-                                        "type": "INNER_SHADOW",
-                                        "visible": true,
-                                        "color": {
-                                            "r": 0.0,
-                                            "g": 0.0,
-                                            "b": 0.0,
-                                            "a": 0.250
-                                        },
-                                        "blendMode": "NORMAL",
-                                        "offset": {
-                                            "x": 0.0,
-                                            "y": 4.0
-                                        },
-                                        "radius": 4.0
-                                    }
+                                "cornerRadius": 10.0,
+                                "rectangleCornerRadii": [
+                                    10.0,
+                                    10.0,
+                                    10.0,
+                                    10.0
                                 ]
                             },
                             {
@@ -45609,14 +46140,14 @@
                         "blendMode": "PASS_THROUGH",
                         "children": [
                             {
-                                "id": "339:6",
-                                "name": "color-image",
+                                "id": "408:7",
+                                "name": "color-linear-gradient-alpha",
                                 "type": "RECTANGLE",
                                 "blendMode": "PASS_THROUGH",
                                 "absoluteBoundingBox": {
-                                    "x": -203.0,
-                                    "y": -78.0,
-                                    "width": 125.0,
+                                    "x": -128.0,
+                                    "y": -153.0,
+                                    "width": 50.0,
                                     "height": 50.0
                                 },
                                 "constraints": {
@@ -45626,16 +46157,96 @@
                                 "fills": [
                                     {
                                         "blendMode": "NORMAL",
-                                        "type": "IMAGE",
-                                        "scaleMode": "FILL",
-                                        "imageRef": "fa58454b70245545d8e5cafcfb9734a0ece9cfd8"
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 0.039215687662363052,
+                                            "g": 0.81176471710205078,
+                                            "b": 0.51372551918029785,
+                                            "a": 1.0
+                                        }
+                                    },
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "GRADIENT_LINEAR",
+                                        "gradientHandlePositions": [
+                                            {
+                                                "x": 1.5366819112864612e-10,
+                                                "y": 0.49999999867985034
+                                            },
+                                            {
+                                                "x": 1.0000000001536682,
+                                                "y": 0.50000000007683421
+                                            },
+                                            {
+                                                "x": -5.4482418392217262e-10,
+                                                "y": 0.99999999867985034
+                                            }
+                                        ],
+                                        "gradientStops": [
+                                            {
+                                                "color": {
+                                                    "r": 0.72122371196746826,
+                                                    "g": 0.34901964664459229,
+                                                    "b": 1.0,
+                                                    "a": 1.0
+                                                },
+                                                "position": 0.0
+                                            },
+                                            {
+                                                "color": {
+                                                    "r": 1.0,
+                                                    "g": 1.0,
+                                                    "b": 1.0,
+                                                    "a": 0.0
+                                                },
+                                                "position": 1.0
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "type": "GRADIENT_LINEAR",
+                                        "gradientHandlePositions": [
+                                            {
+                                                "x": 0.50,
+                                                "y": -3.0616171314629196e-17
+                                            },
+                                            {
+                                                "x": 0.50,
+                                                "y": 0.99999999999999989
+                                            },
+                                            {
+                                                "x": 0.0,
+                                                "y": 0.0
+                                            }
+                                        ],
+                                        "gradientStops": [
+                                            {
+                                                "color": {
+                                                    "r": 1.0,
+                                                    "g": 1.0,
+                                                    "b": 1.0,
+                                                    "a": 1.0
+                                                },
+                                                "position": 0.0
+                                            },
+                                            {
+                                                "color": {
+                                                    "r": 1.0,
+                                                    "g": 1.0,
+                                                    "b": 1.0,
+                                                    "a": 0.0
+                                                },
+                                                "position": 1.0
+                                            }
+                                        ]
                                     }
                                 ],
                                 "strokes": [],
                                 "strokeWeight": 1.0,
                                 "strokeAlign": "INSIDE",
                                 "styles": {
-                                    "fill": "339:7"
+                                    "fill": "408:8"
                                 },
                                 "effects": [],
                                 "cornerRadius": 10.0,
@@ -45794,216 +46405,6 @@
                                 "strokeAlign": "INSIDE",
                                 "styles": {
                                     "fill": "339:5"
-                                },
-                                "effects": [],
-                                "cornerRadius": 10.0,
-                                "rectangleCornerRadii": [
-                                    10.0,
-                                    10.0,
-                                    10.0,
-                                    10.0
-                                ]
-                            },
-                            {
-                                "id": "336:0",
-                                "name": "color-diamond-gradient",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": -278.0,
-                                    "y": -78.0,
-                                    "width": 50.0,
-                                    "height": 50.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "GRADIENT_DIAMOND",
-                                        "gradientHandlePositions": [
-                                            {
-                                                "x": 0.50,
-                                                "y": 0.49999999999999994
-                                            },
-                                            {
-                                                "x": 0.50,
-                                                "y": 0.99999999999999989
-                                            },
-                                            {
-                                                "x": 0.0,
-                                                "y": 0.50
-                                            }
-                                        ],
-                                        "gradientStops": [
-                                            {
-                                                "color": {
-                                                    "r": 0.039215687662363052,
-                                                    "g": 0.81176471710205078,
-                                                    "b": 0.51372551918029785,
-                                                    "a": 1.0
-                                                },
-                                                "position": 0.0
-                                            },
-                                            {
-                                                "color": {
-                                                    "r": 0.039215687662363052,
-                                                    "g": 0.81176471710205078,
-                                                    "b": 0.51372551918029785,
-                                                    "a": 0.0
-                                                },
-                                                "position": 1.0
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 1.0,
-                                "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "339:3"
-                                },
-                                "effects": [],
-                                "cornerRadius": 10.0,
-                                "rectangleCornerRadii": [
-                                    10.0,
-                                    10.0,
-                                    10.0,
-                                    10.0
-                                ]
-                            },
-                            {
-                                "id": "336:1",
-                                "name": "color-angular-gradient",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": -353.0,
-                                    "y": -78.0,
-                                    "width": 50.0,
-                                    "height": 50.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "GRADIENT_ANGULAR",
-                                        "gradientHandlePositions": [
-                                            {
-                                                "x": 0.50,
-                                                "y": 0.49999999999999994
-                                            },
-                                            {
-                                                "x": 0.50,
-                                                "y": 0.99999999999999989
-                                            },
-                                            {
-                                                "x": 0.0,
-                                                "y": 0.50
-                                            }
-                                        ],
-                                        "gradientStops": [
-                                            {
-                                                "color": {
-                                                    "r": 0.10196078568696976,
-                                                    "g": 0.73725491762161255,
-                                                    "b": 0.99607843160629272,
-                                                    "a": 1.0
-                                                },
-                                                "position": 0.0
-                                            },
-                                            {
-                                                "color": {
-                                                    "r": 0.10196078568696976,
-                                                    "g": 0.73725491762161255,
-                                                    "b": 0.99607843160629272,
-                                                    "a": 0.0
-                                                },
-                                                "position": 1.0
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 1.0,
-                                "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "339:2"
-                                },
-                                "effects": [],
-                                "cornerRadius": 10.0,
-                                "rectangleCornerRadii": [
-                                    10.0,
-                                    10.0,
-                                    10.0,
-                                    10.0
-                                ]
-                            },
-                            {
-                                "id": "336:2",
-                                "name": "color-radial-gradient",
-                                "type": "RECTANGLE",
-                                "blendMode": "PASS_THROUGH",
-                                "absoluteBoundingBox": {
-                                    "x": -428.0,
-                                    "y": -78.0,
-                                    "width": 50.0,
-                                    "height": 50.0
-                                },
-                                "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                },
-                                "fills": [
-                                    {
-                                        "blendMode": "NORMAL",
-                                        "type": "GRADIENT_RADIAL",
-                                        "gradientHandlePositions": [
-                                            {
-                                                "x": 0.49999999999999978,
-                                                "y": 0.49999999999999994
-                                            },
-                                            {
-                                                "x": 0.49999999999999967,
-                                                "y": 0.99999999999999989
-                                            },
-                                            {
-                                                "x": -2.2204460492503131e-16,
-                                                "y": 0.49999999999999989
-                                            }
-                                        ],
-                                        "gradientStops": [
-                                            {
-                                                "color": {
-                                                    "r": 0.63529413938522339,
-                                                    "g": 0.34901961684226990,
-                                                    "b": 1.0,
-                                                    "a": 1.0
-                                                },
-                                                "position": 0.0
-                                            },
-                                            {
-                                                "color": {
-                                                    "r": 0.63529413938522339,
-                                                    "g": 0.34901961684226990,
-                                                    "b": 1.0,
-                                                    "a": 0.0
-                                                },
-                                                "position": 1.0
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "strokes": [],
-                                "strokeWeight": 1.0,
-                                "strokeAlign": "INSIDE",
-                                "styles": {
-                                    "fill": "339:1"
                                 },
                                 "effects": [],
                                 "cornerRadius": 10.0,
@@ -46401,7 +46802,7 @@
                             "x": -428.0,
                             "y": -295.0,
                             "width": 350.0,
-                            "height": 267.0
+                            "height": 192.0
                         },
                         "constraints": {
                             "vertical": "TOP",
@@ -46423,9 +46824,9 @@
                     }
                 ],
                 "backgroundColor": {
-                    "r": 0.89803922176361084,
-                    "g": 0.89803922176361084,
-                    "b": 0.89803922176361084,
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
                     "a": 1.0
                 },
                 "prototypeStartNodeID": null,
@@ -47469,7 +47870,7 @@
             "key": "d02739edcd48b09ec255a4a9f358e2e5f2e2e735",
             "name": "color-1",
             "styleType": "FILL",
-            "description": "Red"
+            "description": "Red color and incomprehensible comment :) !\"£$%&/()=?^*/\n/*/*/*/*/*/*/*/*/*/*/*//////\n§°ç*é_:;][¶#@–•…*/„Ω€®™æ¨œøπ¬ºª∆∞ƒ∂ßå≤∑†©√∫˜µ*/"
         },
         "121:12": {
             "key": "b7b8c9cf193dae1be89209aee9752c850e30b778",
@@ -47601,7 +48002,7 @@
             "key": "3134cfdf4d6c2bb3fd5a243470031d85d1f161e8",
             "name": "mixed-effects",
             "styleType": "EFFECT",
-            "description": ""
+            "description": "This mixed effect will not consider the Layer Blur.\nBlur and Shadow are not compatible."
         },
         "376:15": {
             "key": "17f0bb867b5b4c1b164852f8cc699004f7ad02f5",
@@ -47614,6 +48015,18 @@
             "name": "deleted-text",
             "styleType": "TEXT",
             "description": ""
+        },
+        "408:8": {
+            "key": "82c9b8f11f22a83ff1858be9d8d6737dd1b6f5f7",
+            "name": "color-multi-gradient",
+            "styleType": "FILL",
+            "description": "This color is composed by two linear gradient and one solid color"
+        },
+        "433:8": {
+            "key": "79b5b7e1c18350a34fb63991f2e6da1c5a4827a5",
+            "name": "multi-shadows",
+            "styleType": "EFFECT",
+            "description": "Multiple shadows in the same effect"
         },
         "254:1": {
             "key": "6a6e935eeeeba50804fa8b585c83b3e9345a4292",
@@ -47635,8 +48048,8 @@
         }
     },
     "name": "Figma Export",
-    "lastModified": "2020-08-24T18:54:01.338964Z",
-    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/2c78ef9d-68ae-4a11-b141-98e48fb16812?Expires=1599436800&Signature=MSSThvf1c~QTgSeBHiZqi5l78wACbHsTgRkOST239RhRqeimRu3rA9uf2poP38yHgmOSScDoAr4BDDKHk6mi~Vr9UoMvUwH4kNiSykhP68eftHTJGVXCfp7MoJ9n78vRoupWu~Xr9pXkfA5rCwTYX1bKsjj8XTfr~GWEU00~yzXyiwYBSKszTel3f1GCKbhtIcFkgh8kYZPpBhqOt0lTCgXMWTXK2q4PReOpcLtOgvc0mJbO4-k5MOERfgfQg4cV98KIj0w~D1q5su2KjmDULi1Qt4gr~gKvhLtUqjHU4Ea-Dryf9XwV~eRSGfGfNlQFkwD-PA~Pk6JYHFca42B~Ng__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    "version": "432858726",
+    "lastModified": "2020-09-02T08:14:34.900026Z",
+    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/f3441dd4-caa7-4dfe-8273-0c29a12eb513?Expires=1600041600&Signature=Td5zM4RBMJb-5LAQuXE8aMfcCv~er66qzhfBWhTUt6y85ctB27S2VGAKVezvWZgmPmHY3ma0TDIp3DpKvKWGb-JEZ3SGCpXagKTDR5kDDeMqXk2VUxx1z9FlH3qvO0h0aibCkIiVwQ25GpV7SNcuAIFdOFsmPbCbUou~PfF47ztcNx9fqTphh74DaHd0Hs78dz5v2Ox7Vc9ljRi2hfkorJpUHPF6TnDm4WciCtHU4xMJmH~cfqdRxOKvDx~x6QrDrfjsqQPnpnR21hP6brK9BeqFmEwVGKcPhmmqoG4yGl5UquAdwS03c2X2awPQyQVpp3U5vf4Cjl8ezuVg5siYIg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+    "version": "442862168",
     "role": "owner"
 }

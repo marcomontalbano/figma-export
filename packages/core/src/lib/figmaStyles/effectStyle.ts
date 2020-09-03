@@ -22,6 +22,8 @@ const createEffectStyle = (effect: Figma.Effect): FigmaExport.EffectStyle | unde
                     offset: effect.offset,
                     blurRadius: effect.radius,
                     spreadRadius,
+
+                    // eslint-disable-next-line max-len
                     value: `${inset ? 'inset ' : ''}${effect.offset.x}px ${effect.offset.y}px ${effect.radius}px ${spreadRadius}px ${color.rgba}`,
                 };
             }
@@ -46,7 +48,10 @@ const parse = (node: FigmaExport.StyleNode): FigmaExport.StyleTypeEffect | undef
     if (node.styleType === 'EFFECT' && node.type === 'RECTANGLE') {
         return {
             styleType: 'EFFECT',
-            effects: node.effects.map(createEffectStyle).filter(notEmpty),
+            effects: Array.from(node.effects)
+                .reverse()
+                .map(createEffectStyle)
+                .filter(notEmpty),
         };
     }
 

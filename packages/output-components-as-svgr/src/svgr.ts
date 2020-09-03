@@ -26,7 +26,8 @@ export type State = {
 //     icon?: boolean
 
 //     /**
-//      * Modify all SVG nodes with uppercase and use a specific template with react-native-svg imports. All unsupported nodes will be removed.
+//      * Modify all SVG nodes with uppercase and use a specific template with react-native-svg imports.
+//      * All unsupported nodes will be removed.
 //      * Override using the API with native: { expo: true } to template SVG nodes with the ExpoKit SVG package.
 //      * This is only necessary for 'ejected' ExpoKit projects where import 'react-native-svg' results in an error.
 //      */
