@@ -2,10 +2,9 @@ import { render, Fragment, hydrate } from 'preact';
 
 import SvgOcticons from './SvgOcticons';
 import GitHubLink from './GitHubLink';
-import ComponentsAsES6 from './output-components/ComponentsAsES6';
-import ComponentsAsSvgstore from './output-components/ComponentsAsSvgstore';
-import ComponentsAsSvgr from './output-components/ComponentsAsSvgr';
-import FigmaStyles from './output-styles/FigmaStyles';
+
+import OutputComponents from './output-components';
+import OutputStyles from './output-styles';
 
 const App = () => (
     <Fragment>
@@ -21,11 +20,11 @@ const App = () => (
             </section>
             <SvgOcticons />
         </div>
+
         <GitHubLink />
-        <ComponentsAsES6 />
-        <ComponentsAsSvgstore />
-        <ComponentsAsSvgr />
-        <FigmaStyles />
+
+        <OutputComponents />
+        <OutputStyles />
     </Fragment>
 );
 

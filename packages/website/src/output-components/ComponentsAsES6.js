@@ -3,7 +3,7 @@ import ComponentsAsES6Base64 from './ComponentsAsES6_base64';
 
 const ComponentsAsES6 = () => (
     <div class="section-block container text-center">
-        <h2 id="svg-into-js"><code class="figma-gradient with-opacity-10">SVG into .js</code></h2>
+        <h3 id="svg-into-js"><code class="figma-gradient with-opacity-10">SVG into .js</code></h3>
         <div>
             Exporting SVG into JS is a good solution.
             You will have multiple exported variables that you can easily import in your project.

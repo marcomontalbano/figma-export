@@ -2,7 +2,6 @@ import AsSass from './AsSass';
 
 const FigmaStyles = () => (
     <div className="section-block container text-center">
-        <h2 id="figma-styles"><code className="figma-gradient with-opacity-10">Figma Styles</code></h2>
         <div>
             You can export Figma Styles to different output.<br />
             <a className="full" href="https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2" rel="noreferrer noopener" target="_blank">https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2</a><br />

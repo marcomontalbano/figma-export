@@ -4,7 +4,7 @@ import CodeBlock from '../CodeBlock';
 const props = {
     title: (
         <Fragment>
-            Export your styles as <code class="figma-gradient with-opacity-10">SCSS</code> or <code class="figma-gradient with-opacity-10">SASS</code>
+            Export your styles as <code class="figma-gradient with-opacity-10">SASS</code> and <code class="figma-gradient with-opacity-10">SCSS</code>
         </Fragment>
     ),
     description: (
