@@ -16,7 +16,7 @@
 </p>
 
 
-## Personal Access Token
+## :old_key: Personal Access Token
 
 First of all you have to set the environment variable `FIGMA_TOKEN`.
 
@@ -34,7 +34,7 @@ export FIGMA_TOKEN=<personalAccessToken>
 
 > You can use [dotenv](https://www.npmjs.com/package/dotenv) or `export` the variable using `.bash_profile`/`.bashrc` file.
 
-## Just Try
+## :test_tube: Just Try
 
 If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5 as .svg :sunglasses:
 
@@ -46,7 +46,17 @@ export FIGMA_TOKEN=<personalAccessToken>
 npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
 ```
 
-## Packages
+or you can export all styles into .scss
+
+```sh
+# export figma token
+export FIGMA_TOKEN=<personalAccessToken>
+
+# export figma styles as .scss variables
+npx -p @figma-export/cli -p @figma-export/output-styles-as-sass figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass
+```
+
+## :package: Packages
 
 ### [@figma-export/core](/packages/core)
 
@@ -56,7 +66,7 @@ This package contains the core functionalities for `figma-export`. You can downl
 
 This package allows you to consume all core functionalities from your terminal.
 
-## Usage
+## :book: Usage
 
 Typically you'll prefer to use the `cli`. Here different ways to do the same:
 
@@ -65,10 +75,10 @@ Typically you'll prefer to use the `cli`. Here different ways to do the same:
 You can use `figma-export` as part of your build process.
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/cli @figma-export/output-components-as-svg @figma-export/output-styles-as-sass
 
 # or using `yarn`
-yarn add @figma-export/cli @figma-export/output-components-as-svg --dev
+yarn add @figma-export/cli @figma-export/output-components-as-svg @figma-export/output-styles-as-sass --dev
 ```
 
 Now you can create a `script` command inside your `package.json`.
@@ -78,7 +88,8 @@ Following an example:
 ```diff
 {
   "scripts": {
-+   "figma:export": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
++   "figma:export-components": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg",
++   "figma:export-styles": "figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass",
   }
 }
 ```
@@ -108,7 +119,7 @@ figma-export help
 
 ### Advanced
 
-Last but not least, you can create a configuration file and use a single command *to rule them all* :ring:
+Last but not least, you can     \\create a configuration file and use a single command *to rule them all* :ring:
 
 Let's create the file `.figmaexportrc.js` and paste the following:
 
@@ -116,6 +127,7 @@ Let's create the file `.figmaexportrc.js` and paste the following:
 module.exports = {
 
     commands: [
+
         ['styles', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['figma-styles'],
@@ -125,6 +137,7 @@ module.exports = {
                 })
             ]
         }],
+
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],
@@ -142,6 +155,7 @@ module.exports = {
                 })
             ]
         }]
+
     ]
 
 };
@@ -150,7 +164,7 @@ module.exports = {
 now you can install the `@figma-export` dependencies that you need
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg @figma-export/output-styles-as-sass
 ```
 
 and update the `package.json`.
@@ -172,3 +186,7 @@ If needed you can also provide a different configuration file.
   }
 }
 ```
+
+## :books: More Packages
+
+For the list of available packages or if you want to create your own transformer or outputter you can continue reading [CLI Documentation](/packages/cli#readme).
