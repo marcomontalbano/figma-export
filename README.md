@@ -16,6 +16,46 @@
 </p>
 
 
+## :sparkles: In Short
+
+### Components
+
+You can export your Figma Components as SVG and use them inside your website.
+
+> This is particularly useful when you have your own icon set and you want to keep your website icons up-to-date with your Figma file.
+
+### Styles
+
+You can export your Figma Styles into different output like `.sass` format, `.scss` format or you can create your own outputter.
+
+> If you want to keep the style of your Figma file in-sync with the `.css` of your website, this is a must-have.
+
+#### :art: Colors (paints)
+- [x] Color
+- [x] Linear Gradient
+
+#### :lollipop: Effects
+
+> Shadow and Blur effects cannot be combined together since they use two different CSS properties.
+
+- [x] Inner Shadow
+- [x] Drop Shadow
+- [x] Layer Blur
+
+#### :pencil2: Text
+
+- [x] font-family
+- [x] font-weight
+- [x] font-size
+- [x] line-height
+- [x] letter-spacing
+- [x] font-style
+- [x] font-variant
+- [x] text-transform
+- [x] text-decoration
+- [x] text-align
+
+
 ## :old_key: Personal Access Token
 
 First of all you have to set the environment variable `FIGMA_TOKEN`.
@@ -34,6 +74,7 @@ export FIGMA_TOKEN=<personalAccessToken>
 
 > You can use [dotenv](https://www.npmjs.com/package/dotenv) or `export` the variable using `.bash_profile`/`.bashrc` file.
 
+
 ## :test_tube: Just Try
 
 If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5 as .svg :sunglasses:
@@ -46,7 +87,7 @@ export FIGMA_TOKEN=<personalAccessToken>
 npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
 ```
 
-or you can export all styles into .scss
+or you can export all styles into `.scss`
 
 ```sh
 # export figma token
@@ -55,6 +96,7 @@ export FIGMA_TOKEN=<personalAccessToken>
 # export figma styles as .scss variables
 npx -p @figma-export/cli -p @figma-export/output-styles-as-sass figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass
 ```
+
 
 ## :package: Packages
 
@@ -119,7 +161,7 @@ figma-export help
 
 ### Advanced
 
-Last but not least, you can     \\create a configuration file and use a single command *to rule them all* :ring:
+Last but not least, you can create a configuration file and use a single command *to rule them all* :ring:
 
 Let's create the file `.figmaexportrc.js` and paste the following:
 
@@ -189,4 +231,4 @@ If needed you can also provide a different configuration file.
 
 ## :books: More Packages
 
-For the list of available packages or if you want to create your own transformer or outputter you can continue reading [CLI Documentation](/packages/cli#readme).
+For the list of all official packages or if you want to create your own transformer or outputter you can continue reading [CLI Documentation](/packages/cli#readme).
