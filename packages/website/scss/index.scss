@@ -1,16 +1,16 @@
-$color-palette-1: #f24e1e;
-$color-palette-2: #a259ff;
-$color-palette-3: #1abcfe;
-$color-palette-4: #0acf83;
+@import "../output/figma-styles/variables";
+@import "./mixin";
+@import "./figma-styles";
+@import "./tooltip";
+
+// $color-1: #f24e1e;
+// $color-2: #a259ff;
+// $color-3: #1abcfe;
+// $color-4: #0acf83;
 
 $color-link: #64B5F6;
 $color-link-hover: #1976D2;
 
-@mixin for-desktop-up {
-    @media (min-width: 1024px) {
-        @content;
-    }
-}
 
 .text-center {
     text-align: center;
@@ -23,7 +23,7 @@ $color-link-hover: #1976D2;
 body {
     margin: 0;
     font-family: Lato;
-    font-weight: 200;
+    font-weight: 300;
     font-size: 16px;
     line-height: 1.4em;
     letter-spacing: 1px;
@@ -49,8 +49,9 @@ pre[class*=language-] {
 }
 
 .figma-gradient {
-    background: $color-palette-1;
-    background: linear-gradient(90deg, $color-palette-1 0%, $color-palette-2 33%, $color-palette-3 66%, $color-palette-4 100%);
+    background: $color-1;
+    background: linear-gradient(90deg, $color-1 0%, $color-2 33%, $color-3 66%, $color-4 100%), rgba(255, 255, 255, 0.9);
+    line-height: 2em;
 
     @at-root code {
         padding: 5px;
@@ -59,11 +60,11 @@ pre[class*=language-] {
     }
 
     &.with-opacity-05 {
-        background: linear-gradient(270deg, fade-out($color-palette-1, .95) 0%, fade-out($color-palette-2, .95) 33%, fade-out($color-palette-3, .95) 66%, fade-out($color-palette-4, .95) 100%);
+        background: linear-gradient(270deg, fade-out($color-1, .95) 0%, fade-out($color-2, .95) 33%, fade-out($color-3, .95) 66%, fade-out($color-4, .95) 100%), rgba(255, 255, 255, 0.9);
     }
 
     &.with-opacity-10 {
-        background: linear-gradient(270deg, fade-out($color-palette-1, .90) 0%, fade-out($color-palette-2, .90) 33%, fade-out($color-palette-3, .90) 66%, fade-out($color-palette-4, .90) 100%);
+        background: linear-gradient(270deg, fade-out($color-1, .90) 0%, fade-out($color-2, .90) 33%, fade-out($color-3, .90) 66%, fade-out($color-4, .90) 100%), rgba(255, 255, 255, 0.9);
     }
 
     &.text {
@@ -78,10 +79,14 @@ pre[class*=language-] {
     margin-bottom: 25px;
 
     .title, section {
-        font-weight: 200;
+        font-weight: 300;
         margin: 0 auto;
         display: inline-block;
     }
+
+    .title {
+        font-size: 2.6em;
+    } 
 
     @include for-desktop-up {
         min-height: 635px;
@@ -89,6 +94,10 @@ pre[class*=language-] {
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
+
+        .title {
+            font-size: 2.8em;
+        } 
     }
 
     .octicons {
@@ -124,7 +133,7 @@ pre[class*=language-] {
                 font-size: 1.8em;
                 line-height: 1.2em;
                 margin: 30px 0 35px;
-                font-weight: 200;
+                font-weight: 300;
                 letter-spacing: 1px;
             }
         }
@@ -193,11 +202,28 @@ pre[class*=language-] {
     margin: 60px 0;
 }
 
+a.full {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+h2 {
+    text-align: center;
+    padding: 15px 0;
+    margin: 0;
+
+    position: sticky;
+    z-index: 1;
+    top: 0;
+}
+
 .code-block {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    margin: 15px 0;
+    margin: 30px 0;
 
     @include for-desktop-up {
         align-items: center;
@@ -237,15 +263,16 @@ pre[class*=language-] {
     right: 0;
     font-size: 0.8em;
     padding: 0 15px;
-    float: right;
     line-height: 2em;
+    display: block;
+    text-align: right;
 
     @include for-desktop-up {
         position: absolute;
     }
 
     a {
-        display: flex;
+        display: inline-flex;
         text-decoration: none;
         color: inherit;
     }
@@ -253,5 +280,39 @@ pre[class*=language-] {
     img {
         margin-left: 8px;
         width: 16px;
+    }
+}
+
+.feature-box {
+    display: inline-block;
+    margin: 25px 3vw;
+
+    position: relative;
+
+    > code {
+        display: block;
+    }
+}
+
+.figma-box {
+    border-radius: 25%;
+    display: inline-block;
+    vertical-align: top;
+
+    &:not(.with-content) {
+        width: 40px;
+        height: 40px;
+
+        @include for-desktop-up {
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    &:not(.no-margin) {
+        margin: 8px;
+        @include for-desktop-up {
+            margin: 10px;
+        }
     }
 }

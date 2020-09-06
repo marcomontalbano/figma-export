@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-    You can easily and automatically export your figma components and use them directly into your website.
+    You can easily and automatically export your figma components and styles and use them directly into your website.
 </p>
 
 <p align="center">
@@ -16,7 +16,47 @@
 </p>
 
 
-## Personal Access Token
+## :sparkles: In Short
+
+### Components
+
+You can export your Figma Components as SVG and use them inside your website.
+
+> This is particularly useful when you have your own icon set and you want to keep your website icons up-to-date with your Figma file.
+
+### Styles
+
+You can export your Figma Styles into different output like `.sass` format, `.scss` format or you can create your own outputter.
+
+> If you want to keep the style of your Figma file in-sync with the `.css` of your website, this is a must-have.
+
+#### :art: Colors (paints)
+- [x] Color
+- [x] Linear Gradient
+
+#### :lollipop: Effects
+
+> Shadow and Blur effects cannot be combined together since they use two different CSS properties.
+
+- [x] Inner Shadow
+- [x] Drop Shadow
+- [x] Layer Blur
+
+#### :pencil2: Text
+
+- [x] font-family
+- [x] font-weight
+- [x] font-size
+- [x] line-height
+- [x] letter-spacing
+- [x] font-style
+- [x] font-variant
+- [x] text-transform
+- [x] text-decoration
+- [x] text-align
+
+
+## :old_key: Personal Access Token
 
 First of all you have to set the environment variable `FIGMA_TOKEN`.
 
@@ -34,7 +74,8 @@ export FIGMA_TOKEN=<personalAccessToken>
 
 > You can use [dotenv](https://www.npmjs.com/package/dotenv) or `export` the variable using `.bash_profile`/`.bashrc` file.
 
-## Just Try
+
+## :test_tube: Just Try
 
 If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5 as .svg :sunglasses:
 
@@ -46,7 +87,18 @@ export FIGMA_TOKEN=<personalAccessToken>
 npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
 ```
 
-## Packages
+or you can export all styles into `.scss`
+
+```sh
+# export figma token
+export FIGMA_TOKEN=<personalAccessToken>
+
+# export figma styles as .scss variables
+npx -p @figma-export/cli -p @figma-export/output-styles-as-sass figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass
+```
+
+
+## :package: Packages
 
 ### [@figma-export/core](/packages/core)
 
@@ -56,7 +108,7 @@ This package contains the core functionalities for `figma-export`. You can downl
 
 This package allows you to consume all core functionalities from your terminal.
 
-## Usage
+## :book: Usage
 
 Typically you'll prefer to use the `cli`. Here different ways to do the same:
 
@@ -65,10 +117,10 @@ Typically you'll prefer to use the `cli`. Here different ways to do the same:
 You can use `figma-export` as part of your build process.
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/cli @figma-export/output-components-as-svg @figma-export/output-styles-as-sass
 
 # or using `yarn`
-yarn add @figma-export/cli @figma-export/output-components-as-svg --dev
+yarn add @figma-export/cli @figma-export/output-components-as-svg @figma-export/output-styles-as-sass --dev
 ```
 
 Now you can create a `script` command inside your `package.json`.
@@ -78,7 +130,8 @@ Following an example:
 ```diff
 {
   "scripts": {
-+   "figma:export": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg"
++   "figma:export-components": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg",
++   "figma:export-styles": "figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass",
   }
 }
 ```
@@ -116,6 +169,17 @@ Let's create the file `.figmaexportrc.js` and paste the following:
 module.exports = {
 
     commands: [
+
+        ['styles', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['figma-styles'],
+            outputters: [
+                require('@figma-export/output-styles-as-sass')({
+                    output: './output/styles'
+                })
+            ]
+        }],
+
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],
@@ -129,10 +193,11 @@ module.exports = {
             ],
             outputters: [
                 require('@figma-export/output-components-as-svg')({
-                    output: './output'
+                    output: './output/components'
                 })
             ]
         }]
+
     ]
 
 };
@@ -141,7 +206,7 @@ module.exports = {
 now you can install the `@figma-export` dependencies that you need
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg @figma-export/output-styles-as-sass
 ```
 
 and update the `package.json`.
@@ -163,3 +228,7 @@ If needed you can also provide a different configuration file.
   }
 }
 ```
+
+## :books: More Packages
+
+For the list of all official packages or if you want to create your own transformer or outputter you can continue reading [CLI Documentation](/packages/cli#readme).

@@ -62,7 +62,7 @@ A transform function receives an SVG and turns it into something new.
 
 You can create you own:
 
-```js
+```ts
 // with promise
 module.exports = options => {
     return (svg) => new Promise((resolve, reject) => {
@@ -71,7 +71,7 @@ module.exports = options => {
 }
 ```
 
-```js
+```ts
 // with async/await
 module.exports = options => {
     return async (svg) => {
@@ -99,7 +99,7 @@ An output function receives a list of pages, in which each page contains compone
 
 You can create you own:
 
-```js
+```ts
 module.exports = options => {
     return async pages => {
         console.clear();
@@ -117,3 +117,43 @@ or install an official outputter:
 | [`@figma-export/output-components-as-svg`](/packages/output-components-as-svg) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svg.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svg) |
 | [`@figma-export/output-components-as-svgr`](/packages/output-components-as-svgr) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svgr.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svgr) |
 | [`@figma-export/output-components-as-svgstore`](/packages/output-components-as-svgstore) | [![npm](https://img.shields.io/npm/v/@figma-export/output-components-as-svgstore.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-components-as-svgstore) |
+
+
+### `styles`
+
+Exports styles from a Figma file
+
+```sh
+npx figma-export styles FILEID
+
+# help
+npx figma-export help styles
+```
+
+
+#### outputters
+
+> `--outputter` `-O` option
+
+```sh
+npx figma-export styles FILEID -O OUTPUTTER
+```
+
+An output function receives a list of styles.
+
+You can create you own:
+
+```ts
+module.exports = options => {
+    return async styles => {
+        console.clear();
+        console.log(JSON.stringify(styles));
+    };
+}
+```
+
+or install an official outputter:
+
+| Package | Version |
+|---------|---------|
+| [`@figma-export/output-styles-as-sass`](/packages/output-styles-as-sass) | [![npm](https://img.shields.io/npm/v/@figma-export/output-styles-as-sass.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-styles-as-sass) |

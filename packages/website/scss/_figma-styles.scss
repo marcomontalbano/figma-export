@@ -1,0 +1,43 @@
+
+// just using variables from the exported Figma Styles
+
+.color-1 { background: $color-1 }
+.color-1-lighter { background: $color-1-lighter }
+.color-2 { background: $color-2 }
+.color-3 { background: $color-3 }
+.color-4 { background: $color-4 }
+.color-alpha-50 { background: $color-alpha-50 }
+.color-linear-gradient { background: $color-linear-gradient }
+.color-linear-gradient-complex { background: $color-linear-gradient-complex }
+.color-linear-gradient-alpha { background: $color-linear-gradient-alpha }
+.color-multi-gradient { background: $color-multi-gradient }
+.inner-shadow { box-shadow: $inner-shadow }
+.inner-shadow-bottom { box-shadow: $inner-shadow-bottom }
+.drop-shadow { box-shadow: $drop-shadow }
+.layer-blur { filter: $layer-blur; background: $color-1 }
+.multi-shadows { box-shadow: $multi-shadows }
+.mixed-effects { box-shadow: $mixed-effects }
+
+.h1 {
+    @each $name, $value in $h1 {
+        #{$name}: $value;
+    }
+}
+
+.h2 {
+    @each $name, $value in $h2 {
+        #{$name}: $value;
+    }
+}
+
+.regular-text {
+    @each $name, $value in $regular-text {
+        #{$name}: $value;
+    }
+}
+
+.deleted-text {
+    @each $name, $value in $deleted-text {
+        #{$name}: $value;
+    }
+}

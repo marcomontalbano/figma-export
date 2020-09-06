@@ -6,7 +6,7 @@ const CodeBlock = ({
 }) => (
     <div className="code-block">
         <div class="code-block--text">
-            <h3>{title}</h3>
+            <h4>{title}</h4>
             <p>{description}</p>
             {children}
         </div>

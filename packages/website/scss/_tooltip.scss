@@ -1,0 +1,32 @@
+[data-tooltip] {
+    @include for-desktop-up {
+        position: relative;
+    }
+}
+
+[data-tooltip]::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    font-size: 0.9em;
+    padding: 1px 5px;
+    color: white;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    transition: opacity 0.1s ease-out;
+    z-index: 99;
+    text-align: left;
+
+    opacity: 0;
+
+    white-space: nowrap;
+    pointer-events: none;
+
+    top: 100%;
+    left: 50%;
+    margin-top: 10px;
+    transform: translate(-50%, 0px);
+}
+
+[data-tooltip]:hover::before {
+    opacity: 1;
+}
