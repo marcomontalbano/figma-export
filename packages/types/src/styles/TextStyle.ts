@@ -13,7 +13,7 @@ export type TextStyle = {
     /** Font size in px */
     fontSize: number;
     /** Line height in px */
-    lineHeightPx: number;
+    lineHeight: number;
     /** Space between characters in px */
     letterSpacing: number;
 

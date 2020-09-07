@@ -64,7 +64,7 @@ export = ({
                             "font-variant": ${style.style.fontVariant},
                             "font-weight": ${style.style.fontWeight},
                             "letter-spacing": ${style.style.letterSpacing}px,
-                            "line-height": ${style.style.lineHeightPx}px,
+                            "line-height": ${style.style.lineHeight}px,
                             "text-align": ${style.style.textAlign},
                             "text-decoration": ${style.style.textDecoration},
                             "text-transform": ${style.style.textTransform},
