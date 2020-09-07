@@ -9,30 +9,26 @@ import ora = require('ora');
 
 const spinner = ora({});
 
-class ComponentsCommand extends Command {
+class StylesCommand extends Command {
     async run(): Promise<void> {
         const {
             args: {
                 fileId,
             },
             flags: {
-                page,
                 output,
                 outputter = [],
-                transformer = [],
             },
-        } = this.parse(ComponentsCommand);
+        } = this.parse(StylesCommand);
 
-        spinner.info(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
+        spinner.info(`Exporting ${fileId} as [${outputter.join(', ')}]`);
 
         spinner.start();
 
-        figmaExport.components({
+        figmaExport.styles({
             fileId,
             token: process.env.FIGMA_TOKEN || '',
-            onlyFromPages: page,
-            transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
-            outputters: requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
+            outputters: requirePackages<FigmaExport.StyleOutputter>(outputter, { output }),
             log: (message: string) => { spinner.text = message; },
         }).then(() => {
             spinner.stop();
@@ -43,21 +39,17 @@ class ComponentsCommand extends Command {
     }
 }
 
-ComponentsCommand.description = `export components from a Figma file
+StylesCommand.description = `export styles from a Figma file
 `;
 
-ComponentsCommand.args = [
+StylesCommand.args = [
     {
         name: 'fileId',
         required: true,
     },
 ];
 
-ComponentsCommand.flags = {
-    page: commandFlags.string({
-        char: 'p',
-        description: 'Figma page names (defaults to \'all pages\')',
-    }),
+StylesCommand.flags = {
     output: commandFlags.string({
         char: 'o',
         description: 'Output directory',
@@ -69,11 +61,6 @@ ComponentsCommand.flags = {
         description: 'Outputter module or path',
         multiple: true,
     }),
-    transformer: commandFlags.string({
-        char: 'T',
-        description: 'Transformer module or path',
-        multiple: true,
-    }),
 };
 
-module.exports = ComponentsCommand;
+module.exports = StylesCommand;
