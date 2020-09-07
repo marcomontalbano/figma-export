@@ -228,6 +228,25 @@ If needed you can also provide a different configuration file.
 }
 ```
 
+#### TypeScript
+
+If you prefer, you can create a `.figmaexportrc.ts` and use TypeScript instead.
+For doing so, you just need to install a few new dependencies in your project,
+
+```sh
+npm install --save-dev typescript ts-node @types/node @figma-export/types
+```
+
+and slightly change your `package.json`
+
+```diff
+{
+  "scripts": {
++   "figma:export": "ts-node ./node_modules/.bin/figma-export use-config .figmaexportrc.ts"
+  }
+}
+```
+
 ## :books: More Packages
 
 For the list of all official packages or if you want to create your own transformer or outputter you can continue reading [CLI Documentation](/packages/cli#readme).

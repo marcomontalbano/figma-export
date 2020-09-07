@@ -9,7 +9,7 @@
   },
   "scripts": {
     "predebug": "yarn build",
-    "debug": "./packages/cli/bin/run use-config",
+    "debug": "./packages/cli/bin/run use-config .figmaexportrc.ts",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/output */*/dist */*/tsconfig.tsbuildinfo",
     "postinstall": "lerna bootstrap",
