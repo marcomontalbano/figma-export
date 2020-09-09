@@ -1,13 +1,13 @@
 {
-    "name": "@figma-export/output-components-utils",
+    "name": "@figma-export/utils",
     "version": "3.0.0-alpha.0",
-    "description": "Utils for @figma-export outputters",
+    "description": "Utils for @figma-export",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
-        "directory": "packages/output-components-utils"
+        "directory": "packages/utils"
     },
     "author": "Marco Montalbano <me@marcomontalbano.com>",
     "license": "MIT",

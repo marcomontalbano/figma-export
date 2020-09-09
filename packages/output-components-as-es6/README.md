@@ -48,7 +48,7 @@ module.exports = {
 `getVariableName`, `useBase64` and `useDataUrl` are **optional**.
 
 ```js
-const { camelCase } = require('@figma-export/output-components-utils');
+const { camelCase } = require('@figma-export/utils');
 
 ...
 

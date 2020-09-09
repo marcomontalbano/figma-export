@@ -3,7 +3,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 
-import { camelCase } from '@figma-export/output-components-utils';
+import { camelCase } from '@figma-export/utils';
 
 import * as FigmaExport from '@figma-export/types';
 

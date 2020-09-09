@@ -1,5 +1,5 @@
 import makeDir from 'make-dir';
-import { camelCase } from '@figma-export/output-components-utils';
+import { camelCase } from '@figma-export/utils';
 
 import * as FigmaExport from '@figma-export/types';
 

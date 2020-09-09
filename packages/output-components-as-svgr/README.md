@@ -61,7 +61,7 @@ module.exports = {
 
 ```js
 const path = require('path');
-const { pascalCase } = require('@figma-export/output-components-utils');
+const { pascalCase } = require('@figma-export/utils');
 
 ...
 

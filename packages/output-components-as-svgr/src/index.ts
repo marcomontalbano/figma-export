@@ -1,5 +1,5 @@
 import * as FigmaExport from '@figma-export/types';
-import { pascalCase } from '@figma-export/output-components-utils';
+import { pascalCase } from '@figma-export/utils';
 import svgr from '@svgr/core';
 import { Config, State } from './svgr';
 
