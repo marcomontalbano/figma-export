@@ -50,7 +50,7 @@ export = ({
                             .map((effect) => effect.value)
                             .join(', ');
 
-                        // TODO: add to documentation. "you cannot combine shadow and blur effects"
+                        // Shadow and Blur effects cannot be combined together since they use two different CSS properties.
                         text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue, extension);
 
                         break;
@@ -73,10 +73,6 @@ export = ({
 
                         text += writeVariable(style.comment, style.name, value, extension);
 
-                        break;
-                    }
-
-                    case 'GRID': {
                         break;
                     }
                 }

@@ -7,6 +7,16 @@ describe('utils', () => {
         describe('SCSS', () => {
             const extension = 'SCSS';
 
+            it('should return empty string is the value is empty', () => {
+                const text = writeVariable(
+                    'This is a comment',
+                    'variable-name', '',
+                    extension,
+                );
+
+                expect(text).to.eql('');
+            });
+
             it('should be able to print-out simple variable', () => {
                 const text = writeVariable(
                     'This is a comment',
@@ -71,6 +81,16 @@ describe('utils', () => {
 
         describe('SASS', () => {
             const extension = 'SASS';
+
+            it('should return empty string is the value is empty', () => {
+                const text = writeVariable(
+                    'This is a comment',
+                    'variable-name', '',
+                    extension,
+                );
+
+                expect(text).to.eql('');
+            });
 
             it('should be able to print-out simple variable', () => {
                 const text = writeVariable(

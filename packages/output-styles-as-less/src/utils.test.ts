@@ -4,6 +4,15 @@ import { writeVariable, writeMap } from './utils';
 
 describe('utils', () => {
     describe('writeVariable', () => {
+        it('should return empty string is the value is empty', () => {
+            const text = writeVariable(
+                'This is a comment',
+                'variable-name', '',
+            );
+
+            expect(text).to.eql('');
+        });
+
         it('should be able to print-out simple variable', () => {
             const text = writeVariable(
                 'This is a comment',
@@ -44,6 +53,15 @@ describe('utils', () => {
     });
 
     describe('writeMap', () => {
+        it('should return empty string is the value is empty', () => {
+            const text = writeMap(
+                'This is a comment',
+                'variable-name', '',
+            );
+
+            expect(text).to.eql('');
+        });
+
         it('should be able to print-out a complex variable', () => {
             const text = writeMap(
                 'This is a comment\nin two lines',
