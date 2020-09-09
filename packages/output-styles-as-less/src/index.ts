@@ -1,6 +1,5 @@
 import * as FigmaExport from '@figma-export/types';
-import { writeVariable } from './utils';
-import { Extension } from './types';
+import { writeVariable, writeMap } from './utils';
 
 import fs = require('fs');
 import path = require('path');
@@ -8,18 +7,14 @@ import makeDir = require('make-dir');
 
 type Options = {
     output: string;
-    getExtension?: () => Extension;
     getFilename?: () => string;
 }
 
 export = ({
     output,
-    getExtension = () => 'SCSS',
     getFilename = () => '_variables',
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
-        const extension = getExtension();
-
         let text = '';
 
         styles.forEach((style) => {
@@ -32,7 +27,7 @@ export = ({
                             .map((fill) => fill.value)
                             .join(', ');
 
-                        text += writeVariable(style.comment, style.name, value, extension);
+                        text += writeVariable(style.comment, style.name, value);
 
                         break;
                     }
@@ -51,27 +46,27 @@ export = ({
                             .join(', ');
 
                         // Shadow and Blur effects cannot be combined together since they use two different CSS properties.
-                        text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue, extension);
+                        text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue);
 
                         break;
                     }
 
                     case 'TEXT': {
-                        const value = `(
-                            "font-family": "${style.style.fontFamily}",
-                            "font-size": ${style.style.fontSize}px,
-                            "font-style": ${style.style.fontStyle},
-                            "font-variant": ${style.style.fontVariant},
-                            "font-weight": ${style.style.fontWeight},
-                            "letter-spacing": ${style.style.letterSpacing}px,
-                            "line-height": ${style.style.lineHeight}px,
-                            "text-align": ${style.style.textAlign},
-                            "text-decoration": ${style.style.textDecoration},
-                            "text-transform": ${style.style.textTransform},
-                            "vertical-align": ${style.style.verticalAlign}
-                        )`;
+                        const value = `{
+                            font-family: "${style.style.fontFamily}";
+                            font-size: ${style.style.fontSize}px;
+                            font-style: ${style.style.fontStyle};
+                            font-variant: ${style.style.fontVariant};
+                            font-weight: ${style.style.fontWeight};
+                            letter-spacing: ${style.style.letterSpacing}px;
+                            line-height: ${style.style.lineHeight}px;
+                            text-align: ${style.style.textAlign};
+                            text-decoration: ${style.style.textDecoration};
+                            text-transform: ${style.style.textTransform};
+                            vertical-align: ${style.style.verticalAlign};
+                        }`;
 
-                        text += writeVariable(style.comment, style.name, value, extension);
+                        text += writeMap(style.comment, style.name, value);
 
                         break;
                     }
@@ -80,6 +75,6 @@ export = ({
         });
 
         const filePath = makeDir.sync(path.resolve(output));
-        fs.writeFileSync(path.resolve(filePath, `${getFilename()}.${extension.toLowerCase()}`), text);
+        fs.writeFileSync(path.resolve(filePath, `${getFilename()}.less`), text);
     };
 };

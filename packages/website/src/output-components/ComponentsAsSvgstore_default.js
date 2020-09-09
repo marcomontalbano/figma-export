@@ -21,19 +21,20 @@ const props = {
             <code>&lt;svg&gt;&lt;use href="#icon-name" /&gt;&lt;/svg&gt;</code>
         </Fragment>
     ),
-    code: `module.exports = {
-        commands: [
-            ['components', {
-                fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-                onlyFromPages: ['icons', 'monochrome'],
-                outputters: [
-                    require('@figma-export/output-components-as-svgstore')({
-                        output: './output/svgstore'
-                    })
-                ]
-            }]
-        ]
-    }`
+    code: `\
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['icons', 'monochrome'],
+            outputters: [
+                require('@figma-export/output-components-as-svgstore')({
+                    output: './output/svgstore'
+                })
+            ]
+        }]
+    ]
+}`
 };
 
 const SvgAsSvgstoreComponent = () => (

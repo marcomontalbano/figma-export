@@ -1,15 +1,15 @@
-# @figma-export/output-styles-as-sass
+# @figma-export/output-styles-as-less
 
-> Styles Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports styles to SASS and SCSS.
+> Styles Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports styles to LESS.
 
-With this outputter you can export all the styles as variables inside a `.sass` or `.scss` file.
+With this outputter you can export all the styles as variables inside a `.less` file.
 
 This is a sample of the output:
 
 ```sh
 $ tree output/
 # output/
-# └── _variables.scss
+# └── _variables.less
 ```
 
 
@@ -23,7 +23,7 @@ module.exports = {
         ['styles', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             outputters: [
-                require('@figma-export/output-styles-as-sass')({
+                require('@figma-export/output-styles-as-less')({
                     output: './output'
                 })
             ]
@@ -34,12 +34,11 @@ module.exports = {
 
 `output` is **mandatory**.
 
-`getExtension` and `getFilename` are **optional**.
+`getFilename` are **optional**.
 
 ```js
-require('@figma-export/output-styles-as-sass')({
+require('@figma-export/output-styles-as-less')({
     output: './output',
-    getExtension: () => 'SCSS',
     getFilename: () => '_variables',
 })
 ```
@@ -51,11 +50,11 @@ require('@figma-export/output-styles-as-sass')({
 Using npm:
 
 ```sh
-npm install --save-dev @figma-export/output-styles-as-sass
+npm install --save-dev @figma-export/output-styles-as-less
 ```
 
 or using yarn:
 
 ```sh
-yarn add @figma-export/output-styles-as-sass --dev
+yarn add @figma-export/output-styles-as-less --dev
 ```

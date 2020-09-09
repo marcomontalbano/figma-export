@@ -1,0 +1,24 @@
+{
+    "name": "@figma-export/output-styles-as-less",
+    "version": "3.0.0-alpha.3",
+    "description": "Outputter for @figma-export that exports styles to LESS",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+        "directory": "packages/output-styles-as-less"
+    },
+    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "@figma-export/types": "^3.0.0-alpha.3",
+        "make-dir": "~3.1.0"
+    },
+    "engines": {
+        "node": ">= 10.13 <= 14.x"
+    }
+}

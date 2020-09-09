@@ -21,20 +21,21 @@ const props = {
             Data URL <code>data:image/svg+xml;base64,</code>
         </Fragment>
     ),
-    code: `module.exports = {
-        commands: [
-            ['components', {
-                fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-                onlyFromPages: ['icons', 'monochrome'],
-                outputters: [
-                    require('@figma-export/output-components-as-es6')({
-                        output: './output/es6-base64',
-                        useBase64: true,
-                    })
-                ]
-            }]
-        ]
-    }`
+    code: `\
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['icons', 'monochrome'],
+            outputters: [
+                require('@figma-export/output-components-as-es6')({
+                    output: './output/es6-base64',
+                    useBase64: true,
+                })
+            ]
+        }]
+    ]
+}`
 };
 
 const Icon = ({ svg }) => (
