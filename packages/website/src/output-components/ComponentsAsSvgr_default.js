@@ -25,19 +25,20 @@ const props = {
             <code>import {`{ Squirrel }`} from './output/octicons-by-github';</code>
         </Fragment>
     ),
-    code: `module.exports = {
-        commands: [
-            ['components', {
-                fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-                onlyFromPages: ['octicons-by-github'],
-                outputters: [
-                    require('@figma-export/output-components-as-svgr')({
-                        output: './output'
-                    })
-                ]
-            }]
-        ]
-    }`
+    code: `\
+module.exports = {
+    commands: [
+        ['components', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            onlyFromPages: ['octicons-by-github'],
+            outputters: [
+                require('@figma-export/output-components-as-svgr')({
+                    output: './output'
+                })
+            ]
+        }]
+    ]
+}`
 };
 
 const ComponentsAsSvgrDefault = () => (

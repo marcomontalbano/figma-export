@@ -4,7 +4,7 @@ import CodeBlock from '../CodeBlock';
 const props = {
     title: (
         <Fragment>
-            Export your styles as <code class="figma-gradient with-opacity-10">SASS</code> and <code class="figma-gradient with-opacity-10">SCSS</code>
+            Export your styles as <code class="figma-gradient with-opacity-10">LESS</code>
         </Fragment>
     ),
     description: (
@@ -21,12 +21,8 @@ module.exports = {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['figma-styles'],
             outputters: [
-                require('@figma-export/output-styles-as-sass')({
-                    output: './output/scss',
-                }),
-                require('@figma-export/output-styles-as-sass')({
-                    output: './output/sass',
-                    getExtension: () => 'SASS',
+                require('@figma-export/output-styles-as-less')({
+                    output: './output/less',
                 })
             ]
         }]
@@ -34,8 +30,8 @@ module.exports = {
 }`
 };
 
-const AsSass = () => (
+const AsLess = () => (
     <CodeBlock {...props} />
 );
 
-export default AsSass;
+export default AsLess;
