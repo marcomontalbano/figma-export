@@ -5,7 +5,6 @@ module.exports = {
     commands: [
         ['styles', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['figma-styles'],
             outputters: [
                 require('../output-styles-as-sass')({
                     output: './output/figma-styles'

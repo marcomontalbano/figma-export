@@ -172,7 +172,6 @@ module.exports = {
 
         ['styles', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['figma-styles'],
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output/styles'
