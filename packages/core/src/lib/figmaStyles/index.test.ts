@@ -459,7 +459,7 @@ describe('figmaStyles.', () => {
                             fontVariant: 'normal',
                             fontWeight: 400,
                             letterSpacing: 2,
-                            lineHeightPx: 30,
+                            lineHeight: 30,
                             textAlign: 'left',
                             textDecoration: 'underline',
                             textTransform: 'capitalize',

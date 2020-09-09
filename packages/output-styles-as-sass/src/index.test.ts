@@ -74,7 +74,7 @@ const mockText = (visible = true): Style => ({
         fontVariant: 'normal',
         fontWeight: 100,
         letterSpacing: 10,
-        lineHeightPx: 12,
+        lineHeight: 12,
         textAlign: 'left',
         textDecoration: 'none',
         textTransform: 'uppercase',
