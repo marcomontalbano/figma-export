@@ -1,4 +1,4 @@
-const { camelCase } = require('@figma-export/output-components-utils');
+const { camelCase } = require('@figma-export/utils');
 
 module.exports = {
 

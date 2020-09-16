@@ -6,6 +6,5 @@
   },
   "references": [
     {"path": "../types"},
-    {"path": "../output-components-utils"},
   ]
 }
