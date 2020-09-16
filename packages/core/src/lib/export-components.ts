@@ -3,6 +3,8 @@ import { Document } from 'figma-js';
 
 import { getClient, getPages, enrichPagesWithSvg } from './figma';
 
+type Options = FigmaExport.BaseCommandOptions & FigmaExport.ComponentsCommandOptions;
+
 export const components = async ({
     token,
     fileId,
@@ -13,7 +15,7 @@ export const components = async ({
         // eslint-disable-next-line no-console
         console.log(msg);
     },
-}: FigmaExport.ExportComponentsOptions): Promise<FigmaExport.PageNode[]> => {
+}: Options): Promise<FigmaExport.PageNode[]> => {
     const client = getClient(token);
 
     log('fetching document');

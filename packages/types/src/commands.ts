@@ -1,27 +1,23 @@
 import { StringTransformer, ComponentOutputter } from './global';
 import { StyleOutputter } from './styles';
 
-type ExportComponents = {
+export type BaseCommandOptions = {
+    token: string;
+    log?: (msg: string) => void;
+}
+
+export type ComponentsCommandOptions = {
     fileId: string;
     onlyFromPages?: string[];
     transformers?: StringTransformer[];
     outputters?: ComponentOutputter[];
 }
 
-type ExportStyles = {
+export type StylesCommandOptions = {
     fileId: string;
     outputters?: StyleOutputter[];
 }
 
-type ExportOptions = {
-    token: string;
-    log?: (msg: string) => void;
-}
-
-export type ExportComponentsOptions = ExportOptions & ExportComponents
-
-export type ExportStylesOptions = ExportOptions & ExportStyles
-
-export type CommandUseConfig = {
-    commands: (['components', ExportComponents] | ['styles', ExportStyles])[]
+export type FigmaExportRC = {
+    commands: (['styles', StylesCommandOptions] | ['components', ComponentsCommandOptions])[]
 }
