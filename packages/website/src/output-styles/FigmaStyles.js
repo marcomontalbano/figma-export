@@ -1,3 +1,4 @@
+import AsCss from './AsCss';
 import AsSass from './AsSass';
 import AsLess from './AsLess';
 
@@ -5,7 +6,12 @@ const FigmaStyles = () => (
     <div className="section-block container text-center">
         <div>
             You can export Figma Styles to different output.<br />
-            <a className="full" href="https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2" rel="noreferrer noopener" target="_blank">https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2</a><br />
+            <a
+                className="full"
+                href="https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2"
+                rel="noreferrer noopener"
+                target="_blank"
+            >https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2</a><br />
 
             <div className="feature-box">
                 <code className="figma-gradient text">Solid Colors</code>
@@ -47,6 +53,7 @@ const FigmaStyles = () => (
             </div>
         </div>
 
+        <AsCss />
         <AsSass />
         <AsLess />
     </div>
