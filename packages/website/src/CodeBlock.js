@@ -1,3 +1,5 @@
+import Code from './Code';
+
 const CodeBlock = ({
     title,
     description,
@@ -11,7 +13,7 @@ const CodeBlock = ({
             {children}
         </div>
         <div class="code-block--code">
-            <pre className="figma-gradient with-opacity-05"><code className="language-js">{ code }</code></pre>
+            <Code language="js" code={code} className="figma-gradient with-opacity-05" />
         </div>
     </div>
 );

@@ -16,24 +16,27 @@ const props = {
     ),
     description: (
         <Fragment>
-            The .js file contains all components as Data URL so you can easly put this value into the src of your images. <a target="_blank" rel="noopener noreferrer" href="https://css-tricks.com/probably-dont-base64-svg/">This is the best way</a> to load an svg as image.
+            The .js file contains all components as Data URL so you can easly put this value into
+            the src of your images. <a target="_blank" rel="noopener noreferrer" href="https://css-tricks.com/probably-dont-base64-svg/">
+                This is the best way</a> to load an svg as image.
         </Fragment>
     ),
-    code: `\
-module.exports = {
-    commands: [
-        ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome'],
-            outputters: [
-                require('@figma-export/output-components-as-es6')({
-                    output: './output/es6-dataurl',
-                    useDataUrl: true,
-                })
+    code: `
+        module.exports = {
+            commands: [
+                ['components', {
+                    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                    onlyFromPages: ['icons', 'monochrome'],
+                    outputters: [
+                        require('@figma-export/output-components-as-es6')({
+                            output: './output/es6-dataurl',
+                            useDataUrl: true,
+                        })
+                    ]
+                }]
             ]
-        }]
-    ]
-}`
+        }
+`
 };
 
 const SvgAsES6ComponentDataUrl = () => (

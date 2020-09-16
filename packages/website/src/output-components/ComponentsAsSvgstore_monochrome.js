@@ -19,23 +19,24 @@ const props = {
             properties are removed from the svg so you can easily customize the icon color from css.
         </Fragment>
     ),
-    code: `\
-module.exports = {
-    commands: [
-        ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons'],
-            outputters: [
-                require('@figma-export/output-components-as-svgstore')({
-                    output: './output/svgstore-monochrome',
-                    svgstoreConfig: {
-                        cleanSymbols: ['fill']
-                    }
-                })
+    code: `
+        module.exports = {
+            commands: [
+                ['components', {
+                    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                    onlyFromPages: ['icons'],
+                    outputters: [
+                        require('@figma-export/output-components-as-svgstore')({
+                            output: './output/svgstore-monochrome',
+                            svgstoreConfig: {
+                                cleanSymbols: ['fill']
+                            }
+                        })
+                    ]
+                }]
             ]
-        }]
-    ]
-}`
+        }
+`
 };
 
 const SvgAsSvgstoreMonochromeComponent = () => (
