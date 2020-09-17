@@ -247,7 +247,7 @@ and slightly change your `package.json`
 }
 ```
 
-You can take a look at [.figmaexportrc.example.ts](/.figmaexportrc.example.ts) for more details.
+Take a look at [.figmaexportrc.example.ts](/.figmaexportrc.example.ts) for more details.
 
 ## :books: More Packages
 
