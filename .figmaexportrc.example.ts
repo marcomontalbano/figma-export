@@ -1,3 +1,9 @@
+/**
+ * If you want to try this configuration you can just run:
+ *   $ npm install --save-dev typescript ts-node @types/node @figma-export/types
+ *   $ npm install --save-dev @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg @figma-export/output-components-as-es6
+ */
+
 import { FigmaExportRC, StylesCommandOptions, ComponentsCommandOptions } from '@figma-export/types';
 
 import outputStylesAsSass from '@figma-export/output-styles-as-sass';

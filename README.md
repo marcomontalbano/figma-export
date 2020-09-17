@@ -231,7 +231,7 @@ If needed you can also provide a different configuration file.
 #### TypeScript
 
 If you prefer, you can create a `.figmaexportrc.ts` and use TypeScript instead.
-For doing so, you just need to install a few new dependencies in your project,
+For doing so, you just need to install a few new dependencies in your project.
 
 ```sh
 npm install --save-dev typescript ts-node @types/node @figma-export/types
@@ -246,6 +246,8 @@ and slightly change your `package.json`
   }
 }
 ```
+
+You can take a look at [.figmaexportrc.example.ts](/.figmaexportrc.example.ts) for more details.
 
 ## :books: More Packages
 
