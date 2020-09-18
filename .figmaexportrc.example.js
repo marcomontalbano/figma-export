@@ -1,6 +1,15 @@
 module.exports = {
 
     commands: [
+        ['styles', {
+            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            outputters: [
+                require('@figma-export/output-styles-as-sass')({
+                    output: './output'
+                })
+            ]
+        }],
+
         ['components', {
             fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
             onlyFromPages: ['icons', 'monochrome'],

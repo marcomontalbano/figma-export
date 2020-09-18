@@ -3,14 +3,7 @@ import { Document } from 'figma-js';
 
 import { getClient, getPages, enrichPagesWithSvg } from './figma';
 
-type Options = {
-    token: string;
-    fileId: string;
-    onlyFromPages?: string[];
-    transformers?: FigmaExport.StringTransformer[];
-    outputters?: FigmaExport.ComponentOutputter[];
-    log?: (msg: string) => void;
-}
+type Options = FigmaExport.BaseCommandOptions & FigmaExport.ComponentsCommandOptions;
 
 export const components = async ({
     token,
