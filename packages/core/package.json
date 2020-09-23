@@ -17,7 +17,7 @@
     "dependencies": {
         "@figma-export/types": "^3.0.0-alpha.5",
         "axios": "~0.19.2",
-        "figma-js": "~1.11.0"
+        "figma-js": "~1.13.0"
     },
     "engines": {
         "node": ">= 10.13 <= 14.x"
