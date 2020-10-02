@@ -156,4 +156,6 @@ or install an official outputter:
 
 | Package | Version |
 |---------|---------|
+| [`@figma-export/output-styles-as-css`](/packages/output-styles-as-css) | [![npm](https://img.shields.io/npm/v/@figma-export/output-styles-as-css.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-styles-as-css) |
 | [`@figma-export/output-styles-as-sass`](/packages/output-styles-as-sass) | [![npm](https://img.shields.io/npm/v/@figma-export/output-styles-as-sass.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-styles-as-sass) |
+| [`@figma-export/output-styles-as-less`](/packages/output-styles-as-less) | [![npm](https://img.shields.io/npm/v/@figma-export/output-styles-as-less.svg?maxAge=3600)](https://www.npmjs.com/package/@figma-export/output-styles-as-less) |
