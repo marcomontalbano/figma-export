@@ -15,8 +15,8 @@ const props = {
                     body {
                         color: var(--color-3);
                         background: var(--color-linear-gradient);
-                        font-family: var(--regular-test-font-family);
-                        font-size: var(--regular-test-font-size);
+                        font-family: var(--regular-text-font-family);
+                        font-size: var(--regular-text-font-size);
                     }
                 `}
             />
