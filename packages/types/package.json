@@ -9,7 +9,16 @@
         "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
         "directory": "packages/types"
     },
-    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "author": "Marco Montalbano",
+    "keywords": [
+        "figma",
+        "export",
+        "design",
+        "icons",
+        "typography",
+        "components",
+        "types"
+    ],
     "license": "MIT",
     "publishConfig": {
         "access": "public"
@@ -18,6 +27,6 @@
         "node": ">= 10.13 <= 14.x"
     },
     "dependencies": {
-        "figma-js": "~1.11.0"
+        "figma-js": "~1.13.0"
     }
 }
