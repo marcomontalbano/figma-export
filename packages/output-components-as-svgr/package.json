@@ -9,7 +9,17 @@
         "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
         "directory": "packages/output-components-as-svgr"
     },
-    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "author": "Marco Montalbano",
+    "keywords": [
+        "figma",
+        "export",
+        "design",
+        "icons",
+        "typography",
+        "components",
+        "svg",
+        "react"
+    ],
     "license": "MIT",
     "publishConfig": {
         "access": "public"

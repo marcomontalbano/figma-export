@@ -9,7 +9,16 @@
         "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
         "directory": "packages/output-styles-as-less"
     },
-    "author": "Marco Montalbano <me@marcomontalbano.com>",
+    "author": "Marco Montalbano",
+    "keywords": [
+        "figma",
+        "export",
+        "design",
+        "icons",
+        "typography",
+        "components",
+        "less"
+    ],
     "license": "MIT",
     "publishConfig": {
         "access": "public"

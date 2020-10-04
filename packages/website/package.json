@@ -3,7 +3,15 @@
     "name": "@figma-export/website",
     "version": "3.0.0-alpha.5",
     "description": "Website for @figma-export",
-    "author": "Marco Montalbano <marcomontalbano.work@gmail.com>",
+    "author": "Marco Montalbano",
+    "keywords": [
+        "figma",
+        "export",
+        "design",
+        "icons",
+        "typography",
+        "components"
+    ],
     "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {

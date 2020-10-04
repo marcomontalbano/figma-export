@@ -4,7 +4,7 @@
   "version": "3.0.0-alpha.5",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "author": "Marco Montalbano <me@marcomontalbano.com>",
+  "author": "Marco Montalbano",
   "bin": {
     "figma-export": "./bin/run"
   },
@@ -34,6 +34,14 @@
   ],
   "homepage": "https://github.com/marcomontalbano/figma-export",
   "keywords": [
+    "figma",
+    "export",
+    "design",
+    "icons",
+    "typography",
+    "components",
+    "cli",
+    "figma cli",
     "oclif"
   ],
   "license": "MIT",
