@@ -3,12 +3,13 @@ import * as FigmaExport from '@figma-export/types';
 
 import { notEmpty } from '../utils';
 
-const extractColor = ({ color, opacity }: FigmaExport.ExtractableColor): (FigmaExport.Color | undefined) => {
+const extractColor = ({ color, opacity = 1 }: FigmaExport.ExtractableColor): (FigmaExport.Color | undefined) => {
     if (!color) {
         return undefined;
     }
 
-    const convert = (figmaColor: number) => parseInt((figmaColor * 255).toFixed(0), 10);
+    const toFixed = (number: number, fractionDigits: number) => parseFloat((number).toFixed(fractionDigits));
+    const convert = (figmaColor: number) => toFixed(figmaColor * 255, 0);
 
     // eslint-disable-next-line object-curly-newline
     let { r = 0, g = 0, b = 0, a = 1 } = color;
@@ -16,7 +17,7 @@ const extractColor = ({ color, opacity }: FigmaExport.ExtractableColor): (FigmaE
     r = convert(r);
     g = convert(g);
     b = convert(b);
-    a = opacity || a;
+    a = toFixed(opacity * a, 2);
 
     return {
         r,
@@ -40,11 +41,11 @@ const extractGradientLinear = (paint: Figma.Paint): (FigmaExport.LinearGradient 
         return `${parseFloat(deg.toFixed(2))}deg`;
     };
 
-    const getGradientStops = (figmaGradientStops: readonly Figma.ColorStop[]): FigmaExport.LinearColorStop[] => {
+    const getGradientStops = (figmaGradientStops: readonly Figma.ColorStop[], opacity?: number): FigmaExport.LinearColorStop[] => {
         const gradientStops: FigmaExport.LinearColorStop[] = [];
 
         figmaGradientStops.forEach((stop) => {
-            const color = extractColor(stop);
+            const color = extractColor({ ...stop, opacity });
             const position = parseFloat((stop.position * 100).toFixed(3));
 
             if (color) {
@@ -57,7 +58,7 @@ const extractGradientLinear = (paint: Figma.Paint): (FigmaExport.LinearGradient 
 
     return {
         angle: getAngle(paint.gradientHandlePositions),
-        gradientStops: getGradientStops(paint.gradientStops),
+        gradientStops: getGradientStops(paint.gradientStops, paint.opacity),
     };
 };
 

@@ -201,6 +201,42 @@ describe('figmaStyles.', () => {
                 ]);
             });
 
+            it('should parse a linear gradient with alpha', () => {
+                const node = getNode(styleNodes, 'color-figma-gradient-10');
+
+                const parsed = figmaStyles.parseStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'FILL',
+                        visible: true,
+                        name: 'color-figma-gradient-10',
+                        comment: '',
+                        originalNode: node,
+                        fills: [
+                            {
+                                type: 'GRADIENT_LINEAR',
+                                visible: true,
+                                angle: '90deg',
+                                gradientStops: [
+                                    { color: { r: 242, g: 78, b: 30, a: 0.1, rgba: 'rgba(242, 78, 30, 0.1)' }, position: 0 },
+                                    { color: { r: 184, g: 89, b: 255, a: 0.1, rgba: 'rgba(184, 89, 255, 0.1)' }, position: 34.375 },
+                                    { color: { r: 26, g: 188, b: 254, a: 0.1, rgba: 'rgba(26, 188, 254, 0.1)' }, position: 67.708 },
+                                    { color: { r: 10, g: 207, b: 131, a: 0.1, rgba: 'rgba(10, 207, 131, 0.1)' }, position: 100 },
+                                ],
+                                value: 'linear-gradient(90deg, rgba(242, 78, 30, 0.1) 0%, rgba(184, 89, 255, 0.1) 34.375%, rgba(26, 188, 254, 0.1) 67.708%, rgba(10, 207, 131, 0.1) 100%)',
+                            },
+                            {
+                                type: 'SOLID',
+                                visible: true,
+                                color: { r: 255, g: 255, b: 255, a: 1, rgba: 'rgba(255, 255, 255, 1)' },
+                                value: 'rgba(255, 255, 255, 1)',
+                            },
+                        ],
+                    },
+                ]);
+            });
+
             it('should parse a combination of colors and keep the right order', () => {
                 const node = getNode(styleNodes, 'color-multi-gradient');
 
