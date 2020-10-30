@@ -54,7 +54,7 @@ pre[class*=language-] {
 
 .figma-gradient {
     background: $color-1;
-    background: linear-gradient(90deg, $color-1 0%, $color-2 33%, $color-3 66%, $color-4 100%), rgba(255, 255, 255, 0.9);
+    background: $color-figma-gradient;
     line-height: 2em;
 
     @at-root code:not([class*=language-]) {
@@ -64,10 +64,12 @@ pre[class*=language-] {
     }
 
     &.with-opacity-05 {
+        background: $color-figma-gradient-05;
         background: linear-gradient(270deg, fade-out($color-1, .95) 0%, fade-out($color-2, .95) 33%, fade-out($color-3, .95) 66%, fade-out($color-4, .95) 100%), rgba(255, 255, 255, 0.9);
     }
 
     &.with-opacity-10 {
+        background: $color-figma-gradient-10;
         background: linear-gradient(270deg, fade-out($color-1, .90) 0%, fade-out($color-2, .90) 33%, fade-out($color-3, .90) 66%, fade-out($color-4, .90) 100%), rgba(255, 255, 255, 0.9);
     }
 

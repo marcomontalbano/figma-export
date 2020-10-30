@@ -4,7 +4,7 @@
 
 With this outputter you can export all components as svg into the specified output folder.
 
-This is a sample of the output from this [Figma file](https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5):
+This is a sample of the output from this [Figma file](https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo):
 
 ```sh
 $ tree output/
@@ -13,11 +13,6 @@ $ tree output/
 # │   ├── figma-arrow.svg
 # │   ├── figma-export.svg
 # │   └── figma-logo.svg
-# ├── monochrome
-# │   ├── figma-blue.svg
-# │   ├── figma-green.svg
-# │   ├── figma-purple.svg
-# │   └── figma-red.svg
 # └── unit-test
 #     ├── figma
 #     │   ├── logo
@@ -37,8 +32,8 @@ You can easily add this outputter to your `.figmaexportrc.js`:
 module.exports = {
     commands: [
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome', 'unit-test'],
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            onlyFromPages: ['icons', 'unit-test'],
             outputters: [
                 require('@figma-export/output-components-as-svg')({
                     output: './output'

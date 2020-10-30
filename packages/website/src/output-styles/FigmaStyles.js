@@ -8,10 +8,10 @@ const FigmaStyles = () => (
             You can export Figma Styles to different output.<br />
             <a
                 className="full"
-                href="https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2"
+                href="https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo"
                 rel="noreferrer noopener"
                 target="_blank"
-            >https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5?node-id=119:2</a><br />
+            >https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo</a><br />
 
             <div className="feature-box">
                 <code className="figma-gradient text">Solid Colors</code>
@@ -26,7 +26,7 @@ const FigmaStyles = () => (
                 <code className="figma-gradient text">Linear Gradients</code>
                 <div className="figma-box color-alpha-50" data-tooltip="color-alpha-50" />
                 <div className="figma-box color-linear-gradient" data-tooltip="color-linear-gradient" />
-                <div className="figma-box color-linear-gradient-complex" data-tooltip="color-linear-gradient-complex" />
+                <div className="figma-box color-figma-gradient" data-tooltip="color-figma-gradient" />
                 <div className="figma-box color-linear-gradient-alpha" data-tooltip="color-linear-gradient-alpha" />
                 <div className="figma-box color-multi-gradient" data-tooltip="color-multi-gradient" />
             </div>

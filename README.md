@@ -77,14 +77,14 @@ export FIGMA_TOKEN=<personalAccessToken>
 
 ## :test_tube: Just Try
 
-If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5 as .svg :sunglasses:
+If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo as .svg :sunglasses:
 
 ```sh
 # export figma token
 export FIGMA_TOKEN=<personalAccessToken>
 
 # export figma components as svg
-npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg
+npx -p @figma-export/cli -p @figma-export/output-components-as-svg figma-export components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg
 ```
 
 or you can export all styles into `.scss`
@@ -94,7 +94,7 @@ or you can export all styles into `.scss`
 export FIGMA_TOKEN=<personalAccessToken>
 
 # export figma styles as .scss variables
-npx -p @figma-export/cli -p @figma-export/output-styles-as-sass figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass
+npx -p @figma-export/cli -p @figma-export/output-styles-as-sass figma-export styles fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-styles-as-sass
 ```
 
 
@@ -130,8 +130,8 @@ Following an example:
 ```diff
 {
   "scripts": {
-+   "figma:export-components": "figma-export components RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-components-as-svg",
-+   "figma:export-styles": "figma-export styles RSzpKJcnb6uBRQ3rOfLIyUs5 -O @figma-export/output-styles-as-sass",
++   "figma:export-components": "figma-export components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg",
++   "figma:export-styles": "figma-export styles fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-styles-as-sass",
   }
 }
 ```
@@ -171,7 +171,7 @@ module.exports = {
     commands: [
 
         ['styles', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output/styles'
@@ -180,8 +180,8 @@ module.exports = {
         }],
 
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome'],
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            onlyFromPages: ['icons'],
             transformers: [
                 require('@figma-export/transform-svg-with-svgo')({
                     plugins: [

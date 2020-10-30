@@ -2,7 +2,7 @@ module.exports = {
 
     commands: [
         ['styles', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output'
@@ -11,8 +11,8 @@ module.exports = {
         }],
 
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome'],
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            onlyFromPages: ['icons'],
             transformers: [
                 require('@figma-export/transform-svg-with-svgo')({
                     plugins: [

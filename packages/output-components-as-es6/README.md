@@ -9,8 +9,7 @@ This is a sample of the output:
 ```sh
 $ tree output/
 # output/
-# ├── icons.js
-# └── monochrome.js
+# └── icons.js
 ```
 
 For each file you will have a list of `export`.
@@ -31,8 +30,8 @@ You can easily add this outputter to your `.figmaexportrc.js`:
 module.exports = {
     commands: [
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome', 'unit-test'],
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            onlyFromPages: ['icons', 'unit-test'],
             outputters: [
                 require('@figma-export/output-components-as-es6')({
                     output: './output'

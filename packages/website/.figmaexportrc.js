@@ -4,7 +4,7 @@ module.exports = {
 
     commands: [
         ['styles', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
             outputters: [
                 require('../output-styles-as-sass')({
                     output: './output/figma-styles'
@@ -13,7 +13,7 @@ module.exports = {
         }],
 
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
             onlyFromPages: ['octicons-by-github'],
             outputters: [
                 require('../output-components-as-es6')({
@@ -35,8 +35,8 @@ module.exports = {
         }],
 
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome', 'unit-test'],
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            onlyFromPages: ['icons', 'unit-test'],
             transformers: [
                 require('../transform-svg-with-svgo')({
                     plugins: [

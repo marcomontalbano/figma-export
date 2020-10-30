@@ -4,9 +4,6 @@ import { Fragment } from 'preact';
 import CodeBlock from '../CodeBlock';
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
-import * as FigmaMonochrome from '../../output/svgr/monochrome';
-
-// eslint-disable-next-line import/no-unresolved, import/extensions
 import * as FigmaIcons from '../../output/svgr/icons';
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
@@ -29,7 +26,7 @@ const props = {
         module.exports = {
             commands: [
                 ['components', {
-                    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                    fileId: 'fzYhvQpqwhZDUImRz431Qo',
                     onlyFromPages: ['octicons-by-github'],
                     outputters: [
                         require('@figma-export/output-components-as-svgr')({
@@ -48,10 +45,6 @@ const ComponentsAsSvgrDefault = () => (
             <Squirrel className="icon" />
             <FigmaIcons.FigmaExport className="icon" />
             <FigmaIcons.FigmaLogo className="icon" />
-            <FigmaMonochrome.FigmaRed className="icon" />
-            <FigmaMonochrome.FigmaPurple className="icon" />
-            <FigmaMonochrome.FigmaBlue className="icon" />
-            <FigmaMonochrome.FigmaGreen className="icon" />
         </Fragment>
     </CodeBlock>
 );
