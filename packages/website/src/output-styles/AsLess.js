@@ -1,6 +1,6 @@
 import { Fragment } from 'preact';
-import Code from '../Code';
-import CodeBlock from '../CodeBlock';
+import Code from '../components/Code';
+import CodeBlock from '../components/CodeBlock';
 
 const props = {
     title: (

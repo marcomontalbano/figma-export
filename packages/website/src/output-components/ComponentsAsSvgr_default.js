@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import { Fragment } from 'preact';
 
-import CodeBlock from '../CodeBlock';
+import CodeBlock from '../components/CodeBlock';
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import * as FigmaIcons from '../../output/svgr/icons';
