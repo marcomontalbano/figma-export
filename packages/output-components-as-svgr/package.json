@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-components-as-svgr",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "Outputter for @figma-export that exports components as React components using svgr",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
