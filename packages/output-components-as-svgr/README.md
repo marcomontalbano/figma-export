@@ -4,7 +4,7 @@
 
 With this outputter you can export all Figma components as React components into the specified output folder.
 
-This is a sample of the output from this [Figma file](https://www.figma.com/file/RSzpKJcnb6uBRQ3rOfLIyUs5):
+This is a sample of the output from this [Figma file](https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo):
 
 ```sh
 $ tree output/
@@ -14,12 +14,6 @@ $ tree output/
 # │   ├── FigmaArrow.jsx
 # │   ├── FigmaExport.jsx
 # │   ├── FigmaLogo.jsx
-# │   └── index.js
-# ├── monochrome
-# │   ├── FigmaBlue.jsx
-# │   ├── FigmaGreen.jsx
-# │   ├── FigmaPurple.jsx
-# │   ├── FigmaRed.jsx
 # │   └── index.js
 # └── unit-test
 #     ├── figma
@@ -43,8 +37,8 @@ You can easily add this outputter to your `.figmaexportrc.js`:
 module.exports = {
     commands: [
         ['components', {
-            fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-            onlyFromPages: ['icons', 'monochrome', 'unit-test'],
+            fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            onlyFromPages: ['icons', 'unit-test'],
             outputters: [
                 require('@figma-export/output-components-as-svgr')({
                     output: './output'

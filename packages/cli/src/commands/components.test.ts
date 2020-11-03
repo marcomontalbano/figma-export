@@ -15,9 +15,9 @@ describe('components', () => {
 
         test
             .stdout()
-            .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-svg'])
+            .command(['components', 'fzYhvQpqwhZDUImRz431Qo', '-O', '@figma-export/output-components-as-svg'])
             .it((ctx) => {
-                expect(ctx.stdout).to.contain('Exporting RSzpKJcnb6uBRQ3rOfLIyUs5 with [] as [@figma-export/output-components-as-svg]');
+                expect(ctx.stdout).to.contain('Exporting fzYhvQpqwhZDUImRz431Qo with [] as [@figma-export/output-components-as-svg]');
             });
     });
 
@@ -26,7 +26,7 @@ describe('components', () => {
 
         test
             .stdout()
-            .command(['components', 'RSzpKJcnb6uBRQ3rOfLIyUs5', '-O', '@figma-export/output-components-as-svg'])
+            .command(['components', 'fzYhvQpqwhZDUImRz431Qo', '-O', '@figma-export/output-components-as-svg'])
             .exit(1)
             .it();
     });

@@ -1,6 +1,6 @@
 import { Fragment } from 'preact';
-import Code from '../Code';
-import CodeBlock from '../CodeBlock';
+import Code from '../components/Code';
+import CodeBlock from '../components/CodeBlock';
 
 const props = {
     title: (
@@ -26,7 +26,7 @@ const props = {
         module.exports = {
             commands: [
                 ['styles', {
-                    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                    fileId: 'fzYhvQpqwhZDUImRz431Qo',
                     outputters: [
                         require('@figma-export/output-styles-as-css')({
                             output: './output/css',

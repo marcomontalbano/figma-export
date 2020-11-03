@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import { Fragment } from 'preact';
 
-import CodeBlock from '../CodeBlock';
+import CodeBlock from '../components/CodeBlock';
 
 const fs = require('fs');
 
@@ -23,7 +23,7 @@ const props = {
         module.exports = {
             commands: [
                 ['components', {
-                    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+                    fileId: 'fzYhvQpqwhZDUImRz431Qo',
                     onlyFromPages: ['icons'],
                     outputters: [
                         require('@figma-export/output-components-as-svgstore')({

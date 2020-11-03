@@ -12,7 +12,7 @@ import outputComponentsAsSvg from '@figma-export/output-components-as-svg';
 import outputComponentsAsEs6 from '@figma-export/output-components-as-es6';
 
 const styleOptions: StylesCommandOptions = {
-    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
+    fileId: 'fzYhvQpqwhZDUImRz431Qo',
     outputters: [
         outputStylesAsSass({
             output: './output'
@@ -21,8 +21,8 @@ const styleOptions: StylesCommandOptions = {
 };
 
 const componentOptions: ComponentsCommandOptions = {
-    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-    onlyFromPages: ['icons', 'monochrome'],
+    fileId: 'fzYhvQpqwhZDUImRz431Qo',
+    onlyFromPages: ['icons'],
     transformers: [
         transformSvgWithSvgo({
             plugins: [

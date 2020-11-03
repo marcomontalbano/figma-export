@@ -54,7 +54,7 @@ pre[class*=language-] {
 
 .figma-gradient {
     background: $color-1;
-    background: linear-gradient(90deg, $color-1 0%, $color-2 33%, $color-3 66%, $color-4 100%), rgba(255, 255, 255, 0.9);
+    background: $color-figma-gradient;
     line-height: 2em;
 
     @at-root code:not([class*=language-]) {
@@ -64,11 +64,11 @@ pre[class*=language-] {
     }
 
     &.with-opacity-05 {
-        background: linear-gradient(270deg, fade-out($color-1, .95) 0%, fade-out($color-2, .95) 33%, fade-out($color-3, .95) 66%, fade-out($color-4, .95) 100%), rgba(255, 255, 255, 0.9);
+        background: $color-figma-gradient-05;
     }
 
     &.with-opacity-10 {
-        background: linear-gradient(270deg, fade-out($color-1, .90) 0%, fade-out($color-2, .90) 33%, fade-out($color-3, .90) 66%, fade-out($color-4, .90) 100%), rgba(255, 255, 255, 0.9);
+        background: $color-figma-gradient-10;
     }
 
     &.text {
@@ -82,6 +82,10 @@ pre[class*=language-] {
     text-align: center;
     margin-bottom: 25px;
 
+    &:last-child {
+        margin-bottom: 0;
+    }
+
     .title, section {
         font-weight: 300;
         margin: 0 auto;
@@ -90,6 +94,7 @@ pre[class*=language-] {
 
     .title {
         font-size: 2.6em;
+        padding: 0;
     } 
 
     @include for-desktop-up {
@@ -278,7 +283,9 @@ h2 {
     text-align: right;
 
     @include for-desktop-up {
-        position: absolute;
+        @at-root .hero:first-child + .github-link {
+            position: absolute;
+        }
     }
 
     a {
@@ -325,4 +332,11 @@ h2 {
             margin: 10px;
         }
     }
+}
+
+.shell-image {
+    width: 100vw;
+    max-width: 700px;
+    display: block;
+    margin: 0 -15px;
 }

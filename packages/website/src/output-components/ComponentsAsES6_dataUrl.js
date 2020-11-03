@@ -1,9 +1,6 @@
 import { Fragment } from 'preact';
 
-import CodeBlock from '../CodeBlock';
-
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import * as figmaMonochrome from '../../output/es6-dataurl/monochrome';
+import CodeBlock from '../components/CodeBlock';
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { figmaExport, figmaLogo } from '../../output/es6-dataurl/icons';
@@ -25,8 +22,8 @@ const props = {
         module.exports = {
             commands: [
                 ['components', {
-                    fileId: 'RSzpKJcnb6uBRQ3rOfLIyUs5',
-                    onlyFromPages: ['icons', 'monochrome'],
+                    fileId: 'fzYhvQpqwhZDUImRz431Qo',
+                    onlyFromPages: ['icons'],
                     outputters: [
                         require('@figma-export/output-components-as-es6')({
                             output: './output/es6-dataurl',
@@ -44,10 +41,6 @@ const SvgAsES6ComponentDataUrl = () => (
         <Fragment>
             <img className="icon" src={figmaExport} />
             <img className="icon" src={figmaLogo} />
-            <img className="icon" src={figmaMonochrome.figmaRed} />
-            <img className="icon" src={figmaMonochrome.figmaPurple} />
-            <img className="icon" src={figmaMonochrome.figmaBlue} />
-            <img className="icon" src={figmaMonochrome.figmaGreen} />
         </Fragment>
     </CodeBlock>
 );
