@@ -29,14 +29,14 @@ describe('export-component', () => {
         outputter = sinon.spy();
         transformer = sinon.spy((svg) => svg);
 
-        clientFileImages = sinon.stub().returns({
+        clientFileImages = sinon.stub().returns(Promise.resolve({
             data: {
                 images: {
                     A1: 'https://example.com/A1.svg',
                     B2: 'https://example.com/B2.svg',
                 },
             },
-        });
+        }));
 
         clientFile = sinon.stub().resolves({
             data: {
@@ -106,8 +106,17 @@ describe('export-component', () => {
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).secondCall).to.have.been.calledWith('fetching components');
     });
 
-    it('should throw an error if fetching document fails', async () => {
-        clientFile.returns({});
+    it('should throw an error when fetching file fails', async () => {
+        clientFile.returns(Promise.reject(new Error('some error')));
+
+        await expect(exportComponents({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching file "fileABCD": some error');
+    });
+
+    it('should throw an error if document property is missing when fetching file', async () => {
+        clientFile.returns(Promise.resolve({}));
 
         await expect(exportComponents({
             fileId: 'fileABCD',
@@ -115,7 +124,7 @@ describe('export-component', () => {
         })).to.be.rejectedWith(Error, '\'document\' is missing.');
     });
 
-    it('should throw an error if fetching a document without components', async () => {
+    it('should throw an error when fetching a document without components', async () => {
         clientFile.resolves({
             data: {
                 document: figmaDocument.createDocument({ children: [figmaDocument.pageWithoutComponents] }),
@@ -126,5 +135,19 @@ describe('export-component', () => {
             fileId: 'fileABCD',
             token: 'token1234',
         })).to.be.rejectedWith(Error, 'No components found');
+    });
+
+    it('should throw an error when fetching svg fails', async () => {
+        nock.cleanAll();
+        nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
+            .get('/A1.svg')
+            .replyWithError({ code: 'ECONNRESET', message: 'some error' })
+            .get('/B2.svg')
+            .replyWithError({ code: 'ECONNRESET', message: 'some error' });
+
+        await expect(exportComponents({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching svg "https://example.com/A1.svg": some error');
     });
 });

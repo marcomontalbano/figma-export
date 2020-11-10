@@ -1,5 +1,4 @@
 import * as FigmaExport from '@figma-export/types';
-import { Document } from 'figma-js';
 
 import { getClient, getPages, enrichPagesWithSvg } from './figma';
 
@@ -19,7 +18,9 @@ export const components = async ({
     const client = getClient(token);
 
     log('fetching document');
-    const { data: { document } = {} }: { data?: { document?: Document } } = await client.file(fileId);
+    const { data: { document = null } = {} } = await client.file(fileId).catch((error: Error) => {
+        throw new Error(`while fetching file "${fileId}": ${error.message}`);
+    });
 
     if (!document) {
         throw new Error('\'document\' is missing.');

@@ -72,6 +72,8 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
         ids,
         format: 'svg',
         svg_include_id: true,
+    }).catch((error: Error) => {
+        throw new Error(`while fetching fileImages: ${error.message}`);
     });
 
     return response.data.images;

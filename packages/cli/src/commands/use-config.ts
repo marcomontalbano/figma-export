@@ -27,34 +27,34 @@ class UseConfigCommand extends Command {
         const { commands = [] } = fs.existsSync(configPath) ? require(configPath) : {};
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const handlePromise = (figmaExporter: (options: any) => Promise<any>, options: Record<string, unknown>) => {
-            return figmaExporter({
-                token: process.env.FIGMA_TOKEN || '',
-                fileId: '',
-                ...options,
-                log: (message: string) => { spinner.text = message; },
-            }).then(() => {
-                spinner.stop();
-            }).catch((err: Error) => {
-                spinner.stop();
-                this.error(err, { exit: 1 });
-            });
-        };
+        const executeExporter = (figmaExporter: (options: any) => Promise<any>, options: Record<string, unknown>) => figmaExporter({
+            token: process.env.FIGMA_TOKEN || '',
+            fileId: '',
+            ...options,
+            log: (message: string) => { spinner.text = message; },
+        });
 
-        Promise.all(commands.map((command: FigmaExportCommand) => {
+        const commandPromises = commands.map((command: FigmaExportCommand) => {
             const [commandName, options] = command;
 
             spinner.start();
 
             switch (commandName) {
                 case 'components':
-                    return handlePromise(figmaExport.components, options);
+                    return executeExporter(figmaExport.components, options);
                 case 'styles':
-                    return handlePromise(figmaExport.styles, options);
+                    return executeExporter(figmaExport.styles, options);
                 default:
                     throw new Error(`Command ${commandName} is not found.`);
             }
-        }));
+        });
+
+        Promise.all(commandPromises).finally(() => {
+            spinner.stop();
+        }).catch((error: Error) => {
+            // eslint-disable-next-line no-console
+            console.error(error);
+        });
     }
 }
 

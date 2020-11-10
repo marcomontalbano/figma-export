@@ -105,14 +105,14 @@ describe('figma.', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
-                fileImages: sinon.stub().returns({
+                fileImages: sinon.stub().returns(Promise.resolve({
                     data: {
                         images: {
                             A1: 'https://example.com/A1.svg',
                             B2: 'https://example.com/B2.svg',
                         },
                     },
-                }),
+                })),
             };
 
             const fileImages = await figma.fileImages(client, 'ABC123', ['A1', 'B2']);
@@ -128,19 +128,29 @@ describe('figma.', () => {
                 B2: 'https://example.com/B2.svg',
             });
         });
+
+        it('should throw an error when connection issue', async () => {
+            const client = {
+                ...({} as Figma.ClientInterface),
+                fileImages: sinon.stub().returns(Promise.reject(new Error('some network error'))),
+            };
+
+            await expect(figma.fileImages(client, 'ABC123', ['A1', 'B2']))
+                .to.be.rejectedWith(Error, 'while fetching fileImages: some network error');
+        });
     });
 
     describe('fileSvgs', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
-                fileImages: sinon.stub().returns({
+                fileImages: sinon.stub().returns(Promise.resolve({
                     data: {
                         images: {
                             A1: figmaDocument.svg.url,
                         },
                     },
-                }),
+                })),
             };
 
             const fileSvgs = await figma.fileSvgs(client, 'ABC123', ['A1']);
