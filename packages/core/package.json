@@ -25,7 +25,8 @@
     "dependencies": {
         "@figma-export/types": "^3.0.0",
         "axios": "~0.19.2",
-        "figma-js": "~1.13.0"
+        "figma-js": "~1.13.0",
+        "p-limit": "^3.0.2"
     },
     "engines": {
         "node": ">= 10.13 <= 14.x"

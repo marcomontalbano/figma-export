@@ -148,21 +148,23 @@ describe('figma.', () => {
                     data: {
                         images: {
                             A1: figmaDocument.svg.url,
+                            B1: figmaDocument.svg.url,
                         },
                     },
                 })),
             };
 
-            const fileSvgs = await figma.fileSvgs(client, 'ABC123', ['A1']);
+            const fileSvgs = await figma.fileSvgs(client, 'ABC123', ['A1', 'B1']);
 
             expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
-                ids: ['A1'],
+                ids: ['A1', 'B1'],
                 format: 'svg',
                 svg_include_id: true,
             });
 
             expect(fileSvgs).to.deep.equal({
                 A1: figmaDocument.svg.content,
+                B1: figmaDocument.svg.content,
             });
         });
     });

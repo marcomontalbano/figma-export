@@ -1,6 +1,7 @@
 import * as Figma from 'figma-js';
 
 import { basename, dirname } from 'path';
+import pLimit from 'p-limit';
 import * as FigmaExport from '@figma-export/types';
 
 import {
@@ -90,8 +91,9 @@ const fileSvgs = async (
     svgTransformers: FigmaExport.StringTransformer[] = [],
 ): Promise<FigmaExportFileSvg> => {
     const images = await fileImages(client, fileId, ids);
+    const limit = pLimit(50);
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
-        const svg = await fetchAsSvgXml(url);
+        const svg = await limit(() => fetchAsSvgXml(url));
         const svgTransformed = await promiseSequentially(svgTransformers, svg);
 
         return [id, svgTransformed];
