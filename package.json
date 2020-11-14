@@ -19,7 +19,7 @@
     "pretest": "yarn build",
     "test": "TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
     "test:watch": "yarn test --watch --reporter=dot",
-    "coverage": "nyc --reporter=lcov --reporter=text yarn test --reporter=dot",
+    "coverage": "nyc yarn test --reporter=dot",
     "coverage:watch": "npx nodemon -e js,mjs,ts --exec yarn coverage",
     "prewebsite:start": "yarn build",
     "website:start": "lerna run --scope @figma-export/website start --stream",

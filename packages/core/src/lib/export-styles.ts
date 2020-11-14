@@ -20,7 +20,7 @@ export const styles = async ({
     const styleNodes = await fetchStyles(client, fileId);
 
     log('parsing styles');
-    const parsedStyles = await parseStyles(styleNodes);
+    const parsedStyles = parseStyles(styleNodes);
 
     await Promise.all(outputters.map((outputter) => outputter(parsedStyles)));
 

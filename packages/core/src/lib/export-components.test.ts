@@ -29,14 +29,15 @@ describe('export-component', () => {
         outputter = sinon.spy();
         transformer = sinon.spy((svg) => svg);
 
-        clientFileImages = sinon.stub().returns({
+        clientFileImages = sinon.stub().returns(Promise.resolve({
             data: {
                 images: {
-                    A1: 'https://example.com/A1.svg',
-                    B2: 'https://example.com/B2.svg',
+                    '10:8': 'https://example.com/10:8.svg',
+                    '8:1': 'https://example.com/8:1.svg',
+                    '9:1': 'https://example.com/9:1.svg',
                 },
             },
-        });
+        }));
 
         clientFile = sinon.stub().resolves({
             data: {
@@ -51,9 +52,14 @@ describe('export-component', () => {
         };
 
         nockScope = nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
-            .get('/A1.svg')
+            .get('/10:8.svg')
+            .delay(1)
             .reply(200, figmaDocument.svg.content)
-            .get('/B2.svg')
+            .get('/8:1.svg')
+            .delay(3)
+            .reply(200, figmaDocument.svg.content)
+            .get('/9:1.svg')
+            .delay(2)
             .reply(200, figmaDocument.svg.content);
 
         sinon.stub(FigmaExport, 'getClient').returns(client);
@@ -83,13 +89,17 @@ describe('export-component', () => {
         });
         expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD');
 
-        expect(logger).to.have.been.calledTwice;
-        expect(logger.firstCall).to.have.been.calledWith('fetching document');
-        expect(logger.secondCall).to.have.been.calledWith('fetching components');
+        expect(logger).to.have.been.callCount(5);
+        expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
+        expect(logger.getCall(1)).to.have.been.calledWith('preparing components');
+        expect(logger.getCall(2)).to.have.been.calledWith('fetching components 1/3');
+        expect(logger.getCall(3)).to.have.been.calledWith('fetching components 2/3');
+        expect(logger.getCall(4)).to.have.been.calledWith('fetching components 3/3');
 
-        expect(transformer).to.have.been.calledTwice;
+        expect(transformer).to.have.been.calledThrice;
         expect(transformer.firstCall).to.have.been.calledWith(figmaDocument.svg.content);
         expect(transformer.secondCall).to.have.been.calledWith(figmaDocument.svg.content);
+        expect(transformer.thirdCall).to.have.been.calledWith(figmaDocument.svg.content);
 
         expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
     });
@@ -101,13 +111,25 @@ describe('export-component', () => {
         });
 
         /* eslint-disable no-console */
-        expect(console.log).to.have.been.calledTwice;
-        expect((console.log as sinon.SinonSpy<unknown[], unknown>).firstCall).to.have.been.calledWith('fetching document');
-        expect((console.log as sinon.SinonSpy<unknown[], unknown>).secondCall).to.have.been.calledWith('fetching components');
+        expect(console.log).to.have.been.callCount(5);
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(0)).to.have.been.calledWith('fetching document');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(1)).to.have.been.calledWith('preparing components');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(2)).to.have.been.calledWith('fetching components 1/3');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(3)).to.have.been.calledWith('fetching components 2/3');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(4)).to.have.been.calledWith('fetching components 3/3');
     });
 
-    it('should throw an error if fetching document fails', async () => {
-        clientFile.returns({});
+    it('should throw an error when fetching file fails', async () => {
+        clientFile.returns(Promise.reject(new Error('some error')));
+
+        await expect(exportComponents({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching file "fileABCD": some error');
+    });
+
+    it('should throw an error if document property is missing when fetching file', async () => {
+        clientFile.returns(Promise.resolve({}));
 
         await expect(exportComponents({
             fileId: 'fileABCD',
@@ -115,7 +137,7 @@ describe('export-component', () => {
         })).to.be.rejectedWith(Error, '\'document\' is missing.');
     });
 
-    it('should throw an error if fetching a document without components', async () => {
+    it('should throw an error when fetching a document without components', async () => {
         clientFile.resolves({
             data: {
                 document: figmaDocument.createDocument({ children: [figmaDocument.pageWithoutComponents] }),
@@ -126,5 +148,21 @@ describe('export-component', () => {
             fileId: 'fileABCD',
             token: 'token1234',
         })).to.be.rejectedWith(Error, 'No components found');
+    });
+
+    it('should throw an error when fetching svg fails', async () => {
+        nock.cleanAll();
+        nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
+            .get('/10:8.svg')
+            .replyWithError({ code: 'ECONNRESET', message: 'some error' })
+            .get('/8:1.svg')
+            .replyWithError({ code: 'ECONNRESET', message: 'some error' })
+            .get('/9:1.svg')
+            .replyWithError({ code: 'ECONNRESET', message: 'some error' });
+
+        await expect(exportComponents({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching svg "https://example.com/10:8.svg": some error');
     });
 });

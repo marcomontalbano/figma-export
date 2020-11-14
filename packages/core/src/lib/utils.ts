@@ -29,7 +29,11 @@ const fetchAsSvgXml = (url: string): Promise<string> => {
         headers: {
             'Content-Type': 'images/svg+xml',
         },
-    }).then((response) => response.data);
+    }).then((response) => {
+        return response.data;
+    }).catch((error: Error) => {
+        throw new Error(`while fetching svg "${url}": ${error.message}`);
+    });
 };
 
 const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {

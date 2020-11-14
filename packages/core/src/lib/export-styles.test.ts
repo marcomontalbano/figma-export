@@ -75,12 +75,30 @@ describe('export-styles', () => {
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).secondCall).to.have.been.calledWith('parsing styles');
     });
 
-    it('should throw an error if fetching styles fails', async () => {
-        clientFile.returns({});
+    it('should throw an error when fetching file fails', async () => {
+        clientFile.returns(Promise.reject(new Error('some error')));
+
+        await expect(exportStyles({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching file "fileABCD": some error');
+    });
+
+    it('should throw an error if styles property is missing when fetching file', async () => {
+        clientFile.returns(Promise.resolve({}));
 
         await expect(exportStyles({
             fileId: 'fileABCD',
             token: 'token1234',
         })).to.be.rejectedWith(Error, '\'styles\' are missing.');
+    });
+
+    it('should throw an error when fetching fileNodes fails', async () => {
+        clientFileNodes.returns(Promise.reject(new Error('some error')));
+
+        await expect(exportStyles({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching fileNodes: some error');
     });
 });

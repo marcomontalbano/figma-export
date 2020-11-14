@@ -9,13 +9,17 @@ import { parse as parseTextStyle } from './textStyle';
 // import { parse as parseGridStyle } from './gridStyle';
 
 const fetchStyles = async (client: Figma.ClientInterface, fileId: string): Promise<FigmaExport.StyleNode[]> => {
-    const { data: { styles } = {} } = await client.file(fileId);
+    const { data: { styles = null } = {} } = await client.file(fileId).catch((error: Error) => {
+        throw new Error(`while fetching file "${fileId}": ${error.message}`);
+    });
 
     if (!styles) {
         throw new Error('\'styles\' are missing.');
     }
 
-    const { data: { nodes } } = await client.fileNodes(fileId, { ids: Object.keys(styles) });
+    const { data: { nodes } } = await client.fileNodes(fileId, { ids: Object.keys(styles) }).catch((error: Error) => {
+        throw new Error(`while fetching fileNodes: ${error.message}`);
+    });
 
     const styleNodes = Object.values(nodes).map((node) => node?.document);
 

@@ -11,6 +11,7 @@ export type ComponentsCommandOptions = {
     onlyFromPages?: string[];
     transformers?: StringTransformer[];
     outputters?: ComponentOutputter[];
+    concurrency?: number;
 }
 
 export type StylesCommandOptions = {
