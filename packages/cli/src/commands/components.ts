@@ -18,6 +18,7 @@ class ComponentsCommand extends Command {
             flags: {
                 page,
                 output,
+                concurrency,
                 outputter = [],
                 transformer = [],
             },
@@ -29,14 +30,17 @@ class ComponentsCommand extends Command {
 
         figmaExport.components({
             fileId,
+            concurrency,
             token: process.env.FIGMA_TOKEN || '',
             onlyFromPages: page,
             transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
             outputters: requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
             log: (message: string) => { spinner.text = message; },
-        }).finally(() => {
-            spinner.stop();
+        }).then(() => {
+            spinner.succeed('done');
         }).catch((error: Error) => {
+            spinner.fail();
+
             // eslint-disable-next-line no-console
             console.error(error);
         });
@@ -57,6 +61,12 @@ ComponentsCommand.flags = {
     page: commandFlags.string({
         char: 'p',
         description: 'Figma page names (defaults to \'all pages\')',
+    }),
+    concurrency: commandFlags.integer({
+        char: 'c',
+        description: 'Concurrency when fetching',
+        default: 30,
+        multiple: false,
     }),
     output: commandFlags.string({
         char: 'o',

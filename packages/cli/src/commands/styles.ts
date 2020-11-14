@@ -30,9 +30,11 @@ class StylesCommand extends Command {
             token: process.env.FIGMA_TOKEN || '',
             outputters: requirePackages<FigmaExport.StyleOutputter>(outputter, { output }),
             log: (message: string) => { spinner.text = message; },
-        }).finally(() => {
-            spinner.stop();
+        }).then(() => {
+            spinner.succeed('done');
         }).catch((error: Error) => {
+            spinner.fail();
+
             // eslint-disable-next-line no-console
             console.log(error);
         });

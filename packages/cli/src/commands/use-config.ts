@@ -32,12 +32,13 @@ class UseConfigCommand extends Command {
             fileId: '',
             ...options,
             log: (message: string) => { spinner.text = message; },
+        }).then((any) => {
+            spinner.succeed().start();
+            return any;
         });
 
         const commandPromises: (() => Promise<any>)[] = commands.map((command: FigmaExportCommand) => {
             const [commandName, options] = command;
-
-            spinner.start();
 
             switch (commandName) {
                 case 'components':
@@ -49,11 +50,15 @@ class UseConfigCommand extends Command {
             }
         });
 
+        spinner.start();
+
         commandPromises.reduce((actualPromise, nextPromise) => {
             return actualPromise.then(nextPromise);
-        }, Promise.resolve()).finally(() => {
-            spinner.stop();
+        }, Promise.resolve()).then(() => {
+            spinner.succeed('done');
         }).catch((error: Error) => {
+            spinner.fail();
+
             // eslint-disable-next-line no-console
             console.error(error);
         });
