@@ -9,6 +9,7 @@ import {
     fetchAsSvgXml,
     promiseSequentially,
     fromEntries,
+    chunk,
 } from './utils';
 
 type NodeWithChildren = FigmaExport.ComponentNode | Figma.Group | Figma.Frame | Figma.Instance | Figma.BooleanGroup;
@@ -80,6 +81,17 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
     return response.data.images;
 };
 
+const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]): Promise<{readonly [key: string]: string}> => {
+    const idss = chunk(ids, 200);
+    const limit = pLimit(30);
+
+    const resolves = await Promise.all(idss.map((groupIds) => {
+        return limit(() => fileImages(client, fileId, groupIds));
+    }));
+
+    return Object.assign({}, ...resolves);
+};
+
 type FigmaExportFileSvg = {
     [key: string]: string;
 }
@@ -101,7 +113,7 @@ const fileSvgs = async (
         onFetchCompleted = () => {},
     }: FileSvgOptions = {},
 ): Promise<FigmaExportFileSvg> => {
-    const images = await fileImages(client, fileId, ids);
+    const images = await getImages(client, fileId, ids);
     const limit = pLimit(concurrency);
     let index = 0;
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
@@ -149,7 +161,7 @@ export {
     getPages,
     getIdsFromPages,
     getClient,
-    fileImages,
+    getImages,
     fileSvgs,
     enrichPagesWithSvg,
 };

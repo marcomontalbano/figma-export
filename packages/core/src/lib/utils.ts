@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const toArray = <T extends unknown>(any: T): T[] => (Array.isArray(any) ? any : [any]);
+export const toArray = <T extends unknown>(any: T): T[] => (Array.isArray(any) ? any : [any]);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fromEntries = (iterable: any[][]): { [key: string]: any } => {
+export const fromEntries = (iterable: any[][]): { [key: string]: any } => {
     return [...iterable].reduce((obj: { [key: string]: unknown }, [key, val]) => {
         // eslint-disable-next-line no-param-reassign
         obj[key] = val;
@@ -12,7 +12,7 @@ const fromEntries = (iterable: any[][]): { [key: string]: any } => {
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const promiseSequentially = (promiseFactories: Function[], initialValue: unknown): Promise<unknown> => {
+export const promiseSequentially = (promiseFactories: Function[], initialValue: unknown): Promise<unknown> => {
     const promise = promiseFactories.reduce((previousPromise, promiseFactory) => {
         return previousPromise.then((value) => promiseFactory(value));
     }, Promise.resolve(initialValue));
@@ -20,7 +20,17 @@ const promiseSequentially = (promiseFactories: Function[], initialValue: unknown
     return promise;
 };
 
-const fetchAsSvgXml = (url: string): Promise<string> => {
+export const chunk = <T>(array: T[], perChunk: number): T[][] => {
+    return array.reduce((all: T[][], one, i) => {
+        const ch = Math.floor(i / perChunk);
+
+        // eslint-disable-next-line no-param-reassign
+        all[ch] = [...(all[ch] || []), one];
+        return all;
+    }, []);
+};
+
+export const fetchAsSvgXml = (url: string): Promise<string> => {
     if (!/https?:\/\/.*/.test(url)) {
         throw new TypeError('Only absolute URLs are supported');
     }
@@ -36,14 +46,6 @@ const fetchAsSvgXml = (url: string): Promise<string> => {
     });
 };
 
-const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
+export const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
     return value !== null && value !== undefined;
-};
-
-export {
-    toArray,
-    fromEntries,
-    promiseSequentially,
-    fetchAsSvgXml,
-    notEmpty,
 };
