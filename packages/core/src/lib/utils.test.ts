@@ -58,4 +58,20 @@ describe('utils.', () => {
             );
         });
     });
+
+    describe('chunk', () => {
+        it('should split an array in chunks', () => {
+            expect(
+                utils.chunk([10, 20, 30, 40, 50], 2),
+            ).to.deep.equal([[10, 20], [30, 40], [50]]);
+
+            expect(
+                utils.chunk([10], 2),
+            ).to.deep.equal([[10]]);
+
+            expect(
+                utils.chunk([10, 20, 30], 1),
+            ).to.deep.equal([[10], [20], [30]]);
+        });
+    });
 });

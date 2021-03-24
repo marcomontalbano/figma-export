@@ -115,7 +115,7 @@ describe('figma.', () => {
                 })),
             };
 
-            const fileImages = await figma.fileImages(client, 'ABC123', ['A1', 'B2']);
+            const fileImages = await figma.getImages(client, 'ABC123', ['A1', 'B2']);
 
             expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
                 ids: ['A1', 'B2'],
@@ -135,7 +135,7 @@ describe('figma.', () => {
                 fileImages: sinon.stub().returns(Promise.reject(new Error('some network error'))),
             };
 
-            await expect(figma.fileImages(client, 'ABC123', ['A1', 'B2']))
+            await expect(figma.getImages(client, 'ABC123', ['A1', 'B2']))
                 .to.be.rejectedWith(Error, 'while fetching fileImages: some network error');
         });
     });
