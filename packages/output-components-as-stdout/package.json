@@ -26,6 +26,6 @@
         "@figma-export/types": "^3.2.0"
     },
     "engines": {
-        "node": ">= 10.13 <= 14.x"
+        "node": ">= 10.13"
     }
 }

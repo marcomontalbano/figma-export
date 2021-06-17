@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [10.x, 12.x, 13.x, 14.x]
+        node: [10.13.0, 10.x, 12.x, 13.x, 14.x, 15.x, 16.x]
 
     steps:
     - name: Checkout 🛎️
@@ -40,7 +40,7 @@ jobs:
     - name: Node 🧰
       uses: actions/setup-node@v1
       with:
-        node-version: 12.x
+        node-version: 14.x
 
     - name: Install 📦
       run: yarn --frozen-lockfile
@@ -72,7 +72,7 @@ jobs:
   #   - name: Node 🧰
   #     uses: actions/setup-node@v1
   #     with:
-  #       node-version: 12.x
+  #       node-version: 14.x
 
   #   - name: Install 📦
   #     run: yarn --frozen-lockfile

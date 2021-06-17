@@ -69,7 +69,7 @@
   },
   "dependencies": {},
   "engines": {
-    "node": ">= 10.13 <= 14.x"
+    "node": ">= 10.13"
   },
   "husky": {
     "hooks": {
