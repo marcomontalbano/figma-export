@@ -27,6 +27,6 @@
         "node": ">= 10.13"
     },
     "dependencies": {
-        "figma-js": "~1.13.0"
+        "figma-js": "~1.14.0"
     }
 }
