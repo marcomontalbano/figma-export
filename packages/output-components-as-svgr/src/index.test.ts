@@ -1,6 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import svgr from '@svgr/core';
+import nock from 'nock';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 import fs = require('fs');
@@ -9,16 +10,47 @@ import makeDir = require('make-dir');
 import outputter = require('./index');
 
 describe('outputter as svgr', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let clientFileImages: sinon.SinonStub<any[], any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let clientFile: sinon.SinonStub<any[], any>;
+
+    let client;
+
     let writeFileSync;
     let svgrAsync;
+
     beforeEach(() => {
         sinon.stub(makeDir, 'sync').returnsArg(0);
         writeFileSync = sinon.stub(fs, 'writeFileSync');
         svgrAsync = sinon.stub(svgr, 'sync').returns('# code for react component #');
+
+        clientFileImages = sinon.stub().returns(Promise.resolve({
+            data: {
+                images: {
+                    '9:10': 'https://example.com/9:10.svg',
+                },
+            },
+        }));
+
+        clientFile = sinon.stub().resolves({
+            data: {
+                document: figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] }),
+            },
+        });
+
+        client = {
+            fileImages: clientFileImages,
+            file: clientFile,
+        };
+
+        nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
+            .get('/9:10.svg').delay(2).reply(200, figmaDocument.svg.content);
     });
 
     afterEach(() => {
         sinon.restore();
+        nock.cleanAll();
     });
 
     it('should export all components into jsx files plus one index.js for each folder', async () => {
@@ -86,13 +118,15 @@ describe('outputter as svgr', () => {
         });
 
         it('should be able to customize "svgrConfig"', async () => {
+            const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
+
             await outputter({
                 output: 'output',
                 getSvgrConfig: () => ({ native: true }),
-            })(pages);
+            })(pagesWithSvg);
 
             expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/Eye.jsx');
-            expect(svgrAsync.firstCall).to.be.calledWithMatch(figmaDocument.componentWithSlashedName.svg, { native: true });
+            expect(svgrAsync.firstCall).to.be.calledWithMatch(figmaDocument.componentWithSlashedNameOutput.svg, { native: true });
         });
     });
 });

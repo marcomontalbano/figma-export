@@ -2,6 +2,7 @@
 
 import sinon from 'sinon';
 import { expect } from 'chai';
+import nock from 'nock';
 
 import { camelCase } from '@figma-export/utils';
 
@@ -14,18 +15,63 @@ import fs = require('fs');
 import outputter = require('./index');
 
 describe('outputter as es6', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let clientFileImages: sinon.SinonStub<any[], any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let clientFile: sinon.SinonStub<any[], any>;
+
+    let client;
+    let nockScope: nock.Scope;
+
+    beforeEach(() => {
+        clientFileImages = sinon.stub().returns(Promise.resolve({
+            data: {
+                images: {
+                    '10:8': 'https://example.com/10:8.svg',
+                    '8:1': 'https://example.com/8:1.svg',
+                    '9:1': 'https://example.com/9:1.svg',
+                },
+            },
+        }));
+
+        clientFile = sinon.stub().resolves({
+            data: {
+                document: figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] }),
+            },
+        });
+
+        client = {
+            fileImages: clientFileImages,
+            file: clientFile,
+        };
+
+        nockScope = nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
+            .get('/10:8.svg')
+            .delay(1)
+            .reply(200, figmaDocument.svg.content)
+            .get('/8:1.svg')
+            .delay(3)
+            .reply(200, figmaDocument.svg.content)
+            .get('/9:1.svg')
+            .delay(2)
+            .reply(200, figmaDocument.svg.content);
+    });
     afterEach(() => {
         sinon.restore();
+        nock.cleanAll();
     });
 
     it('should export all components into an es6 file', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPages(document);
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
+
+        nockScope.done();
 
         await outputter({
             output: 'output',
-        })(pages);
+        })(pagesWithSvg);
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
@@ -40,11 +86,14 @@ describe('outputter as es6', () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPages(document);
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
+
+        nockScope.done();
 
         await outputter({
             output: 'output',
             getVariableName: (options) => camelCase(`i ${options.componentName} my ico`),
-        })(pages);
+        })(pagesWithSvg);
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
@@ -59,11 +108,14 @@ describe('outputter as es6', () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPages(document);
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
+
+        nockScope.done();
 
         await outputter({
             output: 'output',
             useBase64: true,
-        })(pages);
+        })(pagesWithSvg);
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
@@ -77,11 +129,14 @@ describe('outputter as es6', () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPages(document);
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
+
+        nockScope.done();
 
         await outputter({
             output: 'output',
             useDataUrl: true,
-        })(pages);
+        })(pagesWithSvg);
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(

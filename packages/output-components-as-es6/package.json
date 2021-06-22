@@ -26,7 +26,7 @@
         "@figma-export/types": "^3.3.0",
         "@figma-export/utils": "^3.3.0",
         "make-dir": "~3.1.0",
-        "mini-svg-data-uri": "~1.2.3"
+        "mini-svg-data-uri": "~1.3.3"
     },
     "engines": {
         "node": ">= 10.13"
