@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-components-as-stdout",
-    "version": "3.3.0",
+    "version": "3.3.1",
     "description": "Outputter for @figma-export that outputs components in console as json",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^3.3.0"
+        "@figma-export/types": "^3.3.1"
     },
     "engines": {
         "node": ">= 10.13"
