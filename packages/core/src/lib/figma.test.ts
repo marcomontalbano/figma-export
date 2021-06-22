@@ -28,8 +28,8 @@ describe('figma.', () => {
                 figmaDocument.component1,
                 figmaDocument.group1,
             ])).to.eql([
-                figmaDocument.component1,
-                figmaDocument.component3,
+                figmaDocument.componentOutput1,
+                figmaDocument.componentOutput3,
             ]);
         });
     });

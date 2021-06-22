@@ -8,6 +8,7 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
+    "prepare": "husky install",
     "predebug": "yarn build",
     "debug": "ts-node ./packages/cli/bin/run use-config .figmaexportrc.ts",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
@@ -27,7 +28,8 @@
     "website:build": "lerna run --scope @figma-export/website build --stream",
     "website:serve": "lerna run --scope @figma-export/website serve --stream",
     "lerna:version": "lerna version",
-    "lerna:ncu": "npx lerna exec 'npx npm-check-updates -u' --stream"
+    "lerna:ncu": "npx lerna exec 'npx npm-check-updates -u' --stream",
+    "pre-commit": "lint-staged -c ./lint-staged.config.js"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "nyc": {
@@ -38,42 +40,37 @@
     ]
   },
   "devDependencies": {
-    "@types/chai": "~4.2.16",
-    "@types/chai-as-promised": "^7.1.3",
+    "@types/chai": "~4.2.19",
+    "@types/chai-as-promised": "^7.1.4",
     "@types/chai-things": "0.0.34",
     "@types/mocha": "~8.2.2",
-    "@types/node": "~14.14.41",
+    "@types/node": "~14.17.3",
     "@types/sinon": "~9.0.11",
     "@types/sinon-chai": "~3.2.5",
-    "@typescript-eslint/eslint-plugin": "~4.22.0",
-    "@typescript-eslint/parser": "~4.22.0",
+    "@typescript-eslint/eslint-plugin": "~4.28.0",
+    "@typescript-eslint/parser": "~4.28.0",
     "chai": "~4.3.4",
     "chai-as-promised": "^7.1.1",
     "chai-things": "~0.2.0",
-    "eslint": "~7.24.0",
+    "eslint": "~7.29.0",
     "eslint-config-airbnb-base": "~14.2.1",
     "eslint-config-developit": "~1.2.0",
-    "eslint-plugin-chai-friendly": "~0.6.0",
-    "eslint-plugin-import": "~2.22.1",
-    "husky": "~4.3.8",
+    "eslint-plugin-chai-friendly": "~0.7.1",
+    "eslint-plugin-import": "~2.23.4",
+    "husky": "~6.0.0",
     "lerna": "~3.22.1",
     "lerna-changelog": "~1.0.1",
     "lint-staged": "~10.5.4",
-    "mocha": "~8.3.2",
-    "nock": "~13.0.11",
+    "mocha": "~8.4.0",
+    "nock": "~13.1.0",
     "nyc": "~15.1.0",
     "sinon": "~9.2.4",
-    "sinon-chai": "~3.6.0",
+    "sinon-chai": "~3.7.0",
     "ts-node": "~9.1.1",
-    "typescript": "~4.2.4"
+    "typescript": "~4.3.4"
   },
   "dependencies": {},
   "engines": {
     "node": ">= 10.13"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged -c ./lint-staged.config.js"
-    }
   }
 }

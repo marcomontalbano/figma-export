@@ -2,7 +2,7 @@
 import * as FigmaExport from '@figma-export/types';
 import * as Figma from 'figma-js';
 
-const svg = {
+export const svg = {
     domain: 'https://s3-us-west-2.amazonaws.com',
     path: '/figma-alpha-api/img/7d80/9a7f/49ce9d382e188bc37b1fa83f83ff7c3f',
     content: '<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>',
@@ -11,56 +11,77 @@ const svg = {
     },
 };
 
-const componentWithNumber = {
+export const componentWithNumber = {
     id: '12:3',
     name: '1-icon',
     type: 'COMPONENT',
 };
 
-const componentWithSlashedName = {
+export const componentWithSlashedName: Figma.Node = {
+    ...({} as Figma.Component),
     id: '9:10',
     name: 'icon/eye',
     type: 'COMPONENT',
-    svg: svg.content,
 };
 
-const component1: FigmaExport.ComponentNode = {
+export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
+    ...componentWithSlashedName,
+    svg: svg.content,
+    figmaExport: {
+        dirname: '.',
+        basename: 'icon/eye',
+    },
+};
+
+export const component1: Figma.Node = {
     ...({} as Figma.Component),
     id: '10:8',
     name: 'Figma-Logo',
     type: 'COMPONENT',
-    svg: svg.content,
+};
+
+export const componentOutput1: FigmaExport.ComponentNode = {
+    ...component1,
+    svg: '',
     figmaExport: {
         dirname: '.',
         basename: 'Figma-Logo',
     },
 };
 
-const component2: FigmaExport.ComponentNode = {
+export const component2: Figma.Node = {
     ...({} as Figma.Component),
     id: '8:1',
     name: 'Search',
     type: 'COMPONENT',
-    svg: svg.content,
+};
+
+export const componentOutput2: FigmaExport.ComponentNode = {
+    ...component2,
+    svg: '',
     figmaExport: {
         dirname: '.',
         basename: 'Figma-Search',
     },
 };
 
-const component3: FigmaExport.ComponentNode = {
+export const component3: Figma.Node = {
     ...({} as Figma.Component),
     id: '9:1',
     name: 'Login',
     type: 'COMPONENT',
-    svg: svg.content,
+};
+
+export const componentOutput3: FigmaExport.ComponentNode = {
+    ...component3,
+    svg: '',
     figmaExport: {
         dirname: '.',
         basename: 'Login',
     },
 };
 
-const group1: Figma.Group = {
+export const group1: Figma.Group = {
     ...({} as Figma.Group),
     id: '26:0',
     name: 'A Group',
@@ -68,7 +89,7 @@ const group1: Figma.Group = {
     children: [component3],
 };
 
-const page1: Figma.Canvas = {
+export const page1: Figma.Canvas = {
     ...({} as Figma.Canvas),
     id: '10:6',
     name: 'page1',
@@ -79,7 +100,7 @@ const page1: Figma.Canvas = {
     ],
 };
 
-const page2: Figma.Canvas = {
+export const page2: Figma.Canvas = {
     ...({} as Figma.Canvas),
     id: '10:7',
     name: 'page2',
@@ -89,7 +110,7 @@ const page2: Figma.Canvas = {
     ],
 };
 
-const pageWithoutComponents: Figma.Canvas = {
+export const pageWithoutComponents: Figma.Canvas = {
     ...({} as Figma.Canvas),
     id: '10:7',
     name: 'page2',
@@ -97,12 +118,12 @@ const pageWithoutComponents: Figma.Canvas = {
     children: [],
 };
 
-const createDocument = (props: any): Figma.Document => ({
+export const createDocument = (props: any): Figma.Document => ({
     ...({} as Figma.Document),
     ...props,
 });
 
-const createPage = (children: any): Figma.Document => ({
+export const createPage = (children: any): Figma.Document => ({
     ...({} as Figma.Document),
     children: [{
         ...({} as Figma.Canvas),
@@ -111,18 +132,3 @@ const createPage = (children: any): Figma.Document => ({
         children,
     }],
 });
-
-export {
-    componentWithNumber,
-    componentWithSlashedName,
-    component1,
-    component2,
-    component3,
-    group1,
-    page1,
-    page2,
-    pageWithoutComponents,
-    svg,
-    createPage,
-    createDocument,
-};

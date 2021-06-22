@@ -12,15 +12,14 @@ import {
     chunk,
 } from './utils';
 
-type NodeWithChildren = FigmaExport.ComponentNode | Figma.Group | Figma.Frame | Figma.Instance | Figma.BooleanGroup;
-
-const getComponents = (children: readonly NodeWithChildren[] = []): FigmaExport.ComponentNode[] => {
+const getComponents = (children: readonly Figma.Node[] = []): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
     children.forEach((component) => {
         if (component.type === 'COMPONENT') {
             components.push({
                 ...component,
+                svg: '',
                 figmaExport: {
                     dirname: dirname(component.name),
                     basename: basename(component.name),
@@ -29,10 +28,12 @@ const getComponents = (children: readonly NodeWithChildren[] = []): FigmaExport.
             return;
         }
 
-        components = [
-            ...components,
-            ...getComponents((component.children as NodeWithChildren[])),
-        ];
+        if ('children' in component) {
+            components = [
+                ...components,
+                ...getComponents((component.children)),
+            ];
+        }
     });
 
     return components;
