@@ -1,6 +1,7 @@
 import * as Figma from 'figma-js';
 
 export type ComponentExtras = {
+    id: string;
     dirname: string;
     basename: string;
 }

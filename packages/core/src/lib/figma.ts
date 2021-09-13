@@ -21,6 +21,7 @@ const getComponents = (children: readonly Figma.Node[] = []): FigmaExport.Compon
                 ...component,
                 svg: '',
                 figmaExport: {
+                    id: component.id,
                     dirname: dirname(component.name),
                     basename: basename(component.name),
                 },

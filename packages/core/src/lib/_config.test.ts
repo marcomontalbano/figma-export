@@ -28,6 +28,7 @@ export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
     ...componentWithSlashedName,
     svg: svg.content,
     figmaExport: {
+        id: '9:10',
         dirname: '.',
         basename: 'icon/eye',
     },
@@ -44,6 +45,7 @@ export const componentOutput1: FigmaExport.ComponentNode = {
     ...component1,
     svg: '',
     figmaExport: {
+        id: '10:8',
         dirname: '.',
         basename: 'Figma-Logo',
     },
@@ -60,6 +62,7 @@ export const componentOutput2: FigmaExport.ComponentNode = {
     ...component2,
     svg: '',
     figmaExport: {
+        id: '8:1',
         dirname: '.',
         basename: 'Figma-Search',
     },
@@ -76,6 +79,7 @@ export const componentOutput3: FigmaExport.ComponentNode = {
     ...component3,
     svg: '',
     figmaExport: {
+        id: '9:1',
         dirname: '.',
         basename: 'Login',
     },
