@@ -8,6 +8,7 @@ type Options = FigmaExport.BaseCommandOptions & FigmaExport.StylesCommandOptions
 export const styles = async ({
     token,
     fileId,
+    version = '',
     outputters = [],
     log = (msg): void => {
         // eslint-disable-next-line no-console
@@ -17,7 +18,7 @@ export const styles = async ({
     const client = getClient(token);
 
     log('fetching styles');
-    const styleNodes = await fetchStyles(client, fileId);
+    const styleNodes = await fetchStyles(client, fileId, version);
 
     log('parsing styles');
     const parsedStyles = parseStyles(styleNodes);

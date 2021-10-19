@@ -8,6 +8,7 @@ export type BaseCommandOptions = {
 
 export type ComponentsCommandOptions = {
     fileId: string;
+    version?: string;
     onlyFromPages?: string[];
     transformers?: StringTransformer[];
     outputters?: ComponentOutputter[];
@@ -16,6 +17,7 @@ export type ComponentsCommandOptions = {
 
 export type StylesCommandOptions = {
     fileId: string;
+    version?: string;
     outputters?: StyleOutputter[];
 }
 
