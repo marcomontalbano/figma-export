@@ -7,7 +7,7 @@ type Options = FigmaExport.BaseCommandOptions & FigmaExport.ComponentsCommandOpt
 export const components = async ({
     token,
     fileId,
-    version = '',
+    version,
     onlyFromPages = [],
     transformers = [],
     outputters = [],
