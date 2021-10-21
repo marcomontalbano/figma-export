@@ -20,8 +20,8 @@ export const components = async ({
     const client = getClient(token);
 
     log('fetching document');
-    const { data: { document = null } = {} } = await client.file(`${fileId}${version.length ? `?version=${version}` : ''}`).catch((error: Error) => {
-        throw new Error(`while fetching file "${fileId}${version.length ? `?version=${version}` : ''}": ${error.message}`);
+    const { data: { document = null } = {} } = await client.file(fileId, { version }).catch((error: Error) => {
+        throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
     });
 
     if (!document) {
