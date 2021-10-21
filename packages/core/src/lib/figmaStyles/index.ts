@@ -8,9 +8,9 @@ import { parse as parseEffectStyle } from './effectStyle';
 import { parse as parseTextStyle } from './textStyle';
 // import { parse as parseGridStyle } from './gridStyle';
 
-const fetchStyles = async (client: Figma.ClientInterface, fileId: string, version: string): Promise<FigmaExport.StyleNode[]> => {
-    const { data: { styles = null } = {} } = await client.file(`${fileId}${version.length ? `?version=${version}` : ''}`).catch((error: Error) => {
-        throw new Error(`while fetching file "${fileId}${version.length ? `?version=${version}` : ''}": ${error.message}`);
+const fetchStyles = async (client: Figma.ClientInterface, fileId: string, version?: string): Promise<FigmaExport.StyleNode[]> => {
+    const { data: { styles = null } = {} } = await client.file(fileId, { version }).catch((error: Error) => {
+        throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
     });
 
     if (!styles) {
