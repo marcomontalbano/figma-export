@@ -8,7 +8,7 @@ type Options = FigmaExport.BaseCommandOptions & FigmaExport.StylesCommandOptions
 export const styles = async ({
     token,
     fileId,
-    version = '',
+    version,
     outputters = [],
     log = (msg): void => {
         // eslint-disable-next-line no-console
