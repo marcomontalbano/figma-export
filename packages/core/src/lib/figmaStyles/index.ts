@@ -17,7 +17,7 @@ const fetchStyles = async (client: Figma.ClientInterface, fileId: string, versio
         throw new Error('\'styles\' are missing.');
     }
 
-    const { data: { nodes } } = await client.fileNodes(fileId, { ids: Object.keys(styles), ...(version && {version: version}) }).catch((error: Error) => {
+    const { data: { nodes } } = await client.fileNodes(fileId, { ids: Object.keys(styles), version }).catch((error: Error) => {
         throw new Error(`while fetching fileNodes: ${error.message}`);
     });
 
