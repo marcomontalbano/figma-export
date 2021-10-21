@@ -31,6 +31,7 @@ const props = {
             commands: [
                 ['styles', {
                     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+                    version: 'ABC123' // optional Figma file version ID
                     outputters: [
                         require('@figma-export/output-styles-as-less')({
                             output: './output/less',

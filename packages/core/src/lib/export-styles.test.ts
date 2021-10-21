@@ -47,14 +47,15 @@ describe('export-styles', () => {
     it('should use outputter to export styles', async () => {
         const pagesWithSvg = await exportStyles({
             fileId: 'fileABCD',
+            version: 'versionABCD',
             token: 'token1234',
             log: logger,
             outputters: [outputter],
         });
 
         expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
-        expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: nodeIds });
-        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD');
+        expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: nodeIds, version: 'versionABCD' });
+        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
 
         expect(logger).to.have.been.calledTwice;
         expect(logger.firstCall).to.have.been.calledWith('fetching styles');
