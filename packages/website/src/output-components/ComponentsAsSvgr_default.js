@@ -27,6 +27,7 @@ const props = {
             commands: [
                 ['components', {
                     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+                    version: 'ABC123' // optional Figma file version ID
                     onlyFromPages: ['octicons-by-github'],
                     outputters: [
                         require('@figma-export/output-components-as-svgr')({

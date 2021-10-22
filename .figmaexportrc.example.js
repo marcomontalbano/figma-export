@@ -3,6 +3,7 @@ module.exports = {
     commands: [
         ['styles', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            version: 'xxx123456', // marcomontalbano example figma is not on a paid team so has no version history
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output'

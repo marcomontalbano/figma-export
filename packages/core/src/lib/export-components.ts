@@ -7,6 +7,7 @@ type Options = FigmaExport.BaseCommandOptions & FigmaExport.ComponentsCommandOpt
 export const components = async ({
     token,
     fileId,
+    version,
     onlyFromPages = [],
     transformers = [],
     outputters = [],
@@ -19,8 +20,8 @@ export const components = async ({
     const client = getClient(token);
 
     log('fetching document');
-    const { data: { document = null } = {} } = await client.file(fileId).catch((error: Error) => {
-        throw new Error(`while fetching file "${fileId}": ${error.message}`);
+    const { data: { document = null } = {} } = await client.file(fileId, { version }).catch((error: Error) => {
+        throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
     });
 
     if (!document) {

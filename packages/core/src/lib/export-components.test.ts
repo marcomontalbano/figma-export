@@ -73,6 +73,7 @@ describe('export-component', () => {
     it('should use transformers and outputter to export components', async () => {
         const pagesWithSvg = await exportComponents({
             fileId: 'fileABCD',
+            version: 'versionABCD',
             token: 'token1234',
             log: logger,
             outputters: [outputter],
@@ -87,7 +88,7 @@ describe('export-component', () => {
             ids: ['10:8', '8:1', '9:1'],
             svg_include_id: true,
         });
-        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD');
+        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
 
         expect(logger).to.have.been.callCount(5);
         expect(logger.getCall(0)).to.have.been.calledWith('fetching document');

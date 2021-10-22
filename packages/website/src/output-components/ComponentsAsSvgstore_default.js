@@ -25,6 +25,7 @@ const props = {
             commands: [
                 ['components', {
                     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+                    version: 'ABC123' // optional Figma file version ID
                     onlyFromPages: ['icons'],
                     outputters: [
                         require('@figma-export/output-components-as-svgstore')({
