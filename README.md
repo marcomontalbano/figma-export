@@ -173,7 +173,7 @@ module.exports = {
 
         ['styles', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
-            version: 'xxx123456', // marcomontalbano example figma is not on a paid team so has no version history
+            // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output/styles'
@@ -183,6 +183,7 @@ module.exports = {
 
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
+            // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
             onlyFromPages: ['icons'],
             transformers: [
                 require('@figma-export/transform-svg-with-svgo')({

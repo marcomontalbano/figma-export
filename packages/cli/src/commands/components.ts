@@ -16,6 +16,7 @@ class ComponentsCommand extends Command {
                 fileId,
             },
             flags: {
+                fileVersion,
                 page,
                 output,
                 concurrency,
@@ -30,6 +31,7 @@ class ComponentsCommand extends Command {
 
         figmaExport.components({
             fileId,
+            version: fileVersion,
             concurrency,
             token: process.env.FIGMA_TOKEN || '',
             onlyFromPages: page,
@@ -58,6 +60,13 @@ ComponentsCommand.args = [
 ];
 
 ComponentsCommand.flags = {
+    fileVersion: commandFlags.string({
+        required: false,
+        description: `
+A specific version ID to get. Omitting this will get the current version of the file.
+https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`,
+        multiple: false,
+    }),
     page: commandFlags.string({
         char: 'p',
         description: 'Figma page names (defaults to \'all pages\')',

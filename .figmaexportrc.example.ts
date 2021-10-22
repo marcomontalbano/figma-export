@@ -13,6 +13,7 @@ import outputComponentsAsEs6 from '@figma-export/output-components-as-es6';
 
 const styleOptions: StylesCommandOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+    // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
     outputters: [
         outputStylesAsSass({
             output: './output'
@@ -22,6 +23,7 @@ const styleOptions: StylesCommandOptions = {
 
 const componentOptions: ComponentsCommandOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+    // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
     onlyFromPages: ['icons'],
     transformers: [
         transformSvgWithSvgo({

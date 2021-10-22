@@ -18,6 +18,7 @@ class StylesCommand extends Command {
             flags: {
                 output,
                 outputter = [],
+                fileVersion,
             },
         } = this.parse(StylesCommand);
 
@@ -27,6 +28,7 @@ class StylesCommand extends Command {
 
         figmaExport.styles({
             fileId,
+            version: fileVersion,
             token: process.env.FIGMA_TOKEN || '',
             outputters: requirePackages<FigmaExport.StyleOutputter>(outputter, { output }),
             log: (message: string) => { spinner.text = message; },
@@ -52,6 +54,13 @@ StylesCommand.args = [
 ];
 
 StylesCommand.flags = {
+    fileVersion: commandFlags.string({
+        required: false,
+        description: `
+A specific version ID to get. Omitting this will get the current version of the file.
+https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`,
+        multiple: false,
+    }),
     output: commandFlags.string({
         char: 'o',
         description: 'Output directory',
