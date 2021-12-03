@@ -71,6 +71,6 @@
   },
   "dependencies": {},
   "engines": {
-    "node": ">= 10.13"
+    "node": ">= 12"
   }
 }
