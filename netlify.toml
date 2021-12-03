@@ -1,0 +1,8 @@
+[build]
+  publish = './packages/website/dist'
+  command = 'yarn website:build'
+
+[[redirects]]
+  from = "https://figma-export.netlify.app/*"
+  to = "https://figma-export.marcomontalbano.com/:splat"
+  force = true
