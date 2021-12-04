@@ -27,9 +27,9 @@
     "dependencies": {
         "@figma-export/types": "^3.5.0",
         "make-dir": "~3.1.0",
-        "svgstore": "~3.0.0-2"
+        "svgstore": "~3.0.1"
     },
     "engines": {
-        "node": ">= 12"
+        "node": ">= 12.22"
     }
 }

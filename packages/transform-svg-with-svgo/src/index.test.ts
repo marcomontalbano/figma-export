@@ -22,6 +22,7 @@ describe('transform svg with svgo', () => {
     });
 
     it('should handle exception when something fails', async () => {
-        await expect(transformer({})('bad svg')).to.be.rejected;
+        const actualSvg = await transformer({})('bad svg');
+        await expect(actualSvg).to.be.undefined;
     });
 });

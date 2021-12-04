@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import svgr from '@svgr/core';
+import * as svgr from '@svgr/core';
 import nock from 'nock';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
@@ -23,7 +23,7 @@ describe('outputter as svgr', () => {
     beforeEach(() => {
         sinon.stub(makeDir, 'sync').returnsArg(0);
         writeFileSync = sinon.stub(fs, 'writeFileSync');
-        svgrAsync = sinon.stub(svgr, 'sync').returns('# code for react component #');
+        svgrAsync = sinon.stub(svgr.transform, 'sync').returns('# code for react component #');
 
         clientFileImages = sinon.stub().returns(Promise.resolve({
             data: {

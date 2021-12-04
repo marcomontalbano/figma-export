@@ -18,8 +18,18 @@ module.exports = {
             transformers: [
                 require('@figma-export/transform-svg-with-svgo')({
                     plugins: [
-                        { removeViewBox: false },
-                        { removeDimensions: true }
+                        {
+                            name: 'preset-default',
+                            params: {
+                                overrides: {
+                                    removeViewBox: false,
+                                }
+                            }
+                        },
+                        {
+                            name: 'removeDimensions',
+                            active: true
+                        }
                     ]
                 })
             ],

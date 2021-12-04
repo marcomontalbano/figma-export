@@ -37,8 +37,18 @@ const componentOptions: ComponentsCommandOptions = {
     transformers: [
         transformSvgWithSvgo({
             plugins: [
-                { removeViewBox: false },
-                { removeDimensions: true }
+                {
+                    name: 'preset-default',
+                    params: {
+                        overrides: {
+                            removeViewBox: false,
+                        }
+                    }
+                },
+                {
+                    name: 'removeDimensions',
+                    active: true
+                }
             ]
         })
     ],
@@ -53,13 +63,16 @@ const componentOptions: ComponentsCommandOptions = {
         outputComponentsAsSvgr({
             output: './output/components/svgr',
             getSvgrConfig: () => ({
-
+                template: ({ componentName, props, jsx, exports }, { tpl }) => tpl`
+                    const ${componentName} = (${props}) => (${jsx});
+                    ${exports}
+                `
             })
         }),
         outputComponentsAsSvgstore({
             output: './output/components/svgstore',
             svgstoreConfig: {
-
+                
             }
         })
     ]

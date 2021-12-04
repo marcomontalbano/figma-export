@@ -28,8 +28,18 @@ const componentOptions: ComponentsCommandOptions = {
     transformers: [
         transformSvgWithSvgo({
             plugins: [
-                { removeViewBox: false },
-                { removeDimensions: true }
+                {
+                    name: 'preset-default',
+                    params: {
+                        overrides: {
+                            removeViewBox: false,
+                        }
+                    }
+                },
+                {
+                    name: 'removeDimensions',
+                    active: true
+                }
             ]
         })
     ],
