@@ -9,7 +9,54 @@ import ora = require('ora');
 
 const spinner = ora({});
 
-class ComponentsCommand extends Command {
+export class ComponentsCommand extends Command {
+    static description = `export components from a Figma file
+    `;
+
+    static args = [
+        {
+            name: 'fileId',
+            required: true,
+        },
+    ];
+
+    static flags = {
+        fileVersion: commandFlags.string({
+            required: false,
+            description: `
+A specific version ID to get. Omitting this will get the current version of the file.
+https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`,
+            multiple: false,
+        }),
+        page: commandFlags.string({
+            char: 'p',
+            description: 'Figma page names (defaults to \'all pages\')',
+            multiple: true,
+        }),
+        concurrency: commandFlags.integer({
+            char: 'c',
+            description: 'Concurrency when fetching',
+            default: 30,
+            multiple: false,
+        }),
+        output: commandFlags.string({
+            char: 'o',
+            description: 'Output directory',
+            default: 'output',
+            multiple: false,
+        }),
+        outputter: commandFlags.string({
+            char: 'O',
+            description: 'Outputter module or path',
+            multiple: true,
+        }),
+        transformer: commandFlags.string({
+            char: 'T',
+            description: 'Transformer module or path',
+            multiple: true,
+        }),
+    };
+
     async run(): Promise<void> {
         const {
             args: {
@@ -48,51 +95,3 @@ class ComponentsCommand extends Command {
         });
     }
 }
-
-ComponentsCommand.description = `export components from a Figma file
-`;
-
-ComponentsCommand.args = [
-    {
-        name: 'fileId',
-        required: true,
-    },
-];
-
-ComponentsCommand.flags = {
-    fileVersion: commandFlags.string({
-        required: false,
-        description: `
-A specific version ID to get. Omitting this will get the current version of the file.
-https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`,
-        multiple: false,
-    }),
-    page: commandFlags.string({
-        char: 'p',
-        description: 'Figma page names (defaults to \'all pages\')',
-    }),
-    concurrency: commandFlags.integer({
-        char: 'c',
-        description: 'Concurrency when fetching',
-        default: 30,
-        multiple: false,
-    }),
-    output: commandFlags.string({
-        char: 'o',
-        description: 'Output directory',
-        default: 'output',
-        multiple: false,
-    }),
-    outputter: commandFlags.string({
-        char: 'O',
-        description: 'Outputter module or path',
-        multiple: true,
-    }),
-    transformer: commandFlags.string({
-        char: 'T',
-        description: 'Transformer module or path',
-        multiple: true,
-    }),
-};
-
-module.exports = ComponentsCommand;

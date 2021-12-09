@@ -63,6 +63,7 @@ module.exports = {
             files: ['**.test.ts'],
             rules: {
                 'import/no-extraneous-dependencies': 'off',
+                'import/no-relative-packages': 'off',
             },
         },
     ],

@@ -10,7 +10,8 @@ describe('utils', () => {
             it('should return empty string is the value is empty', () => {
                 const text = writeVariable(
                     'This is a comment',
-                    'variable-name', '',
+                    'variable-name',
+                    '',
                     extension,
                 );
 
@@ -20,7 +21,8 @@ describe('utils', () => {
             it('should be able to print-out simple variable', () => {
                 const text = writeVariable(
                     'This is a comment',
-                    'variable-name', '#fff',
+                    'variable-name',
+                    '#fff',
                     extension,
                 );
 
@@ -42,7 +44,8 @@ describe('utils', () => {
             it('should be able to print-out a comment in multiline', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
-                    'variable-name', '#fff',
+                    'variable-name',
+                    '#fff',
                     extension,
                 );
 
@@ -60,7 +63,8 @@ describe('utils', () => {
             it('should be able to print-out a complex variable (like a sass:map)', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
-                    'variable-name', '(\n"color-1": #fff,\n"color-2": #000\n)',
+                    'variable-name',
+                    '(\n"color-1": #fff,\n"color-2": #000\n)',
                     extension,
                 );
 
@@ -85,7 +89,8 @@ describe('utils', () => {
             it('should return empty string is the value is empty', () => {
                 const text = writeVariable(
                     'This is a comment',
-                    'variable-name', '',
+                    'variable-name',
+                    '',
                     extension,
                 );
 
@@ -95,7 +100,8 @@ describe('utils', () => {
             it('should be able to print-out simple variable', () => {
                 const text = writeVariable(
                     'This is a comment',
-                    'variable-name', '#fff',
+                    'variable-name',
+                    '#fff',
                     extension,
                 );
 
@@ -117,7 +123,8 @@ describe('utils', () => {
             it('should be able to print-out a comment in multiline', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
-                    'variable-name', '#fff',
+                    'variable-name',
+                    '#fff',
                     extension,
                 );
 
@@ -135,7 +142,8 @@ describe('utils', () => {
             it('should be able to print-out a complex variable (like a sass:map)', () => {
                 const text = writeVariable(
                     'This is a comment\nin two lines',
-                    'variable-name', '(\n"color-1": #fff,\n"color-2": #000\n)',
+                    'variable-name',
+                    '(\n"color-1": #fff,\n"color-2": #000\n)',
                     extension,
                 );
 

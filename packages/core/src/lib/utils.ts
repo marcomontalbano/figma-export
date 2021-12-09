@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const toArray = <T extends unknown>(any: T): T[] => (Array.isArray(any) ? any : [any]);
+export const toArray = <T>(any: T): T[] => (Array.isArray(any) ? any : [any]);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fromEntries = (iterable: any[][]): { [key: string]: any } => {
