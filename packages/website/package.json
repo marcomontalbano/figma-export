@@ -17,11 +17,12 @@
     "scripts": {
         "clean": "rimraf dist output",
         "export": "figma-export use-config",
-        "prestart": "run-s export",
-        "start": "parcel index.html",
-        "prebuild": "run-s clean export",
-        "build": "parcel build index.html",
-        "postbuild": "react-snap",
+        "parcel:start": "parcel index.html",
+        "start": "run-s export parcel:start",
+        "parcel:build": "parcel build index.html",
+        "build": "run-s clean export parcel:build ssr ssr:fix",
+        "ssr": "react-snap",
+        "ssr:fix": "sed -i '' 's+http://localhost:45678/+/+g' dist/index.html",
         "serve": "npx serve dist"
     },
     "reactSnap": {
@@ -35,8 +36,10 @@
         "babel-plugin-jsx-pragmatic": "~1.0.2",
         "eslint-plugin-jsx-a11y": "~6.5.1",
         "eslint-plugin-react": "~7.27.1",
+        "fs": "~0.0.1-security",
         "npm-run-all": "~4.1.5",
-        "parcel-bundler": "~1.12.4",
+        "parcel": "~2.0.1",
+        "posthtml-include": "^1.7.2",
         "react-snap": "~1.23.0",
         "rimraf": "~3.0.2",
         "sass": "~1.44.0"
@@ -45,6 +48,9 @@
         "preact": "~10.6.2"
     },
     "engines": {
-        "node": ">= 12.22"
-    }
+        "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+    },
+    "browserslist": [
+        "IE 11"
+    ]
 }

@@ -5,13 +5,16 @@ import CodeBlock from '../components/CodeBlock';
 const props = {
     title: (
         <Fragment>
-            Export your styles as <code class="figma-gradient with-opacity-10">CSS Variables</code>
+            Export your styles as <code className="figma-gradient with-opacity-10">CSS Variables</code>
         </Fragment>
     ),
     description: (
         <Fragment>
             <div>Once exported, you can easly use them directly into your <code>css</code> file.</div>
-            <Code language="css" indent={2} code={`
+            <Code
+                language="css"
+                indent={2}
+                code={`
                     body {
                         color: var(--color-3);
                         background: var(--color-linear-gradient);

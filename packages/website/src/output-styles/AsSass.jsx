@@ -6,7 +6,7 @@ const props = {
     title: (
         <Fragment>
             Export your styles
-            as <code class="figma-gradient with-opacity-10">SASS</code> and <code class="figma-gradient with-opacity-10">SCSS</code>
+            as <code className="figma-gradient with-opacity-10">SASS</code> and <code className="figma-gradient with-opacity-10">SCSS</code>
         </Fragment>
     ),
     description: (
@@ -16,7 +16,10 @@ const props = {
                 It contains <a href="https://sass-lang.com/documentation/variables">variables</a> and&nbsp;
                 <a href="https://sass-lang.com/documentation/modules/map">maps</a>.
             </div>
-            <Code language="sass" indent={2} code={`
+            <Code
+                language="sass"
+                indent={2}
+                code={`
                     body {
                         color: $color-3;
                         background: $color-linear-gradient;

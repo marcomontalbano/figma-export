@@ -8,7 +8,7 @@ import { figmaExport, figmaLogo } from '../../output/es6-base64/icons';
 const props = {
     title: (
         <Fragment>
-            Export your icons as <code class="figma-gradient with-opacity-10">Base 64</code>
+            Export your icons as <code className="figma-gradient with-opacity-10">Base 64</code>
         </Fragment>
     ),
     description: (
@@ -38,7 +38,7 @@ const props = {
 };
 
 const Icon = ({ svg }) => (
-    <img className="icon" src={`data:image/svg+xml;base64,${svg}`} />
+    <img className="icon" alt="svg icon" src={`data:image/svg+xml;base64,${svg}`} />
 );
 
 const SvgAsES6ComponentBase64 = () => (

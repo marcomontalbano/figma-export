@@ -3,30 +3,30 @@
   "private": true,
   "license": "MIT",
   "description": "Export tool for Figma",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "prepare": "husky install",
-    "predebug": "yarn build",
-    "debug": "ts-node ./packages/cli/bin/run use-config .figmaexportrc.ts",
+    "debug": "yarn build && ts-node ./packages/cli/bin/run use-config .figmaexportrc.ts",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
+    "postinstall": "husky install",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/output */*/dist */*/tsconfig.tsbuildinfo",
-    "postinstall": "lerna bootstrap",
     "build": "tsc --build packages/**/tsconfig.json",
     "prepublish": "yarn build",
-    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.ts",
-    "pretest": "yarn build",
-    "test": "TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
+    "lint": "eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts",
+    "test": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
     "test:watch": "yarn test --watch --reporter=dot",
     "coverage": "nyc yarn test --reporter=dot",
     "coverage:watch": "npx nodemon -e js,mjs,ts --exec yarn coverage",
-    "prewebsite:start": "yarn build",
-    "website:start": "lerna run --scope @figma-export/website start --stream",
-    "prewebsite:build": "lerna bootstrap --force-local",
-    "website:build": "lerna run --scope @figma-export/website build --stream",
-    "website:serve": "lerna run --scope @figma-export/website serve --stream",
+    "website:start": "yarn build && yarn workspace @figma-export/website start",
+    "website:build": "yarn build && yarn workspace @figma-export/website build",
+    "website:serve": "yarn workspace @figma-export/website serve",
     "lerna:version": "lerna version",
     "lerna:ncu": "npx lerna exec 'npx npm-check-updates -u' --stream",
     "pre-commit": "lint-staged -c ./lint-staged.config.js"
@@ -40,6 +40,9 @@
     ]
   },
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.0.1",
+    "@parcel/transformer-sass": "^2.0.1",
+    "@parcel/transformer-webmanifest": "^2.0.1",
     "@types/chai": "~4.2.22",
     "@types/chai-as-promised": "^7.1.4",
     "@types/chai-things": "0.0.35",
@@ -56,8 +59,7 @@
     "eslint-config-airbnb": "~19.0.2",
     "eslint-plugin-chai-friendly": "~0.7.2",
     "eslint-plugin-import": "~2.25.3",
-    "husky": "~7.0.4",
-    "lerna": "~4.0.0",
+    "husky": "^7.0.0",
     "lerna-changelog": "~2.2.0",
     "lint-staged": "~12.1.2",
     "mocha": "~9.1.3",
@@ -68,8 +70,19 @@
     "ts-node": "~10.4.0",
     "typescript": "~4.5.2"
   },
-  "dependencies": {},
   "engines": {
-    "node": ">= 12.22"
-  }
+    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+  },
+  "changelog": {
+    "cacheDir": ".changelog",
+    "labels": {
+      "PR: Beauty :nail_care:": ":nail_care: Beauty",
+      "PR: Bug Fix :bug:": ":bug: Bug Fix",
+      "PR: Dependencies :up:": ":up: Dependencies",
+      "PR: Documentation :memo:": ":memo: Documentation",
+      "PR: Internal :house:": ":house: Internal",
+      "PR: New Feature :rocket:": ":rocket: New Feature"
+    }
+  },
+  "packageManager": "yarn@3.1.1"
 }

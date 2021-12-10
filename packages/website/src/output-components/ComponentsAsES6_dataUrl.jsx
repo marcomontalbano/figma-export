@@ -8,7 +8,7 @@ import { figmaExport, figmaLogo } from '../../output/es6-dataurl/icons';
 const props = {
     title: (
         <Fragment>
-            Export your icons as <code class="figma-gradient with-opacity-10">data:image/svg+xml</code>
+            Export your icons as <code className="figma-gradient with-opacity-10">data:image/svg+xml</code>
         </Fragment>
     ),
     description: (
@@ -40,8 +40,8 @@ const props = {
 const SvgAsES6ComponentDataUrl = () => (
     <CodeBlock {...props}>
         <Fragment>
-            <img className="icon" src={figmaExport} />
-            <img className="icon" src={figmaLogo} />
+            <img className="icon" alt="Figma Export icon" src={figmaExport} />
+            <img className="icon" alt="Figma Export logo" src={figmaLogo} />
         </Fragment>
     </CodeBlock>
 );

@@ -11,7 +11,8 @@ const FigmaStyles = () => (
                 href="https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo"
                 rel="noreferrer noopener"
                 target="_blank"
-            >https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo</a><br />
+            >https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo
+            </a><br />
 
             <div className="feature-box">
                 <code className="figma-gradient text">Solid Colors</code>
