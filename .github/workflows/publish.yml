@@ -18,7 +18,10 @@ jobs:
           node-version: 14.x
 
       - name: Install 📦
-        run: yarn --frozen-lockfile
+        run: yarn --immutable
+
+      - name: Build 🛠
+        run: yarn build
 
       - name: Publish 🚀 PRERELEASE
         if: 'github.event.release.prerelease'

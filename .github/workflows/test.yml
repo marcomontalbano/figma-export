@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [12.22.0, 12.x, 14.x, 15.x, 16.x]
+        node: [12.22.0, 12.x, 14.x, 16.x]
 
     steps:
     - name: Checkout 🛎️
@@ -26,7 +26,7 @@ jobs:
         node-version: ${{ matrix.node }}
 
     - name: Install 📦
-      run: yarn --frozen-lockfile
+      run: yarn --immutable
 
     - name: Lint 🔍
       run: yarn lint
@@ -46,10 +46,10 @@ jobs:
     - name: Node 🧰
       uses: actions/setup-node@v1
       with:
-        node-version: 14.x
+        node-version: 16.x
 
     - name: Install 📦
-      run: yarn --frozen-lockfile
+      run: yarn --immutable
 
     - name: Coverage 🌈
       run: yarn coverage
@@ -81,7 +81,7 @@ jobs:
   #       node-version: 14.x
 
   #   - name: Install 📦
-  #     run: yarn --frozen-lockfile
+  #     run: yarn --immutable
 
   #   - name: Stryker 👾
   #     run: yarn stryker
