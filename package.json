@@ -26,9 +26,9 @@
     "website:start": "yarn build && yarn workspace @figma-export/website start",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
     "website:serve": "yarn workspace @figma-export/website serve",
-    "lerna:version": "lerna version",
     "upgrade:major": "yarn workspaces foreach -iv exec npx npm-check-updates -u",
     "upgrade:minor": "yarn upgrade:major --target minor",
+    "publish": "yarn workspaces foreach npm publish --tolerate-republish --access public",
     "pre-commit": "lint-staged -c ./lint-staged.config.js"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",

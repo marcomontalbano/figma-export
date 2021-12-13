@@ -27,7 +27,7 @@ jobs:
         if: 'github.event.release.prerelease'
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          ./node_modules/.bin/lerna publish from-git --dist-tag next --require-scripts --yes
+          yarn publish --tag next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
@@ -35,6 +35,6 @@ jobs:
         if: '!github.event.release.prerelease'
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          ./node_modules/.bin/lerna publish from-git --require-scripts --yes
+          yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
