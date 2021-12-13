@@ -22,7 +22,7 @@
         "parcel:build": "parcel build index.html",
         "build": "run-s clean export parcel:build ssr ssr:fix",
         "ssr": "react-snap",
-        "ssr:fix": "sed -i '' 's+http://localhost:45678/+/+g' dist/index.html",
+        "ssr:fix": "node ssr-fix.js",
         "serve": "npx serve dist"
     },
     "reactSnap": {
