@@ -1,7 +1,7 @@
 {
   "name": "@figma-export/cli",
   "description": "Command line for @figma-export",
-  "version": "3.5.0",
+  "version": "4.0.0-alpha.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "author": "Marco Montalbano",
@@ -10,8 +10,8 @@
   },
   "bugs": "https://github.com/marcomontalbano/figma-export/issues",
   "dependencies": {
-    "@figma-export/core": "^3.5.0",
-    "@figma-export/types": "^3.5.0",
+    "@figma-export/core": "^4.0.0-alpha.0",
+    "@figma-export/types": "^4.0.0-alpha.0",
     "@oclif/core": "~1.0.10",
     "@oclif/plugin-help": "~3.2.17",
     "ora": "~5.4.1"
