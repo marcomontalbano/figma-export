@@ -27,7 +27,7 @@
     "dependencies": {
         "@figma-export/types": "^3.5.0",
         "@figma-export/utils": "^3.3.0",
-        "@svgr/core": "~6.1.0",
+        "@svgr/core": "~6.1.2",
         "make-dir": "~3.1.0"
     },
     "engines": {

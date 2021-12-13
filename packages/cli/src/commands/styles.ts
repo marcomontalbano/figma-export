@@ -1,4 +1,4 @@
-import { Command, flags as commandFlags } from '@oclif/command';
+import { Command, Flags as commandFlags } from '@oclif/core';
 
 import * as figmaExport from '@figma-export/core';
 import * as FigmaExport from '@figma-export/types';
@@ -51,7 +51,7 @@ https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-hist
                 outputter = [],
                 fileVersion,
             },
-        } = this.parse(StylesCommand);
+        } = await this.parse(StylesCommand);
 
         spinner.info(`Exporting ${fileId} as [${outputter.join(', ')}]`);
 

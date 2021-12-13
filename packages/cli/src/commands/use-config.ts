@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command';
+import { Command } from '@oclif/core';
 
 import * as figmaExport from '@figma-export/core';
 
@@ -30,7 +30,7 @@ export class UseConfigCommand extends Command {
             args: {
                 config,
             },
-        } = this.parse(UseConfigCommand);
+        } = await this.parse(UseConfigCommand);
 
         const configPath = path.resolve(config);
 
