@@ -1,4 +1,3 @@
-
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { iconMarkGithub } from '../output/es6-dataurl-octicons/octicons-by-github';
 

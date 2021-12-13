@@ -1,4 +1,4 @@
-import { Command, flags as commandFlags } from '@oclif/command';
+import { Command, Flags as commandFlags } from '@oclif/core';
 
 import * as figmaExport from '@figma-export/core';
 import * as FigmaExport from '@figma-export/types';
@@ -9,7 +9,38 @@ import ora = require('ora');
 
 const spinner = ora({});
 
-class StylesCommand extends Command {
+export class StylesCommand extends Command {
+    static description = `export styles from a Figma file
+`;
+
+    static args = [
+        {
+            name: 'fileId',
+            required: true,
+        },
+    ];
+
+    static flags = {
+        fileVersion: commandFlags.string({
+            required: false,
+            description: `
+A specific version ID to get. Omitting this will get the current version of the file.
+https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`,
+            multiple: false,
+        }),
+        output: commandFlags.string({
+            char: 'o',
+            description: 'Output directory',
+            default: 'output',
+            multiple: false,
+        }),
+        outputter: commandFlags.string({
+            char: 'O',
+            description: 'Outputter module or path',
+            multiple: true,
+        }),
+    };
+
     async run(): Promise<void> {
         const {
             args: {
@@ -20,7 +51,7 @@ class StylesCommand extends Command {
                 outputter = [],
                 fileVersion,
             },
-        } = this.parse(StylesCommand);
+        } = await this.parse(StylesCommand);
 
         spinner.info(`Exporting ${fileId} as [${outputter.join(', ')}]`);
 
@@ -42,36 +73,3 @@ class StylesCommand extends Command {
         });
     }
 }
-
-StylesCommand.description = `export styles from a Figma file
-`;
-
-StylesCommand.args = [
-    {
-        name: 'fileId',
-        required: true,
-    },
-];
-
-StylesCommand.flags = {
-    fileVersion: commandFlags.string({
-        required: false,
-        description: `
-A specific version ID to get. Omitting this will get the current version of the file.
-https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`,
-        multiple: false,
-    }),
-    output: commandFlags.string({
-        char: 'o',
-        description: 'Output directory',
-        default: 'output',
-        multiple: false,
-    }),
-    outputter: commandFlags.string({
-        char: 'O',
-        description: 'Outputter module or path',
-        multiple: true,
-    }),
-};
-
-module.exports = StylesCommand;

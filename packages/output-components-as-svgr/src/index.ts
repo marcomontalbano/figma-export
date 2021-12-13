@@ -1,7 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
 import { pascalCase } from '@figma-export/utils';
-import svgr from '@svgr/core';
-import { Config, State } from './svgr';
+import { transform, Config, State } from '@svgr/core';
 
 import fs = require('fs');
 import path = require('path');
@@ -52,7 +51,7 @@ export = ({
                 const svgrConfig = getSvgrConfig(options);
                 const svgrState: State = { componentName: reactComponentName };
 
-                const jsCode = svgr.sync(svg, svgrConfig, svgrState);
+                const jsCode = transform.sync(svg, svgrConfig, svgrState);
 
                 fs.writeFileSync(path.resolve(filePath, basename), jsCode);
             });

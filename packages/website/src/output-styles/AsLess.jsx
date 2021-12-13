@@ -5,7 +5,7 @@ import CodeBlock from '../components/CodeBlock';
 const props = {
     title: (
         <Fragment>
-            Export your styles as <code class="figma-gradient with-opacity-10">LESS</code>
+            Export your styles as <code className="figma-gradient with-opacity-10">LESS</code>
         </Fragment>
     ),
     description: (
@@ -15,7 +15,10 @@ const props = {
                 It contains <a href="http://lesscss.org/#variables">variables</a> and&nbsp;
                 <a href="http://lesscss.org/#maps">maps</a>.
             </div>
-            <Code language="less" indent={2} code={`
+            <Code
+                language="less"
+                indent={2}
+                code={`
                     body {
                         color: @color-3;
                         background: @color-linear-gradient;

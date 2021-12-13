@@ -1,4 +1,4 @@
-import { Command } from '@oclif/command';
+import { Command } from '@oclif/core';
 
 import * as figmaExport from '@figma-export/core';
 
@@ -13,13 +13,24 @@ type FigmaExportCommand = [
 
 const spinner = ora({});
 
-class UseConfigCommand extends Command {
+export class UseConfigCommand extends Command {
+    static description = `export using a configuration file
+    `;
+
+    static args = [
+        {
+            name: 'config',
+            default: '.figmaexportrc.js',
+            required: true,
+        },
+    ];
+
     async run(): Promise<void> {
         const {
             args: {
                 config,
             },
-        } = this.parse(UseConfigCommand);
+        } = await this.parse(UseConfigCommand);
 
         const configPath = path.resolve(config);
 
@@ -64,16 +75,3 @@ class UseConfigCommand extends Command {
         });
     }
 }
-
-UseConfigCommand.description = `export using a configuration file
-`;
-
-UseConfigCommand.args = [
-    {
-        name: 'config',
-        default: '.figmaexportrc.js',
-        required: true,
-    },
-];
-
-module.exports = UseConfigCommand;

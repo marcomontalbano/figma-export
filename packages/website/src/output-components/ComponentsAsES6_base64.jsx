@@ -3,19 +3,19 @@ import { Fragment } from 'preact';
 import CodeBlock from '../components/CodeBlock';
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
-import { figmaExport, figmaLogo } from '../../output/es6-dataurl/icons';
+import { figmaExport, figmaLogo } from '../../output/es6-base64/icons';
 
 const props = {
     title: (
         <Fragment>
-            Export your icons as <code class="figma-gradient with-opacity-10">data:image/svg+xml</code>
+            Export your icons as <code className="figma-gradient with-opacity-10">Base 64</code>
         </Fragment>
     ),
     description: (
         <Fragment>
-            The .js file contains all components as Data URL so you can easly put this value into
-            the src of your images. <a target="_blank" rel="noopener noreferrer" href="https://css-tricks.com/probably-dont-base64-svg/">
-                This is the best way</a> to load an svg as image.
+            The .js file contains all components with Base 64 encoding.
+            If you want to use it into your images you need to prepend the
+            Data URL <code>data:image/svg+xml;base64,</code>
         </Fragment>
     ),
     code: `
@@ -27,8 +27,8 @@ const props = {
                     outputters: [
                         // https://www.npmjs.com/package/@figma-export/output-components-as-es6
                         require('@figma-export/output-components-as-es6')({
-                            output: './output/es6-dataurl',
-                            useDataUrl: true,
+                            output: './output/es6-base64',
+                            useBase64: true,
                         })
                     ]
                 }]
@@ -37,13 +37,17 @@ const props = {
 `
 };
 
-const SvgAsES6ComponentDataUrl = () => (
+const Icon = ({ svg }) => (
+    <img className="icon" alt="svg icon" src={`data:image/svg+xml;base64,${svg}`} />
+);
+
+const SvgAsES6ComponentBase64 = () => (
     <CodeBlock {...props}>
         <Fragment>
-            <img className="icon" src={figmaExport} />
-            <img className="icon" src={figmaLogo} />
+            <Icon svg={figmaExport} />
+            <Icon svg={figmaLogo} />
         </Fragment>
     </CodeBlock>
 );
 
-export default SvgAsES6ComponentDataUrl;
+export default SvgAsES6ComponentBase64;

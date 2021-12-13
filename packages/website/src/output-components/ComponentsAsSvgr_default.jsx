@@ -12,14 +12,14 @@ import { Squirrel } from '../../output/svgr-octicons/octicons-by-github';
 const props = {
     title: (
         <Fragment>
-            Export your icons as <code class="figma-gradient with-opacity-10">React Components</code>
+            Export your icons as <code className="figma-gradient with-opacity-10">React Components</code>
         </Fragment>
     ),
     description: (
         <Fragment>
             You can easily import the generated <code>.jsx</code> files into your project and
             start using your Figma components as React components.<br />
-            <code>import {`{ Squirrel }`} from './output/octicons-by-github';</code>
+            <code>import {'{ Squirrel }'} from &apos;./output/octicons-by-github&apos;;</code>
         </Fragment>
     ),
     code: `

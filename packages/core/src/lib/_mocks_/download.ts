@@ -4,8 +4,14 @@ import { writeFileSync } from 'fs';
 import { sep } from 'path';
 
 (async () => {
+    const { FIGMA_TOKEN } = process.env;
+
+    if (!FIGMA_TOKEN) {
+        throw new Error('FIGMA_TOKEN is not defined');
+    }
+
     const fetch = async (url: string) => (await axios.get(url, {
-        headers: { 'X-FIGMA-TOKEN': process.env.FIGMA_TOKEN },
+        headers: { 'X-FIGMA-TOKEN': FIGMA_TOKEN },
     })).data;
 
     const figmaFiles: Figma.FileResponse = await fetch(

@@ -3,14 +3,10 @@ import { Fragment } from 'preact';
 
 import CodeBlock from '../components/CodeBlock';
 
-const fs = require('fs');
-
-const figmaIcons = fs.readFileSync(`${__dirname}/../../output/svgstore-monochrome/icons.svg`, 'utf-8');
-
 const props = {
     title: (
         <Fragment>
-            Export your icons as <code class="figma-gradient with-opacity-10">Monochrome SVG Symbols</code>
+            Export your icons as <code className="figma-gradient with-opacity-10">Monochrome SVG Symbols</code>
         </Fragment>
     ),
     description: (
@@ -43,7 +39,6 @@ const props = {
 const SvgAsSvgstoreMonochromeComponent = () => (
     <CodeBlock {...props}>
         <Fragment>
-            <div className="svgstore" dangerouslySetInnerHTML={{ __html: figmaIcons }} />
             <svg className="icon"><use href="#[unfilled] icons/figma-export" /></svg>
             <svg className="icon"><use href="#[unfilled] icons/figma-logo" /></svg>
         </Fragment>

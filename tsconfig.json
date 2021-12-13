@@ -10,6 +10,8 @@
     "composite": true,
     "lib": ["es6"],
 
+    "skipLibCheck": true,
+
     "strict": true,
 
     /* Additional Checks */

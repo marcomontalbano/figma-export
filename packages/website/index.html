@@ -28,12 +28,16 @@
         <link rel="stylesheet" href="./scss/index.scss" />
     </head>
     <body>
+        <div class="svgstore"><include src="./output/svgstore/icons.svg"></include></div>
+        <div class="svgstore"><include src="./output/svgstore-monochrome/icons.svg"></include></div>
+
         <div id="root"></div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-less.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-sass.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autolinker/prism-autolinker.min.js"></script>
-        <script src="./src/index.js"></script>
+
+        <script type="module" src="./src/index.jsx"></script>
     </body>
 </html>

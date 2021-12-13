@@ -25,7 +25,7 @@ module.exports = {
                 require('../output-components-as-svgr')({
                     output: './output/svgr-octicons',
                     getSvgrConfig: () => ({
-                        template: ({ template }, opts, { componentName, props, jsx, exports }) => template.ast`
+                        template: ({ componentName, props, jsx, exports }, { tpl }) => tpl`
                             const ${componentName} = (${props}) => (${jsx});
                             ${exports}
                         `
@@ -40,8 +40,18 @@ module.exports = {
             transformers: [
                 require('../transform-svg-with-svgo')({
                     plugins: [
-                        { removeViewBox: false },
-                        { removeDimensions: true },
+                        {
+                            name: 'preset-default',
+                            params: {
+                                overrides: {
+                                    removeViewBox: false,
+                                }
+                            }
+                        },
+                        {
+                            name: 'removeDimensions',
+                            active: true
+                        }
                     ]
                 })
             ],
@@ -53,7 +63,7 @@ module.exports = {
                 require('../output-components-as-svgr')({
                     output: './output/svgr',
                     getSvgrConfig: () => ({
-                        template: ({ template }, opts, { componentName, props, jsx, exports }) => template.ast`
+                        template: ({ componentName, props, jsx, exports }, { tpl }) => tpl`
                             const ${componentName} = (${props}) => (${jsx});
                             ${exports}
                         `

@@ -23,7 +23,6 @@ const rootElement = document.getElementById('root');
 
 if (rootElement.hasChildNodes()) {
     hydrate(<App />, rootElement);
-}
-else {
+} else {
     render(<App />, rootElement);
 }

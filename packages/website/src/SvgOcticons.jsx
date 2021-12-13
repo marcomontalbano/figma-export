@@ -9,7 +9,7 @@ import figmaImage from '../images/figma-octicons.png';
 const SvgOcticons = () => (
     <div className="octicons">
         <div className="figma-screen">
-            <img src={figmaImage} />
+            <img src={figmaImage} alt="" />
         </div>
         <div className="figma-export">
             <div className="figma-gradient text title">
@@ -19,7 +19,7 @@ const SvgOcticons = () => (
             </div>
         </div>
         <div className="icons">
-            { Object.values(Octicons).reverse().map(octicon => (<img className="icon" src={octicon} />)) }
+            { Object.values(Octicons).reverse().map((octicon, index) => (<img className="icon" alt={`Icon ${index}`} src={octicon} />)) }
         </div>
     </div>
 );
