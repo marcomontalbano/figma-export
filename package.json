@@ -28,7 +28,7 @@
     "website:serve": "yarn workspace @figma-export/website serve",
     "upgrade:major": "yarn workspaces foreach -iv exec npx npm-check-updates -u",
     "upgrade:minor": "yarn upgrade:major --target minor",
-    "publish": "yarn workspaces foreach npm publish --tolerate-republish --access public",
+    "version": "yarn && git add yarn.lock",
     "pre-commit": "lint-staged -c ./lint-staged.config.js"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
@@ -60,6 +60,7 @@
     "eslint-plugin-chai-friendly": "~0.7.2",
     "eslint-plugin-import": "~2.25.3",
     "husky": "^7.0.4",
+    "lerna": "^4.0.0",
     "lerna-changelog": "~2.2.0",
     "lint-staged": "~12.1.2",
     "mocha": "~9.1.3",
