@@ -647,7 +647,6 @@ __metadata:
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.0
     "@figma-export/utils": ^4.0.0-alpha.0
-    make-dir: ~3.1.0
     mini-svg-data-uri: ~1.4.3
   languageName: unknown
   linkType: soft
@@ -665,7 +664,6 @@ __metadata:
   resolution: "@figma-export/output-components-as-svg@workspace:packages/output-components-as-svg"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.0
-    make-dir: ~3.1.0
   languageName: unknown
   linkType: soft
 
@@ -676,7 +674,6 @@ __metadata:
     "@figma-export/types": ^4.0.0-alpha.0
     "@figma-export/utils": ^4.0.0-alpha.0
     "@svgr/core": ~6.1.2
-    make-dir: ~3.1.0
   languageName: unknown
   linkType: soft
 
@@ -685,7 +682,6 @@ __metadata:
   resolution: "@figma-export/output-components-as-svgstore@workspace:packages/output-components-as-svgstore"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.0
-    make-dir: ~3.1.0
     svgstore: ~3.0.1
   languageName: unknown
   linkType: soft
@@ -695,7 +691,6 @@ __metadata:
   resolution: "@figma-export/output-styles-as-css@workspace:packages/output-styles-as-css"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.0
-    make-dir: ~3.1.0
   languageName: unknown
   linkType: soft
 
@@ -704,7 +699,6 @@ __metadata:
   resolution: "@figma-export/output-styles-as-less@workspace:packages/output-styles-as-less"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.0
-    make-dir: ~3.1.0
   languageName: unknown
   linkType: soft
 
@@ -713,7 +707,6 @@ __metadata:
   resolution: "@figma-export/output-styles-as-sass@workspace:packages/output-styles-as-sass"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.0
-    make-dir: ~3.1.0
   languageName: unknown
   linkType: soft
 
@@ -9427,7 +9420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"make-dir@npm:^3.0.0, make-dir@npm:^3.0.2, make-dir@npm:~3.1.0":
+"make-dir@npm:^3.0.0, make-dir@npm:^3.0.2":
   version: 3.1.0
   resolution: "make-dir@npm:3.1.0"
   dependencies:

@@ -1,6 +1,5 @@
 /* eslint-disable import/order */
 
-import makeDir from 'make-dir';
 import svgstore from 'svgstore';
 
 import * as FigmaExport from '@figma-export/types';
@@ -22,7 +21,7 @@ export = ({
     getIconId = (options): string => `${options.pageName}/${options.componentName}`,
     svgstoreConfig = {},
 }: Options): FigmaExport.ComponentOutputter => {
-    makeDir.sync(output);
+    fs.mkdirSync(output, { recursive: true });
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             const sprites = svgstore(svgstoreConfig);

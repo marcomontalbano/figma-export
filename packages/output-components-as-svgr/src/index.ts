@@ -4,7 +4,6 @@ import { transform, Config, State } from '@svgr/core';
 
 import fs = require('fs');
 import path = require('path');
-import makeDir = require('make-dir');
 
 type Options = {
     output: string;
@@ -30,7 +29,7 @@ export = ({
     getFileExtension = (): string => '.jsx',
     getSvgrConfig = (): Config => ({ }),
 }: Options): FigmaExport.ComponentOutputter => {
-    makeDir.sync(output);
+    fs.mkdirSync(output, { recursive: true });
     const indexJs: IndexJs = {};
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
@@ -43,7 +42,9 @@ export = ({
 
                 const reactComponentName = getComponentName(options);
                 const basename = `${reactComponentName}${getFileExtension(options)}`;
-                const filePath = makeDir.sync(path.resolve(output, getDirname(options)));
+                const filePath = path.resolve(output, getDirname(options));
+
+                fs.mkdirSync(filePath, { recursive: true });
 
                 indexJs[filePath] = indexJs[filePath] || [];
                 indexJs[filePath].push(`export { default as ${reactComponentName} } from './${basename}';`);

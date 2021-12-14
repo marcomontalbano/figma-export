@@ -3,7 +3,6 @@ import { writeVariable, writeMap } from './utils';
 
 import fs = require('fs');
 import path = require('path');
-import makeDir = require('make-dir');
 
 type Options = {
     output: string;
@@ -74,7 +73,9 @@ export = ({
             }
         });
 
-        const filePath = makeDir.sync(path.resolve(output));
+        const filePath = path.resolve(output);
+
+        fs.mkdirSync(filePath, { recursive: true });
         fs.writeFileSync(path.resolve(filePath, `${getFilename()}.less`), text);
     };
 };

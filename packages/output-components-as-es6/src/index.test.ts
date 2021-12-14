@@ -24,6 +24,8 @@ describe('outputter as es6', () => {
     let nockScope: nock.Scope;
 
     beforeEach(() => {
+        sinon.stub(fs, 'mkdirSync').returnsArg(0);
+
         clientFileImages = sinon.stub().returns(Promise.resolve({
             data: {
                 images: {

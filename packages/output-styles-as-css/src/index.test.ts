@@ -91,6 +91,7 @@ describe('style output as css', () => {
     let writeFileSync;
 
     beforeEach(() => {
+        sinon.stub(fs, 'mkdirSync').returnsArg(0);
         writeFileSync = sinon.stub(fs, 'writeFileSync');
     });
 

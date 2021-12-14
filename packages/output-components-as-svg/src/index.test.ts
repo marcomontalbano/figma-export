@@ -7,6 +7,10 @@ import fs = require('fs');
 import outputter = require('./index');
 
 describe('outputter as svg', () => {
+    beforeEach(() => {
+        sinon.stub(fs, 'mkdirSync').returnsArg(0);
+    });
+
     afterEach(() => {
         sinon.restore();
     });
