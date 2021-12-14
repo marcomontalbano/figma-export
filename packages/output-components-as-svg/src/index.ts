@@ -2,7 +2,6 @@ import * as FigmaExport from '@figma-export/types';
 
 import fs = require('fs');
 import path = require('path');
-import makeDir = require('make-dir');
 
 type Options = {
     output: string;
@@ -24,7 +23,9 @@ export = ({
                     ...figmaExport,
                 };
 
-                const filePath = makeDir.sync(path.resolve(output, getDirname(options)));
+                const filePath = path.resolve(output, getDirname(options));
+
+                fs.mkdirSync(filePath, { recursive: true });
                 fs.writeFileSync(path.resolve(filePath, getBasename(options)), svg);
             });
         });

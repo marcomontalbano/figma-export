@@ -6,7 +6,6 @@ import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 import fs = require('fs');
 
-import makeDir = require('make-dir');
 import outputter = require('./index');
 
 describe('outputter as svgr', () => {
@@ -21,7 +20,7 @@ describe('outputter as svgr', () => {
     let svgrAsync;
 
     beforeEach(() => {
-        sinon.stub(makeDir, 'sync').returnsArg(0);
+        sinon.stub(fs, 'mkdirSync').returnsArg(0);
         writeFileSync = sinon.stub(fs, 'writeFileSync');
         svgrAsync = sinon.stub(svgr.transform, 'sync').returns('# code for react component #');
 

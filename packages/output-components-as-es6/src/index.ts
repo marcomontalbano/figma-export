@@ -1,4 +1,3 @@
-import makeDir from 'make-dir';
 import { camelCase } from '@figma-export/utils';
 
 import * as FigmaExport from '@figma-export/types';
@@ -22,7 +21,7 @@ export = ({
     useBase64 = false,
     useDataUrl = false,
 }: Options): FigmaExport.ComponentOutputter => {
-    makeDir.sync(output);
+    fs.mkdirSync(output, { recursive: true });
     return async (pages): Promise<void> => {
         pages.forEach((page) => {
             const { name: pageName, components } = page;
