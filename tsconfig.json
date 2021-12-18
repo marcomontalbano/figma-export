@@ -3,7 +3,6 @@
     "module": "commonjs",
     "allowSyntheticDefaultImports": true,
     "target": "es6",
-    "noImplicitAny": true,
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
@@ -17,6 +16,7 @@
     /* Additional Checks */
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
 
