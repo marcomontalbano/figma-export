@@ -1,5 +1,5 @@
-import { StringTransformer, ComponentOutputter } from './global';
-import { StyleOutputter } from './styles';
+import { StringTransformer, ComponentOutputter, PageNode } from './global';
+import { StyleOutputter, Style } from './styles';
 
 export type BaseCommandOptions = {
     token: string;
@@ -24,3 +24,7 @@ export type StylesCommandOptions = {
 export type FigmaExportRC = {
     commands: (['styles', StylesCommandOptions] | ['components', ComponentsCommandOptions])[]
 }
+
+export type ComponentsCommand = (options: BaseCommandOptions & ComponentsCommandOptions) => Promise<PageNode[]>
+
+export type StylesCommand = (options: BaseCommandOptions & StylesCommandOptions) => Promise<Style[]>
