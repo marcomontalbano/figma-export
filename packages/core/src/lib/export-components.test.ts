@@ -90,12 +90,13 @@ describe('export-component', () => {
         });
         expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
 
-        expect(logger).to.have.been.callCount(5);
+        expect(logger).to.have.been.callCount(6);
         expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
         expect(logger.getCall(1)).to.have.been.calledWith('preparing components');
         expect(logger.getCall(2)).to.have.been.calledWith('fetching components 1/3');
         expect(logger.getCall(3)).to.have.been.calledWith('fetching components 2/3');
         expect(logger.getCall(4)).to.have.been.calledWith('fetching components 3/3');
+        expect(logger.getCall(5)).to.have.been.calledWith('exported components from fileABCD');
 
         expect(transformer).to.have.been.calledThrice;
         expect(transformer.firstCall).to.have.been.calledWith(figmaDocument.svg.content);
@@ -112,12 +113,13 @@ describe('export-component', () => {
         });
 
         /* eslint-disable no-console */
-        expect(console.log).to.have.been.callCount(5);
+        expect(console.log).to.have.been.callCount(6);
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(0)).to.have.been.calledWith('fetching document');
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(1)).to.have.been.calledWith('preparing components');
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(2)).to.have.been.calledWith('fetching components 1/3');
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(3)).to.have.been.calledWith('fetching components 2/3');
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(4)).to.have.been.calledWith('fetching components 3/3');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(5)).to.have.been.calledWith('exported components from fileABCD');
     });
 
     it('should throw an error when fetching file fails', async () => {

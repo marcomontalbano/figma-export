@@ -57,9 +57,10 @@ describe('export-styles', () => {
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: nodeIds, version: 'versionABCD' });
         expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
 
-        expect(logger).to.have.been.calledTwice;
+        expect(logger).to.have.been.calledThrice;
         expect(logger.firstCall).to.have.been.calledWith('fetching styles');
         expect(logger.secondCall).to.have.been.calledWith('parsing styles');
+        expect(logger.thirdCall).to.have.been.calledWith('exported styles from fileABCD');
 
         expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
     });
@@ -71,9 +72,10 @@ describe('export-styles', () => {
         });
 
         /* eslint-disable no-console */
-        expect(console.log).to.have.been.calledTwice;
+        expect(console.log).to.have.been.calledThrice;
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).firstCall).to.have.been.calledWith('fetching styles');
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).secondCall).to.have.been.calledWith('parsing styles');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).thirdCall).to.have.been.calledWith('exported styles from fileABCD');
     });
 
     it('should throw an error when fetching file fails', async () => {

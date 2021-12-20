@@ -23,5 +23,7 @@ export const styles: FigmaExport.StylesCommand = async ({
 
     await Promise.all(outputters.map((outputter) => outputter(parsedStyles)));
 
+    log(`exported styles from ${fileId}`);
+
     return parsedStyles;
 };

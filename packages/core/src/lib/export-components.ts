@@ -39,5 +39,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
 
     await Promise.all(outputters.map((outputter) => outputter(pagesWithSvg)));
 
+    log(`exported components from ${fileId}`);
+
     return pagesWithSvg;
 };

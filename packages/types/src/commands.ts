@@ -2,22 +2,54 @@ import { StringTransformer, ComponentOutputter, PageNode } from './global';
 import { StyleOutputter, Style } from './styles';
 
 export type BaseCommandOptions = {
+    /**
+     * Personal access token.
+     * @see: https://www.figma.com/developers/api#access-tokens
+     */
     token: string;
     log?: (msg: string) => void;
 }
 
 export type ComponentsCommandOptions = {
+    /**
+     * File to export Components from.
+     * The file key can be parsed from any Figma file url: https://www.figma.com/file/:key/:title.
+     */
     fileId: string;
+
+    /**
+     * A specific version ID to get. Omitting this will get the current version of the file
+     * @see https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history
+     */
     version?: string;
+
+    /** Figma page names (all pages when not specified) */
     onlyFromPages?: string[];
+
+    /** Transformer module name or path */
     transformers?: StringTransformer[];
+
+    /** Outputter module name or path */
     outputters?: ComponentOutputter[];
+
+    /** Concurrency when fetching */
     concurrency?: number;
 }
 
 export type StylesCommandOptions = {
+    /**
+     * File to export Styles from.
+     * The file key can be parsed from any Figma file url: https://www.figma.com/file/:key/:title.
+     */
     fileId: string;
+
+    /**
+     * A specific version ID to get. Omitting this will get the current version of the file
+     * @see https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history
+     */
     version?: string;
+
+    /** Outputter module name or path */
     outputters?: StyleOutputter[];
 }
 

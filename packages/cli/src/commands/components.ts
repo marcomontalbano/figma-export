@@ -13,7 +13,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .option('-T, --transformer', 'Transformer module or path')
     .option('-c, --concurrency', 'Concurrency when fetching', 30)
     .option('-o, --output', 'Output directory', 'output')
-    .option('-p, --page', 'Figma page names (defaults to \'all pages\')')
+    .option('-p, --page', 'Figma page names (all pages when not specified)')
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)
     .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg')
@@ -24,9 +24,9 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
             output,
             ...opts
         }) => {
-            const outputter = asArray(opts.outputter);
-            const transformer = asArray(opts.transformer);
-            const page = asArray(opts.page);
+            const outputter = asArray<string>(opts.outputter);
+            const transformer = asArray<string>(opts.transformer);
+            const page = asArray<string>(opts.page);
 
             spinner.info(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
 

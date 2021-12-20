@@ -20,7 +20,7 @@ export const addStyles = (prog: Sade, spinner: Ora) => prog
             output,
             ...opts
         }) => {
-            const outputter = asArray(opts.outputter);
+            const outputter = asArray<string>(opts.outputter);
 
             spinner.info(`Exporting ${fileId} as [${outputter.join(', ')}]`);
 
