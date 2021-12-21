@@ -1,77 +1,66 @@
-import { Command } from '@oclif/core';
+import { Ora } from 'ora';
+import { Sade } from 'sade';
+
+import fs from 'fs';
+import path from 'path';
 
 import * as figmaExport from '@figma-export/core';
 
-import fs = require('fs');
-import path = require('path');
-import ora = require('ora');
+import {
+    ComponentsCommand,
+    StylesCommand,
+    FigmaExportRC,
+    BaseCommandOptions,
+} from '@figma-export/types';
 
-type FigmaExportCommand = [
-    string,
-    Record<string, unknown>
-];
+export const addUseConfig = (prog: Sade, spinner: Ora) => prog
+    .command('use-config [configFile]', undefined)
+    .describe('Export using a configuration file.')
+    .example('use-config')
+    .example('use-config ./figmaexportrc.production.js')
+    .action(
+        (configFile = '.figmaexportrc.js') => {
+            const configPath = path.resolve(configFile);
 
-const spinner = ora({});
+            // eslint-disable-next-line import/no-dynamic-require, global-require
+            const { commands = [] } = (fs.existsSync(configPath) ? require(configPath) : {}) as FigmaExportRC;
 
-export class UseConfigCommand extends Command {
-    static description = `export using a configuration file
-    `;
+            const baseCommandOptions: BaseCommandOptions = {
+                token: process.env.FIGMA_TOKEN || '',
 
-    static args = [
-        {
-            name: 'config',
-            default: '.figmaexportrc.js',
-            required: true,
+                // eslint-disable-next-line no-param-reassign
+                log: (message: string) => { spinner.text = message; },
+            };
+
+            const commandPromises = commands.map((command) => {
+                switch (command[0]) {
+                    case 'components':
+                        return async () => {
+                            await figmaExport.components({ ...baseCommandOptions, ...command[1] });
+                            spinner.succeed().start();
+                        };
+                    case 'styles':
+                        return async () => {
+                            await figmaExport.styles({ ...baseCommandOptions, ...command[1] });
+                            spinner.succeed().start();
+                        };
+                    default:
+                        throw new Error(`Command ${command[0]} is not found.`);
+                }
+            });
+
+            spinner.start();
+
+            commandPromises.reduce(
+                (actualPromise, nextPromise) => actualPromise.finally(nextPromise),
+                Promise.resolve() as unknown as ReturnType<ComponentsCommand> | ReturnType<StylesCommand>,
+            ).then(() => {
+                spinner.succeed('done');
+            }).catch((error: Error) => {
+                spinner.fail();
+
+                // eslint-disable-next-line no-console
+                console.error(error);
+            });
         },
-    ];
-
-    async run(): Promise<void> {
-        const {
-            args: {
-                config,
-            },
-        } = await this.parse(UseConfigCommand);
-
-        const configPath = path.resolve(config);
-
-        // eslint-disable-next-line import/no-dynamic-require, global-require
-        const { commands = [] } = fs.existsSync(configPath) ? require(configPath) : {};
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const runExport = (figmaExporter: (options: any) => Promise<any>, options: Record<string, unknown>) => figmaExporter({
-            token: process.env.FIGMA_TOKEN || '',
-            fileId: '',
-            ...options,
-            log: (message: string) => { spinner.text = message; },
-        }).then((any) => {
-            spinner.succeed().start();
-            return any;
-        });
-
-        const commandPromises: (() => Promise<any>)[] = commands.map((command: FigmaExportCommand) => {
-            const [commandName, options] = command;
-
-            switch (commandName) {
-                case 'components':
-                    return () => runExport(figmaExport.components, options);
-                case 'styles':
-                    return () => runExport(figmaExport.styles, options);
-                default:
-                    throw new Error(`Command ${commandName} is not found.`);
-            }
-        });
-
-        spinner.start();
-
-        commandPromises.reduce((actualPromise, nextPromise) => {
-            return actualPromise.then(nextPromise);
-        }, Promise.resolve()).then(() => {
-            spinner.succeed('done');
-        }).catch((error: Error) => {
-            spinner.fail();
-
-            // eslint-disable-next-line no-console
-            console.error(error);
-        });
-    }
-}
+    );

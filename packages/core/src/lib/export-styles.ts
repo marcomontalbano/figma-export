@@ -3,9 +3,7 @@ import * as FigmaExport from '@figma-export/types';
 import { getClient } from './figma';
 import { fetchStyles, parseStyles } from './figmaStyles';
 
-type Options = FigmaExport.BaseCommandOptions & FigmaExport.StylesCommandOptions;
-
-export const styles = async ({
+export const styles: FigmaExport.StylesCommand = async ({
     token,
     fileId,
     version,
@@ -14,7 +12,7 @@ export const styles = async ({
         // eslint-disable-next-line no-console
         console.log(msg);
     },
-}: Options): Promise<FigmaExport.Style[]> => {
+}) => {
     const client = getClient(token);
 
     log('fetching styles');
@@ -24,6 +22,8 @@ export const styles = async ({
     const parsedStyles = parseStyles(styleNodes);
 
     await Promise.all(outputters.map((outputter) => outputter(parsedStyles)));
+
+    log(`exported styles from ${fileId}`);
 
     return parsedStyles;
 };
