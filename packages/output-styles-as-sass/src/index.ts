@@ -1,4 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
+import { kebabCase } from '@figma-export/utils';
+
 import { writeVariable } from './utils';
 import { Extension } from './types';
 
@@ -9,12 +11,14 @@ type Options = {
     output: string;
     getExtension?: () => Extension;
     getFilename?: () => string;
+    getVariableName?: (style: FigmaExport.Style) => string;
 }
 
 export = ({
     output,
     getExtension = () => 'SCSS',
     getFilename = () => '_variables',
+    getVariableName = (style) => kebabCase(style.name).toLowerCase(),
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
         const extension = getExtension();
@@ -23,6 +27,8 @@ export = ({
 
         styles.forEach((style) => {
             if (style.visible) {
+                const variableName = getVariableName(style);
+
                 // eslint-disable-next-line default-case
                 switch (style.styleType) {
                     case 'FILL': {
@@ -31,7 +37,7 @@ export = ({
                             .map((fill) => fill.value)
                             .join(', ');
 
-                        text += writeVariable(style.comment, style.name, value, extension);
+                        text += writeVariable(style.comment, variableName, value, extension);
 
                         break;
                     }
@@ -50,7 +56,7 @@ export = ({
                             .join(', ');
 
                         // Shadow and Blur effects cannot be combined together since they use two different CSS properties.
-                        text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue, extension);
+                        text += writeVariable(style.comment, variableName, boxShadowValue || filterBlurValue, extension);
 
                         break;
                     }
@@ -70,7 +76,7 @@ export = ({
                             "vertical-align": ${style.style.verticalAlign}
                         )`;
 
-                        text += writeVariable(style.comment, style.name, value, extension);
+                        text += writeVariable(style.comment, variableName, value, extension);
 
                         break;
                     }

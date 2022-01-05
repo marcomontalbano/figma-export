@@ -686,6 +686,7 @@ __metadata:
   resolution: "@figma-export/output-styles-as-css@workspace:packages/output-styles-as-css"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.1
+    "@figma-export/utils": ^4.0.0-alpha.0
   languageName: unknown
   linkType: soft
 
@@ -694,6 +695,7 @@ __metadata:
   resolution: "@figma-export/output-styles-as-less@workspace:packages/output-styles-as-less"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.1
+    "@figma-export/utils": ^4.0.0-alpha.0
   languageName: unknown
   linkType: soft
 
@@ -702,6 +704,7 @@ __metadata:
   resolution: "@figma-export/output-styles-as-sass@workspace:packages/output-styles-as-sass"
   dependencies:
     "@figma-export/types": ^4.0.0-alpha.1
+    "@figma-export/utils": ^4.0.0-alpha.0
   languageName: unknown
   linkType: soft
 

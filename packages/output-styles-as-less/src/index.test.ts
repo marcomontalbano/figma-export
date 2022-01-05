@@ -6,16 +6,17 @@ import {
     EffectStyle,
     Style,
 } from '@figma-export/types';
+import { camelCase } from '@figma-export/utils';
 
 // eslint-disable-next-line import/order
 import fs = require('fs');
 import outputter = require('./index');
 
-const mockFill = (fills: FillStyle[] = [], visible = true): Style => ({
+const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,
     visible,
-    name: 'variable-name',
-    comment: 'lorem ipsum',
+    name,
+    comment,
     styleType: 'FILL',
     originalNode: { ...({} as StyleNode) },
 });
@@ -105,7 +106,7 @@ describe('style output as less', () => {
         })([
             mockFill([
                 mockSolid('solid-1'),
-            ], false),
+            ], { visible: false }),
         ]);
 
         expect(writeFileSync).to.be.calledOnce;
@@ -120,6 +121,51 @@ describe('style output as less', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch('/output-folder/_figma-styles.less');
+    });
+
+    it('should sanitize variable names', async () => {
+        await outputter({
+            output: 'output-folder',
+        })([
+            mockFill([
+                mockSolid('rgba(26, 26, 26, 1)', true),
+            ], { name: 'Grey/900' }),
+        ]);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync).to.be.calledWithMatch(
+            sinon.match.any,
+
+            // eslint-disable-next-line indent
+            '\n'
+            + '/**\n'
+            + ' * lorem ipsum\n'
+            + ' */\n'
+            + '@grey-900: rgba(26, 26, 26, 1);\n',
+        );
+    });
+
+    it('should be able to change the way a variable name is defined', async () => {
+        await outputter({
+            output: 'output-folder',
+            getVariableName: (style) => camelCase(style.name),
+        })([
+            mockFill([
+                mockSolid('rgba(26, 26, 26, 1)', true),
+            ], { name: 'Grey/Dark' }),
+        ]);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync).to.be.calledWithMatch(
+            sinon.match.any,
+
+            // eslint-disable-next-line indent
+            '\n'
+            + '/**\n'
+            + ' * lorem ipsum\n'
+            + ' */\n'
+            + '@greyDark: rgba(26, 26, 26, 1);\n',
+        );
     });
 
     describe('colors', () => {
