@@ -29,19 +29,19 @@
         "source": "dist"
     },
     "devDependencies": {
-        "@babel/core": "~7.16.0",
-        "@babel/plugin-transform-react-jsx": "~7.16.0",
+        "@babel/core": "~7.16.7",
+        "@babel/plugin-transform-react-jsx": "~7.16.7",
         "@figma-export/cli": "^4.0.0-alpha.1",
         "@figma-export/utils": "^4.0.0-alpha.0",
         "babel-plugin-jsx-pragmatic": "~1.0.2",
         "eslint-plugin-jsx-a11y": "~6.5.1",
-        "eslint-plugin-react": "~7.27.1",
+        "eslint-plugin-react": "~7.28.0",
         "npm-run-all": "~4.1.5",
         "parcel": "~2.0.1",
         "posthtml-include": "^1.7.2",
         "react-snap": "~1.23.0",
         "rimraf": "~3.0.2",
-        "sass": "~1.45.0"
+        "sass": "~1.45.2"
     },
     "dependencies": {
         "preact": "~10.6.4"

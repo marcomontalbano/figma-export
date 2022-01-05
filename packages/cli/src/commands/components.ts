@@ -17,7 +17,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)
     .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg')
-    .action(
+    .action<[string]>(
         (fileId, {
             fileVersion,
             concurrency,
