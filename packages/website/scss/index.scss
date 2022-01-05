@@ -240,13 +240,17 @@ h2 {
     }
 
     &--text {
-        h3, p {
+        h3, .description {
             padding: 0px 5%;
         }
 
         h3 {
             line-height: 2em;
             margin: 0.5em 0;
+        }
+
+        .description {
+            margin: 1em;
         }
 
         pre[class*=language-] {
@@ -283,7 +287,7 @@ h2 {
     text-align: right;
 
     @include for-desktop-up {
-        @at-root .hero:first-child + .github-link {
+        @at-root .hero + .github-link {
             position: absolute;
         }
     }
