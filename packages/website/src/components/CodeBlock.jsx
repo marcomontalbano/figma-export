@@ -9,7 +9,7 @@ const CodeBlock = ({
     <div className="code-block">
         <div className="code-block--text">
             <h4>{title}</h4>
-            <p>{description}</p>
+            <div className="description">{description}</div>
             {children}
         </div>
         <div className="code-block--code">

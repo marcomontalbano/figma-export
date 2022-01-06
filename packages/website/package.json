@@ -15,41 +15,40 @@
     "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {
-        "clean": "rimraf dist output",
+        "clean": "rimraf dist output .next",
         "export": "figma-export use-config",
-        "parcel:start": "parcel index.html",
-        "start": "run-s export parcel:start",
-        "parcel:build": "parcel build index.html",
-        "build": "run-s clean export parcel:build ssr ssr:fix",
-        "ssr": "react-snap",
-        "ssr:fix": "node ssr-fix.js",
-        "serve": "npx serve dist"
-    },
-    "reactSnap": {
-        "source": "dist"
+        "next:lint": "next lint",
+        "next:dev": "next dev",
+        "next:build": "next build",
+        "next:export": "next export -o dist/",
+        "next:start": "next start",
+        "dev": "run-s export next:dev",
+        "build": "run-s clean export next:build next:export",
+        "start": "run-s next:start"
     },
     "devDependencies": {
-        "@babel/core": "~7.16.7",
-        "@babel/plugin-transform-react-jsx": "~7.16.7",
         "@figma-export/cli": "^4.0.0-alpha.1",
         "@figma-export/utils": "^4.0.0-alpha.0",
-        "babel-plugin-jsx-pragmatic": "~1.0.2",
-        "eslint-plugin-jsx-a11y": "~6.5.1",
-        "eslint-plugin-react": "~7.28.0",
+        "@types/react": "^17.0.38",
+        "eslint-config-next": "^12.0.7",
         "npm-run-all": "~4.1.5",
-        "parcel": "~2.0.1",
-        "posthtml-include": "^1.7.2",
-        "react-snap": "~1.23.0",
         "rimraf": "~3.0.2",
-        "sass": "~1.45.2"
+        "sass": "~1.46.0"
     },
     "dependencies": {
-        "preact": "~10.6.4"
+        "next": "^12.0.7",
+        "next-images": "^1.8.4",
+        "prismjs": "^1.26.0",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
     },
     "engines": {
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
     },
     "browserslist": [
-        "IE 11"
+        ">0.3%",
+        "not ie 11",
+        "not dead",
+        "not op_mini all"
     ]
 }

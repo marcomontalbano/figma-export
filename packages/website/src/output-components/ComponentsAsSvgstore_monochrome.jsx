@@ -1,19 +1,16 @@
-/* eslint-disable react/no-danger */
-import { Fragment } from 'preact';
-
 import CodeBlock from '../components/CodeBlock';
 
 const props = {
     title: (
-        <Fragment>
+        <>
             Export your icons as <code className="figma-gradient with-opacity-10">Monochrome SVG Symbols</code>
-        </Fragment>
+        </>
     ),
     description: (
-        <Fragment>
+        <>
             The .svg file contains all components as &lt;symbol&gt; and all <code>fill</code>
             properties are removed from the svg so you can easily customize the icon color from css.
-        </Fragment>
+        </>
     ),
     code: `
         module.exports = {
@@ -38,10 +35,10 @@ const props = {
 
 const SvgAsSvgstoreMonochromeComponent = () => (
     <CodeBlock {...props}>
-        <Fragment>
+        <>
             <svg className="icon"><use href="#[unfilled] icons/figma-export" /></svg>
             <svg className="icon"><use href="#[unfilled] icons/figma-logo" /></svg>
-        </Fragment>
+        </>
     </CodeBlock>
 );
 

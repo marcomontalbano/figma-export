@@ -1,16 +1,15 @@
-import { Fragment } from 'preact';
 import Code from '../components/Code';
 import CodeBlock from '../components/CodeBlock';
 
 const props = {
     title: (
-        <Fragment>
+        <>
             Export your styles
             as <code className="figma-gradient with-opacity-10">SASS</code> and <code className="figma-gradient with-opacity-10">SCSS</code>
-        </Fragment>
+        </>
     ),
     description: (
-        <Fragment>
+        <>
             <div>
                 Once exported, you can import the generated <code>_variables.scss</code> and use it.<br />
                 It contains <a href="https://sass-lang.com/documentation/variables">variables</a> and&nbsp;
@@ -28,7 +27,7 @@ const props = {
                     }
                 `}
             />
-        </Fragment>
+        </>
     ),
     code: `
         module.exports = {
