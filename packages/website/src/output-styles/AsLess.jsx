@@ -1,15 +1,14 @@
-import { Fragment } from 'preact';
 import Code from '../components/Code';
 import CodeBlock from '../components/CodeBlock';
 
 const props = {
     title: (
-        <Fragment>
+        <>
             Export your styles as <code className="figma-gradient with-opacity-10">LESS</code>
-        </Fragment>
+        </>
     ),
     description: (
-        <Fragment>
+        <>
             <div>
                 Once exported, you can import the generated <code>_variables.less</code> and use it.<br />
                 It contains <a href="http://lesscss.org/#variables">variables</a> and&nbsp;
@@ -27,7 +26,7 @@ const props = {
                     }
                 `}
             />
-        </Fragment>
+        </>
     ),
     code: `
         module.exports = {

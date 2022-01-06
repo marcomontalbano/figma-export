@@ -1,15 +1,14 @@
-import { Fragment } from 'preact';
 import Code from '../components/Code';
 import CodeBlock from '../components/CodeBlock';
 
 const props = {
     title: (
-        <Fragment>
+        <>
             Export your styles as <code className="figma-gradient with-opacity-10">CSS Variables</code>
-        </Fragment>
+        </>
     ),
     description: (
-        <Fragment>
+        <>
             <div>Once exported, you can easly use them directly into your <code>css</code> file.</div>
             <Code
                 language="css"
@@ -23,7 +22,7 @@ const props = {
                     }
                 `}
             />
-        </Fragment>
+        </>
     ),
     code: `
         module.exports = {
