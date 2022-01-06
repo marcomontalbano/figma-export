@@ -18,7 +18,7 @@ export const addUseConfig = (prog: Sade, spinner: Ora) => prog
     .describe('Export using a configuration file.')
     .example('use-config')
     .example('use-config ./figmaexportrc.production.js')
-    .action<[string]>(
+    .action(
         (configFile = '.figmaexportrc.js') => {
             const configPath = path.resolve(configFile);
 

@@ -11,7 +11,7 @@
     "@figma-export/core": "^4.0.0-alpha.1",
     "@figma-export/types": "^4.0.0-alpha.1",
     "ora": "~5.4.1",
-    "sade": "~1.8.0"
+    "sade": "~1.8.1"
   },
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
