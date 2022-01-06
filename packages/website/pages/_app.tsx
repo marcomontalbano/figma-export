@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
-import Script from 'next/script'
 
+import 'prismjs/themes/prism-solarizedlight.min.css'
 import '../scss/index.scss'
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -30,17 +30,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="msapplication-TileColor" content="#ffffff" />
                 <meta name="msapplication-TileImage" content="/images/icon/ms-icon-144x144.png" />
                 <meta name="theme-color" content="#ffffff" />
-
-                <link href="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-solarizedlight.min.css" rel="stylesheet" />
             </Head>
             <Component {...pageProps} />
-            <>
-                <Script strategy="afterInteractive" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></Script>
-                <Script strategy="afterInteractive" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-less.min.js"></Script>
-                <Script strategy="afterInteractive" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-sass.min.js"></Script>
-                <Script strategy="afterInteractive" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></Script>
-                <Script strategy="afterInteractive" src="//cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/plugins/autolinker/prism-autolinker.min.js"></Script>
-            </>
         </>
     )
 }

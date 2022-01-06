@@ -740,6 +740,7 @@ __metadata:
     next: ^12.0.7
     next-images: ^1.8.4
     npm-run-all: ~4.1.5
+    prismjs: ^1.26.0
     react: ^17.0.2
     react-dom: ^17.0.2
     rimraf: ~3.0.2
@@ -10067,6 +10068,13 @@ __metadata:
   version: 2.0.0
   resolution: "prepend-http@npm:2.0.0"
   checksum: 7694a9525405447662c1ffd352fcb41b6410c705b739b6f4e3a3e21cf5fdede8377890088e8934436b8b17ba55365a615f153960f30877bf0d0392f9e93503ea
+  languageName: node
+  linkType: hard
+
+"prismjs@npm:^1.26.0":
+  version: 1.26.0
+  resolution: "prismjs@npm:1.26.0"
+  checksum: 6de058930ce767d44d60322e625bbc255f5107c7bf82c441ade19a289358e01e35040cea0c17adf8f7b829f17aa48e2d84b40866b5b3f8c75a12c6b3f0ead231
   languageName: node
   linkType: hard
 
