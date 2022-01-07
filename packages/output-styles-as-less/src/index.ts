@@ -1,4 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
+import { kebabCase } from '@figma-export/utils';
+
 import { writeVariable, writeMap } from './utils';
 
 import fs = require('fs');
@@ -7,17 +9,21 @@ import path = require('path');
 type Options = {
     output: string;
     getFilename?: () => string;
+    getVariableName?: (style: FigmaExport.Style) => string;
 }
 
 export = ({
     output,
     getFilename = () => '_variables',
+    getVariableName = (style) => kebabCase(style.name).toLowerCase(),
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
         let text = '';
 
         styles.forEach((style) => {
             if (style.visible) {
+                const variableName = getVariableName(style);
+
                 // eslint-disable-next-line default-case
                 switch (style.styleType) {
                     case 'FILL': {
@@ -26,7 +32,7 @@ export = ({
                             .map((fill) => fill.value)
                             .join(', ');
 
-                        text += writeVariable(style.comment, style.name, value);
+                        text += writeVariable(style.comment, variableName, value);
 
                         break;
                     }
@@ -45,7 +51,7 @@ export = ({
                             .join(', ');
 
                         // Shadow and Blur effects cannot be combined together since they use two different CSS properties.
-                        text += writeVariable(style.comment, style.name, boxShadowValue || filterBlurValue);
+                        text += writeVariable(style.comment, variableName, boxShadowValue || filterBlurValue);
 
                         break;
                     }
@@ -65,7 +71,7 @@ export = ({
                             vertical-align: ${style.style.verticalAlign};
                         }`;
 
-                        text += writeMap(style.comment, style.name, value);
+                        text += writeMap(style.comment, variableName, value);
 
                         break;
                     }

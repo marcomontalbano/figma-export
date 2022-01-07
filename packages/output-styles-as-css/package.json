@@ -25,7 +25,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^4.0.0-alpha.1"
+        "@figma-export/types": "^4.0.0-alpha.1",
+        "@figma-export/utils": "^4.0.0-alpha.0"
     },
     "engines": {
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"

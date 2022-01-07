@@ -1,4 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
+import { kebabCase } from '@figma-export/utils';
+
 import { writeVariable, writeComment, sanitizeText } from './utils';
 
 import fs = require('fs');
@@ -7,17 +9,21 @@ import path = require('path');
 type Options = {
     output: string;
     getFilename?: () => string;
+    getVariableName?: (style: FigmaExport.Style) => string;
 }
 
 export = ({
     output,
     getFilename = () => '_variables',
+    getVariableName = (style) => kebabCase(style.name).toLowerCase(),
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
         let text = '';
 
         styles.forEach((style) => {
             if (style.visible) {
+                const variableName = getVariableName(style);
+
                 // eslint-disable-next-line default-case
                 switch (style.styleType) {
                     case 'FILL': {
@@ -28,7 +34,7 @@ export = ({
 
                         if (value) {
                             text += writeComment(style.comment);
-                            text += writeVariable(style.name, value);
+                            text += writeVariable(variableName, value);
                         }
 
                         break;
@@ -52,7 +58,7 @@ export = ({
 
                         if (value) {
                             text += writeComment(style.comment);
-                            text += writeVariable(style.name, value);
+                            text += writeVariable(variableName, value);
                         }
 
                         break;
@@ -60,17 +66,17 @@ export = ({
 
                     case 'TEXT': {
                         text += writeComment(style.comment);
-                        text += writeVariable(`${style.name}-font-family`, `"${style.style.fontFamily}"`);
-                        text += writeVariable(`${style.name}-font-size`, `${style.style.fontSize}px`);
-                        text += writeVariable(`${style.name}-font-style`, `${style.style.fontStyle}`);
-                        text += writeVariable(`${style.name}-font-variant`, `${style.style.fontVariant}`);
-                        text += writeVariable(`${style.name}-font-weight`, `${style.style.fontWeight}`);
-                        text += writeVariable(`${style.name}-letter-spacing`, `${style.style.letterSpacing}px`);
-                        text += writeVariable(`${style.name}-line-height`, `${style.style.lineHeight}px`);
-                        text += writeVariable(`${style.name}-text-align`, `${style.style.textAlign}`);
-                        text += writeVariable(`${style.name}-text-decoration`, `${style.style.textDecoration}`);
-                        text += writeVariable(`${style.name}-text-transform`, `${style.style.textTransform}`);
-                        text += writeVariable(`${style.name}-vertical-align`, `${style.style.verticalAlign}`);
+                        text += writeVariable(`${variableName}-font-family`, `"${style.style.fontFamily}"`);
+                        text += writeVariable(`${variableName}-font-size`, `${style.style.fontSize}px`);
+                        text += writeVariable(`${variableName}-font-style`, `${style.style.fontStyle}`);
+                        text += writeVariable(`${variableName}-font-variant`, `${style.style.fontVariant}`);
+                        text += writeVariable(`${variableName}-font-weight`, `${style.style.fontWeight}`);
+                        text += writeVariable(`${variableName}-letter-spacing`, `${style.style.letterSpacing}px`);
+                        text += writeVariable(`${variableName}-line-height`, `${style.style.lineHeight}px`);
+                        text += writeVariable(`${variableName}-text-align`, `${style.style.textAlign}`);
+                        text += writeVariable(`${variableName}-text-decoration`, `${style.style.textDecoration}`);
+                        text += writeVariable(`${variableName}-text-transform`, `${style.style.textTransform}`);
+                        text += writeVariable(`${variableName}-vertical-align`, `${style.style.verticalAlign}`);
 
                         break;
                     }
