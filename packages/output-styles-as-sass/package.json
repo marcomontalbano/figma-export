@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-styles-as-sass",
-    "version": "4.0.0-alpha.1",
+    "version": "4.0.0",
     "description": "Outputter for @figma-export that exports styles to SASS and SCSS",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -25,8 +25,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^4.0.0-alpha.1",
-        "@figma-export/utils": "^4.0.0-alpha.0"
+        "@figma-export/types": "^4.0.0",
+        "@figma-export/utils": "^4.0.0"
     },
     "engines": {
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
