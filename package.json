@@ -76,6 +76,7 @@
     "cacheDir": ".changelog",
     "labels": {
       "PR: Beauty :nail_care:": ":nail_care: Beauty",
+      "PR: Breaking Changes :comet:": ":comet: Breaking Changes",
       "PR: Bug Fix :bug:": ":bug: Bug Fix",
       "PR: Dependencies :up:": ":up: Dependencies",
       "PR: Documentation :memo:": ":memo: Documentation",
