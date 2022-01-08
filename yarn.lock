@@ -713,7 +713,7 @@ __metadata:
   resolution: "@figma-export/transform-svg-with-svgo@workspace:packages/transform-svg-with-svgo"
   dependencies:
     "@figma-export/types": ^4.0.0
-    "@types/svgo": ~2.6.0
+    "@types/svgo": ~2.6.1
     svgo: ~2.8.0
   languageName: unknown
   linkType: soft
@@ -747,7 +747,7 @@ __metadata:
     react: ^17.0.2
     react-dom: ^17.0.2
     rimraf: ~3.0.2
-    sass: ~1.46.0
+    sass: ~1.47.0
   languageName: unknown
   linkType: soft
 
@@ -2425,12 +2425,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/svgo@npm:~2.6.0":
-  version: 2.6.0
-  resolution: "@types/svgo@npm:2.6.0"
+"@types/svgo@npm:~2.6.1":
+  version: 2.6.1
+  resolution: "@types/svgo@npm:2.6.1"
   dependencies:
     "@types/node": "*"
-  checksum: 2f42e70765d64812a23babf8ce80af947898935219dce858b92863fd0c2276936650ed34d72a7af0e03161646d2ff9cc7275447e04ec6753735f05318e66c422
+  checksum: 1858f44bb35250efa28be76f3e23d33e68bb4abee5edfd2e495ba80be8ba90ddaedbf28efeb712518d464215680cbcf19d11bf471ec293c78d6ae3304374ed3a
   languageName: node
   linkType: hard
 
@@ -5467,7 +5467,7 @@ __metadata:
     husky: ^7.0.4
     lerna: ^4.0.0
     lerna-changelog: ~2.2.0
-    lint-staged: ~12.1.5
+    lint-staged: ~12.1.7
     mocha: ~9.1.3
     nock: ~13.2.1
     npm-check-updates: ^12.1.0
@@ -7417,9 +7417,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:~12.1.5":
-  version: 12.1.5
-  resolution: "lint-staged@npm:12.1.5"
+"lint-staged@npm:~12.1.7":
+  version: 12.1.7
+  resolution: "lint-staged@npm:12.1.7"
   dependencies:
     cli-truncate: ^3.1.0
     colorette: ^2.0.16
@@ -7436,7 +7436,7 @@ __metadata:
     yaml: ^1.10.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: e4d64e97769faf45adad9898c843ed8ef495469fc3edef0b8daff834ddb504ab47e33579763f8d85cbba6db993bd5cd86ac0bcaf92f6fd7486d4fb9a5fe774c6
+  checksum: 3d0757706c8b0ca3f004bb2ffa89a9d5fc97ccdebfa4cde29a9636c661538780e194b99cbc5e4b8b89b13986187b33c97e009b09014511bbd45ee05ba557d0eb
   languageName: node
   linkType: hard
 
@@ -10372,16 +10372,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:~1.46.0":
-  version: 1.46.0
-  resolution: "sass@npm:1.46.0"
+"sass@npm:~1.47.0":
+  version: 1.47.0
+  resolution: "sass@npm:1.47.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: d1f727c41ec0fcf9c54c16571bebf97ae1f1f41617796f188d9a1166bd1f1dc03ff63083bb83a4910a40635d4ecd9de9aebded34a363d2c51eed340cd17f4730
+  checksum: e725a37eb7360ad5f96e6e6209d81beeb22ecec70c6f01a1acdf237dbbb6e05e50cc0a0851b16ee1dbc63fbdd7a90405cbbd9911f56b2dba3d5f934f7e291f10
   languageName: node
   linkType: hard
 
