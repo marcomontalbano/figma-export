@@ -34,13 +34,18 @@ module.exports = {
 
 `output` is **mandatory**.
 
-`getExtension` and `getFilename` are **optional**.
+`getExtension`, `getFilename` and `getVariableName` are **optional**.
 
 ```js
+const { kebabCase } = require('@figma-export/utils');
+
+...
+
 require('@figma-export/output-styles-as-sass')({
     output: './output',
     getExtension: () => 'SCSS',
     getFilename: () => '_variables',
+    getVariableName: (style) => kebabCase(style.name).toLowerCase(),
 })
 ```
 
