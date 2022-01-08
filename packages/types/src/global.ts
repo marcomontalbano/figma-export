@@ -14,7 +14,7 @@ export interface PageNode extends Figma.Canvas {
     components: ComponentNode[];
 }
 
-export type StringTransformer = (str: string) => Promise<string>
+export type StringTransformer = (str: string) => Promise<string | undefined>
 
 export type ComponentOutputter = (pages: PageNode[]) => Promise<void>
 
