@@ -2,6 +2,7 @@
  * If you want to try this configuration you can just run:
  *   $ npm install --save-dev typescript ts-node @types/node @figma-export/types
  *   $ npm install --save-dev @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svgr
+ *   $ npm install --save-dev @svgr/plugin-svgo @svgr/plugin-jsx @svgr/plugin-prettier
  * */
 
 import { FigmaExportRC, ComponentsCommandOptions } from "@figma-export/types";
