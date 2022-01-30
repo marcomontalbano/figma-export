@@ -18,10 +18,10 @@ jobs:
 
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     - name: Node 🧰
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node }}
 
@@ -41,10 +41,10 @@ jobs:
         
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     - name: Node 🧰
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v2
       with:
         node-version: 16.x
 
@@ -73,10 +73,10 @@ jobs:
         
   #   steps:
   #   - name: Checkout 🛎️
-  #     uses: actions/checkout@v1
+  #     uses: actions/checkout@v2
 
   #   - name: Node 🧰
-  #     uses: actions/setup-node@v1
+  #     uses: actions/setup-node@v2
   #     with:
   #       node-version: 14.x
 
