@@ -51,7 +51,7 @@ module.exports = {
 
 `output` is **mandatory**.
 
-`getDirname`, `getComponentName`, `getFileExtension` and `getSvgrConfig` are **optional**.
+`getDirname`, `getComponentName`, `getFileExtension`, `getExportTemplate` and `getSvgrConfig` are **optional**.
 
 ```js
 const path = require('path');
@@ -65,6 +65,7 @@ require('@figma-export/output-components-as-svgr')({
     getComponentName: (options) => `${pascalCase(options.basename)}`,
     getFileExtension: (options) => '.jsx',
     getSvgrConfig: (options) => ({}),
+    getExportTemplate = (): string => '',
 })
 ```
 

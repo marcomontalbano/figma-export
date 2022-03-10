@@ -87,6 +87,23 @@ describe('outputter as svgr', () => {
         );
     });
 
+    it('should create a custom export for every component using the template passed', async () => {
+        const fakePage = figmaDocument.createPage([figmaDocument.component2]);
+        const pages = figma.getPages(fakePage);
+
+        await outputter({
+            output: 'output',
+            getExportTemplate: (options) => `export { ${options!.basename} } from './customPath';`,
+        })(pages);
+
+        expect(writeFileSync).to.be.calledTwice;
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/Search.jsx');
+        expect(writeFileSync.secondCall).to.be.calledWithMatch(
+            'output/fakePage/index.js',
+            'export { Search } from \'./customPath\';',
+        );
+    });
+
     it('should create folder if component names contain slashes', async () => {
         const fakePage = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
         const pages = figma.getPages(fakePage);

@@ -10,6 +10,7 @@ type Options = {
     getDirname?: (options: FigmaExport.ComponentOutputterParamOption) => string;
     getComponentName?: (options: FigmaExport.ComponentOutputterParamOption) => string;
     getFileExtension?: (options?: FigmaExport.ComponentOutputterParamOption) => string;
+    getExportTemplate?: (options?: FigmaExport.ComponentOutputterParamOption) => string;
 
     /**
      * SVGR ships with a handful of customizable options, usable in both the CLI and API.
@@ -28,6 +29,8 @@ export = ({
     getComponentName = (options): string => `${pascalCase(options.basename)}`,
     getFileExtension = (): string => '.jsx',
     getSvgrConfig = (): Config => ({ }),
+    getExportTemplate = (): string => '',
+
 }: Options): FigmaExport.ComponentOutputter => {
     fs.mkdirSync(output, { recursive: true });
     const indexFile: IndexFile = {};
@@ -44,11 +47,12 @@ export = ({
                 const reactComponentName = getComponentName(options);
                 const basename = `${reactComponentName}${getFileExtension(options)}`;
                 const filePath = path.resolve(output, getDirname(options));
+                const exportTemplate = getExportTemplate(options) || `export { default as ${reactComponentName} } from './${basename}';`;
 
                 fs.mkdirSync(filePath, { recursive: true });
 
                 indexFile[filePath] = indexFile[filePath] || [];
-                indexFile[filePath].push(`export { default as ${reactComponentName} } from './${basename}';`);
+                indexFile[filePath].push(exportTemplate);
 
                 const svgrConfig = getSvgrConfig(options);
                 const svgrState: State = { componentName: reactComponentName };
