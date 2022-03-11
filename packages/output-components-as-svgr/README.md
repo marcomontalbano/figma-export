@@ -65,7 +65,11 @@ require('@figma-export/output-components-as-svgr')({
     getComponentName: (options) => `${pascalCase(options.basename)}`,
     getFileExtension: (options) => '.jsx',
     getSvgrConfig: (options) => ({}),
-    getExportTemplate = (): string => '',
+    getExportTemplate = (options): string => {
+        const reactComponentName = getComponentName(options);
+        const reactComponentFilename = `${reactComponentName}${getFileExtension(options)}`;
+        return `export { default as ${reactComponentName} } from './${reactComponentFilename}';`;
+    },
 })
 ```
 
