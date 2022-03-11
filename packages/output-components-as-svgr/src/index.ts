@@ -55,8 +55,11 @@ export = ({
 
                 fs.mkdirSync(filePath, { recursive: true });
 
-                indexFile[filePath] = indexFile[filePath] || [];
-                indexFile[filePath].push(exportTemplate);
+                indexFile[filePath] = indexFile[filePath] || {
+                    ext: getFileExtension(options) === '.tsx' ? '.ts' : '.js',
+                    exports: [],
+                };
+                indexFile[filePath].exports.push(getExportTemplate(options));
 
                 const svgrConfig = getSvgrConfig(options);
                 const svgrState: State = { componentName: reactComponentName };
