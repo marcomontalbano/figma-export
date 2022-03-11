@@ -52,7 +52,6 @@ export = ({
                 const reactComponentName = getComponentName(options);
                 const basename = `${reactComponentName}${getFileExtension(options)}`;
                 const filePath = path.resolve(output, getDirname(options));
-                const exportTemplate = getExportTemplate(options) || `export { default as ${reactComponentName} } from './${basename}';`;
 
                 fs.mkdirSync(filePath, { recursive: true });
 
