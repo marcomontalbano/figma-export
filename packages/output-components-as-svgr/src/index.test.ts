@@ -93,7 +93,7 @@ describe('outputter as svgr', () => {
 
         await outputter({
             output: 'output',
-            getExportTemplate: (options) => `export { ${options!.basename} } from './customPath';`,
+            getExportTemplate: (options) => `export { ${options.basename} } from './customPath';`,
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
