@@ -29,8 +29,11 @@ export = ({
     getComponentName = (options): string => `${pascalCase(options.basename)}`,
     getFileExtension = (): string => '.jsx',
     getSvgrConfig = (): Config => ({ }),
-    getExportTemplate = (): string => '',
-
+    getExportTemplate = (options): string => {
+        const reactComponentName = getComponentName(options);
+        const reactComponentFilename = `${reactComponentName}${getFileExtension(options)}`;
+        return `export { default as ${reactComponentName} } from './${reactComponentFilename}';`;
+    },
 }: Options): FigmaExport.ComponentOutputter => {
     fs.mkdirSync(output, { recursive: true });
     const indexFile: IndexFile = {};
