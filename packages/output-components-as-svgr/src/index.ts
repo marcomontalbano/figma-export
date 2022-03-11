@@ -20,7 +20,10 @@ type Options = {
 }
 
 type IndexFile = {
-    [key: string]: string[];
+    [key: string]: {
+        exports: string[]
+        ext: string
+    };
 };
 
 export = ({
