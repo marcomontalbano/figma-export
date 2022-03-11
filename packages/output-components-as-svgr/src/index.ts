@@ -40,7 +40,6 @@ export = ({
 }: Options): FigmaExport.ComponentOutputter => {
     fs.mkdirSync(output, { recursive: true });
     const indexFile: IndexFile = {};
-    const indexFormat = getFileExtension() === '.tsx' ? '.ts' : '.js';
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             components.forEach(({ name: componentName, svg, figmaExport }) => {
