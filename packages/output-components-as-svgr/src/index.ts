@@ -69,8 +69,8 @@ export = ({
                 fs.writeFileSync(path.resolve(filePath, basename), jsCode);
             });
 
-            Object.entries(indexFile).forEach(([filePath, exports]) => {
-                fs.writeFileSync(path.resolve(filePath, `index${indexFormat}`), exports.join('\n'));
+            Object.entries(indexFile).forEach(([filePath, index]) => {
+                fs.writeFileSync(path.resolve(filePath, `index${index.ext}`), index.exports.join('\n'));
             });
         });
     };
