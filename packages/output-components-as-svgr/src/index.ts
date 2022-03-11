@@ -9,8 +9,8 @@ type Options = {
     output: string;
     getDirname?: (options: FigmaExport.ComponentOutputterParamOption) => string;
     getComponentName?: (options: FigmaExport.ComponentOutputterParamOption) => string;
-    getFileExtension?: (options?: FigmaExport.ComponentOutputterParamOption) => string;
-    getExportTemplate?: (options?: FigmaExport.ComponentOutputterParamOption) => string;
+    getFileExtension?: (options: FigmaExport.ComponentOutputterParamOption) => string;
+    getExportTemplate?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 
     /**
      * SVGR ships with a handful of customizable options, usable in both the CLI and API.
