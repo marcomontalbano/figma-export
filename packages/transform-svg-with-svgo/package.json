@@ -25,7 +25,7 @@
     },
     "dependencies": {
         "@figma-export/types": "^4.0.1",
-        "@types/svgo": "~2.6.1",
+        "@types/svgo": "~2.6.2",
         "svgo": "~2.8.0"
     },
     "engines": {

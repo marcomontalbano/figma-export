@@ -24,8 +24,8 @@
     },
     "dependencies": {
         "@figma-export/types": "^4.0.1",
-        "axios": "~0.24.0",
-        "figma-js": "~1.14.0",
+        "axios": "~0.26.1",
+        "figma-js": "~1.15.0",
         "p-limit": "^3.1.0",
         "p-retry": "^4.6.1"
     },

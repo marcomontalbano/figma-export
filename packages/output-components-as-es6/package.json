@@ -25,7 +25,7 @@
     "dependencies": {
         "@figma-export/types": "^4.0.1",
         "@figma-export/utils": "^4.0.0",
-        "mini-svg-data-uri": "~1.4.3"
+        "mini-svg-data-uri": "~1.4.4"
     },
     "engines": {
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
