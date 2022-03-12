@@ -30,7 +30,7 @@ npx figma-export COMMAND
 ### `help`
 
 ```sh
-npx figma-export help
+npx figma-export --help
 ```
 
 
@@ -47,7 +47,7 @@ Exports components from a Figma file
 npx figma-export components FILEID
 
 # help
-npx figma-export help components
+npx figma-export components --help
 ```
 
 #### transformers
@@ -127,7 +127,7 @@ Exports styles from a Figma file
 npx figma-export styles FILEID
 
 # help
-npx figma-export help styles
+npx figma-export styles --help
 ```
 
 

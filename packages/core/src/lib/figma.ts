@@ -2,6 +2,7 @@ import * as Figma from 'figma-js';
 
 import { basename, dirname } from 'path';
 import pLimit from 'p-limit';
+import pRetry from 'p-retry';
 import * as FigmaExport from '@figma-export/types';
 
 import {
@@ -101,6 +102,7 @@ type FigmaExportFileSvg = {
 type FileSvgOptions = {
     transformers?: FigmaExport.StringTransformer[]
     concurrency?: number
+    retries?: number
     onFetchCompleted?: (data: { index: number, total: number }) => void
 }
 
@@ -110,6 +112,7 @@ const fileSvgs = async (
     ids: string[],
     {
         concurrency = 30,
+        retries = 3,
         transformers = [],
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         onFetchCompleted = () => {},
@@ -119,7 +122,9 @@ const fileSvgs = async (
     const limit = pLimit(concurrency);
     let index = 0;
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
-        const svg = await limit(() => fetchAsSvgXml(url));
+        const svg = await limit(
+            () => pRetry(() => fetchAsSvgXml(url), { retries }),
+        );
         const svgTransformed = await promiseSequentially(transformers, svg);
 
         onFetchCompleted({

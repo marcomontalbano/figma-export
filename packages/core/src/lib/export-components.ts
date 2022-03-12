@@ -10,6 +10,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     transformers = [],
     outputters = [],
     concurrency = 30,
+    retries = 3,
     log = (msg): void => {
         // eslint-disable-next-line no-console
         console.log(msg);
@@ -32,6 +33,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, {
         transformers,
         concurrency,
+        retries,
         onFetchCompleted: ({ index, total }) => {
             log(`fetching components ${index}/${total}`);
         },

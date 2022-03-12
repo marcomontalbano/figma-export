@@ -12,6 +12,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .option('-O, --outputter', 'Outputter module or path')
     .option('-T, --transformer', 'Transformer module or path')
     .option('-c, --concurrency', 'Concurrency when fetching', 30)
+    .option('-r, --retries', 'Maximum number of retries when fetching fails', 3)
     .option('-o, --output', 'Output directory', 'output')
     .option('-p, --page', 'Figma page names (all pages when not specified)')
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
@@ -21,6 +22,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
         (fileId, {
             fileVersion,
             concurrency,
+            retries,
             output,
             ...opts
         }) => {
@@ -36,6 +38,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
                 fileId,
                 version: fileVersion,
                 concurrency,
+                retries,
                 token: process.env.FIGMA_TOKEN || '',
                 onlyFromPages: page,
                 transformers: requirePackages<FigmaExport.StringTransformer>(transformer),

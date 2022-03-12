@@ -166,6 +166,7 @@ describe('export-component', () => {
         await expect(exportComponents({
             fileId: 'fileABCD',
             token: 'token1234',
+            retries: 0,
         })).to.be.rejectedWith(Error, 'while fetching svg "https://example.com/10:8.svg": some error');
     });
 });
