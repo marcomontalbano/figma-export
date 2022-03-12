@@ -69,6 +69,41 @@ describe('outputter as svgr', () => {
         );
     });
 
+    it('should export all components into tsx files plus one index.ts for each folder', async () => {
+        const fakePage = figmaDocument.createPage([figmaDocument.component1, figmaDocument.component2]);
+        const pages = figma.getPages(fakePage);
+
+        await outputter({
+            output: 'output',
+            getFileExtension: () => '.tsx',
+        })(pages);
+
+        expect(writeFileSync).to.be.calledThrice;
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/FigmaLogo.tsx');
+        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/Search.tsx');
+        expect(writeFileSync.thirdCall).to.be.calledWithMatch(
+            'output/fakePage/index.ts',
+            'export { default as FigmaLogo } from \'./FigmaLogo.tsx\';',
+        );
+    });
+
+    it('should create a custom export for every component using the template passed', async () => {
+        const fakePage = figmaDocument.createPage([figmaDocument.component2]);
+        const pages = figma.getPages(fakePage);
+
+        await outputter({
+            output: 'output',
+            getExportTemplate: (options) => `export { ${options.basename} } from './customPath';`,
+        })(pages);
+
+        expect(writeFileSync).to.be.calledTwice;
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/Search.jsx');
+        expect(writeFileSync.secondCall).to.be.calledWithMatch(
+            'output/fakePage/index.js',
+            'export { Search } from \'./customPath\';',
+        );
+    });
+
     it('should create folder if component names contain slashes', async () => {
         const fakePage = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
         const pages = figma.getPages(fakePage);
