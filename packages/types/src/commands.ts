@@ -34,6 +34,9 @@ export type ComponentsCommandOptions = {
 
     /** Concurrency when fetching */
     concurrency?: number;
+
+    /** Maximum number of retries when fetching fails */
+    retries?: number;
 }
 
 export type StylesCommandOptions = {
