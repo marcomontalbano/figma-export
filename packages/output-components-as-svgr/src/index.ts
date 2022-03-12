@@ -50,7 +50,7 @@ export = ({
                 };
 
                 const reactComponentName = getComponentName(options);
-                const basename = `${reactComponentName}${getFileExtension(options)}`;
+                const reactComponentFilename = `${reactComponentName}${getFileExtension(options)}`;
                 const filePath = path.resolve(output, getDirname(options));
 
                 fs.mkdirSync(filePath, { recursive: true });
@@ -66,7 +66,7 @@ export = ({
 
                 const jsCode = transform.sync(svg, svgrConfig, svgrState);
 
-                fs.writeFileSync(path.resolve(filePath, basename), jsCode);
+                fs.writeFileSync(path.resolve(filePath, reactComponentFilename), jsCode);
             });
 
             Object.entries(indexFile).forEach(([filePath, index]) => {
