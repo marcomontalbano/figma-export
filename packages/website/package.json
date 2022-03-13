@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@figma-export/website",
-    "version": "4.0.1",
+    "version": "4.2.0",
     "description": "Website for @figma-export",
     "author": "Marco Montalbano",
     "keywords": [
@@ -27,7 +27,7 @@
         "start": "run-s next:start"
     },
     "devDependencies": {
-        "@figma-export/cli": "^4.0.1",
+        "@figma-export/cli": "^4.2.0",
         "@figma-export/utils": "^4.0.0",
         "@types/react": "^17.0.40",
         "eslint-config-next": "^12.1.0",
