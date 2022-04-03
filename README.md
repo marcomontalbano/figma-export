@@ -245,7 +245,7 @@ and slightly change your `package.json`
 ```diff
 {
   "scripts": {
-+   "figma:export": "ts-node ./node_modules/.bin/figma-export use-config .figmaexportrc.ts"
++   "figma:export": "ts-node ./node_modules/@figma-export/cli/bin/run use-config .figmaexportrc.ts"
   }
 }
 ```
