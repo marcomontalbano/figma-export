@@ -40,6 +40,8 @@ export const fetchAsSvgXml = (url: string): Promise<string> => {
             'Content-Type': 'images/svg+xml',
         },
     }).then((response) => {
+        if (response.data.length === 0) return '<svg></svg>';
+
         return response.data;
     }).catch((error: Error) => {
         throw new Error(`while fetching svg "${url}": ${error.message}`);
