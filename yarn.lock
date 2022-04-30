@@ -548,11 +548,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma-export/cli@^4.2.0, @figma-export/cli@workspace:packages/cli":
+"@figma-export/cli@^4.3.0, @figma-export/cli@workspace:packages/cli":
   version: 0.0.0-use.local
   resolution: "@figma-export/cli@workspace:packages/cli"
   dependencies:
-    "@figma-export/core": ^4.2.0
+    "@figma-export/core": ^4.3.0
     "@figma-export/types": ^4.2.0
     ora: ~5.4.1
     sade: ~1.8.1
@@ -561,7 +561,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@figma-export/core@^4.2.0, @figma-export/core@workspace:packages/core":
+"@figma-export/core@^4.3.0, @figma-export/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@figma-export/core@workspace:packages/core"
   dependencies:
@@ -673,7 +673,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/website@workspace:packages/website"
   dependencies:
-    "@figma-export/cli": ^4.2.0
+    "@figma-export/cli": ^4.3.0
     "@figma-export/utils": ^4.0.0
     "@types/react": ^18.0.8
     eslint-config-next: ^12.1.5
