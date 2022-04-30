@@ -4,7 +4,6 @@ import OutputComponents from '../src/output-components'
 import OutputStyles from '../src/output-styles'
 import ReadyToStart from '../src/ReadyToStart'
 import { GetStaticProps } from 'next'
-import { resolve } from 'path/posix'
 
 type Props = {
     icons: string;

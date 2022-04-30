@@ -24,10 +24,10 @@
     },
     "dependencies": {
         "@figma-export/types": "^4.2.0",
-        "axios": "~0.26.1",
+        "axios": "~0.27.2",
         "figma-js": "~1.15.0",
         "p-limit": "^3.1.0",
-        "p-retry": "^4.6.1"
+        "p-retry": "^4.6.2"
     },
     "engines": {
         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"

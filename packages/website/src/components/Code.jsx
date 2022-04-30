@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import Prism from 'prismjs'
 
 import 'prismjs/plugins/autolinker/prism-autolinker'
-import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace'
 
 import 'prismjs/components/prism-less'
 import 'prismjs/components/prism-sass'
@@ -13,13 +12,16 @@ const Code = ({
     className,
     indent = 4
 }) => {
-    useEffect(() => {
-        Prism.highlightAll();
-    }, []);
+    const code_withoutEmptyLine = code.replace(/^\n/g, '')
+    const wrongIndentationValue = (code_withoutEmptyLine.match(/^[ ]+/) || [])[0]?.length || 0;
 
     return (
         <pre className={className}>
-            <code className={`language-${language}`}>{code.replace(/[ ]{4}/g, Array(indent).fill(' ').join(''))}</code>
+            <code className={`language-${language}`}>{
+                code_withoutEmptyLine
+                    .replace(new RegExp(`^[ ]{${wrongIndentationValue}}`, 'mg'), '')
+                    .replace(/[ ]{4}/g, Array(indent).fill(' ').join(''))
+            }</code>
         </pre>
     );
 }
