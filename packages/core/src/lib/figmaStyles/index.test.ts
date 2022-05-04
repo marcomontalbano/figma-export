@@ -60,9 +60,9 @@ describe('figmaStyles.', () => {
                 }),
             };
 
-            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123');
+            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123', nodeIds);
 
-            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123' });
+            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', ids: nodeIds });
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: ['121:10', '131:20'], version: 'version123' });
 
             expect(styleNodes.length).to.equal(2);
@@ -79,10 +79,10 @@ describe('figmaStyles.', () => {
                 fileNodes: sinon.stub().resolves({ data: fileNodes }),
             };
 
-            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123');
+            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123', nodeIds);
 
-            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123' });
-            expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds, version: 'version123' });
+            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', ids: nodeIds });
+            expect(client.fileNodes).to.have.been.calledWith('ABC123', { version: 'version123', ids: nodeIds });
 
             const expectedStyleNodesLength = 30;
             const expectedUnusedLength = 1;

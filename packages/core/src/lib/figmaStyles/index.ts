@@ -12,9 +12,9 @@ const fetchStyles = async (
     client: Figma.ClientInterface,
     fileId: string,
     version?: string,
-    ids?: Array<string>,
+    nodeIds?: Array<string>,
 ): Promise<FigmaExport.StyleNode[]> => {
-    const { data: { styles = null } = {} } = await client.file(fileId, { version, ids }).catch((error: Error) => {
+    const { data: { styles = null } = {} } = await client.file(fileId, { version, ids: nodeIds }).catch((error: Error) => {
         throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
     });
 

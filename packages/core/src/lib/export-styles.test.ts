@@ -51,11 +51,12 @@ describe('export-styles', () => {
             token: 'token1234',
             log: logger,
             outputters: [outputter],
+            nodeIds,
         });
 
         expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: nodeIds, version: 'versionABCD' });
-        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
+        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD', ids: nodeIds });
 
         expect(logger).to.have.been.calledThrice;
         expect(logger.firstCall).to.have.been.calledWith('fetching styles');
