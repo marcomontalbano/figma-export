@@ -54,6 +54,8 @@ export type StylesCommandOptions = {
 
     /** Outputter module name or path */
     outputters?: StyleOutputter[];
+
+    nodeIds?: Array<string>;
 }
 
 export type FigmaExportRC = {
