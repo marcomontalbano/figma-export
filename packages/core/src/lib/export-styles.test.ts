@@ -13,7 +13,6 @@ import fileNodesJson from './_mocks_/figma.fileNodes.json';
 const file = fileJson as Figma.FileResponse;
 const fileNodes = fileNodesJson as Figma.FileNodesResponse;
 
-const pageIds = file.document.children.map((c) => c.id);
 const fileNodeIds = Object.keys(fileNodes.nodes);
 
 describe('export-styles', () => {
@@ -60,7 +59,31 @@ describe('export-styles', () => {
         expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
         expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1 });
-        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: pageIds });
+        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: undefined });
+
+        expect(logger).to.have.been.callCount(4);
+        expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
+        expect(logger.getCall(1)).to.have.been.calledWith('fetching styles');
+        expect(logger.getCall(2)).to.have.been.calledWith('parsing styles');
+        expect(logger.getCall(3)).to.have.been.calledWith('exported styles from fileABCD');
+
+        expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
+    });
+
+    it('should use outputter to export styles', async () => {
+        const pagesWithSvg = await exportStyles({
+            fileId: 'fileABCD',
+            version: 'versionABCD',
+            onlyFromPages: ['octicons-by-github'],
+            token: 'token1234',
+            log: logger,
+            outputters: [outputter],
+        });
+
+        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
+        expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1 });
+        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: ['254:0'] });
 
         expect(logger).to.have.been.callCount(4);
         expect(logger.getCall(0)).to.have.been.calledWith('fetching document');

@@ -29,7 +29,7 @@ export const styles: FigmaExport.StylesCommand = async ({
         .map((page) => page.id);
 
     log('fetching styles');
-    const styleNodes = await fetchStyles(client, fileId, version, ids);
+    const styleNodes = await fetchStyles(client, fileId, version, onlyFromPages.length > 0 ? ids : undefined);
 
     log('parsing styles');
     const parsedStyles = parseStyles(styleNodes);
