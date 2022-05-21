@@ -52,6 +52,9 @@ export type StylesCommandOptions = {
      */
     version?: string;
 
+    /** Figma page names (all pages when not specified) */
+    onlyFromPages?: string[];
+
     /** Outputter module name or path */
     outputters?: StyleOutputter[];
 }
