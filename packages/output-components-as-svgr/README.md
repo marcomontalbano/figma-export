@@ -51,7 +51,7 @@ module.exports = {
 
 `output` is **mandatory**.
 
-`getDirname`, `getComponentName`, `getFileExtension`, `getExportTemplate` and `getSvgrConfig` are **optional**.
+`getDirname`, `getComponentName`, `getComponentFilename`, `getFileExtension`, `getExportTemplate` and `getSvgrConfig` are **optional**.
 
 ```js
 const path = require('path');
@@ -63,17 +63,20 @@ require('@figma-export/output-components-as-svgr')({
     output: './output',
     getDirname: (options) => `${options.pageName}${path.sep}${options.dirname}`,
     getComponentName: (options) => `${pascalCase(options.basename)}`,
+    getComponentFilename = (options): string => `${getComponentName(options)}`,
     getFileExtension: (options) => '.jsx',
     getSvgrConfig: (options) => ({}),
     getExportTemplate = (options): string => {
         const reactComponentName = getComponentName(options);
-        const reactComponentFilename = `${reactComponentName}${getFileExtension(options)}`;
+        const reactComponentFilename = `${getComponentFilename(options)}${getFileExtension(options)}`;
         return `export { default as ${reactComponentName} } from './${reactComponentFilename}';`;
     },
 })
 ```
 
 > *defaults may change, please refer to `./src/index.ts`*
+
+`getComponentFilename` if not set, it will use the same value for `getComponentName`.
 
 `getSvgrConfig` is a function that returns the [SVGR configuration](https://react-svgr.com/docs/options/) object.
 

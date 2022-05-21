@@ -39,7 +39,7 @@ describe('outputter as svg', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/eye.svg');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/Figma-logo.svg');
     });
 
     describe('options', () => {
@@ -55,7 +55,7 @@ describe('outputter as svg', () => {
             })(pages);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/fakePage-eye.svg');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/fakePage-Figma-logo.svg');
         });
 
         it('should be able to customize "dirname"', async () => {
@@ -68,7 +68,7 @@ describe('outputter as svg', () => {
             })(pages);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/fakePage-eye.svg');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/fakePage-Figma-logo.svg');
         });
     });
 });

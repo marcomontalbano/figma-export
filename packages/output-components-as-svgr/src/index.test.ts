@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import * as svgr from '@svgr/core';
 import nock from 'nock';
+import { camelCase, kebabCase } from '@figma-export/utils';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 import fs = require('fs');
@@ -113,7 +114,7 @@ describe('outputter as svgr', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/Eye.jsx');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FigmaLogo.jsx');
         expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/icon/index.js');
     });
 
@@ -127,18 +128,51 @@ describe('outputter as svgr', () => {
                 getDirname: (options) => `${options.dirname}`,
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/Eye.jsx');
-            expect(writeFileSync.secondCall).to.be.calledWithMatch('output/icon/index.js', "from './Eye.jsx';");
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/FigmaLogo.jsx');
+            expect(writeFileSync.secondCall).to.be.calledWithMatch(
+                'output/icon/index.js',
+                "export { default as FigmaLogo } from './FigmaLogo.jsx';",
+            );
         });
 
-        it('should be able to customize "componentName"', async () => {
+        it('should be able to customize "componentName" (also "componentFilename" will be updated if not set)', async () => {
             await outputter({
                 output: 'output',
-                getComponentName: (options) => `${options.basename}`,
+                getComponentName: (options) => options.basename.toUpperCase(),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/eye.jsx');
-            expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/icon/index.js', "from './eye.jsx';");
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FIGMA-LOGO.jsx');
+            expect(writeFileSync.secondCall).to.be.calledWithMatch(
+                'output/fakePage/icon/index.js',
+                "export { default as FIGMA-LOGO } from './FIGMA-LOGO.jsx';",
+            );
+        });
+
+        it('should be able to customize "componentFilename"', async () => {
+            await outputter({
+                output: 'output',
+                getComponentFilename: (options) => kebabCase(options.basename).toLowerCase(),
+            })(pages);
+
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/figma-logo.jsx');
+            expect(writeFileSync.secondCall).to.be.calledWithMatch(
+                'output/fakePage/icon/index.js',
+                "export { default as FigmaLogo } from './figma-logo.jsx';",
+            );
+        });
+
+        it('should be able to customize both "componentName" and "componentFilename"', async () => {
+            await outputter({
+                output: 'output',
+                getComponentName: (options) => options.basename.toUpperCase(),
+                getComponentFilename: (options) => camelCase(options.basename),
+            })(pages);
+
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/figmaLogo.jsx');
+            expect(writeFileSync.secondCall).to.be.calledWithMatch(
+                'output/fakePage/icon/index.js',
+                "export { default as FIGMA-LOGO } from './figmaLogo.jsx';",
+            );
         });
 
         it('should be able to customize "fileExtension"', async () => {
@@ -147,8 +181,8 @@ describe('outputter as svgr', () => {
                 getFileExtension: () => '.js',
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/Eye.js');
-            expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/icon/index.js', "from './Eye.js';");
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FigmaLogo.js');
+            expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/icon/index.js', "from './FigmaLogo.js';");
         });
 
         it('should be able to customize "svgrConfig"', async () => {
@@ -159,7 +193,7 @@ describe('outputter as svgr', () => {
                 getSvgrConfig: () => ({ native: true }),
             })(pagesWithSvg);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/Eye.jsx');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FigmaLogo.jsx');
             expect(svgrAsync.firstCall).to.be.calledWithMatch(figmaDocument.componentWithSlashedNameOutput.svg, { native: true });
         });
     });
