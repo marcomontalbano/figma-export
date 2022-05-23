@@ -7,10 +7,13 @@ import * as FigmaExport from './figma';
 
 import { styles as exportStyles } from './export-styles';
 
-import file from './_mocks_/figma.files.json';
-import fileNodes from './_mocks_/figma.fileNodes.json';
+import fileJson from './_mocks_/figma.files.json';
+import fileNodesJson from './_mocks_/figma.fileNodes.json';
 
-const nodeIds = Object.keys(fileNodes.nodes);
+const file = fileJson as Figma.FileResponse;
+const fileNodes = fileNodesJson as Figma.FileNodesResponse;
+
+const fileNodeIds = Object.keys(fileNodes.nodes);
 
 describe('export-styles', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,13 +57,39 @@ describe('export-styles', () => {
         });
 
         expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
-        expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: nodeIds, version: 'versionABCD' });
-        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
+        expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1 });
+        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: undefined });
 
-        expect(logger).to.have.been.calledThrice;
-        expect(logger.firstCall).to.have.been.calledWith('fetching styles');
-        expect(logger.secondCall).to.have.been.calledWith('parsing styles');
-        expect(logger.thirdCall).to.have.been.calledWith('exported styles from fileABCD');
+        expect(logger).to.have.been.callCount(4);
+        expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
+        expect(logger.getCall(1)).to.have.been.calledWith('fetching styles');
+        expect(logger.getCall(2)).to.have.been.calledWith('parsing styles');
+        expect(logger.getCall(3)).to.have.been.calledWith('exported styles from fileABCD');
+
+        expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
+    });
+
+    it('should use outputter to export styles', async () => {
+        const pagesWithSvg = await exportStyles({
+            fileId: 'fileABCD',
+            version: 'versionABCD',
+            onlyFromPages: ['octicons-by-github'],
+            token: 'token1234',
+            log: logger,
+            outputters: [outputter],
+        });
+
+        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
+        expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1 });
+        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: ['254:0'] });
+
+        expect(logger).to.have.been.callCount(4);
+        expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
+        expect(logger.getCall(1)).to.have.been.calledWith('fetching styles');
+        expect(logger.getCall(2)).to.have.been.calledWith('parsing styles');
+        expect(logger.getCall(3)).to.have.been.calledWith('exported styles from fileABCD');
 
         expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
     });
@@ -72,14 +101,15 @@ describe('export-styles', () => {
         });
 
         /* eslint-disable no-console */
-        expect(console.log).to.have.been.calledThrice;
-        expect((console.log as sinon.SinonSpy<unknown[], unknown>).firstCall).to.have.been.calledWith('fetching styles');
-        expect((console.log as sinon.SinonSpy<unknown[], unknown>).secondCall).to.have.been.calledWith('parsing styles');
-        expect((console.log as sinon.SinonSpy<unknown[], unknown>).thirdCall).to.have.been.calledWith('exported styles from fileABCD');
+        expect(console.log).to.have.been.callCount(4);
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(0)).to.have.been.calledWith('fetching document');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(1)).to.have.been.calledWith('fetching styles');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(2)).to.have.been.calledWith('parsing styles');
+        expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(3)).to.have.been.calledWith('exported styles from fileABCD');
     });
 
-    it('should throw an error when fetching file fails', async () => {
-        clientFile.returns(Promise.reject(new Error('some error')));
+    it('should throw an error when fetching document fails', async () => {
+        clientFile.onFirstCall().returns(Promise.reject(new Error('some error')));
 
         await expect(exportStyles({
             fileId: 'fileABCD',
@@ -87,8 +117,27 @@ describe('export-styles', () => {
         })).to.be.rejectedWith(Error, 'while fetching file "fileABCD": some error');
     });
 
-    it('should throw an error if styles property is missing when fetching file', async () => {
+    it('should throw an error when fetching styles fails', async () => {
+        clientFile.onFirstCall().returns(Promise.resolve({ data: { document: file.document } }));
+        clientFile.onSecondCall().returns(Promise.reject(new Error('some error')));
+
+        await expect(exportStyles({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, 'while fetching file "fileABCD": some error');
+    });
+
+    it('should throw an error if pages are missing when fetching file', async () => {
         clientFile.returns(Promise.resolve({}));
+
+        await expect(exportStyles({
+            fileId: 'fileABCD',
+            token: 'token1234',
+        })).to.be.rejectedWith(Error, '\'document\' is missing.');
+    });
+
+    it('should throw an error if styles property is missing when fetching file', async () => {
+        clientFile.returns(Promise.resolve({ data: { document: file.document } }));
 
         await expect(exportStyles({
             fileId: 'fileABCD',

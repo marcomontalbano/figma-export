@@ -9,8 +9,11 @@ import * as FigmaExport from '@figma-export/types';
 
 import * as figmaStyles from './index';
 
-import file from '../_mocks_/figma.files.json';
-import fileNodes from '../_mocks_/figma.fileNodes.json';
+import fileJson from '../_mocks_/figma.files.json';
+import fileNodesJson from '../_mocks_/figma.fileNodes.json';
+
+const file = fileJson as Figma.FileResponse;
+const fileNodes = fileNodesJson as Figma.FileNodesResponse;
 
 const nodeIds = Object.keys(fileNodes.nodes);
 
@@ -62,7 +65,7 @@ describe('figmaStyles.', () => {
 
             const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123');
 
-            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123' });
+            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', ids: undefined });
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: ['121:10', '131:20'], version: 'version123' });
 
             expect(styleNodes.length).to.equal(2);
@@ -79,9 +82,9 @@ describe('figmaStyles.', () => {
                 fileNodes: sinon.stub().resolves({ data: fileNodes }),
             };
 
-            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123');
+            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123', ['121:10']);
 
-            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123' });
+            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', ids: ['121:10'] });
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds, version: 'version123' });
 
             const expectedStyleNodesLength = 30;
