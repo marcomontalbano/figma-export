@@ -20,7 +20,7 @@ export const componentWithNumber = {
 export const componentWithSlashedName: Figma.Node = {
     ...({} as Figma.Component),
     id: '9:10',
-    name: 'icon/eye',
+    name: 'icon/Figma-logo',
     type: 'COMPONENT',
 };
 
@@ -30,7 +30,7 @@ export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
     figmaExport: {
         id: '9:10',
         dirname: '.',
-        basename: 'icon/eye',
+        basename: 'icon/Figma-logo',
     },
 };
 

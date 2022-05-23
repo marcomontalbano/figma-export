@@ -9,6 +9,7 @@ type Options = {
     output: string;
     getDirname?: (options: FigmaExport.ComponentOutputterParamOption) => string;
     getComponentName?: (options: FigmaExport.ComponentOutputterParamOption) => string;
+    getComponentFilename?: (options: FigmaExport.ComponentOutputterParamOption) => string;
     getFileExtension?: (options: FigmaExport.ComponentOutputterParamOption) => string;
     getExportTemplate?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 
@@ -30,11 +31,12 @@ export = ({
     output,
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getComponentName = (options): string => `${pascalCase(options.basename)}`,
+    getComponentFilename = (options): string => `${getComponentName(options)}`,
     getFileExtension = (): string => '.jsx',
     getSvgrConfig = (): Config => ({ }),
     getExportTemplate = (options): string => {
         const reactComponentName = getComponentName(options);
-        const reactComponentFilename = `${reactComponentName}${getFileExtension(options)}`;
+        const reactComponentFilename = `${getComponentFilename(options)}${getFileExtension(options)}`;
         return `export { default as ${reactComponentName} } from './${reactComponentFilename}';`;
     },
 }: Options): FigmaExport.ComponentOutputter => {
@@ -50,7 +52,7 @@ export = ({
                 };
 
                 const reactComponentName = getComponentName(options);
-                const reactComponentFilename = `${reactComponentName}${getFileExtension(options)}`;
+                const reactComponentFilename = `${getComponentFilename(options)}${getFileExtension(options)}`;
                 const filePath = path.resolve(output, getDirname(options));
 
                 fs.mkdirSync(filePath, { recursive: true });
