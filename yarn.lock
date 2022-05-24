@@ -548,12 +548,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma-export/cli@^4.3.0, @figma-export/cli@workspace:packages/cli":
+"@figma-export/cli@^4.4.0, @figma-export/cli@workspace:packages/cli":
   version: 0.0.0-use.local
   resolution: "@figma-export/cli@workspace:packages/cli"
   dependencies:
-    "@figma-export/core": ^4.3.0
-    "@figma-export/types": ^4.2.0
+    "@figma-export/core": ^4.4.0
+    "@figma-export/types": ^4.4.0
     ora: ~5.4.1
     sade: ~1.8.1
   bin:
@@ -561,11 +561,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@figma-export/core@^4.3.0, @figma-export/core@workspace:packages/core":
+"@figma-export/core@^4.4.0, @figma-export/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@figma-export/core@workspace:packages/core"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     axios: ~0.27.2
     figma-js: ~1.15.0
     p-limit: ^3.1.0
@@ -577,7 +577,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-es6@workspace:packages/output-components-as-es6"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     "@figma-export/utils": ^4.0.0
     mini-svg-data-uri: ~1.4.4
   languageName: unknown
@@ -587,7 +587,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-stdout@workspace:packages/output-components-as-stdout"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
   languageName: unknown
   linkType: soft
 
@@ -595,7 +595,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-svg@workspace:packages/output-components-as-svg"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
   languageName: unknown
   linkType: soft
 
@@ -603,7 +603,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-svgr@workspace:packages/output-components-as-svgr"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     "@figma-export/utils": ^4.0.0
     "@svgr/core": ~6.2.1
   languageName: unknown
@@ -613,7 +613,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-svgstore@workspace:packages/output-components-as-svgstore"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     svgstore: ~3.0.1
   languageName: unknown
   linkType: soft
@@ -622,7 +622,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-css@workspace:packages/output-styles-as-css"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     "@figma-export/utils": ^4.0.0
   languageName: unknown
   linkType: soft
@@ -631,7 +631,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-less@workspace:packages/output-styles-as-less"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     "@figma-export/utils": ^4.0.0
   languageName: unknown
   linkType: soft
@@ -640,7 +640,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-sass@workspace:packages/output-styles-as-sass"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     "@figma-export/utils": ^4.0.0
   languageName: unknown
   linkType: soft
@@ -649,13 +649,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/transform-svg-with-svgo@workspace:packages/transform-svg-with-svgo"
   dependencies:
-    "@figma-export/types": ^4.2.0
+    "@figma-export/types": ^4.4.0
     "@types/svgo": ~2.6.3
     svgo: ~2.8.0
   languageName: unknown
   linkType: soft
 
-"@figma-export/types@^4.2.0, @figma-export/types@workspace:packages/types":
+"@figma-export/types@^4.4.0, @figma-export/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@figma-export/types@workspace:packages/types"
   dependencies:
@@ -673,7 +673,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/website@workspace:packages/website"
   dependencies:
-    "@figma-export/cli": ^4.3.0
+    "@figma-export/cli": ^4.4.0
     "@figma-export/utils": ^4.0.0
     "@types/react": ^18.0.8
     eslint-config-next: ^12.1.5
