@@ -63,7 +63,7 @@ export = ({
                 jsCode += `export const ${variableName} = \`${variableValue}\`;\n`;
             });
 
-            const filePath = path.resolve(output, `${pageName}.js`);
+            const filePath = path.resolve(output, `${pageName.replace('/', '-')}.js`);
             fs.writeFileSync(filePath, jsCode);
         });
     };
