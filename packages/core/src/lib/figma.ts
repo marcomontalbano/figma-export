@@ -53,10 +53,12 @@ type GetPagesOptions = {
 const getPages = (document: Figma.Document, options: GetPagesOptions = {}): FigmaExport.PageNode[] => {
     const pages = filterPagesByName(document.children as Figma.Canvas[], options.only);
 
-    return pages.map((page) => ({
-        ...page,
-        components: getComponents(page.children as readonly FigmaExport.ComponentNode[]),
-    }));
+    return pages
+        .map((page) => ({
+            ...page,
+            components: getComponents(page.children as readonly FigmaExport.ComponentNode[]),
+        }))
+        .filter((page) => page.components.length > 0);
 };
 
 const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => pages.reduce((ids: string[], page) => [
