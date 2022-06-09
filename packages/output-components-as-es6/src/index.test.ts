@@ -23,8 +23,11 @@ describe('outputter as es6', () => {
     let client;
     let nockScope: nock.Scope;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let mkdirSync: sinon.SinonStub<any[], any>;
+
     beforeEach(() => {
-        sinon.stub(fs, 'mkdirSync').returnsArg(0);
+        mkdirSync = sinon.stub(fs, 'mkdirSync').returnsArg(0);
 
         clientFileImages = sinon.stub().returns(Promise.resolve({
             data: {
@@ -190,5 +193,32 @@ describe('outputter as es6', () => {
             expect(err).to.be.an('Error');
             expect(err.message).to.be.equal('Component "Figma-Logo" has an error: two components cannot have a same name.');
         });
+    });
+
+    it('should create folders and subfolders when pageName contains slashes', async () => {
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1WithSlashes] });
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
+
+        nockScope.done();
+
+        await outputter({
+            output: 'output',
+        })(pagesWithSvg);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync).to.be.calledWithMatch(
+            'output/page1/subpath/subsubpath.js',
+
+            // eslint-disable-next-line max-len
+            'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
+        );
+
+        expect(mkdirSync).to.be.calledOnce;
+        expect(mkdirSync).to.be.calledWithMatch(
+            'output/page1/subpath',
+            { recursive: true },
+        );
     });
 });

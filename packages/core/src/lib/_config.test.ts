@@ -104,6 +104,17 @@ export const page1: Figma.Canvas = {
     ],
 };
 
+export const page1WithSlashes: Figma.Canvas = {
+    ...({} as Figma.Canvas),
+    id: '10:6',
+    name: 'page1/subpath/subsubpath',
+    type: 'CANVAS',
+    children: [
+        component1,
+        component2,
+    ],
+};
+
 export const page2: Figma.Canvas = {
     ...({} as Figma.Canvas),
     id: '10:7',
