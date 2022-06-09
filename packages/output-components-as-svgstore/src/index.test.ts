@@ -34,6 +34,12 @@ describe('outputter as svgstore', () => {
             'output/page1.svg',
             'id="page1/Figma-Logo"',
         );
+
+        expect(mkdirSync).to.be.calledOnce;
+        expect(mkdirSync).to.be.calledWithMatch(
+            'output',
+            { recursive: true },
+        );
     });
 
     it('should create folders and subfolders when pageName contains slashes', async () => {

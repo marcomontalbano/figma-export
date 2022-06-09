@@ -149,6 +149,12 @@ describe('outputter as es6', () => {
             // eslint-disable-next-line max-len
             "export const figmaLogo = `data:image/svg+xml,%3csvg width='40' height='60' viewBox='0 0 40 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3c/svg%3e`;",
         );
+
+        expect(mkdirSync).to.be.calledOnce;
+        expect(mkdirSync).to.be.calledWithMatch(
+            'output',
+            { recursive: true },
+        );
     });
 
     it('should throw an error if component starts with a number', async () => {

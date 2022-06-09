@@ -22,9 +22,7 @@ export = ({
     useDataUrl = false,
 }: Options): FigmaExport.ComponentOutputter => {
     return async (pages): Promise<void> => {
-        pages.forEach((page) => {
-            const { name: pageName, components } = page;
-
+        pages.forEach(({ name: pageName, components }) => {
             let jsCode = '';
 
             components.forEach((component) => {
