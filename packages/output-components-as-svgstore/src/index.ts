@@ -21,7 +21,6 @@ export = ({
     getIconId = (options): string => `${options.pageName}/${options.componentName}`,
     svgstoreConfig = {},
 }: Options): FigmaExport.ComponentOutputter => {
-    fs.mkdirSync(output, { recursive: true });
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
             const sprites = svgstore(svgstoreConfig);
@@ -37,6 +36,8 @@ export = ({
             });
 
             const filePath = path.resolve(output, `${pageName}.svg`);
+
+            fs.mkdirSync(path.dirname(filePath), { recursive: true });
             fs.writeFileSync(filePath, sprites.toString({}));
         });
     };

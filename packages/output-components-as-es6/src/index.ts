@@ -21,11 +21,8 @@ export = ({
     useBase64 = false,
     useDataUrl = false,
 }: Options): FigmaExport.ComponentOutputter => {
-    fs.mkdirSync(output, { recursive: true });
     return async (pages): Promise<void> => {
-        pages.forEach((page) => {
-            const { name: pageName, components } = page;
-
+        pages.forEach(({ name: pageName, components }) => {
             let jsCode = '';
 
             components.forEach((component) => {
@@ -64,6 +61,8 @@ export = ({
             });
 
             const filePath = path.resolve(output, `${pageName}.js`);
+
+            fs.mkdirSync(path.dirname(filePath), { recursive: true });
             fs.writeFileSync(filePath, jsCode);
         });
     };

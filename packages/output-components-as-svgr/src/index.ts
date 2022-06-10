@@ -40,7 +40,6 @@ export = ({
         return `export { default as ${reactComponentName} } from './${reactComponentFilename}';`;
     },
 }: Options): FigmaExport.ComponentOutputter => {
-    fs.mkdirSync(output, { recursive: true });
     const indexFile: IndexFile = {};
     return async (pages): Promise<void> => {
         pages.forEach(({ name: pageName, components }) => {
