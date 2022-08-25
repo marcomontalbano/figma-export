@@ -122,6 +122,45 @@ describe('export-component', () => {
         expect((console.log as sinon.SinonSpy<unknown[], unknown>).getCall(5)).to.have.been.calledWith('exported components from fileABCD');
     });
 
+    it('should use filter before fetch components', async () => {
+        clientFileImages.returns(Promise.resolve({
+            data: {
+                images: {
+                    '10:8': 'https://example.com/10:8.svg',
+                },
+            },
+        }));
+
+        const pagesWithSvg = await exportComponents({
+            fileId: 'fileABCD',
+            version: 'versionABCD',
+            token: 'token1234',
+            log: logger,
+            outputters: [outputter],
+            transformers: [transformer],
+            filterComponent: (component) => component.name === figmaDocument.component1.name,
+        });
+
+        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
+        expect(clientFileImages).to.have.been.calledOnceWith('fileABCD', {
+            format: 'svg',
+            ids: ['10:8'],
+            svg_include_id: true,
+        });
+        expect(clientFile).to.have.been.calledOnceWithExactly('fileABCD', { version: 'versionABCD' });
+
+        expect(logger).to.have.been.callCount(4);
+        expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
+        expect(logger.getCall(1)).to.have.been.calledWith('preparing components');
+        expect(logger.getCall(2)).to.have.been.calledWith('fetching components 1/1');
+        expect(logger.getCall(3)).to.have.been.calledWith('exported components from fileABCD');
+
+        expect(transformer).to.have.been.calledOnce;
+        expect(transformer.firstCall).to.have.been.calledWith(figmaDocument.svg.content);
+
+        expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
+    });
+
     it('should throw an error when fetching file fails', async () => {
         clientFile.returns(Promise.reject(new Error('some error')));
 

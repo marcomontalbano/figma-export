@@ -13,11 +13,14 @@ import {
     chunk,
 } from './utils';
 
-const getComponents = (children: readonly Figma.Node[] = []): FigmaExport.ComponentNode[] => {
+const getComponents = (
+    children: readonly Figma.Node[] = [],
+    filter: FigmaExport.ComponentFilter = () => true,
+): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
     children.forEach((component) => {
-        if (component.type === 'COMPONENT') {
+        if (component.type === 'COMPONENT' && filter(component)) {
             components.push({
                 ...component,
                 svg: '',
@@ -33,7 +36,7 @@ const getComponents = (children: readonly Figma.Node[] = []): FigmaExport.Compon
         if ('children' in component) {
             components = [
                 ...components,
-                ...getComponents((component.children)),
+                ...getComponents((component.children), filter),
             ];
         }
     });
@@ -48,6 +51,7 @@ const filterPagesByName = (pages: readonly Figma.Canvas[], pageNames: string | s
 
 type GetPagesOptions = {
     only?: string | string[];
+    filter?: FigmaExport.ComponentFilter;
 }
 
 const getPages = (document: Figma.Document, options: GetPagesOptions = {}): FigmaExport.PageNode[] => {
@@ -56,7 +60,7 @@ const getPages = (document: Figma.Document, options: GetPagesOptions = {}): Figm
     return pages
         .map((page) => ({
             ...page,
-            components: getComponents(page.children as readonly FigmaExport.ComponentNode[]),
+            components: getComponents(page.children as readonly FigmaExport.ComponentNode[], options.filter),
         }))
         .filter((page) => page.components.length > 0);
 };
