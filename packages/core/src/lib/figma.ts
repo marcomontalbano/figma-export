@@ -11,6 +11,7 @@ import {
     promiseSequentially,
     fromEntries,
     chunk,
+    emptySvg,
 } from './utils';
 
 const getComponents = (
@@ -164,7 +165,7 @@ const enrichPagesWithSvg = async (
         ...page,
         components: page.components.map((component) => ({
             ...component,
-            svg: svgs[component.id],
+            svg: svgs[component.id] || emptySvg,
         })),
     }));
 };

@@ -157,6 +157,29 @@ describe('outputter as es6', () => {
         );
     });
 
+    it('should not break when transformers return "undefined"', async () => {
+        const writeFileSync = sinon.stub(fs, 'writeFileSync');
+        const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
+        const pages: FigmaExport.PageNode[] = figma.getPages(document);
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages, {
+            transformers: [async () => undefined],
+        });
+
+        nockScope.done();
+
+        await outputter({
+            output: 'output',
+        })(pagesWithSvg);
+
+        expect(writeFileSync).to.be.calledOnce;
+        expect(writeFileSync).to.be.calledWithMatch(
+            'output/page1.js',
+
+            // eslint-disable-next-line max-len
+            'export const figmaLogo = `<svg></svg>`;',
+        );
+    });
+
     it('should throw an error if component starts with a number', async () => {
         const page = {
             ...figmaDocument.page1,
