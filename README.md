@@ -186,6 +186,7 @@ module.exports = {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
             onlyFromPages: ['icons'],
+            // filterComponent: (component) => !/^figma/.test(component.name), // optional
             transformers: [
                 require('@figma-export/transform-svg-with-svgo')({
                     plugins: [
