@@ -2,6 +2,8 @@ import axios from 'axios';
 
 export const toArray = <T>(any: T): T[] => (Array.isArray(any) ? any : [any]);
 
+export const emptySvg = '<svg></svg>';
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fromEntries = (iterable: any[][]): { [key: string]: any } => {
     return [...iterable].reduce((obj: { [key: string]: unknown }, [key, val]) => {
@@ -40,7 +42,7 @@ export const fetchAsSvgXml = (url: string): Promise<string> => {
             'Content-Type': 'images/svg+xml',
         },
     }).then((response) => {
-        if (response.data.length === 0) return '<svg></svg>';
+        if (response.data.length === 0) return emptySvg;
 
         return response.data;
     }).catch((error: Error) => {
