@@ -1,4 +1,7 @@
 module.exports = {
     root: true,
-    extends: 'next'
+    extends: 'next',
+    'rules': {
+        '@next/next/no-img-element': 'off'
+    }
 };
