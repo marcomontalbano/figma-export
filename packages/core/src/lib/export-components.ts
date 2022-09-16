@@ -7,6 +7,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     fileId,
     version,
     onlyFromPages = [],
+    filterComponent = () => true,
     transformers = [],
     outputters = [],
     concurrency = 30,
@@ -27,7 +28,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
         throw new Error('\'document\' is missing.');
     }
 
-    const pages = getPages((document), { only: onlyFromPages });
+    const pages = getPages((document), { only: onlyFromPages, filter: filterComponent });
 
     log('preparing components');
     const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, {

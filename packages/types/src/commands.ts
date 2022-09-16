@@ -1,4 +1,9 @@
-import { StringTransformer, ComponentOutputter, PageNode } from './global';
+import {
+    StringTransformer,
+    ComponentOutputter,
+    PageNode,
+    ComponentFilter,
+} from './global';
 import { StyleOutputter, Style } from './styles';
 
 export type BaseCommandOptions = {
@@ -25,6 +30,9 @@ export type ComponentsCommandOptions = {
 
     /** Figma page names (all pages when not specified) */
     onlyFromPages?: string[];
+
+    /** Filter components to export */
+    filterComponent?: ComponentFilter;
 
     /** Transformer module name or path */
     transformers?: StringTransformer[];
