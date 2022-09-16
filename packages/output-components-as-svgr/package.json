@@ -27,7 +27,7 @@
   "dependencies": {
     "@figma-export/types": "^4.4.0",
     "@figma-export/utils": "^4.0.0",
-    "@svgr/core": "~6.2.1"
+    "@svgr/core": "~6.3.1"
   },
   "engines": {
     "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
