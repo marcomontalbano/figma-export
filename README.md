@@ -190,8 +190,18 @@ module.exports = {
             transformers: [
                 require('@figma-export/transform-svg-with-svgo')({
                     plugins: [
-                        { removeViewBox: false },
-                        { removeDimensions: true }
+                        {
+                            name: 'preset-default',
+                            params: {
+                                overrides: {
+                                    removeViewBox: false,
+                                }
+                            }
+                        },
+                        {
+                            name: 'removeDimensions',
+                            active: true
+                        }
                     ]
                 })
             ],
@@ -206,6 +216,8 @@ module.exports = {
 
 };
 ```
+
+> :information_source: Take a look at [.figmaexportrc.example.js](/.figmaexportrc.example.js) for more details.
 
 now you can install the `@figma-export` dependencies that you need
 
