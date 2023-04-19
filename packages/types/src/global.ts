@@ -5,9 +5,12 @@ export type ComponentExtras = {
     dirname: string;
     basename: string;
 }
+
+export type GroupingPath = { name: string, type: 'GROUP' | 'FRAME' }
 export interface ComponentNode extends Figma.Component {
     figmaExport: ComponentExtras;
     svg: string;
+    groupingPath: GroupingPath[];
 }
 
 export interface PageNode extends Figma.Canvas {
