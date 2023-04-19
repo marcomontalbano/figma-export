@@ -27,6 +27,7 @@ export const componentWithSlashedName: Figma.Node = {
 export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
     ...componentWithSlashedName,
     svg: svg.content,
+    groupingPath: [],
     figmaExport: {
         id: '9:10',
         dirname: '.',
@@ -44,6 +45,7 @@ export const component1: Figma.Node = {
 export const componentOutput1: FigmaExport.ComponentNode = {
     ...component1,
     svg: '',
+    groupingPath: [{ name: 'A Group', type: 'GROUP' }],
     figmaExport: {
         id: '10:8',
         dirname: '.',
@@ -61,6 +63,7 @@ export const component2: Figma.Node = {
 export const componentOutput2: FigmaExport.ComponentNode = {
     ...component2,
     svg: '',
+    groupingPath: [],
     figmaExport: {
         id: '8:1',
         dirname: '.',
@@ -78,6 +81,7 @@ export const component3: Figma.Node = {
 export const componentOutput3: FigmaExport.ComponentNode = {
     ...component3,
     svg: '',
+    groupingPath: [{ name: 'A Group', type: 'GROUP' }],
     figmaExport: {
         id: '9:1',
         dirname: '.',

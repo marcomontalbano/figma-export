@@ -14,30 +14,42 @@ import {
     emptySvg,
 } from './utils';
 
+function isGroupingNode(value: Figma.NodeType): value is 'GROUP' | 'FRAME' {
+    const GROUPING_NODES = ['GROUP', 'FRAME'];
+    return GROUPING_NODES.includes(value);
+}
+
 const getComponents = (
     children: readonly Figma.Node[] = [],
     filter: FigmaExport.ComponentFilter = () => true,
+    groupingPath: FigmaExport.GroupingPath[] = [],
 ): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
-    children.forEach((component) => {
-        if (component.type === 'COMPONENT' && filter(component)) {
+    children.forEach((node) => {
+        if (node.type === 'COMPONENT' && filter(node)) {
             components.push({
-                ...component,
+                ...node,
+                groupingPath,
                 svg: '',
                 figmaExport: {
-                    id: component.id,
-                    dirname: dirname(component.name),
-                    basename: basename(component.name),
+                    id: node.id,
+                    dirname: dirname(node.name),
+                    basename: basename(node.name),
                 },
             });
             return;
         }
 
-        if ('children' in component) {
+        if ('children' in node) {
+            const thisFrameName: FigmaExport.GroupingPath[] = groupingPath;
+            if (isGroupingNode(node.type)) {
+                thisFrameName.push({ name: node.name, type: node.type });
+            }
+
             components = [
                 ...components,
-                ...getComponents((component.children), filter),
+                ...getComponents((node.children), filter, thisFrameName),
             ];
         }
     });
