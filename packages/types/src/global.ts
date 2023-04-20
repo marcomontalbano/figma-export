@@ -1,16 +1,19 @@
 import * as Figma from 'figma-js';
 
+type NodeWithChildren = Extract<Figma.Node, { children: ReadonlyArray<Figma.Node> }>
+
+export type GroupingPath = { name: string, type: NodeWithChildren['type'] }
+
 export type ComponentExtras = {
     id: string;
     dirname: string;
     basename: string;
+    groupingPath: GroupingPath[];
 }
 
-export type GroupingPath = { name: string, type: 'GROUP' | 'FRAME' }
 export interface ComponentNode extends Figma.Component {
     figmaExport: ComponentExtras;
     svg: string;
-    groupingPath: GroupingPath[];
 }
 
 export interface PageNode extends Figma.Canvas {

@@ -27,7 +27,7 @@ describe('figma.', () => {
             expect(figma.getComponents([
                 figmaDocument.component1,
                 figmaDocument.group1,
-            ])).to.eql([
+            ], undefined, [{ name: 'A Frame', type: 'FRAME' }])).to.eql([
                 figmaDocument.componentOutput1,
                 figmaDocument.componentOutput3,
             ]);

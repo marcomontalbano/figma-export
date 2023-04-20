@@ -14,11 +14,6 @@ import {
     emptySvg,
 } from './utils';
 
-function isGroupingNode(value: Figma.NodeType): value is 'GROUP' | 'FRAME' {
-    const GROUPING_NODES = ['GROUP', 'FRAME'];
-    return GROUPING_NODES.includes(value);
-}
-
 const getComponents = (
     children: readonly Figma.Node[] = [],
     filter: FigmaExport.ComponentFilter = () => true,
@@ -30,26 +25,25 @@ const getComponents = (
         if (node.type === 'COMPONENT' && filter(node)) {
             components.push({
                 ...node,
-                groupingPath,
                 svg: '',
                 figmaExport: {
                     id: node.id,
                     dirname: dirname(node.name),
                     basename: basename(node.name),
+                    groupingPath,
                 },
             });
             return;
         }
 
         if ('children' in node) {
-            const thisFrameName: FigmaExport.GroupingPath[] = groupingPath;
-            if (isGroupingNode(node.type)) {
-                thisFrameName.push({ name: node.name, type: node.type });
-            }
-
             components = [
                 ...components,
-                ...getComponents((node.children), filter, thisFrameName),
+                ...getComponents(
+                    (node.children),
+                    filter,
+                    [...groupingPath, { name: node.name, type: node.type }],
+                ),
             ];
         }
     });
