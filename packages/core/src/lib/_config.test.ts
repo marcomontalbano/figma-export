@@ -31,7 +31,7 @@ export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
         id: '9:10',
         dirname: '.',
         basename: 'icon/Figma-logo',
-        groupingPath: [],
+        pathToComponent: [],
     },
 };
 
@@ -49,7 +49,7 @@ export const componentOutput1: FigmaExport.ComponentNode = {
         id: '10:8',
         dirname: '.',
         basename: 'Figma-Logo',
-        groupingPath: [{ name: 'A Frame', type: 'FRAME' }],
+        pathToComponent: [{ name: 'A Frame', type: 'FRAME' }],
     },
 };
 
@@ -67,7 +67,7 @@ export const componentOutput2: FigmaExport.ComponentNode = {
         id: '8:1',
         dirname: '.',
         basename: 'Figma-Search',
-        groupingPath: [],
+        pathToComponent: [],
     },
 };
 
@@ -85,7 +85,7 @@ export const componentOutput3: FigmaExport.ComponentNode = {
         id: '9:1',
         dirname: '.',
         basename: 'Login',
-        groupingPath: [
+        pathToComponent: [
             { name: 'A Frame', type: 'FRAME' },
             { name: 'A Group', type: 'GROUP' },
         ],

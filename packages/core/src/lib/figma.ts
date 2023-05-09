@@ -17,7 +17,7 @@ import {
 const getComponents = (
     children: readonly Figma.Node[] = [],
     filter: FigmaExport.ComponentFilter = () => true,
-    groupingPath: FigmaExport.GroupingPath[] = [],
+    pathToComponent: FigmaExport.ComponentExtras['pathToComponent'] = [],
 ): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
@@ -30,7 +30,7 @@ const getComponents = (
                     id: node.id,
                     dirname: dirname(node.name),
                     basename: basename(node.name),
-                    groupingPath,
+                    pathToComponent,
                 },
             });
             return;
@@ -42,7 +42,7 @@ const getComponents = (
                 ...getComponents(
                     (node.children),
                     filter,
-                    [...groupingPath, { name: node.name, type: node.type }],
+                    [...pathToComponent, { name: node.name, type: node.type }],
                 ),
             ];
         }

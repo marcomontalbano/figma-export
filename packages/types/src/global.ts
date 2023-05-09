@@ -2,13 +2,14 @@ import * as Figma from 'figma-js';
 
 type NodeWithChildren = Extract<Figma.Node, { children: ReadonlyArray<Figma.Node> }>
 
-export type GroupingPath = { name: string, type: NodeWithChildren['type'] }
-
 export type ComponentExtras = {
     id: string;
     dirname: string;
     basename: string;
-    groupingPath: GroupingPath[];
+    pathToComponent: {
+        name: string,
+        type: NodeWithChildren['type']
+    }[];
 }
 
 export interface ComponentNode extends Figma.Component {
