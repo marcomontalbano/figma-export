@@ -382,6 +382,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@figma-export/output-styles-as-style-dictionary@workspace:packages/output-styles-as-style-dictionary":
+  version: 0.0.0-use.local
+  resolution: "@figma-export/output-styles-as-style-dictionary@workspace:packages/output-styles-as-style-dictionary"
+  dependencies:
+    "@figma-export/types": ^4.5.0
+    "@figma-export/utils": ^4.0.0
+  languageName: unknown
+  linkType: soft
+
 "@figma-export/transform-svg-with-svgo@workspace:packages/transform-svg-with-svgo":
   version: 0.0.0-use.local
   resolution: "@figma-export/transform-svg-with-svgo@workspace:packages/transform-svg-with-svgo"
@@ -392,7 +401,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@figma-export/types@^4.6.0, @figma-export/types@workspace:packages/types":
+"@figma-export/types@^4.5.0, @figma-export/types@^4.6.0, @figma-export/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@figma-export/types@workspace:packages/types"
   dependencies:
