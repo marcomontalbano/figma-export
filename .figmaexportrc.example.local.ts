@@ -4,6 +4,8 @@
  *   $ ./node_modules/.bin/ts-node ./packages/cli/bin/run use-config ./.figmaexportrc.example.local.ts
  */
 
+import path from 'path'
+
 import { FigmaExportRC, StylesCommandOptions, ComponentsCommandOptions } from './packages/types';
 
 import outputStylesAsCss from './packages/output-styles-as-css';
@@ -59,7 +61,11 @@ const componentOptions: ComponentsCommandOptions = {
             useBase64: true,
         }),
         outputComponentsAsSvg({
-            output: './output/components/svg'
+            output: './output/components/svg',
+            getDirname: (options) => {
+                const pathToComponent = options.pathToComponent.map(p => p.name).join(path.sep)
+                return `${options.pageName}${path.sep}${options.dirname}${path.sep}${pathToComponent}`
+            },
         }),
         outputComponentsAsSvgr({
             output: './output/components/svgr',
