@@ -17,27 +17,33 @@ import {
 const getComponents = (
     children: readonly Figma.Node[] = [],
     filter: FigmaExport.ComponentFilter = () => true,
+    pathToComponent: FigmaExport.ComponentExtras['pathToComponent'] = [],
 ): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
-    children.forEach((component) => {
-        if (component.type === 'COMPONENT' && filter(component)) {
+    children.forEach((node) => {
+        if (node.type === 'COMPONENT' && filter(node)) {
             components.push({
-                ...component,
+                ...node,
                 svg: '',
                 figmaExport: {
-                    id: component.id,
-                    dirname: dirname(component.name),
-                    basename: basename(component.name),
+                    id: node.id,
+                    dirname: dirname(node.name),
+                    basename: basename(node.name),
+                    pathToComponent,
                 },
             });
             return;
         }
 
-        if ('children' in component) {
+        if ('children' in node) {
             components = [
                 ...components,
-                ...getComponents((component.children), filter),
+                ...getComponents(
+                    (node.children),
+                    filter,
+                    [...pathToComponent, { name: node.name, type: node.type }],
+                ),
             ];
         }
     });

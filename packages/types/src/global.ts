@@ -1,10 +1,17 @@
 import * as Figma from 'figma-js';
 
+type NodeWithChildren = Extract<Figma.Node, { children: ReadonlyArray<Figma.Node> }>
+
 export type ComponentExtras = {
     id: string;
     dirname: string;
     basename: string;
+    pathToComponent: {
+        name: string,
+        type: NodeWithChildren['type']
+    }[];
 }
+
 export interface ComponentNode extends Figma.Component {
     figmaExport: ComponentExtras;
     svg: string;
