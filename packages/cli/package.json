@@ -1,15 +1,15 @@
 {
   "name": "@figma-export/cli",
   "description": "Command line for @figma-export",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "author": "Marco Montalbano",
   "bin": {
     "figma-export": "./bin/run"
   },
   "bugs": "https://github.com/marcomontalbano/figma-export/issues",
   "dependencies": {
-    "@figma-export/core": "^4.5.0",
-    "@figma-export/types": "^4.5.0",
+    "@figma-export/core": "^4.6.0",
+    "@figma-export/types": "^4.6.0",
     "ora": "~5.4.1",
     "sade": "~1.8.1"
   },
