@@ -1,8 +1,8 @@
 import * as FigmaExport from '@figma-export/types';
 import { kebabCase } from '@figma-export/utils';
 
-import { writeVariable } from './utils';
 import { Extension } from './types';
+import { writeVariable } from './utils';
 
 import fs = require('fs');
 import path = require('path');
@@ -11,14 +11,14 @@ type Options = {
     output: string;
     getExtension?: () => Extension;
     getFilename?: () => string;
-    getVariableName?: (style: FigmaExport.Style) => string;
+    getVariableName?: FigmaExport.GetVariableName;
 }
 
 export = ({
     output,
     getExtension = () => 'JSON',
     getFilename = () => 'base',
-    getVariableName = (style) => kebabCase(style.name).toLowerCase(),
+    getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
         const extension = getExtension();
@@ -27,8 +27,6 @@ export = ({
 
         styles.forEach((style) => {
             if (style.visible) {
-                const variableName = getVariableName(style);
-
                 // eslint-disable-next-line default-case
                 switch (style.styleType) {
                     case 'FILL': {
@@ -37,7 +35,7 @@ export = ({
                             .map((fill) => fill.value)
                             .join(', ');
 
-                        writeVariable(result, style.comment, variableName, value);
+                        writeVariable(result, style.comment, getVariableName(style), value);
 
                         break;
                     }
@@ -56,23 +54,23 @@ export = ({
                             .join(', ');
 
                         // Shadow and Blur effects cannot be combined together since they use two different CSS properties.
-                        writeVariable(result, style.comment, variableName, boxShadowValue || filterBlurValue);
+                        writeVariable(result, style.comment, getVariableName(style), boxShadowValue || filterBlurValue);
 
                         break;
                     }
 
                     case 'TEXT': {
-                        writeVariable(result, style.comment, `${variableName}-font-family`, `"${style.style.fontFamily}"`);
-                        writeVariable(result, style.comment, `${variableName}-font-size`, `${style.style.fontSize}px`);
-                        writeVariable(result, style.comment, `${variableName}-font-style`, `${style.style.fontStyle}`);
-                        writeVariable(result, style.comment, `${variableName}-font-variant`, `${style.style.fontVariant}`);
-                        writeVariable(result, style.comment, `${variableName}-font-weight`, `${style.style.fontWeight}`);
-                        writeVariable(result, style.comment, `${variableName}-letter-spacing`, `${style.style.letterSpacing}px`);
-                        writeVariable(result, style.comment, `${variableName}-line-height`, `${style.style.lineHeight}px`);
-                        writeVariable(result, style.comment, `${variableName}-text-align`, `${style.style.textAlign}`);
-                        writeVariable(result, style.comment, `${variableName}-text-decoration`, `${style.style.textDecoration}`);
-                        writeVariable(result, style.comment, `${variableName}-text-transform`, `${style.style.textTransform}`);
-                        writeVariable(result, style.comment, `${variableName}-vertical-align`, `${style.style.verticalAlign}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'font-family'), `"${style.style.fontFamily}"`);
+                        writeVariable(result, style.comment, getVariableName(style, 'font-size'), `${style.style.fontSize}px`);
+                        writeVariable(result, style.comment, getVariableName(style, 'font-style'), `${style.style.fontStyle}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'font-variant'), `${style.style.fontVariant}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'font-weight'), `${style.style.fontWeight}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'letter-spacing'), `${style.style.letterSpacing}px`);
+                        writeVariable(result, style.comment, getVariableName(style, 'line-height'), `${style.style.lineHeight}px`);
+                        writeVariable(result, style.comment, getVariableName(style, 'text-align'), `${style.style.textAlign}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'text-decoration'), `${style.style.textDecoration}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'text-transform'), `${style.style.textTransform}`);
+                        writeVariable(result, style.comment, getVariableName(style, 'vertical-align'), `${style.style.verticalAlign}`);
 
                         break;
                     }

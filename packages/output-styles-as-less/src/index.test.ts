@@ -8,9 +8,8 @@ import {
 } from '@figma-export/types';
 import { camelCase } from '@figma-export/utils';
 
-// eslint-disable-next-line import/order
-import fs = require('fs');
-import outputter = require('./index');
+import fs from 'fs';
+import outputter from './index';
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,
@@ -317,7 +316,29 @@ describe('style output as less', () => {
                 + 'text-decoration: none;\n'
                 + 'text-transform: uppercase;\n'
                 + 'vertical-align: middle;\n'
-                + '};\n',
+                + '};\n'
+                + '\n\n'
+                + '@variable-name-font-family: "Verdana";\n'
+                + '\n\n'
+                + '@variable-name-font-size: 12px;\n'
+                + '\n\n'
+                + '@variable-name-font-style: italic;\n'
+                + '\n\n'
+                + '@variable-name-font-variant: normal;\n'
+                + '\n\n'
+                + '@variable-name-font-weight: 100;\n'
+                + '\n\n'
+                + '@variable-name-letter-spacing: 10px;\n'
+                + '\n\n'
+                + '@variable-name-line-height: 12px;\n'
+                + '\n\n'
+                + '@variable-name-text-align: left;\n'
+                + '\n\n'
+                + '@variable-name-text-decoration: none;\n'
+                + '\n\n'
+                + '@variable-name-text-transform: uppercase;\n'
+                + '\n\n'
+                + '@variable-name-vertical-align: middle;\n',
             );
         });
     });

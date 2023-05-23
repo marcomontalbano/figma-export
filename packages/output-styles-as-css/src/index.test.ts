@@ -8,9 +8,8 @@ import {
 } from '@figma-export/types';
 import { camelCase } from '@figma-export/utils';
 
-// eslint-disable-next-line import/order
-import fs = require('fs');
-import outputter = require('./index');
+import fs from 'fs';
+import outputter from './index';
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,

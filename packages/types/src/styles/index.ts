@@ -22,4 +22,20 @@ export type Style = {
     | GridStyle.StyleTypeGrid
 )
 
+export type GetVariableName = (
+    style: Style,
+    descriptor?:
+        | 'font-family'
+        | 'font-size'
+        | 'font-style'
+        | 'font-variant'
+        | 'font-weight'
+        | 'letter-spacing'
+        | 'line-height'
+        | 'text-align'
+        | 'text-decoration'
+        | 'text-transform'
+        | 'vertical-align'
+) => string;
+
 export type StyleOutputter = (styles: Style[]) => Promise<void>

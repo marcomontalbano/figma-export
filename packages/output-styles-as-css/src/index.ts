@@ -1,7 +1,7 @@
 import * as FigmaExport from '@figma-export/types';
 import { kebabCase } from '@figma-export/utils';
 
-import { writeVariable, writeComment, sanitizeText } from './utils';
+import { sanitizeText, writeComment, writeVariable } from './utils';
 
 import fs = require('fs');
 import path = require('path');
@@ -9,21 +9,19 @@ import path = require('path');
 type Options = {
     output: string;
     getFilename?: () => string;
-    getVariableName?: (style: FigmaExport.Style) => string;
+    getVariableName?: FigmaExport.GetVariableName;
 }
 
 export = ({
     output,
     getFilename = () => '_variables',
-    getVariableName = (style) => kebabCase(style.name).toLowerCase(),
+    getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,
 }: Options): FigmaExport.StyleOutputter => {
     return async (styles) => {
         let text = '';
 
         styles.forEach((style) => {
             if (style.visible) {
-                const variableName = getVariableName(style);
-
                 // eslint-disable-next-line default-case
                 switch (style.styleType) {
                     case 'FILL': {
@@ -34,7 +32,7 @@ export = ({
 
                         if (value) {
                             text += writeComment(style.comment);
-                            text += writeVariable(variableName, value);
+                            text += writeVariable(getVariableName(style), value);
                         }
 
                         break;
@@ -58,7 +56,7 @@ export = ({
 
                         if (value) {
                             text += writeComment(style.comment);
-                            text += writeVariable(variableName, value);
+                            text += writeVariable(getVariableName(style), value);
                         }
 
                         break;
@@ -66,17 +64,17 @@ export = ({
 
                     case 'TEXT': {
                         text += writeComment(style.comment);
-                        text += writeVariable(`${variableName}-font-family`, `"${style.style.fontFamily}"`);
-                        text += writeVariable(`${variableName}-font-size`, `${style.style.fontSize}px`);
-                        text += writeVariable(`${variableName}-font-style`, `${style.style.fontStyle}`);
-                        text += writeVariable(`${variableName}-font-variant`, `${style.style.fontVariant}`);
-                        text += writeVariable(`${variableName}-font-weight`, `${style.style.fontWeight}`);
-                        text += writeVariable(`${variableName}-letter-spacing`, `${style.style.letterSpacing}px`);
-                        text += writeVariable(`${variableName}-line-height`, `${style.style.lineHeight}px`);
-                        text += writeVariable(`${variableName}-text-align`, `${style.style.textAlign}`);
-                        text += writeVariable(`${variableName}-text-decoration`, `${style.style.textDecoration}`);
-                        text += writeVariable(`${variableName}-text-transform`, `${style.style.textTransform}`);
-                        text += writeVariable(`${variableName}-vertical-align`, `${style.style.verticalAlign}`);
+                        text += writeVariable(getVariableName(style, 'font-family'), `"${style.style.fontFamily}"`);
+                        text += writeVariable(getVariableName(style, 'font-size'), `${style.style.fontSize}px`);
+                        text += writeVariable(getVariableName(style, 'font-style'), `${style.style.fontStyle}`);
+                        text += writeVariable(getVariableName(style, 'font-variant'), `${style.style.fontVariant}`);
+                        text += writeVariable(getVariableName(style, 'font-weight'), `${style.style.fontWeight}`);
+                        text += writeVariable(getVariableName(style, 'letter-spacing'), `${style.style.letterSpacing}px`);
+                        text += writeVariable(getVariableName(style, 'line-height'), `${style.style.lineHeight}px`);
+                        text += writeVariable(getVariableName(style, 'text-align'), `${style.style.textAlign}`);
+                        text += writeVariable(getVariableName(style, 'text-decoration'), `${style.style.textDecoration}`);
+                        text += writeVariable(getVariableName(style, 'text-transform'), `${style.style.textTransform}`);
+                        text += writeVariable(getVariableName(style, 'vertical-align'), `${style.style.verticalAlign}`);
 
                         break;
                     }
