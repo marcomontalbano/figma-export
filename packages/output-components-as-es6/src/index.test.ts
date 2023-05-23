@@ -11,8 +11,8 @@ import * as FigmaExport from '@figma-export/types';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
-import fs = require('fs');
-import outputter = require('./index');
+import fs from 'fs';
+import outputter from './index';
 
 describe('outputter as es6', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

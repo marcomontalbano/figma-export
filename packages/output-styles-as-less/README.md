@@ -44,7 +44,7 @@ const { kebabCase } = require('@figma-export/utils');
 require('@figma-export/output-styles-as-less')({
     output: './output',
     getFilename: () => '_variables',
-    getVariableName: (style) => kebabCase(style.name).toLowerCase(),
+    getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,
 })
 ```
 

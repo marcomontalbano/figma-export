@@ -45,7 +45,7 @@ require('@figma-export/output-styles-as-style-dictionary')({
     output: './output',
     getExtension: () => 'JSON',
     getFilename: () => 'base',
-    getVariableName: (style) => kebabCase(style.name).toLowerCase(),
+    getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,
 })
 ```
 

@@ -45,7 +45,7 @@ require('@figma-export/output-styles-as-sass')({
     output: './output',
     getExtension: () => 'SCSS',
     getFilename: () => '_variables',
-    getVariableName: (style) => kebabCase(style.name).toLowerCase(),
+    getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,
 })
 ```
 

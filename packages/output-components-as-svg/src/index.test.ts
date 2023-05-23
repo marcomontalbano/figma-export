@@ -2,9 +2,9 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
-import fs = require('fs');
 
-import outputter = require('./index');
+import fs from 'fs';
+import outputter from './index';
 
 describe('outputter as svg', () => {
     beforeEach(() => {

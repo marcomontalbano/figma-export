@@ -11,6 +11,7 @@ import { FigmaExportRC, StylesCommandOptions, ComponentsCommandOptions } from '.
 import outputStylesAsCss from './packages/output-styles-as-css';
 import outputStylesAsLess from './packages/output-styles-as-less';
 import outputStylesAsSass from './packages/output-styles-as-sass';
+import outputStylesAsStyleDictionary from './packages/output-styles-as-style-dictionary';
 import transformSvgWithSvgo from './packages/transform-svg-with-svgo';
 import outputComponentsAsEs6 from './packages/output-components-as-es6';
 import outputComponentsAsSvg from './packages/output-components-as-svg';
@@ -29,6 +30,9 @@ const styleOptions: StylesCommandOptions = {
         }),
         outputStylesAsSass({
             output: './output/styles/sass'
+        }),
+        outputStylesAsStyleDictionary({
+            output: './output/styles/style-dictionary'
         })
     ]
 };
