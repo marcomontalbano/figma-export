@@ -14,14 +14,14 @@ jobs:
 
     strategy:
       matrix:
-        node: [12.22.0, 12.x, 14.x, 16.x, 18.x]
+        node: [12.22.0, 12.x, 14.x, 16.x, 18.x, 20.x]
 
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Node 🧰
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node }}
 
@@ -41,10 +41,10 @@ jobs:
         
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Node 🧰
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: 16.x
 
@@ -61,7 +61,7 @@ jobs:
         path-to-lcov: ./coverage/lcov.info # optional (default value)
 
     - name: Upload `coverage` artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: coverage
         path: coverage/lcov-report
@@ -73,10 +73,10 @@ jobs:
         
   #   steps:
   #   - name: Checkout 🛎️
-  #     uses: actions/checkout@v2
+  #     uses: actions/checkout@v3
 
   #   - name: Node 🧰
-  #     uses: actions/setup-node@v2
+  #     uses: actions/setup-node@v3
   #     with:
   #       node-version: 14.x
 
@@ -87,7 +87,7 @@ jobs:
   #     run: yarn stryker
 
   #   - name: Upload `stryker` artifact
-  #     uses: actions/upload-artifact@v1
+  #     uses: actions/upload-artifact@v3
   #     with:
   #       name: stryker
   #       path: reports/mutation/html

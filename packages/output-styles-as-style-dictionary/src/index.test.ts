@@ -68,7 +68,7 @@ const mockBlur = (value: string, visible = true): EffectStyle => ({
 
 const mockText = (visible = true): Style => ({
     style: {
-        fontFamily: 'Verdana',
+        fontFamily: 'Roboto Condensed',
         fontSize: 12,
         fontStyle: 'italic',
         fontVariant: 'normal',
@@ -87,7 +87,7 @@ const mockText = (visible = true): Style => ({
     originalNode: { ...({} as StyleNode) },
 });
 
-describe('style output as css', () => {
+describe('style output as style-dictionary json', () => {
     let writeFileSync;
 
     beforeEach(() => {
@@ -109,17 +109,18 @@ describe('style output as css', () => {
         ]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.css', '');
+        expect(writeFileSync).to.be.calledWithMatch('/output-folder/base.json', '');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
         await outputter({
             output: 'output-folder',
-            getFilename: () => '_figma-styles',
+            getExtension: () => 'JSON',
+            getFilename: () => 'base-file',
         })([]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/_figma-styles.css');
+        expect(writeFileSync).to.be.calledWithMatch('/output-folder/base-file.json');
     });
 
     it('should sanitize variable names', async () => {
@@ -135,14 +136,14 @@ describe('style output as css', () => {
         expect(writeFileSync).to.be.calledWithMatch(
             sinon.match.any,
 
-            // eslint-disable-next-line indent
-            '\n'
-            + ':root {\n\n'
-            + '/**\n'
-            + ' * lorem ipsum\n'
-            + ' */\n'
-            + '--grey-900: rgba(26, 26, 26, 1);\n'
-            + '\n}\n',
+            JSON.stringify({
+                grey: {
+                    900: {
+                        comment: 'lorem ipsum',
+                        value: 'rgba(26, 26, 26, 1)',
+                    },
+                },
+            }, undefined, 2),
         );
     });
 
@@ -160,14 +161,12 @@ describe('style output as css', () => {
         expect(writeFileSync).to.be.calledWithMatch(
             sinon.match.any,
 
-            // eslint-disable-next-line indent
-            '\n'
-            + ':root {\n\n'
-            + '/**\n'
-            + ' * lorem ipsum\n'
-            + ' */\n'
-            + '--greyDark: rgba(26, 26, 26, 1);\n'
-            + '\n}\n',
+            JSON.stringify({
+                greyDark: {
+                    comment: 'lorem ipsum',
+                    value: 'rgba(26, 26, 26, 1)',
+                },
+            }, undefined, 2),
         );
     });
 
@@ -182,7 +181,7 @@ describe('style output as css', () => {
             ]);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.css', '');
+            expect(writeFileSync).to.be.calledWithMatch('/output-folder/base.json', '');
         });
 
         it('should be able to extract a solid color', async () => {
@@ -199,14 +198,14 @@ describe('style output as css', () => {
             expect(writeFileSync).to.be.calledWithMatch(
                 sinon.match.any,
 
-                // eslint-disable-next-line indent
-                  '\n'
-                + ':root {\n\n'
-                + '/**\n'
-                + ' * lorem ipsum\n'
-                + ' */\n'
-                + '--variable-name: rgba(solid-1);\n'
-                + '\n}\n',
+                JSON.stringify({
+                    variable: {
+                        name: {
+                            comment: 'lorem ipsum',
+                            value: 'rgba(solid-1)',
+                        },
+                    },
+                }, undefined, 2),
             );
         });
 
@@ -224,32 +223,19 @@ describe('style output as css', () => {
             expect(writeFileSync).to.be.calledWithMatch(
                 sinon.match.any,
 
-                // eslint-disable-next-line indent
-                  '\n'
-                + ':root {\n\n'
-                + '/**\n'
-                + ' * lorem ipsum\n'
-                + ' */\n'
-                + '--variable-name: linear-gradient-1, linear-gradient-2;\n'
-                + '\n}\n',
+                JSON.stringify({
+                    variable: {
+                        name: {
+                            comment: 'lorem ipsum',
+                            value: 'linear-gradient-1, linear-gradient-2',
+                        },
+                    },
+                }, undefined, 2),
             );
         });
     });
 
     describe('effects', () => {
-        it('should not print anything if effect is not visible', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockEffect([
-                    mockShadow('shadow-effect-1', false),
-                ]),
-            ]);
-
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.css', '');
-        });
-
         it('should be able to extract a box-shadow', async () => {
             await outputter({
                 output: 'output-folder',
@@ -264,14 +250,13 @@ describe('style output as css', () => {
             expect(writeFileSync).to.be.calledWithMatch(
                 sinon.match.any,
 
-                // eslint-disable-next-line indent
-                  '\n'
-                + ':root {\n\n'
-                + '/**\n'
-                + ' * \n'
-                + ' */\n'
-                + '--variable-name: shadow-effect-1, shadow-effect-2;\n'
-                + '\n}\n',
+                JSON.stringify({
+                    variable: {
+                        name: {
+                            value: 'shadow-effect-1, shadow-effect-2',
+                        },
+                    },
+                }, undefined, 2),
             );
         });
 
@@ -288,14 +273,13 @@ describe('style output as css', () => {
             expect(writeFileSync).to.be.calledWithMatch(
                 sinon.match.any,
 
-                // eslint-disable-next-line indent
-                  '\n'
-                + ':root {\n\n'
-                + '/**\n'
-                + ' * \n'
-                + ' */\n'
-                + '--variable-name: blur-effect;\n'
-                + '\n}\n',
+                JSON.stringify({
+                    variable: {
+                        name: {
+                            value: 'blur-effect',
+                        },
+                    },
+                }, undefined, 2),
             );
         });
 
@@ -314,14 +298,13 @@ describe('style output as css', () => {
             expect(writeFileSync).to.be.calledWith(
                 sinon.match.any,
 
-                // eslint-disable-next-line indent
-                  '\n'
-                + ':root {\n\n'
-                + '/**\n'
-                + ' * \n'
-                + ' */\n'
-                + '--variable-name: shadow-effect-1, shadow-effect-2;\n'
-                + '\n}\n',
+                JSON.stringify({
+                    variable: {
+                        name: {
+                            value: 'shadow-effect-1, shadow-effect-2',
+                        },
+                    },
+                }, undefined, 2),
             );
         });
     });
@@ -338,24 +321,55 @@ describe('style output as css', () => {
             expect(writeFileSync).to.be.calledWith(
                 sinon.match.any,
 
-                // eslint-disable-next-line indent
-                  '\n'
-                + ':root {\n\n'
-                + '/**\n'
-                + ' * \n'
-                + ' */\n'
-                + '--variable-name-font-family: "Verdana";\n'
-                + '--variable-name-font-size: 12px;\n'
-                + '--variable-name-font-style: italic;\n'
-                + '--variable-name-font-variant: normal;\n'
-                + '--variable-name-font-weight: 100;\n'
-                + '--variable-name-letter-spacing: 10px;\n'
-                + '--variable-name-line-height: 12px;\n'
-                + '--variable-name-text-align: left;\n'
-                + '--variable-name-text-decoration: none;\n'
-                + '--variable-name-text-transform: uppercase;\n'
-                + '--variable-name-vertical-align: middle;\n'
-                + '\n}\n',
+                JSON.stringify({
+                    variable: {
+                        name: {
+                            font: {
+                                family: {
+                                    value: '"Roboto Condensed"',
+                                },
+                                size: {
+                                    value: '12px',
+                                },
+                                style: {
+                                    value: 'italic',
+                                },
+                                variant: {
+                                    value: 'normal',
+                                },
+                                weight: {
+                                    value: '100',
+                                },
+                            },
+                            letter: {
+                                spacing: {
+                                    value: '10px',
+                                },
+                            },
+                            line: {
+                                height: {
+                                    value: '12px',
+                                },
+                            },
+                            text: {
+                                align: {
+                                    value: 'left',
+                                },
+                                decoration: {
+                                    value: 'none',
+                                },
+                                transform: {
+                                    value: 'uppercase',
+                                },
+                            },
+                            vertical: {
+                                align: {
+                                    value: 'middle',
+                                },
+                            },
+                        },
+                    },
+                }, undefined, 2),
             );
         });
     });

@@ -1,6 +1,7 @@
 import AsCss from './AsCss';
 import AsSass from './AsSass';
 import AsLess from './AsLess';
+import AsStyleDictionary from './AsStyleDictionary';
 
 const FigmaStyles = () => (
     <div className="section-block container text-center">
@@ -55,6 +56,7 @@ const FigmaStyles = () => (
         </div>
 
         <AsCss />
+        <AsStyleDictionary />
         <AsSass />
         <AsLess />
     </div>

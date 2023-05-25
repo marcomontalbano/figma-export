@@ -27,7 +27,7 @@ You can export your Figma Components as SVG and use them inside your website.
 
 ### Styles
 
-You can export your Figma Styles into different output like `.sass` format, `.scss` format or you can create your own outputter.
+You can export your Figma Styles into different output like `.sass` format, `.scss` format, [`Style Dictionary`](https://amzn.github.io/style-dictionary/#/) tokens or you can create your own outputter.
 
 > If you want to keep the style of your Figma file in-sync with the `.css` of your website, this is a must-have.
 

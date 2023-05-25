@@ -1,15 +1,15 @@
-# @figma-export/output-styles-as-less
+# @figma-export/output-styles-as-style-dictionary
 
-> Styles Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports styles to LESS.
+> Styles Outputter for [@figma-export](https://github.com/marcomontalbano/figma-export) that exports styles to [Style Dictionary](https://amzn.github.io/style-dictionary/#/) JSON format.
 
-With this outputter you can export all the styles as variables inside a `.less` file.
+With this outputter you can export all the styles as variables inside a `.json`.
 
 This is a sample of the output:
 
 ```sh
 $ tree output/
 # output/
-# └── _variables.less
+# └── base.json
 ```
 
 
@@ -23,7 +23,7 @@ module.exports = {
         ['styles', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             outputters: [
-                require('@figma-export/output-styles-as-less')({
+                require('@figma-export/output-styles-as-style-dictionary')({
                     output: './output'
                 })
             ]
@@ -34,16 +34,17 @@ module.exports = {
 
 `output` is **mandatory**.
 
-`getFilename` and `getVariableName` are **optional**.
+`getExtension`, `getFilename` and `getVariableName` are **optional**.
 
 ```js
 const { kebabCase } = require('@figma-export/utils');
 
 ...
 
-require('@figma-export/output-styles-as-less')({
+require('@figma-export/output-styles-as-style-dictionary')({
     output: './output',
-    getFilename: () => '_variables',
+    getExtension: () => 'JSON',
+    getFilename: () => 'base',
     getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,
 })
 ```
@@ -55,11 +56,11 @@ require('@figma-export/output-styles-as-less')({
 Using npm:
 
 ```sh
-npm install --save-dev @figma-export/output-styles-as-less
+npm install --save-dev @figma-export/output-styles-as-style-dictionary
 ```
 
 or using yarn:
 
 ```sh
-yarn add @figma-export/output-styles-as-less --dev
+yarn add @figma-export/output-styles-as-style-dictionary --dev
 ```
