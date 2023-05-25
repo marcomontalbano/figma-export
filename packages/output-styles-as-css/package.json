@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-styles-as-css",
-    "version": "4.6.0",
+    "version": "4.7.0-alpha.0",
     "description": "Outputter for @figma-export that exports styles to CSS",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^4.6.0",
+        "@figma-export/types": "^4.7.0-alpha.0",
         "@figma-export/utils": "^4.0.0"
     },
     "engines": {
