@@ -16,8 +16,10 @@ export default function HomePage({ icons, monochromeIcons }: Props) {
             <div className="svgstore" dangerouslySetInnerHTML={{ __html: icons }} />
             <div className="svgstore" dangerouslySetInnerHTML={{ __html: monochromeIcons }} />
 
-            <Title />
-            <GitHubLink />
+            <div className='mb-25px'>
+                <Title />
+                <GitHubLink />
+            </div>
 
             <OutputComponents />
             <OutputStyles />

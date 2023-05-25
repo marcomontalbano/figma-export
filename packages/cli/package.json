@@ -10,6 +10,7 @@
   "dependencies": {
     "@figma-export/core": "^5.0.1",
     "@figma-export/types": "^5.0.1",
+    "axios": "^1.4.0",
     "ora": "~5.4.1",
     "sade": "~1.8.1"
   },
