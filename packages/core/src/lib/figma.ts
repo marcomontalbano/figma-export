@@ -23,7 +23,7 @@ export const getClient = (token: string): Figma.ClientInterface => {
         throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
     }
 
-    return Figma.Client({ accessToken: token });
+    return Figma.Client({ personalAccessToken: token });
 };
 
 /**

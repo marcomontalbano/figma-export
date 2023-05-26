@@ -12,6 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(443).json({ message: 'Access denied!' })
   }
 
-  res.setHeader('Set-Cookie', `state=${state}; Path=/api/oauth`)
+  res.setHeader('Set-Cookie', `state=${state}; Path=/api/auth`)
   res.redirect(307, `https://www.figma.com/oauth?client_id=${FIGMA_APP_CLIENT_ID}&redirect_uri=${FIGMA_APP_REDIRECT_URI}&scope=file_read&state=${state}&response_type=code`)
 }

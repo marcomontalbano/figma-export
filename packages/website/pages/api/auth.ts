@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const cookieState = req.cookies.state
 
   // delete `state` cookie
-  res.setHeader('Set-Cookie', `state=; Path=/api/oauth; Max-Age=0`)
+  res.setHeader('Set-Cookie', `state=; Path=/api/auth; Max-Age=0`)
 
   if (isValid(state, cookieState)) {
     const code = req.query.code
@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       .then(r => r.json())
   
     setItem(state, auth)
-    res.status(307).redirect('/authorized')
+    res.status(307).redirect('/auth/success')
   } else {
     res.status(443).json({ message: 'Access denied!' })
   }
