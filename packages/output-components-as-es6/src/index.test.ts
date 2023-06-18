@@ -12,6 +12,7 @@ import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 describe('outputter as es6', () => {
@@ -80,7 +81,7 @@ describe('outputter as es6', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1.js',
+            path.join('output', 'page1.js'),
 
             // eslint-disable-next-line max-len
             'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
@@ -102,7 +103,7 @@ describe('outputter as es6', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1.js',
+            path.join('output', 'page1.js'),
 
             // eslint-disable-next-line max-len
             'export const iFigmaLogoMyIco = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
@@ -124,7 +125,7 @@ describe('outputter as es6', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1.js',
+            path.join('output', 'page1.js'),
             // eslint-disable-next-line max-len
             'export const figmaLogo = `PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA0MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=`;',
         );
@@ -145,7 +146,7 @@ describe('outputter as es6', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1.js',
+            path.join('output', 'page1.js'),
             // eslint-disable-next-line max-len
             "export const figmaLogo = `data:image/svg+xml,%3csvg width='40' height='60' viewBox='0 0 40 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3c/svg%3e`;",
         );
@@ -173,7 +174,7 @@ describe('outputter as es6', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1.js',
+            path.join('output', 'page1.js'),
 
             // eslint-disable-next-line max-len
             'export const figmaLogo = `<svg></svg>`;',
@@ -238,7 +239,7 @@ describe('outputter as es6', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1/subpath/subsubpath.js',
+            path.join('output', 'page1', 'subpath', 'subsubpath.js'),
 
             // eslint-disable-next-line max-len
             'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
@@ -246,7 +247,7 @@ describe('outputter as es6', () => {
 
         expect(mkdirSync).to.be.calledOnce;
         expect(mkdirSync).to.be.calledWithMatch(
-            'output/page1/subpath',
+            path.join('output', 'page1', 'subpath'),
             { recursive: true },
         );
     });

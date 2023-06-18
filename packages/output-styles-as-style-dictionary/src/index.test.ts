@@ -9,6 +9,7 @@ import {
 import { camelCase } from '@figma-export/utils';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
@@ -109,7 +110,7 @@ describe('style output as style-dictionary json', () => {
         ]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/base.json', '');
+        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', 'base.json'), '');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
@@ -120,7 +121,7 @@ describe('style output as style-dictionary json', () => {
         })([]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/base-file.json');
+        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', 'base-file.json'));
     });
 
     it('should sanitize variable names', async () => {
@@ -181,7 +182,7 @@ describe('style output as style-dictionary json', () => {
             ]);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch('/output-folder/base.json', '');
+            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', 'base.json'), '');
         });
 
         it('should be able to extract a solid color', async () => {

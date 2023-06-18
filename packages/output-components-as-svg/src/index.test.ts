@@ -4,6 +4,7 @@ import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 describe('outputter as svg', () => {
@@ -25,8 +26,8 @@ describe('outputter as svg', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/page1/Figma-Logo.svg');
-        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/page1/Search.svg');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'page1', 'Figma-Logo.svg'));
+        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'page1', 'Search.svg'));
     });
 
     it('should create folder if component names contain slashes', async () => {
@@ -39,7 +40,7 @@ describe('outputter as svg', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/Figma-logo.svg');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'Figma-logo.svg'));
     });
 
     describe('options', () => {
@@ -55,7 +56,7 @@ describe('outputter as svg', () => {
             })(pages);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/fakePage-Figma-logo.svg');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'fakePage-Figma-logo.svg'));
         });
 
         it('should be able to customize "dirname"', async () => {
@@ -68,7 +69,7 @@ describe('outputter as svg', () => {
             })(pages);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/fakePage-Figma-logo.svg');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'icon', 'fakePage-Figma-logo.svg'));
         });
     });
 });
