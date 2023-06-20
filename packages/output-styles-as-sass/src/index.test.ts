@@ -9,6 +9,7 @@ import {
 import { camelCase } from '@figma-export/utils';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
@@ -109,7 +110,7 @@ describe('style output as scss', () => {
         ]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.scss', '');
+        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.scss'), '');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
@@ -120,7 +121,7 @@ describe('style output as scss', () => {
         })([]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/_figma-styles.sass');
+        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_figma-styles.sass'));
     });
 
     it('should sanitize variable names', async () => {
@@ -179,7 +180,7 @@ describe('style output as scss', () => {
             ]);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.scss', '');
+            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.scss'), '');
         });
 
         it('should be able to extract a solid color', async () => {

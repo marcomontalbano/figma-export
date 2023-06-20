@@ -9,6 +9,7 @@ import {
 import { camelCase } from '@figma-export/utils';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
@@ -109,7 +110,7 @@ describe('style output as css', () => {
         ]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.css', '');
+        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.css'), '');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
@@ -119,7 +120,7 @@ describe('style output as css', () => {
         })([]);
 
         expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch('/output-folder/_figma-styles.css');
+        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_figma-styles.css'));
     });
 
     it('should sanitize variable names', async () => {
@@ -182,7 +183,7 @@ describe('style output as css', () => {
             ]);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.css', '');
+            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.css'), '');
         });
 
         it('should be able to extract a solid color', async () => {
@@ -247,7 +248,7 @@ describe('style output as css', () => {
             ]);
 
             expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch('/output-folder/_variables.css', '');
+            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.css'), '');
         });
 
         it('should be able to extract a box-shadow', async () => {

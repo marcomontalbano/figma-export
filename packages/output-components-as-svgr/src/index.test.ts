@@ -7,6 +7,7 @@ import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 describe('outputter as svgr', () => {
@@ -62,10 +63,10 @@ describe('outputter as svgr', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledThrice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/FigmaLogo.jsx');
-        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/Search.jsx');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'FigmaLogo.jsx'));
+        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'Search.jsx'));
         expect(writeFileSync.thirdCall).to.be.calledWithMatch(
-            'output/fakePage/index.js',
+            path.join('output', 'fakePage', 'index.js'),
             'export { default as FigmaLogo } from \'./FigmaLogo.jsx\';',
         );
     });
@@ -80,10 +81,10 @@ describe('outputter as svgr', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledThrice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/FigmaLogo.tsx');
-        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/Search.tsx');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'FigmaLogo.tsx'));
+        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'Search.tsx'));
         expect(writeFileSync.thirdCall).to.be.calledWithMatch(
-            'output/fakePage/index.ts',
+            path.join('output', 'fakePage', 'index.ts'),
             'export { default as FigmaLogo } from \'./FigmaLogo.tsx\';',
         );
     });
@@ -98,9 +99,9 @@ describe('outputter as svgr', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/Search.jsx');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'Search.jsx'));
         expect(writeFileSync.secondCall).to.be.calledWithMatch(
-            'output/fakePage/index.js',
+            path.join('output', 'fakePage', 'index.js'),
             'export { Search } from \'./customPath\';',
         );
     });
@@ -114,8 +115,8 @@ describe('outputter as svgr', () => {
         })(pages);
 
         expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FigmaLogo.jsx');
-        expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/icon/index.js');
+        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FigmaLogo.jsx'));
+        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'index.js'));
     });
 
     describe('options', () => {
@@ -128,9 +129,9 @@ describe('outputter as svgr', () => {
                 getDirname: (options) => `${options.dirname}`,
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/icon/FigmaLogo.jsx');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'icon', 'FigmaLogo.jsx'));
             expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                'output/icon/index.js',
+                path.join('output', 'icon', 'index.js'),
                 "export { default as FigmaLogo } from './FigmaLogo.jsx';",
             );
         });
@@ -141,9 +142,9 @@ describe('outputter as svgr', () => {
                 getComponentName: (options) => options.basename.toUpperCase(),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FIGMA-LOGO.jsx');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FIGMA-LOGO.jsx'));
             expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                'output/fakePage/icon/index.js',
+                path.join('output', 'fakePage', 'icon', 'index.js'),
                 "export { default as FIGMA-LOGO } from './FIGMA-LOGO.jsx';",
             );
         });
@@ -154,9 +155,9 @@ describe('outputter as svgr', () => {
                 getComponentFilename: (options) => kebabCase(options.basename).toLowerCase(),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/figma-logo.jsx');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'figma-logo.jsx'));
             expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                'output/fakePage/icon/index.js',
+                path.join('output', 'fakePage', 'icon', 'index.js'),
                 "export { default as FigmaLogo } from './figma-logo.jsx';",
             );
         });
@@ -168,9 +169,9 @@ describe('outputter as svgr', () => {
                 getComponentFilename: (options) => camelCase(options.basename),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/figmaLogo.jsx');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'figmaLogo.jsx'));
             expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                'output/fakePage/icon/index.js',
+                path.join('output', 'fakePage', 'icon', 'index.js'),
                 "export { default as FIGMA-LOGO } from './figmaLogo.jsx';",
             );
         });
@@ -181,8 +182,11 @@ describe('outputter as svgr', () => {
                 getFileExtension: () => '.js',
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FigmaLogo.js');
-            expect(writeFileSync.secondCall).to.be.calledWithMatch('output/fakePage/icon/index.js', "from './FigmaLogo.js';");
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FigmaLogo.js'));
+            expect(writeFileSync.secondCall).to.be.calledWithMatch(
+                path.join('output', 'fakePage', 'icon', 'index.js'),
+                "from './FigmaLogo.js';",
+            );
         });
 
         it('should be able to customize "svgrConfig"', async () => {
@@ -193,7 +197,7 @@ describe('outputter as svgr', () => {
                 getSvgrConfig: () => ({ native: true }),
             })(pagesWithSvg);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch('output/fakePage/icon/FigmaLogo.jsx');
+            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FigmaLogo.jsx'));
             expect(svgrAsync.firstCall).to.be.calledWithMatch(figmaDocument.componentWithSlashedNameOutput.svg, { native: true });
         });
     });

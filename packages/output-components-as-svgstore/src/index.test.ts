@@ -5,6 +5,7 @@ import * as figmaDocument from '../../core/src/lib/_config.test';
 import * as figma from '../../core/src/lib/figma';
 
 import fs from 'fs';
+import path from 'path';
 import outputter from './index';
 
 describe('outputter as svgstore', () => {
@@ -30,7 +31,7 @@ describe('outputter as svgstore', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1.svg',
+            path.join('output', 'page1.svg'),
             'id="page1/Figma-Logo"',
         );
 
@@ -52,13 +53,13 @@ describe('outputter as svgstore', () => {
 
         expect(writeFileSync).to.be.calledOnce;
         expect(writeFileSync).to.be.calledWithMatch(
-            'output/page1/subpath/subsubpath.svg',
+            path.join('output', 'page1', 'subpath', 'subsubpath.svg'),
             'id="page1/subpath/subsubpath/Figma-Logo"',
         );
 
         expect(mkdirSync).to.be.calledOnce;
         expect(mkdirSync).to.be.calledWithMatch(
-            'output/page1/subpath',
+            path.join('output', 'page1', 'subpath'),
             { recursive: true },
         );
     });
