@@ -45,6 +45,8 @@ export type ComponentsCommandOptions = {
 
     /** Maximum number of retries when fetching fails */
     retries?: number;
+
+    ids?: string[];
 }
 
 export type StylesCommandOptions = {
@@ -65,6 +67,8 @@ export type StylesCommandOptions = {
 
     /** Outputter module name or path */
     outputters?: StyleOutputter[];
+
+    ids?: string[];
 }
 
 export type FigmaExportRC = {

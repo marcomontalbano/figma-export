@@ -1,6 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
 
-import { getClient, getPages } from './figma';
+import { getClient, getPageIds } from './figma';
 import { fetchStyles, parseStyles } from './figmaStyles';
 
 export const styles: FigmaExport.StylesCommand = async ({
@@ -8,16 +8,23 @@ export const styles: FigmaExport.StylesCommand = async ({
     fileId,
     version,
     onlyFromPages = [],
+    ids = [],
     outputters = [],
     log = (msg): void => {
         // eslint-disable-next-line no-console
         console.log(msg);
     },
 }) => {
+    if (onlyFromPages?.length && ids?.length) {
+        throw new Error('\'onlyFromPages\' and \'ids\' are mutually exclusive.');
+    }
+
     const client = getClient(token);
 
     log('fetching document');
-    const { data: { document = null } = {} } = await client.file(fileId, { version, depth: 1 }).catch((error: Error) => {
+    const {
+        data: { document = null, version: documentVersion } = {},
+    } = await client.file(fileId, { version, depth: 1 }).catch((error: Error) => {
         throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
     });
 
@@ -25,11 +32,10 @@ export const styles: FigmaExport.StylesCommand = async ({
         throw new Error('\'document\' is missing.');
     }
 
-    const ids = getPages((document), { only: onlyFromPages })
-        .map((page) => page.id);
+    const rootNodeIds = ids?.length ? ids : getPageIds(document, onlyFromPages);
 
     log('fetching styles');
-    const styleNodes = await fetchStyles(client, fileId, version, onlyFromPages.length > 0 ? ids : undefined);
+    const styleNodes = await fetchStyles(client, fileId, documentVersion, rootNodeIds);
 
     log('parsing styles');
     const parsedStyles = parseStyles(styleNodes);

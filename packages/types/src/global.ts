@@ -17,7 +17,7 @@ export interface ComponentNode extends Figma.Component {
     svg: string;
 }
 
-export interface PageNode extends Figma.Canvas {
+export interface PageNode extends Figma.Global {
     components: ComponentNode[];
 }
 

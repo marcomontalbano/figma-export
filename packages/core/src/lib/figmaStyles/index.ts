@@ -26,12 +26,13 @@ const fetchStyles = async (
         throw new Error(`while fetching fileNodes: ${error.message}`);
     });
 
-    const styleNodes = Object.values(nodes).map((node) => node?.document);
-
-    return styleNodes.map((node) => ({
-        ...(node ? styles[node.id] : ({} as Figma.Style)),
-        ...(node as Figma.Node),
-    }));
+    return Object.values(nodes)
+        .filter(notEmpty)
+        .map((node) => node.document)
+        .map((node) => ({
+            ...styles[node.id],
+            ...node,
+        }));
 };
 
 const parseStyles = (styleNodes: FigmaExport.StyleNode[]): FigmaExport.Style[] => {

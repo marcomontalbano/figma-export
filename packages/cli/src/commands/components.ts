@@ -15,6 +15,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .option('-r, --retries', 'Maximum number of retries when fetching fails', 3)
     .option('-o, --output', 'Output directory', 'output')
     .option('-p, --page', 'Figma page names (all pages when not specified)')
+    .option('-i, --ids', 'Figma node ID-s (cannot be used together with --page)')
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)
     .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg')
@@ -29,6 +30,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
             const outputter = asArray<string>(opts.outputter);
             const transformer = asArray<string>(opts.transformer);
             const page = asArray<string>(opts.page);
+            const ids = asArray<string>(opts.ids);
 
             spinner.info(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
 
@@ -41,6 +43,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
                 retries,
                 token: process.env.FIGMA_TOKEN || '',
                 onlyFromPages: page,
+                ids,
                 transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
                 outputters: requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
 

@@ -6,15 +6,15 @@ import pRetry from 'p-retry';
 import * as FigmaExport from '@figma-export/types';
 
 import {
-    toArray,
     fetchAsSvgXml,
     promiseSequentially,
     fromEntries,
     chunk,
     emptySvg,
+    notEmpty,
 } from './utils';
 
-const getComponents = (
+const getComponentsInner = (
     children: readonly Figma.Node[] = [],
     filter: FigmaExport.ComponentFilter = () => true,
     pathToComponent: FigmaExport.ComponentExtras['pathToComponent'] = [],
@@ -39,7 +39,7 @@ const getComponents = (
         if ('children' in node) {
             components = [
                 ...components,
-                ...getComponents(
+                ...getComponentsInner(
                     (node.children),
                     filter,
                     [...pathToComponent, { name: node.name, type: node.type }],
@@ -51,25 +51,22 @@ const getComponents = (
     return components;
 };
 
-const filterPagesByName = (pages: readonly Figma.Canvas[], pageNames: string | string[] = []): Figma.Canvas[] => {
-    const only = toArray(pageNames).filter((p) => p.length);
-    return pages.filter((page) => only.length === 0 || only.includes(page.name));
+const getComponents = (
+    root: Figma.Node,
+    filter: FigmaExport.ComponentFilter = () => true,
+): FigmaExport.ComponentNode[] => {
+    if (root.type !== 'COMPONENT' && 'children' in root) {
+        return getComponentsInner(root.children, filter);
+    }
+
+    return getComponentsInner([root], filter);
 };
 
-type GetPagesOptions = {
-    only?: string | string[];
-    filter?: FigmaExport.ComponentFilter;
-}
-
-const getPages = (document: Figma.Document, options: GetPagesOptions = {}): FigmaExport.PageNode[] => {
-    const pages = filterPagesByName(document.children as Figma.Canvas[], options.only);
-
-    return pages
-        .map((page) => ({
-            ...page,
-            components: getComponents(page.children as readonly FigmaExport.ComponentNode[], options.filter),
-        }))
-        .filter((page) => page.components.length > 0);
+const getPageIds = (document: Figma.Document, pageNames: string[]): string[] => {
+    const only = pageNames.filter((p) => p.length);
+    return document.children
+        .filter((page) => only.length === 0 || only.includes(page.name))
+        .map((canvas) => canvas.id);
 };
 
 const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => pages.reduce((ids: string[], page) => [
@@ -85,8 +82,14 @@ const getClient = (token: string): Figma.ClientInterface => {
     return Figma.Client({ personalAccessToken: token });
 };
 
-const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]): Promise<{readonly [key: string]: string}> => {
+const fileImages = async (
+    client: Figma.ClientInterface,
+    fileId: string,
+    ids: string[],
+    version?: string,
+): Promise<{readonly [key: string]: string}> => {
     const response = await client.fileImages(fileId, {
+        version,
         ids,
         format: 'svg',
         svg_include_id: true,
@@ -97,12 +100,17 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
     return response.data.images;
 };
 
-const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]): Promise<{readonly [key: string]: string}> => {
+const getImages = async (
+    client: Figma.ClientInterface,
+    fileId: string,
+    ids: string[],
+    version?: string,
+): Promise<{readonly [key: string]: string | null}> => {
     const idss = chunk(ids, 200);
     const limit = pLimit(30);
 
     const resolves = await Promise.all(idss.map((groupIds) => {
-        return limit(() => fileImages(client, fileId, groupIds));
+        return limit(() => fileImages(client, fileId, groupIds, version));
     }));
 
     return Object.assign({}, ...resolves);
@@ -123,6 +131,7 @@ const fileSvgs = async (
     client: Figma.ClientInterface,
     fileId: string,
     ids: string[],
+    version: string | undefined,
     {
         concurrency = 30,
         retries = 3,
@@ -131,10 +140,15 @@ const fileSvgs = async (
         onFetchCompleted = () => {},
     }: FileSvgOptions = {},
 ): Promise<FigmaExportFileSvg> => {
-    const images = await getImages(client, fileId, ids);
+    const images = await getImages(client, fileId, ids, version);
     const limit = pLimit(concurrency);
     let index = 0;
-    const svgPromises = Object.entries(images).map(async ([id, url]) => {
+
+    const svgPromises = Object.entries(images).filter(([, url]) => notEmpty(url)).map(async ([id, url]) => {
+        if (url === null) {
+            throw new Error('url is null');
+        }
+
         const svg = await limit(
             () => pRetry(() => fetchAsSvgXml(url), { retries }),
         );
@@ -153,11 +167,12 @@ const fileSvgs = async (
     return fromEntries(svgs);
 };
 
-const enrichPagesWithSvg = async (
+const enrichNodesWithSvg = async (
     client: Figma.ClientInterface,
     fileId: string,
     pages: FigmaExport.PageNode[],
     svgOptions?: FileSvgOptions,
+    version?: string,
 ): Promise<FigmaExport.PageNode[]> => {
     const componentIds = getIdsFromPages(pages);
 
@@ -165,7 +180,7 @@ const enrichPagesWithSvg = async (
         throw new Error('No components found');
     }
 
-    const svgs = await fileSvgs(client, fileId, componentIds, svgOptions);
+    const svgs = await fileSvgs(client, fileId, componentIds, version, svgOptions);
 
     return pages.map((page) => ({
         ...page,
@@ -178,10 +193,9 @@ const enrichPagesWithSvg = async (
 
 export {
     getComponents,
-    getPages,
-    getIdsFromPages,
+    getPageIds,
     getClient,
     getImages,
     fileSvgs,
-    enrichPagesWithSvg,
+    enrichNodesWithSvg,
 };
