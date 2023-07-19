@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/marcomontalbano/figma-export"><img alt="Build Status" src="https://github.com/marcomontalbano/figma-export/workflows/Node%20CI/badge.svg" /></a>
+    <a href="https://github.com/marcomontalbano/figma-export/actions/workflows/test.yml"><img alt="Test" src="https://github.com/marcomontalbano/figma-export/actions/workflows/test.yml/badge.svg" /></a>
     <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=main"><img alt="Coverage Status" src="https://coveralls.io/repos/github/marcomontalbano/figma-export/badge.svg?branch=main" /></a>
     <a href="https://github.com/sponsors/marcomontalbano"><img alt="Sponsor" src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors" /></a>
 </p>
