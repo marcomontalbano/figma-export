@@ -7,6 +7,12 @@ function isValid(cookieState: unknown, queryState: unknown): cookieState is stri
     && cookieState === queryState
 }
 
+function rnd(length: number) {
+  let min = Math.pow(10, length - 1)
+  let max = Math.pow(10, length) - 1
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const state = req.query.state
   const cookieState = req.cookies.state
@@ -26,8 +32,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       )
       .then(r => r.json())
   
-    setItem(state, auth)
-    res.status(307).redirect('/auth/success')
+    const pin = rnd(6)
+    setItem(`${state}:${pin}`, auth)
+    res.status(307).redirect(`/auth/success#${pin}`)
   } else {
     res.status(443).json({ message: 'Access denied!' })
   }

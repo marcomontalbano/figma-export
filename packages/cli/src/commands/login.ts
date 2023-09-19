@@ -1,7 +1,9 @@
 import crypto from 'crypto';
 import { Ora } from 'ora';
 import { Sade } from 'sade';
-import axios from 'axios';
+
+import readline from 'readline';
+import { jsonFetch } from '../jsonFetch';
 
 type Auth = {
     user_id: number
@@ -10,16 +12,8 @@ type Auth = {
     expires_in: number
 }
 
-function check(state: string): Promise<Auth> {
-    const result = axios.get<Auth>(`http://localhost:3000/api/check/${state}`).then((response) => {
-        return response.data;
-    }).catch(() => {
-        return new Promise<Auth>((resolve) => {
-            setTimeout(() => resolve(check(state)), 2000);
-        });
-    });
-
-    return result;
+function check(state: string): Promise<Auth | undefined> {
+    return jsonFetch<Auth>(`http://127.0.0.1:3000/api/check/${state}`).then((response) => response.data).catch(() => undefined);
 }
 
 export const addLogin = (prog: Sade, spinner: Ora) => prog
@@ -32,12 +26,34 @@ export const addLogin = (prog: Sade, spinner: Ora) => prog
             spinner.info('Log in on https://figma.com');
             console.log(`
 Login at:
-http://localhost:3000/api/login/${state}
+http://127.0.0.1:3000/api/login/${state}
           `);
-            spinner.start('waiting');
-            check(state).then((response) => {
-                spinner.info(response.access_token);
-                spinner.succeed('Logged in on https://figma.com.');
+
+            const rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
             });
+
+            rl.question('PIN: ', (pin) => {
+                check(`${state}:${pin}`).then((response) => {
+                    if (response == null) {
+                        spinner.fail('Failed to login!');
+                        return;
+                    }
+
+                    spinner.info(JSON.stringify(response, undefined, 2));
+                    spinner.succeed('Logged in on https://figma.com.');
+                }).catch((error) => {
+                    spinner.fail(error);
+                });
+                rl.close();
+            });
+
+            // spinner.start('waiting');
+
+            // check(state).then((response) => {
+            //     spinner.info(JSON.stringify(response, undefined, 2));
+            //     spinner.succeed('Logged in on https://figma.com.');
+            // });
         },
     );

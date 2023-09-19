@@ -16,7 +16,7 @@ export function setItem(key: string, value: Auth): void {
 
   setTimeout(() => {
     removeItem(key)
-  }, 10 * 1000)
+  }, 30 * 1000)
 }
 
 export function getItem(key: string): Auth | undefined {
