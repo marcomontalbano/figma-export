@@ -21,6 +21,7 @@
     "react"
   ],
   "license": "MIT",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },

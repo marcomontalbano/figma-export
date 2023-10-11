@@ -5,7 +5,7 @@ import {
     kebabCase,
     pascalCase,
     snakeCase,
-} from './index';
+} from './index.js';
 
 describe('utils', () => {
     it('camelCase', async () => {

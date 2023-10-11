@@ -275,7 +275,7 @@ Take a look at [.figmaexportrc.example.ts](/.figmaexportrc.example.ts) for more 
 
 Node.js is now supporting [ECMAScript modules (ESM)](https://nodejs.org/api/esm.html).
 
-If your package.json contains the `"type": "module"` field then you'll need to rename your `.figmaexportrc.js` configuration file:
+If your package.json contains the `  "type": "module"` field then you'll need to rename your `.figmaexportrc.js` configuration file:
 
 ```diff
 -  .figmaexportrc.js

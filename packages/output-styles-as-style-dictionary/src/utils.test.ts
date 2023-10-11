@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { writeVariable } from './utils';
+import { writeVariable } from './utils.js';
 
 describe('utils', () => {
     describe('writeVariable', () => {

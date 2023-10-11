@@ -2,18 +2,17 @@
   "name": "figma-export",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "description": "Export tool for Figma",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "debug": "yarn build && ts-node ./packages/cli/bin/run use-config .figmaexportrc.ts",
+    "debug": "yarn build && node ./packages/cli/bin/run.js use-config",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "postinstall": "husky install",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/output */*/dist */*/tsconfig.tsbuildinfo",
@@ -51,7 +50,7 @@
     "@types/sinon-chai": "~3.2.12",
     "@typescript-eslint/eslint-plugin": "~7.0.2",
     "@typescript-eslint/parser": "~7.0.2",
-    "chai": "~4.4.1",
+    "chai": "~5.1.0",
     "chai-as-promised": "^7.1.1",
     "chai-things": "~0.2.0",
     "eslint": "~8.57.0",
@@ -69,6 +68,7 @@
     "nyc": "~15.1.0",
     "sinon": "~17.0.1",
     "sinon-chai": "~3.7.0",
+    "testdouble": "^3.20.1",
     "ts-node": "~10.9.2",
     "typescript": "~5.3.3"
   },

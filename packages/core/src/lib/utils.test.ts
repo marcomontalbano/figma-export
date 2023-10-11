@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import nock from 'nock';
 
-import * as utils from './utils';
+import * as utils from './utils.js';
 
 describe('utils.', () => {
     describe('toArray', () => {

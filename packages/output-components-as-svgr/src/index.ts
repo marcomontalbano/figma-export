@@ -1,9 +1,9 @@
 import * as FigmaExport from '@figma-export/types';
 import { pascalCase } from '@figma-export/utils';
-import { transform, Config, State } from '@svgr/core';
+import { transform, type Config, type State } from '@svgr/core';
 
-import fs = require('fs');
-import path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 type Options = {
     output: string;
@@ -27,7 +27,7 @@ type IndexFile = {
     };
 };
 
-export = ({
+export default ({
     output,
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getComponentName = (options): string => `${pascalCase(options.basename)}`,
@@ -65,7 +65,13 @@ export = ({
                 const svgrConfig = getSvgrConfig(options);
                 const svgrState: State = { componentName: reactComponentName };
 
-                const jsCode = transform.sync(svg, svgrConfig, svgrState);
+                const jsCode = transform.sync(svg, {
+                    ...svgrConfig,
+                    plugins: [
+                        '@svgr/plugin-jsx',
+                        ...svgrConfig.plugins?.filter((p) => p !== '@svgr/plugin-jsx') ?? [],
+                    ],
+                }, svgrState);
 
                 fs.writeFileSync(path.resolve(filePath, reactComponentFilename), jsCode);
             });

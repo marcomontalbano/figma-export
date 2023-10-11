@@ -1,14 +1,14 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 import * as svgr from '@svgr/core';
 import nock from 'nock';
 import { camelCase, kebabCase } from '@figma-export/utils';
-import * as figmaDocument from '../../core/src/lib/_config.test';
-import * as figma from '../../core/src/lib/figma';
+import * as figmaDocument from '../../core/src/lib/_config.test.js';
+import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'fs';
 import path from 'path';
-import outputter from './index';
+import outputter from './index.js';
 
 describe('outputter as svgr', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

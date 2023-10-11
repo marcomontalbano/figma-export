@@ -5,6 +5,13 @@ module.exports = {
         node: true,
         mocha: true,
     },
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
+    },
     extends: [
         'airbnb-base',
     ],
@@ -29,6 +36,14 @@ module.exports = {
         'no-unused-expressions': 'off',
         'chai-friendly/no-unused-expressions': 'error',
         'arrow-body-style': 'off',
+        'import/extensions': [
+            'error',
+            'always',
+            {
+                ts: 'never',
+                tsx: 'never',
+            },
+        ],
     },
     overrides: [
         {
@@ -46,17 +61,10 @@ module.exports = {
             ],
             rules: {
                 'import/order': 'off',
+
+                'import/no-unresolved': 'off',
+
                 'import/prefer-default-export': 'off',
-                'import/extensions': [
-                    'error',
-                    'always',
-                    {
-                        ts: 'never',
-                        tsx: 'never',
-                        js: 'never',
-                        jsx: 'never',
-                    },
-                ],
             },
         },
         {

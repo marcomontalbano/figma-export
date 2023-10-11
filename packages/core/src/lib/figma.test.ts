@@ -1,11 +1,12 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 import nock from 'nock';
+import * as td from 'testdouble';
 
-import * as Figma from 'figma-js';
+import type * as Figma from 'figma-js';
 
-import * as figmaDocument from './_config.test';
-import * as figma from './figma';
+import * as figmaDocument from './_config.test.js';
+import * as figma from './figma.js';
 
 const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
     filterComponent: () => true,
@@ -140,10 +141,12 @@ describe('figma.', () => {
             }).to.throw(Error);
         });
 
-        it('should create a figma client providing a token', () => {
-            sinon.spy(Figma, 'Client');
-            figma.getClient('token1234');
-            expect(Figma.Client).to.have.been.calledOnceWith({ personalAccessToken: 'token1234' });
+        it('should create a figma client providing a token', async () => {
+            const FigmaJS = await td.replaceEsm('figma-js');
+            const { getClient } = await import('./figma.js');
+
+            getClient('token1234');
+            td.verify(FigmaJS.Client({ personalAccessToken: 'token1234' }));
         });
     });
 

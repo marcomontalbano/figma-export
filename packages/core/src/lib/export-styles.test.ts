@@ -1,14 +1,14 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 
 import * as Figma from 'figma-js';
 
-import * as FigmaExport from './figma';
+import * as FigmaExport from './figma.js';
 
-import { styles as exportStyles } from './export-styles';
+import { styles as exportStyles } from './export-styles.js';
 
-import fileJson from './_mocks_/figma.files.json';
-import fileNodesJson from './_mocks_/figma.fileNodes.json';
+import fileJson from './_mocks_/figma.files.json' assert { type: 'json' };
+import fileNodesJson from './_mocks_/figma.fileNodes.json' assert { type: 'json' };
 
 const file = fileJson as Figma.FileResponse;
 const fileNodes = fileNodesJson as Figma.FileNodesResponse;

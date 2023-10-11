@@ -15,8 +15,8 @@
     "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {
-        "clean": "rimraf dist output out .next",
-        "export": "figma-export use-config",
+        "clean": "rimraf dist output .next",
+        "export": "figma-export use-config .figmaexportrc.cjs",
         "next:lint": "next lint",
         "next:dev": "next dev",
         "next:build": "next build",

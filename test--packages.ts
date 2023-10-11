@@ -2,8 +2,12 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 
-const { readdirSync, statSync } = require('fs');
-const { resolve } = require('path');
+import { readdirSync, statSync } from 'fs';
+import { resolve } from 'path';
+
+import Module from 'node:module';
+
+const require = Module.createRequire(import.meta.url);
 
 const isDirectory = (source: string): boolean => statSync(source).isDirectory();
 
@@ -34,12 +38,12 @@ const getPackages = (): string[] => {
     return readdirSync(packagesFolder).map((filename: string) => resolve(packagesFolder, filename)).filter(isDirectory);
 };
 
-const describePackage = (packagePath: string): void => {
+const describePackage = async (packagePath: string): Promise<void> => {
     const packageJson = resolve(packagePath, 'package.json');
     const { name: packageName } = require(packageJson);
 
     describe(packageName, () => {
-        getTestFiles(`${packagePath}/`).forEach(require);
+        getTestFiles(`${packagePath}/`).forEach((testFile) => import(testFile));
     });
 };
 

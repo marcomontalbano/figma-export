@@ -1,13 +1,13 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 import nock from 'nock';
 
 import * as Figma from 'figma-js';
 
-import * as figmaDocument from './_config.test';
-import * as FigmaExport from './figma';
+import * as figmaDocument from './_config.test.js';
+import * as FigmaExport from './figma.js';
 
-import { components as exportComponents } from './export-components';
+import { components as exportComponents } from './export-components.js';
 
 describe('export-component', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

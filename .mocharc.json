@@ -3,5 +3,9 @@
     "spec": "packages/**/*.test.ts",
     "require": "ts-node/register",
     "file": ["test--registers.ts", "test--packages.ts"],
-    "ignore": ["**/integration.test.ts"]
+    "ignore": ["**/integration.test.ts"],
+    "node-option": [
+        "loader=ts-node/esm",
+        "loader=testdouble"
+    ]
 }

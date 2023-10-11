@@ -1,4 +1,4 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 import {
     StyleNode,
@@ -10,7 +10,7 @@ import { camelCase } from '@figma-export/utils';
 
 import fs from 'fs';
 import path from 'path';
-import outputter from './index';
+import outputter from './index.js';
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,

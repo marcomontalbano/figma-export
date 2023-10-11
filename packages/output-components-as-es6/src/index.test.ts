@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 import nock from 'nock';
 
@@ -8,12 +8,12 @@ import { camelCase } from '@figma-export/utils';
 
 import * as FigmaExport from '@figma-export/types';
 
-import * as figmaDocument from '../../core/src/lib/_config.test';
-import * as figma from '../../core/src/lib/figma';
+import * as figmaDocument from '../../core/src/lib/_config.test.js';
+import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'fs';
 import path from 'path';
-import outputter from './index';
+import outputter from './index.js';
 
 const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
     filterComponent: () => true,

@@ -21,6 +21,7 @@
         "css variables"
     ],
     "license": "MIT",
+    "type": "module",
     "publishConfig": {
         "access": "public"
     },

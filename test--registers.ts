@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 
-import sinon from 'sinon';
-import chai from 'chai';
+import * as sinon from 'sinon';
+import * as chai from 'chai';
 import sinonChai from 'sinon-chai';
 import chaiThings from 'chai-things';
 import chaiAsPromises from 'chai-as-promised';

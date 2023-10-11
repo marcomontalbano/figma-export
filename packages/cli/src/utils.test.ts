@@ -1,12 +1,12 @@
 import { expect } from 'chai';
-import { asArray, requirePackages } from './utils';
+import { asArray, requirePackages } from './utils.js';
 
 describe('Utils', () => {
     describe('requirePackages', () => {
-        it('should require a package given a relative path', () => {
-            expect(requirePackages([])).to.deep.equal([]);
+        it('should require a package given a relative path', async () => {
+            expect(await requirePackages([])).to.deep.equal([]);
 
-            expect(requirePackages(['./utils.requirePackages.mock.js'], { param: 1 })).to.deep.equal([{ param: 1 }]);
+            expect(await requirePackages(['./utils.requirePackages.mock.js'], { param: 1 })).to.deep.equal([{ param: 1 }]);
         });
     });
 

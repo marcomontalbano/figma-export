@@ -1,12 +1,12 @@
-import sinon from 'sinon';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 
-import * as figmaDocument from '../../core/src/lib/_config.test';
-import * as figma from '../../core/src/lib/figma';
+import * as figmaDocument from '../../core/src/lib/_config.test.js';
+import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'fs';
 import path from 'path';
-import outputter from './index';
+import outputter from './index.js';
 
 describe('outputter as svgstore', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

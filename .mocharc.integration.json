@@ -2,5 +2,9 @@
     "extension": ["js", "ts"],
     "spec": "packages/**/integration.test.ts",
     "require": "ts-node/register",
-    "file": ["test--registers.integration.ts"]
+    "file": ["test--registers.integration.ts"],
+    "node-option": [
+        "experimental-specifier-resolution=node",
+        "loader=ts-node/esm"
+    ]
 }

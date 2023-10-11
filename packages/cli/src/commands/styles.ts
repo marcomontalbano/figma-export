@@ -4,7 +4,7 @@ import { Sade } from 'sade';
 import * as figmaExport from '@figma-export/core';
 import * as FigmaExport from '@figma-export/types';
 
-import { asArray, requirePackages } from '../utils';
+import { asArray, requirePackages } from '../utils.js';
 
 export const addStyles = (prog: Sade, spinner: Ora) => prog
     .command('styles <fileId>')
@@ -17,7 +17,7 @@ export const addStyles = (prog: Sade, spinner: Ora) => prog
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)
     .example('styles fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-styles-as-css')
     .action(
-        (fileId, {
+        async (fileId, {
             fileVersion,
             output,
             ...opts
@@ -36,7 +36,7 @@ export const addStyles = (prog: Sade, spinner: Ora) => prog
                 token: process.env.FIGMA_TOKEN || '',
                 ids,
                 onlyFromPages: page,
-                outputters: requirePackages<FigmaExport.StyleOutputter>(outputter, { output }),
+                outputters: await requirePackages<FigmaExport.StyleOutputter>(outputter, { output }),
 
                 // eslint-disable-next-line no-param-reassign
                 log: (message: string) => { spinner.text = message; },

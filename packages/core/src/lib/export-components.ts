@@ -5,7 +5,7 @@ import {
     enrichPagesWithSvg,
     getDocument,
     getPagesWithComponents,
-} from './figma';
+} from './figma.js';
 
 export const components: FigmaExport.ComponentsCommand = async ({
     token,

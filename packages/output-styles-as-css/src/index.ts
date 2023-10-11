@@ -1,10 +1,10 @@
 import * as FigmaExport from '@figma-export/types';
 import { kebabCase } from '@figma-export/utils';
 
-import { sanitizeText, writeComment, writeVariable } from './utils';
+import { sanitizeText, writeComment, writeVariable } from './utils.js';
 
-import fs = require('fs');
-import path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 type Options = {
     output: string;
@@ -12,7 +12,7 @@ type Options = {
     getVariableName?: FigmaExport.GetVariableName;
 }
 
-export = ({
+export default ({
     output,
     getFilename = () => '_variables',
     getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,

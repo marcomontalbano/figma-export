@@ -20,6 +20,7 @@
         "svg"
     ],
     "license": "MIT",
+    "type": "module",
     "publishConfig": {
         "access": "public"
     },

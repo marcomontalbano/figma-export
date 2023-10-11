@@ -2,10 +2,10 @@
 
 import { expect } from 'chai';
 
-import * as figmaDocument from '../../core/src/lib/_config.test';
-import * as figma from '../../core/src/lib/figma';
+import * as figmaDocument from '../../core/src/lib/_config.test.js';
+import * as figma from '../../core/src/lib/figma.js';
 
-import outputter = require('./index');
+import outputter from './index.js';
 
 describe('outputter as stdout', () => {
     it('should output pages in console as json', async () => {
