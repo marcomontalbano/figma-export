@@ -78,6 +78,8 @@ export FIGMA_TOKEN=<personalAccessToken>
 
 ## :test_tube: Just Try
 
+Ensure you have [Node.js](https://nodejs.org/en) installed in your system, the latest LTS is recommended. If you are not familiar with Node.js you can read their [guide](https://nodejs.dev/en/learn/).
+
 If you wanna try it just run following command and you will be able to download all components from https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo as .svg :sunglasses:
 
 ```sh
