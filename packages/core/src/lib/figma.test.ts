@@ -38,42 +38,42 @@ describe('figma.', () => {
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
 
         it('should get all pages by default', () => {
-            expect(figma.getPages(document))
+            expect(figma.getPagesWithComponents(document))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get all pages if "empty" list is provided', () => {
-            expect(figma.getPages(document, { only: [''] }))
+            expect(figma.getPagesWithComponents(document, { only: [''] }))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
 
-            expect(figma.getPages(document, { only: [] }))
+            expect(figma.getPagesWithComponents(document, { only: [] }))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
 
-            expect(figma.getPages(document, { only: '' }))
+            expect(figma.getPagesWithComponents(document, { only: '' }))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get all requested pages', () => {
-            expect(figma.getPages(document, { only: 'page2' }))
+            expect(figma.getPagesWithComponents(document, { only: 'page2' }))
                 .to.not.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
 
-            expect(figma.getPages(document, { only: ['page1', 'page2'] }))
+            expect(figma.getPagesWithComponents(document, { only: ['page1', 'page2'] }))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get zero results if a non existing page is provided', () => {
-            expect(figma.getPages(document, { only: 'page20' }))
+            expect(figma.getPagesWithComponents(document, { only: 'page20' }))
                 .to.be.an('array').that.is.empty;
         });
 
         it('should excludes pages without components', () => {
-            const pages = figma.getPages(
+            const pages = figma.getPagesWithComponents(
                 figmaDocument.createDocument({
                     children: [
                         figmaDocument.page1,
@@ -92,7 +92,7 @@ describe('figma.', () => {
     describe('getIdsFromPages', () => {
         it('should get component ids from specified pages', () => {
             const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
-            const pages = figma.getPages(document, {
+            const pages = figma.getPagesWithComponents(document, {
                 only: 'page2',
             });
 

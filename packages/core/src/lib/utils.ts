@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const toArray = <T>(any: T): T[] => (Array.isArray(any) ? any : [any]);
+export const toArray = <T>(any: T | T[]): T[] => (Array.isArray(any) ? any : [any]);
 
 export const emptySvg = '<svg></svg>';
 

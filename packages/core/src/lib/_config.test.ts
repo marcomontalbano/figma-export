@@ -147,8 +147,10 @@ export const createDocument = (props: any): Figma.Document => ({
 
 export const createPage = (children: any): Figma.Document => ({
     ...({} as Figma.Document),
+    type: 'DOCUMENT',
     children: [{
         ...({} as Figma.Canvas),
+        type: 'CANVAS',
         id: '10:8',
         name: 'fakePage',
         children,

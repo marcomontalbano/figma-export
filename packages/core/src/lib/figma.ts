@@ -14,7 +14,7 @@ import {
     emptySvg,
 } from './utils';
 
-const getComponents = (
+export const getComponents = (
     children: readonly Figma.Node[] = [],
     filter: FigmaExport.ComponentFilter = () => true,
     pathToComponent: FigmaExport.ComponentExtras['pathToComponent'] = [],
@@ -51,9 +51,17 @@ const getComponents = (
     return components;
 };
 
-const filterPagesByName = (pages: readonly Figma.Canvas[], pageNames: string | string[] = []): Figma.Canvas[] => {
-    const only = toArray(pageNames).filter((p) => p.length);
-    return pages.filter((page) => only.length === 0 || only.includes(page.name));
+/** Check whether the given string is not empty. */
+function isNotEmpty(input: string): boolean {
+    return input.trim() !== '';
+}
+
+export const getPages = (document: Figma.Document, pageNames: string | string[] = []): Figma.Canvas[] => {
+    const only = toArray(pageNames).filter(isNotEmpty);
+    return document.children
+        .filter((node): node is Figma.Canvas => {
+            return node.type === 'CANVAS' && (only.length === 0 || only.includes(node.name));
+        });
 };
 
 type GetPagesOptions = {
@@ -61,8 +69,8 @@ type GetPagesOptions = {
     filter?: FigmaExport.ComponentFilter;
 }
 
-const getPages = (document: Figma.Document, options: GetPagesOptions = {}): FigmaExport.PageNode[] => {
-    const pages = filterPagesByName(document.children as Figma.Canvas[], options.only);
+export const getPagesWithComponents = (document: Figma.Document, options: GetPagesOptions = {}): FigmaExport.PageNode[] => {
+    const pages = getPages(document, options.only);
 
     return pages
         .map((page) => ({
@@ -72,12 +80,12 @@ const getPages = (document: Figma.Document, options: GetPagesOptions = {}): Figm
         .filter((page) => page.components.length > 0);
 };
 
-const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => pages.reduce((ids: string[], page) => [
+export const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => pages.reduce((ids: string[], page) => [
     ...ids,
     ...page.components.map((component) => component.id),
 ], []);
 
-const getClient = (token: string): Figma.ClientInterface => {
+export const getClient = (token: string): Figma.ClientInterface => {
     if (!token) {
         throw new Error('\'Access Token\' is missing. https://www.figma.com/developers/docs#authentication');
     }
@@ -85,7 +93,7 @@ const getClient = (token: string): Figma.ClientInterface => {
     return Figma.Client({ personalAccessToken: token });
 };
 
-const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]): Promise<{readonly [key: string]: string}> => {
+const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]) => {
     const response = await client.fileImages(fileId, {
         ids,
         format: 'svg',
@@ -97,7 +105,7 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
     return response.data.images;
 };
 
-const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]): Promise<{readonly [key: string]: string}> => {
+export const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]) => {
     const idss = chunk(ids, 200);
     const limit = pLimit(30);
 
@@ -105,7 +113,7 @@ const getImages = async (client: Figma.ClientInterface, fileId: string, ids: str
         return limit(() => fileImages(client, fileId, groupIds));
     }));
 
-    return Object.assign({}, ...resolves);
+    return Object.assign({}, ...resolves) as typeof resolves[number];
 };
 
 type FigmaExportFileSvg = {
@@ -119,7 +127,7 @@ type FileSvgOptions = {
     onFetchCompleted?: (data: { index: number, total: number }) => void
 }
 
-const fileSvgs = async (
+export const fileSvgs = async (
     client: Figma.ClientInterface,
     fileId: string,
     ids: string[],
@@ -153,7 +161,7 @@ const fileSvgs = async (
     return fromEntries(svgs);
 };
 
-const enrichPagesWithSvg = async (
+export const enrichPagesWithSvg = async (
     client: Figma.ClientInterface,
     fileId: string,
     pages: FigmaExport.PageNode[],
@@ -174,14 +182,4 @@ const enrichPagesWithSvg = async (
             svg: svgs[component.id] || emptySvg,
         })),
     }));
-};
-
-export {
-    getComponents,
-    getPages,
-    getIdsFromPages,
-    getClient,
-    getImages,
-    fileSvgs,
-    enrichPagesWithSvg,
 };

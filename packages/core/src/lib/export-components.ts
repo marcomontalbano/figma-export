@@ -1,6 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
 
-import { getClient, getPages, enrichPagesWithSvg } from './figma';
+import { getClient, getPagesWithComponents, enrichPagesWithSvg } from './figma';
 
 export const components: FigmaExport.ComponentsCommand = async ({
     token,
@@ -28,7 +28,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
         throw new Error('\'document\' is missing.');
     }
 
-    const pages = getPages((document), { only: onlyFromPages, filter: filterComponent });
+    const pages = getPagesWithComponents(document, { only: onlyFromPages, filter: filterComponent });
 
     log('preparing components');
     const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, {

@@ -19,8 +19,9 @@ const getTestFiles = (dir: string, startDir: string = dir): string[] => {
 
         const isNodeModules = /node_modules/.test(dir);
         const isTestFile = /\.test\.[j|t]s$/.test(file);
+        const isIntegrationFile = /integration\.test\.[j|t]s$/.test(file);
 
-        if (!isNodeModules && isTestFile) {
+        if (!isNodeModules && isTestFile && !isIntegrationFile) {
             filelist.push(`${dir}${file}`);
         }
     });

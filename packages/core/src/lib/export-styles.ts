@@ -1,6 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
 
-import { getClient, getPages } from './figma';
+import { getPages, getClient } from './figma';
 import { fetchStyles, parseStyles } from './figmaStyles';
 
 export const styles: FigmaExport.StylesCommand = async ({
@@ -25,7 +25,7 @@ export const styles: FigmaExport.StylesCommand = async ({
         throw new Error('\'document\' is missing.');
     }
 
-    const ids = getPages((document), { only: onlyFromPages })
+    const ids = getPages(document, onlyFromPages)
         .map((page) => page.id);
 
     log('fetching styles');

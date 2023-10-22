@@ -20,6 +20,7 @@
     "build": "tsc --build packages/**/tsconfig.json",
     "lint": "yarn build && eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts",
     "test": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
+    "test:integration": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha --config .mocharc.integration.json",
     "test:watch": "yarn test --watch --reporter=dot",
     "coverage": "nyc yarn test --reporter=dot",
     "coverage:watch": "npx nodemon -e js,mjs,ts --exec yarn coverage",
