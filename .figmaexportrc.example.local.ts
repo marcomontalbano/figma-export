@@ -39,7 +39,7 @@ const styleOptions: StylesCommandOptions = {
 
 const componentOptions: ComponentsCommandOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
-    onlyFromPages: ['icons', 'unit-test', 'octicons-by-github'],
+    onlyFromPages: ['icons', 'unit-test', 'icons/octicons-by-github'],
     // concurrency: 30,
     transformers: [
         transformSvgWithSvgo({

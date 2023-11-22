@@ -47,7 +47,7 @@ describe('export-styles', () => {
         sinon.restore();
     });
 
-    it('should use outputter to export styles', async () => {
+    it('should use outputter to export styles without defining the "onlyFromPages" option', async () => {
         const pagesWithSvg = await exportStyles({
             fileId: 'fileABCD',
             version: 'versionABCD',
@@ -58,8 +58,8 @@ describe('export-styles', () => {
 
         expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
-        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1 });
-        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: undefined });
+        expect(clientFile).to.have.been.calledOnce;
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: undefined, ids: undefined });
 
         expect(logger).to.have.been.callCount(4);
         expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
@@ -74,7 +74,7 @@ describe('export-styles', () => {
         const pagesWithSvg = await exportStyles({
             fileId: 'fileABCD',
             version: 'versionABCD',
-            onlyFromPages: ['octicons-by-github'],
+            onlyFromPages: ['icons/octicons-by-github'],
             token: 'token1234',
             log: logger,
             outputters: [outputter],
@@ -82,8 +82,9 @@ describe('export-styles', () => {
 
         expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
-        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1 });
-        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', ids: ['254:0'] });
+        expect(clientFile).to.have.been.calledTwice;
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1, ids: undefined });
+        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: undefined, ids: ['254:0'] });
 
         expect(logger).to.have.been.callCount(4);
         expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
@@ -118,8 +119,7 @@ describe('export-styles', () => {
     });
 
     it('should throw an error when fetching styles fails', async () => {
-        clientFile.onFirstCall().returns(Promise.resolve({ data: { document: file.document } }));
-        clientFile.onSecondCall().returns(Promise.reject(new Error('some error')));
+        clientFile.onFirstCall().returns(Promise.reject(new Error('some error')));
 
         await expect(exportStyles({
             fileId: 'fileABCD',
@@ -133,7 +133,7 @@ describe('export-styles', () => {
         await expect(exportStyles({
             fileId: 'fileABCD',
             token: 'token1234',
-        })).to.be.rejectedWith(Error, '\'document\' is missing.');
+        })).to.be.rejectedWith(Error, '\'styles\' are missing.');
     });
 
     it('should throw an error if styles property is missing when fetching file', async () => {

@@ -8,6 +8,7 @@ import * as Figma from 'figma-js';
 import * as FigmaExport from '@figma-export/types';
 
 import * as figmaStyles from './index';
+import * as figma from '../figma';
 
 import fileJson from '../_mocks_/figma.files.json';
 import fileNodesJson from '../_mocks_/figma.fileNodes.json';
@@ -29,15 +30,6 @@ const getNode = (styleNodes: FigmaExport.StyleNode[], name: string): FigmaExport
 
 describe('figmaStyles.', () => {
     describe('fetch', () => {
-        it('should throw an error if styles are not present', async () => {
-            const client = {
-                ...({} as Figma.ClientInterface),
-                file: sinon.stub().resolves({ data: {} }),
-            };
-
-            await expect(figmaStyles.fetchStyles(client, 'ABC123')).to.be.rejectedWith(Error, '\'styles\' are missing.');
-        });
-
         it('should fetch style from a specified Figma fileId', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
@@ -63,9 +55,12 @@ describe('figmaStyles.', () => {
                 }),
             };
 
-            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123');
+            const styles = await figma.getStyles(client, { fileId: 'ABC123', version: 'version123' });
+            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', styles, 'version123');
 
-            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', ids: undefined });
+            expect(client.file).to.have.been.calledOnce;
+            expect(client.file.firstCall).to.have.been.calledWith('ABC123', { version: 'version123', depth: undefined, ids: undefined });
+
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: ['121:10', '131:20'], version: 'version123' });
 
             expect(styleNodes.length).to.equal(2);
@@ -82,9 +77,12 @@ describe('figmaStyles.', () => {
                 fileNodes: sinon.stub().resolves({ data: fileNodes }),
             };
 
-            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', 'version123', ['121:10']);
+            const styles = await figma.getStyles(client, { fileId: 'ABC123', version: 'version123' });
+            expect(client.file).to.have.been.calledOnce;
+            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', depth: undefined, ids: undefined });
 
-            expect(client.file).to.have.been.calledOnceWith('ABC123', { version: 'version123', ids: ['121:10'] });
+            const styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', styles, 'version123');
+
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds, version: 'version123' });
 
             const expectedStyleNodesLength = 30;
@@ -108,7 +106,8 @@ describe('figmaStyles.', () => {
                 fileNodes: sinon.stub().resolves({ data: fileNodes }),
             };
 
-            styleNodes = await figmaStyles.fetchStyles(client, 'ABC123');
+            const styles = await figma.getStyles(client, { fileId: 'ABC1234' });
+            styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', styles);
         });
 
         describe('Color Styles', () => {

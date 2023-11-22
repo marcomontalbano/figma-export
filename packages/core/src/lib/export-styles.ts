@@ -1,6 +1,6 @@
 import * as FigmaExport from '@figma-export/types';
 
-import { getPages, getClient } from './figma';
+import { getClient, getStyles } from './figma';
 import { fetchStyles, parseStyles } from './figmaStyles';
 
 export const styles: FigmaExport.StylesCommand = async ({
@@ -17,19 +17,17 @@ export const styles: FigmaExport.StylesCommand = async ({
     const client = getClient(token);
 
     log('fetching document');
-    const { data: { document = null } = {} } = await client.file(fileId, { version, depth: 1 }).catch((error: Error) => {
-        throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
-    });
-
-    if (!document) {
-        throw new Error('\'document\' is missing.');
-    }
-
-    const ids = getPages(document, onlyFromPages)
-        .map((page) => page.id);
+    const figmaStyles = await getStyles(
+        client,
+        {
+            fileId,
+            version,
+            onlyFromPages,
+        },
+    );
 
     log('fetching styles');
-    const styleNodes = await fetchStyles(client, fileId, version, onlyFromPages.length > 0 ? ids : undefined);
+    const styleNodes = await fetchStyles(client, fileId, figmaStyles, version);
 
     log('parsing styles');
     const parsedStyles = parseStyles(styleNodes);

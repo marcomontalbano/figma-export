@@ -18,6 +18,17 @@ describe('figma.', () => {
         sinon.restore();
     });
 
+    describe('', () => {
+        it('should throw an error if styles are not present', async () => {
+            const client = {
+                ...({} as Figma.ClientInterface),
+                file: sinon.stub().resolves({ data: {} }),
+            };
+
+            await expect(figma.getStyles(client, { fileId: 'ABC123' })).to.be.rejectedWith(Error, '\'styles\' are missing.');
+        });
+    });
+
     describe('getComponents', () => {
         it('should get zero results if no children are provided', () => {
             expect(figma.getComponents()).to.eql([]);
@@ -34,7 +45,7 @@ describe('figma.', () => {
         });
     });
 
-    describe('getPages', () => {
+    describe('getPagesWithComponents', () => {
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
 
         it('should get all pages by default', () => {
@@ -43,33 +54,16 @@ describe('figma.', () => {
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
-        it('should get all pages if "empty" list is provided', () => {
-            expect(figma.getPagesWithComponents(document, { only: [''] }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-
-            expect(figma.getPagesWithComponents(document, { only: [] }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-
-            expect(figma.getPagesWithComponents(document, { only: '' }))
+        it('should get all the pages from the document', () => {
+            expect(figma.getPagesWithComponents(document))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
-        it('should get all requested pages', () => {
-            expect(figma.getPagesWithComponents(document, { only: 'page2' }))
+        it('should be able to filter components', () => {
+            expect(figma.getPagesWithComponents(document, { filterComponent: (component) => ['9:1'].includes(component.id) }))
                 .to.not.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
-
-            expect(figma.getPagesWithComponents(document, { only: ['page1', 'page2'] }))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-        });
-
-        it('should get zero results if a non existing page is provided', () => {
-            expect(figma.getPagesWithComponents(document, { only: 'page20' }))
-                .to.be.an('array').that.is.empty;
         });
 
         it('should excludes pages without components', () => {
@@ -92,11 +86,9 @@ describe('figma.', () => {
     describe('getIdsFromPages', () => {
         it('should get component ids from specified pages', () => {
             const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
-            const pages = figma.getPagesWithComponents(document, {
-                only: 'page2',
-            });
+            const pages = figma.getPagesWithComponents(document);
 
-            expect(figma.getIdsFromPages(pages)).to.eql(['9:1']);
+            expect(figma.getIdsFromPages(pages)).to.eql(['10:8', '8:1', '9:1']);
         });
     });
 

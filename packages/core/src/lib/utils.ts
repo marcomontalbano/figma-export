@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as FigmaExport from '@figma-export/types';
 
 export const toArray = <T>(any: T | T[]): T[] => (Array.isArray(any) ? any : [any]);
 
@@ -50,6 +51,34 @@ export const fetchAsSvgXml = (url: string): Promise<string> => {
     });
 };
 
-export const notEmpty = <TValue>(value: TValue | null | undefined): value is TValue => {
+/**
+ * Check whether the provided value is `undefined` or `null`. It this case it will return `false`.
+ *
+ * Useful when you need to exclude nullish values from a list.
+ * @example [23, null, null, 'John', undefined].filter(notNullish) //= [23, 'John']
+ */
+export const notNullish = <T>(value: T | null | undefined): value is T => {
     return value !== null && value !== undefined;
 };
+
+/**
+ * Check whether the given string is not empty.
+ *
+ * Useful when you need to exclude empty strings from a list.
+ * @example ['', 'John'].filter(notEmptyString) //= ['John']
+ */
+export function notEmptyString(value: string): boolean {
+    return value.trim() !== '';
+}
+
+export type PickOption<T extends FigmaExport.ComponentsCommand | FigmaExport.StylesCommand, K extends keyof Parameters<T>[0]> =
+    Pick<Parameters<T>[0], K>
+
+/**
+ * Sanitize `onlyFromPages` option by converting to a not nullish and not empty string array.
+ */
+export function sanitizeOnlyFromPages(
+    onlyFromPages: PickOption<FigmaExport.ComponentsCommand | FigmaExport.StylesCommand, 'onlyFromPages'>['onlyFromPages'],
+) {
+    return (onlyFromPages ?? []).filter((v) => notNullish(v) && notEmptyString(v));
+}

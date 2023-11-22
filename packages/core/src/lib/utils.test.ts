@@ -6,6 +6,8 @@ import * as utils from './utils';
 describe('utils.', () => {
     describe('toArray', () => {
         it('should convert the element into an array if the element is not an array. If is already an array, just returns it', () => {
+            expect(utils.toArray(undefined)).to.eql([undefined]);
+            expect(utils.toArray(null)).to.eql([null]);
             expect(utils.toArray('')).to.eql(['']);
             expect(utils.toArray('this is a string')).to.eql(['this is a string']);
             expect(utils.toArray(2)).to.eql([2]);
@@ -72,6 +74,40 @@ describe('utils.', () => {
             expect(
                 utils.chunk([10, 20, 30], 1),
             ).to.deep.equal([[10], [20], [30]]);
+        });
+    });
+
+    describe('notNullish', () => {
+        it('should return `false` when provided value is nullish', () => {
+            expect(utils.notNullish(null)).to.been.false;
+            expect(utils.notNullish(undefined)).to.been.false;
+            expect(utils.notNullish('John')).to.been.true;
+            expect(utils.notNullish(23)).to.been.true;
+
+            expect(
+                [23, null, null, 'John', undefined].filter(utils.notNullish),
+            ).to.deep.equal([23, 'John']);
+        });
+    });
+
+    describe('notEmptyString', () => {
+        it('should return `false` when provided value is an empty string', () => {
+            expect(utils.notEmptyString('')).to.been.false;
+            expect(utils.notEmptyString('           ')).to.been.false;
+            expect(utils.notEmptyString('John')).to.been.true;
+
+            expect(
+                ['', 'John', '       '].filter(utils.notEmptyString),
+            ).to.deep.equal(['John']);
+        });
+    });
+
+    describe('sanitizeOnlyFromPages', () => {
+        it('should return a not nullish and not empty string array', () => {
+            expect(utils.sanitizeOnlyFromPages(undefined)).to.deep.equal([]);
+            expect(utils.sanitizeOnlyFromPages([''])).to.deep.equal([]);
+            expect(utils.sanitizeOnlyFromPages(['John'])).to.deep.equal(['John']);
+            expect(utils.sanitizeOnlyFromPages(['John', 'Doe'])).to.deep.equal(['John', 'Doe']);
         });
     });
 });
