@@ -224,7 +224,7 @@ module.exports = {
 now you can install the `@figma-export` dependencies that you need
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg @figma-export/output-styles-as-sass
+npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
 ```
 
 and update the `package.json`.
