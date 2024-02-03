@@ -67,7 +67,7 @@ export = ({
                             "font-variant": ${style.style.fontVariant},
                             "font-weight": ${style.style.fontWeight},
                             "letter-spacing": ${style.style.letterSpacing}px,
-                            "line-height": ${style.style.lineHeight}px,
+                            "line-height": ${style.style.lineHeight},
                             "text-align": ${style.style.textAlign},
                             "text-decoration": ${style.style.textDecoration},
                             "text-transform": ${style.style.textTransform},
@@ -115,7 +115,7 @@ export = ({
                         text += writeVariable(
                             style.comment,
                             getVariableName(style, 'line-height'),
-                            `${style.style.lineHeight}px`,
+                            `${style.style.lineHeight}`,
                             extension,
                         );
                         text += writeVariable(
