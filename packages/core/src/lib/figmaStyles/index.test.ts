@@ -526,10 +526,6 @@ describe('figmaStyles.', () => {
                 // @ts-expect-error: "node" has style for sure
                 node.style.lineHeightUnit = 'FONT_SIZE_%';
 
-                // if ('style' in node && 'lineHeightUnit' in node.style) {
-                //     node.style.lineHeightUnit = 'FONT_SIZE_%';
-                // }
-
                 const parsed = figmaStyles.parseStyles([node]);
 
                 expect(parsed).to.deep.equal([
