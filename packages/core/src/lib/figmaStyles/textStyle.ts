@@ -66,7 +66,7 @@ const translateLineHeight = ({
         // Figma API doesn't return `lineHeightPercentFontSize`
         // if lineHeightPercent is 100
         return lineHeightPercentFontSize
-            ? (lineHeightPercentFontSize / 100).toFixed(5)
+            ? Math.fround(lineHeightPercentFontSize / 100).toString()
             : '1';
     }
 
