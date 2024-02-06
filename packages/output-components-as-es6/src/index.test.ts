@@ -162,7 +162,7 @@ describe('outputter as es6', () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
-        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages, {
+        const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages, undefined, {
             transformers: [async () => undefined],
         });
 

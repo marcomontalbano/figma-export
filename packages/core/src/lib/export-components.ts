@@ -37,7 +37,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     const pages = getPagesWithComponents(figmaDocument, { filterComponent });
 
     log('preparing components');
-    const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, {
+    const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, version, {
         transformers,
         concurrency,
         retries,

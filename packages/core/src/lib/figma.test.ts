@@ -126,6 +126,7 @@ describe('figma.', () => {
                 ids: ['A1', 'B2'],
                 format: 'svg',
                 svg_include_id: true,
+                version: undefined,
             });
 
             expect(fileImages).to.deep.equal({
@@ -165,6 +166,7 @@ describe('figma.', () => {
                 ids: ['A1', 'B1'],
                 format: 'svg',
                 svg_include_id: true,
+                version: undefined,
             });
 
             expect(fileSvgs).to.deep.equal({

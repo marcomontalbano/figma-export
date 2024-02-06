@@ -87,6 +87,7 @@ describe('export-component', () => {
             format: 'svg',
             ids: ['10:8', '8:1', '9:1'],
             svg_include_id: true,
+            version: 'versionABCD',
         });
 
         expect(clientFile).to.have.been.calledOnce;
@@ -128,6 +129,7 @@ describe('export-component', () => {
             format: 'svg',
             ids: ['10:8', '8:1', '9:1'],
             svg_include_id: true,
+            version: 'versionABCD',
         });
 
         expect(clientFile).to.have.been.calledTwice;
@@ -192,6 +194,7 @@ describe('export-component', () => {
             format: 'svg',
             ids: ['10:8'],
             svg_include_id: true,
+            version: 'versionABCD',
         });
 
         expect(clientFile).to.have.been.calledOnce;

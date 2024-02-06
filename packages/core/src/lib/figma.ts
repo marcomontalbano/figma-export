@@ -184,11 +184,12 @@ export const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] => page
     ...page.components.map((component) => component.id),
 ], []);
 
-const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]) => {
+const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: string[], version?: string) => {
     const response = await client.fileImages(fileId, {
         ids,
         format: 'svg',
         svg_include_id: true,
+        version,
     }).catch((error: Error) => {
         throw new Error(`while fetching fileImages: ${error.message}`);
     });
@@ -196,12 +197,12 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
     return response.data.images;
 };
 
-export const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[]) => {
+export const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[], version?: string) => {
     const idss = chunk(ids, 200);
     const limit = pLimit(30);
 
     const resolves = await Promise.all(idss.map((groupIds) => {
-        return limit(() => fileImages(client, fileId, groupIds));
+        return limit(() => fileImages(client, fileId, groupIds, version));
     }));
 
     return Object.assign({}, ...resolves) as typeof resolves[number];
@@ -222,6 +223,7 @@ export const fileSvgs = async (
     client: Figma.ClientInterface,
     fileId: string,
     ids: string[],
+    version?: string,
     {
         concurrency = 30,
         retries = 3,
@@ -230,7 +232,7 @@ export const fileSvgs = async (
         onFetchCompleted = () => {},
     }: FileSvgOptions = {},
 ): Promise<FigmaExportFileSvg> => {
-    const images = await getImages(client, fileId, ids);
+    const images = await getImages(client, fileId, ids, version);
     const limit = pLimit(concurrency);
     let index = 0;
     const svgPromises = Object.entries(images).map(async ([id, url]) => {
@@ -270,6 +272,7 @@ export const enrichPagesWithSvg = async (
     client: Figma.ClientInterface,
     fileId: string,
     pages: FigmaExport.PageNode[],
+    version?: string,
     svgOptions?: FileSvgOptions,
 ): Promise<FigmaExport.PageNode[]> => {
     const componentIds = getIdsFromPages(pages);
@@ -278,7 +281,7 @@ export const enrichPagesWithSvg = async (
         throw new Error('No components found');
     }
 
-    const svgs = await fileSvgs(client, fileId, componentIds, svgOptions);
+    const svgs = await fileSvgs(client, fileId, componentIds, version, svgOptions);
 
     return pages.map((page) => ({
         ...page,
