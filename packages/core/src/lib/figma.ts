@@ -134,11 +134,12 @@ export const getComponents = (
     return components;
 };
 
-export const getDocument = async (
+// eslint-disable-next-line no-underscore-dangle
+const __getDocumentAndStyles = async (
     client: Figma.ClientInterface,
     options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'onlyFromPages'>,
-): Promise<Figma.Document> => {
-    const { document } = await getFile(
+): ReturnType<typeof getFile> => {
+    return getFile(
         client,
         options,
         {
@@ -148,8 +149,15 @@ export const getDocument = async (
                 : undefined,
         },
     );
+};
 
-    if (!document) {
+export const getDocument = async (
+    client: Figma.ClientInterface,
+    options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'onlyFromPages'>,
+): Promise<Figma.Document> => {
+    const { document } = await __getDocumentAndStyles(client, options);
+
+    if (document == null) {
         throw new Error('\'document\' is missing.');
     }
 
@@ -162,18 +170,9 @@ export const getStyles = async (
 ): Promise<{
     readonly [key: string]: Figma.Style
 }> => {
-    const { styles } = await getFile(
-        client,
-        options,
-        {
-            // when `onlyFromPages` is set, we avoid traversing all the document tree, but instead we get only requested ids.
-            ids: sanitizeOnlyFromPages(options.onlyFromPages).length > 0
-                ? await getAllPageIds(client, options)
-                : undefined,
-        },
-    );
+    const { styles } = await __getDocumentAndStyles(client, options);
 
-    if (!styles) {
+    if (styles == null) {
         throw new Error('\'styles\' are missing.');
     }
 
