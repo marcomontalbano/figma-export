@@ -56,7 +56,7 @@ describe('outputter as svgr', () => {
 
     it('should export all components into jsx files plus one index.js for each folder', async () => {
         const fakePage = figmaDocument.createPage([figmaDocument.component1, figmaDocument.component2]);
-        const pages = figma.getPages(fakePage);
+        const pages = figma.getPagesWithComponents(fakePage);
 
         await outputter({
             output: 'output',
@@ -73,7 +73,7 @@ describe('outputter as svgr', () => {
 
     it('should export all components into tsx files plus one index.ts for each folder', async () => {
         const fakePage = figmaDocument.createPage([figmaDocument.component1, figmaDocument.component2]);
-        const pages = figma.getPages(fakePage);
+        const pages = figma.getPagesWithComponents(fakePage);
 
         await outputter({
             output: 'output',
@@ -91,7 +91,7 @@ describe('outputter as svgr', () => {
 
     it('should create a custom export for every component using the template passed', async () => {
         const fakePage = figmaDocument.createPage([figmaDocument.component2]);
-        const pages = figma.getPages(fakePage);
+        const pages = figma.getPagesWithComponents(fakePage);
 
         await outputter({
             output: 'output',
@@ -108,7 +108,7 @@ describe('outputter as svgr', () => {
 
     it('should create folder if component names contain slashes', async () => {
         const fakePage = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
-        const pages = figma.getPages(fakePage);
+        const pages = figma.getPagesWithComponents(fakePage);
 
         await outputter({
             output: 'output',
@@ -121,7 +121,7 @@ describe('outputter as svgr', () => {
 
     describe('options', () => {
         const fakePage = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
-        const pages = figma.getPages(fakePage);
+        const pages = figma.getPagesWithComponents(fakePage);
 
         it('should be able to customize "dirname"', async () => {
             await outputter({

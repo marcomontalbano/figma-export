@@ -1,7 +1,7 @@
 import * as Figma from 'figma-js';
 import * as FigmaExport from '@figma-export/types';
 
-import { notEmpty } from '../utils';
+import { notNullish } from '../utils';
 
 const extractColor = ({ color, opacity = 1 }: FigmaExport.ExtractableColor): (FigmaExport.Color | undefined) => {
     if (!color) {
@@ -106,7 +106,7 @@ const parse = (node: FigmaExport.StyleNode): FigmaExport.StyleTypeFill | undefin
             fills: Array.from(node.fills)
                 .reverse()
                 .map(createFillStyles)
-                .filter(notEmpty),
+                .filter(notNullish),
         };
     }
 

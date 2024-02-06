@@ -23,7 +23,7 @@ describe('outputter as svgstore', () => {
     it('should create an svg with the page name as filename', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages = figma.getPages(document);
+        const pages = figma.getPagesWithComponents(document);
 
         await outputter({
             output: 'output',
@@ -45,7 +45,7 @@ describe('outputter as svgstore', () => {
     it('should create folders and subfolders when pageName contains slashes', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1WithSlashes] });
-        const pages = figma.getPages(document);
+        const pages = figma.getPagesWithComponents(document);
 
         await outputter({
             output: 'output',

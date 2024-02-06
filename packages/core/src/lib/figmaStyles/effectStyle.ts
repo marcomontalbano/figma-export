@@ -1,7 +1,7 @@
 import * as Figma from 'figma-js';
 import * as FigmaExport from '@figma-export/types';
 
-import { notEmpty } from '../utils';
+import { notNullish } from '../utils';
 import { extractColor } from './paintStyle';
 
 const createEffectStyle = (effect: Figma.Effect): FigmaExport.EffectStyle | undefined => {
@@ -51,7 +51,7 @@ const parse = (node: FigmaExport.StyleNode): FigmaExport.StyleTypeEffect | undef
             effects: Array.from(node.effects)
                 .reverse()
                 .map(createEffectStyle)
-                .filter(notEmpty),
+                .filter(notNullish),
         };
     }
 

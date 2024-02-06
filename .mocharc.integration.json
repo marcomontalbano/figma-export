@@ -1,0 +1,6 @@
+{
+    "extension": ["js", "ts"],
+    "spec": "packages/**/integration.test.ts",
+    "require": "ts-node/register",
+    "file": ["test--registers.integration.ts"]
+}

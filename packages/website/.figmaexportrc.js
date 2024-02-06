@@ -14,7 +14,7 @@ module.exports = {
 
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
-            onlyFromPages: ['octicons-by-github'],
+            onlyFromPages: ['icons/octicons-by-github'],
             outputters: [
                 require('../output-components-as-es6')({
                     output: './output/es6-dataurl-octicons',

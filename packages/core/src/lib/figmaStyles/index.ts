@@ -1,7 +1,7 @@
 import * as Figma from 'figma-js';
 import * as FigmaExport from '@figma-export/types';
 
-import { notEmpty } from '../utils';
+import { notNullish } from '../utils';
 
 import { parse as parsePaintStyle } from './paintStyle';
 import { parse as parseEffectStyle } from './effectStyle';
@@ -11,18 +11,16 @@ import { parse as parseTextStyle } from './textStyle';
 const fetchStyles = async (
     client: Figma.ClientInterface,
     fileId: string,
+    styles: { readonly [key: string]: Figma.Style },
     version?: string,
-    ids?: string[],
 ): Promise<FigmaExport.StyleNode[]> => {
-    const { data: { styles = null } = {} } = await client.file(fileId, { version, ids }).catch((error: Error) => {
-        throw new Error(`while fetching file "${fileId}${version ? `?version=${version}` : ''}": ${error.message}`);
-    });
+    const styleIds = Object.keys(styles);
 
-    if (!styles) {
-        throw new Error('\'styles\' are missing.');
+    if (styleIds.length === 0) {
+        throw new Error('No styles found');
     }
 
-    const { data: { nodes } } = await client.fileNodes(fileId, { ids: Object.keys(styles), version }).catch((error: Error) => {
+    const { data: { nodes } } = await client.fileNodes(fileId, { ids: styleIds, version }).catch((error: Error) => {
         throw new Error(`while fetching fileNodes: ${error.message}`);
     });
 
@@ -53,7 +51,7 @@ const parseStyles = (styleNodes: FigmaExport.StyleNode[]): FigmaExport.Style[] =
             originalNode: node,
             ...parsedStyles,
         };
-    }).filter(notEmpty);
+    }).filter(notNullish);
 };
 
 export {
