@@ -58,7 +58,6 @@ const translateVerticalAlign = (figmaTextAlignVertical: string): FigmaExport.Ver
 
 const translateLineHeight = ({
     lineHeightPx,
-    lineHeightPercent,
     lineHeightPercentFontSize,
     lineHeightUnit,
 }: Figma.TypeStyle): string => {
@@ -74,7 +73,10 @@ const translateLineHeight = ({
     // removed in future version of Figma API
     // https://www.figma.com/developers/api#files-types
     if (lineHeightUnit === 'INTRINSIC_%') {
-        return `${lineHeightPercent}%`;
+        // this looks wrong at first
+        // but Pixels in this if-branch are intentional
+        // https://github.com/marcomontalbano/figma-export/pull/156#issuecomment-1931415352
+        return `${lineHeightPx}px`;
     }
 
     if (lineHeightUnit === 'PIXELS') {
