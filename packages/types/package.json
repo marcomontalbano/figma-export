@@ -28,5 +28,8 @@
     },
     "dependencies": {
         "figma-js": "~1.16.0"
+    },
+    "resolutions": {
+        "axios": "^1.6.7"
     }
 }
