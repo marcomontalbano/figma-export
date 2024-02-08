@@ -12,8 +12,15 @@ export type TextStyle = {
     fontWeight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
     /** Font size in px */
     fontSize: number;
-    /** Line height in px */
-    lineHeight: number;
+    /**
+     * Line height value with units.
+     *
+     * Examples: `"18px", "120%", "1.2"`
+     *
+     * ---
+     * More on units https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+     */
+    lineHeight: string;
     /** Space between characters in px */
     letterSpacing: number;
 

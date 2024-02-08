@@ -508,7 +508,40 @@ describe('figmaStyles.', () => {
                             fontVariant: 'normal',
                             fontWeight: 400,
                             letterSpacing: 2,
-                            lineHeight: 30,
+                            lineHeight: '30px',
+                            textAlign: 'left',
+                            textDecoration: 'underline',
+                            textTransform: 'capitalize',
+                            verticalAlign: 'top',
+                        },
+                    },
+                ]);
+            });
+
+            it('should parse a Text style when lineHeightUnit=FONT_SIZE_%', () => {
+                const node = getNode(styleNodes, 'h1');
+
+                // https://jemgold.github.io/figma-js/interfaces/typestyle.html#lineheightunit
+                // @ts-expect-error: "node" has style for sure
+                node.style.lineHeightUnit = 'FONT_SIZE_%';
+
+                const parsed = figmaStyles.parseStyles([node]);
+
+                expect(parsed).to.deep.equal([
+                    {
+                        styleType: 'TEXT',
+                        visible: true,
+                        name: 'h1',
+                        comment: 'Page title',
+                        originalNode: node,
+                        style: {
+                            fontFamily: 'Spinnaker',
+                            fontSize: 24,
+                            fontStyle: 'normal',
+                            fontVariant: 'normal',
+                            fontWeight: 400,
+                            letterSpacing: 2,
+                            lineHeight: '1.25',
                             textAlign: 'left',
                             textDecoration: 'underline',
                             textTransform: 'capitalize',

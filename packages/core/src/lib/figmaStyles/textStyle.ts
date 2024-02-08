@@ -56,9 +56,39 @@ const translateVerticalAlign = (figmaTextAlignVertical: string): FigmaExport.Ver
     return map[figmaTextAlignVertical];
 };
 
+const translateLineHeight = ({
+    lineHeightPx,
+    lineHeightPercentFontSize,
+    lineHeightUnit,
+}: Figma.TypeStyle): string => {
+    if (lineHeightUnit === 'FONT_SIZE_%') {
+        // Figma API doesn't return `lineHeightPercentFontSize`
+        // if lineHeightPercent is 100
+        return lineHeightPercentFontSize
+            ? Math.fround(lineHeightPercentFontSize / 100).toString()
+            : '1';
+    }
+
+    // this unit is deprecated and will be
+    // removed in future version of Figma API
+    // https://www.figma.com/developers/api#files-types
+    if (lineHeightUnit === 'INTRINSIC_%') {
+        // this looks wrong at first
+        // but Pixels in this if-branch are intentional
+        // https://github.com/marcomontalbano/figma-export/pull/156#issuecomment-1931415352
+        return `${lineHeightPx}px`;
+    }
+
+    if (lineHeightUnit === 'PIXELS') {
+        return `${lineHeightPx}px`;
+    }
+
+    throw new Error(`Unknown lineHeightUnit: ${lineHeightUnit}`);
+};
+
 const createTextStyle = (textNode: Figma.Style & Figma.Text): FigmaExport.TextStyle => {
     const {
-        fontFamily, fontWeight, fontSize, lineHeightPx, letterSpacing,
+        fontFamily, fontWeight, fontSize, letterSpacing,
         italic, textCase, textDecoration, textAlignHorizontal, textAlignVertical,
     } = textNode.style;
 
@@ -67,7 +97,7 @@ const createTextStyle = (textNode: Figma.Style & Figma.Text): FigmaExport.TextSt
         fontWeight,
         fontSize,
         letterSpacing,
-        lineHeight: lineHeightPx,
+        lineHeight: translateLineHeight(textNode.style),
         fontStyle: italic ? 'italic' : 'normal',
         fontVariant: translateFontVariant(textCase),
         textTransform: translateTextTransform(textCase),

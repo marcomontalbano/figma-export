@@ -66,7 +66,7 @@ export = ({
                         writeVariable(result, style.comment, getVariableName(style, 'font-variant'), `${style.style.fontVariant}`);
                         writeVariable(result, style.comment, getVariableName(style, 'font-weight'), `${style.style.fontWeight}`);
                         writeVariable(result, style.comment, getVariableName(style, 'letter-spacing'), `${style.style.letterSpacing}px`);
-                        writeVariable(result, style.comment, getVariableName(style, 'line-height'), `${style.style.lineHeight}px`);
+                        writeVariable(result, style.comment, getVariableName(style, 'line-height'), `${style.style.lineHeight}`);
                         writeVariable(result, style.comment, getVariableName(style, 'text-align'), `${style.style.textAlign}`);
                         writeVariable(result, style.comment, getVariableName(style, 'text-decoration'), `${style.style.textDecoration}`);
                         writeVariable(result, style.comment, getVariableName(style, 'text-transform'), `${style.style.textTransform}`);
