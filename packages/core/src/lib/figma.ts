@@ -235,7 +235,7 @@ export const fileSvgs = async (
     const images = await getImages(client, fileId, ids, version);
     const limit = pLimit(concurrency);
     let index = 0;
-    const svgPromises = Object.entries(images).map(async ([id, url]) => {
+    const svgPromises = Object.entries(images).filter(([,url]) => typeof url === "string").map(async ([id, url]) => {
         const svg = await limit(
             () => pRetry(() => fetchAsSvgXml(url), { retries }),
         );
