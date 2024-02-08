@@ -194,7 +194,21 @@ const fileImages = async (client: Figma.ClientInterface, fileId: string, ids: st
         throw new Error(`while fetching fileImages: ${error.message}`);
     });
 
-    return response.data.images;
+    /**
+     * // TODO: wrong `Figma.FileImageResponse` type on `figma-js`
+     *
+     * Important: the image map may contain values that are null.
+     * This indicates that rendering of that specific node has failed.
+     * This may be due to the node id not existing, or other reasons such has the node having no renderable components.
+     * For example, a node that is invisible or has 0 % opacity cannot be rendered.
+     */
+    const { images } = response.data as Figma.FileImageResponse | {
+        readonly images: {
+            readonly [key: string]: string | null
+        };
+    };
+
+    return images;
 };
 
 export const getImages = async (client: Figma.ClientInterface, fileId: string, ids: string[], version?: string) => {
@@ -235,19 +249,21 @@ export const fileSvgs = async (
     const images = await getImages(client, fileId, ids, version);
     const limit = pLimit(concurrency);
     let index = 0;
-    const svgPromises = Object.entries(images).filter(([,url]) => typeof url === "string").map(async ([id, url]) => {
-        const svg = await limit(
-            () => pRetry(() => fetchAsSvgXml(url), { retries }),
-        );
-        const svgTransformed = await promiseSequentially(transformers, svg);
+    const svgPromises = Object.entries(images)
+        .filter((image): image is [string, string] => typeof image[1] === 'string')
+        .map(async ([id, url]) => {
+            const svg = await limit(
+                () => pRetry(() => fetchAsSvgXml(url), { retries }),
+            );
+            const svgTransformed = await promiseSequentially(transformers, svg);
 
-        onFetchCompleted({
-            index: index += 1,
-            total: ids.length,
+            onFetchCompleted({
+                index: index += 1,
+                total: ids.length,
+            });
+
+            return [id, svgTransformed];
         });
-
-        return [id, svgTransformed];
-    });
 
     const svgs = await Promise.all(svgPromises);
 
