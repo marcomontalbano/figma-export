@@ -4,7 +4,7 @@ import { Sade } from 'sade';
 import * as figmaExport from '@figma-export/core';
 import * as FigmaExport from '@figma-export/types';
 
-import { asArray, requirePackages } from '../utils';
+import { asArray, asUndefinableArray, requirePackages } from '../utils';
 
 export const addComponents = (prog: Sade, spinner: Ora) => prog
     .command('components <fileId>')
@@ -15,9 +15,11 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .option('-r, --retries', 'Maximum number of retries when fetching fails', 3)
     .option('-o, --output', 'Output directory', 'output')
     .option('-p, --page', 'Figma page names (all pages when not specified)')
+    .option('-t, --types', 'Node types to be exported (COMPONENT or INSTANCE)', 'COMPONENT')
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)
     .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg')
+    .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg -t COMPONENT -t INSTANCE -o dist')
     .action(
         (fileId, {
             fileVersion,
@@ -26,9 +28,12 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
             output,
             ...opts
         }) => {
+            type IncludeTypes = FigmaExport.ComponentsCommandOptions['includeTypes']
+
             const outputter = asArray<string>(opts.outputter);
             const transformer = asArray<string>(opts.transformer);
             const page = asArray<string>(opts.page);
+            const types = asUndefinableArray<string>(opts.types) as IncludeTypes;
 
             spinner.info(`Exporting ${fileId} with [${transformer.join(', ')}] as [${outputter.join(', ')}]`);
 
@@ -41,6 +46,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
                 retries,
                 token: process.env.FIGMA_TOKEN || '',
                 onlyFromPages: page,
+                includeTypes: types,
                 transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
                 outputters: requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
 

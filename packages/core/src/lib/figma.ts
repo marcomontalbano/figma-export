@@ -97,15 +97,28 @@ const getAllPageIds = async (
     return pageIds;
 };
 
+/**
+ * Determines whether the `searchElement.type` is included in the `availableTypes` list, returning true or false as appropriate.
+ * @param availableTypes List of available node types.
+ * @param searchNode The node to search for.
+ */
+function isNodeOfType<
+    AvailableTypes extends Figma.Node['type'][],
+    SearchNode extends Figma.Node,
+>(availableTypes: AvailableTypes, searchNode: SearchNode): searchNode is Extract<SearchNode, { type: AvailableTypes[number] }> {
+    return availableTypes.includes(searchNode.type);
+}
+
 export const getComponents = (
-    children: readonly Figma.Node[] = [],
-    filter: FigmaExport.ComponentFilter = () => true,
+    children: readonly Figma.Node[],
+    { filterComponent, includeTypes }:
+        Required<PickOption<FigmaExport.ComponentsCommand, 'filterComponent' | 'includeTypes'>>,
     pathToComponent: FigmaExport.ComponentExtras['pathToComponent'] = [],
 ): FigmaExport.ComponentNode[] => {
     let components: FigmaExport.ComponentNode[] = [];
 
     children.forEach((node) => {
-        if (node.type === 'COMPONENT' && filter(node)) {
+        if (isNodeOfType(includeTypes, node) && filterComponent(node)) {
             components.push({
                 ...node,
                 svg: '',
@@ -124,7 +137,7 @@ export const getComponents = (
                 ...components,
                 ...getComponents(
                     (node.children),
-                    filter,
+                    { filterComponent, includeTypes },
                     [...pathToComponent, { name: node.name, type: node.type }],
                 ),
             ];
@@ -272,14 +285,13 @@ export const fileSvgs = async (
 
 export const getPagesWithComponents = (
     document: Figma.Document,
-    options: PickOption<FigmaExport.ComponentsCommand, 'filterComponent'> = {},
+    options: Required<PickOption<FigmaExport.ComponentsCommand, 'filterComponent' | 'includeTypes'>>,
 ): FigmaExport.PageNode[] => {
     const pages = getPagesFromDocument(document);
-
     return pages
         .map((page) => ({
             ...page,
-            components: getComponents(page.children as readonly FigmaExport.ComponentNode[], options.filterComponent),
+            components: getComponents(page.children as readonly FigmaExport.ComponentNode[], options),
         }))
         .filter((page) => page.components.length > 0);
 };

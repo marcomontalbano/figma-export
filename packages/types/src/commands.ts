@@ -1,3 +1,4 @@
+import type * as Figma from 'figma-js';
 import {
     StringTransformer,
     ComponentOutputter,
@@ -33,6 +34,9 @@ export type ComponentsCommandOptions = {
 
     /** Filter components to export */
     filterComponent?: ComponentFilter;
+
+    /** Node types to be exported @default ['COMPONENT'] */
+    includeTypes?: [Extract<Figma.NodeType, 'COMPONENT' | 'INSTANCE'>, ...Extract<Figma.NodeType, 'COMPONENT' | 'INSTANCE'>[]];
 
     /** Transformer module name or path */
     transformers?: StringTransformer[];

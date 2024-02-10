@@ -15,6 +15,11 @@ import fs from 'fs';
 import path from 'path';
 import outputter from './index';
 
+const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
+    filterComponent: () => true,
+    includeTypes: ['COMPONENT'],
+};
+
 describe('outputter as es6', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let clientFileImages: sinon.SinonStub<any[], any>;
@@ -70,7 +75,7 @@ describe('outputter as es6', () => {
     it('should export all components into an es6 file', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
 
         nockScope.done();
@@ -91,7 +96,7 @@ describe('outputter as es6', () => {
     it('should use "variablePrefix" and "variableSuffix" options to prepend or append a text to the variable name', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
 
         nockScope.done();
@@ -113,7 +118,7 @@ describe('outputter as es6', () => {
     it('should export all components into an es6 file using base64 encoding if set', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
 
         nockScope.done();
@@ -134,7 +139,7 @@ describe('outputter as es6', () => {
     it('should export all components into an es6 file using dataUrl if set', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
 
         nockScope.done();
@@ -161,7 +166,7 @@ describe('outputter as es6', () => {
     it('should not break when transformers return "undefined"', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages, undefined, {
             transformers: [async () => undefined],
         });
@@ -190,7 +195,7 @@ describe('outputter as es6', () => {
         sinon.stub(fs, 'writeFileSync');
 
         const document = figmaDocument.createDocument({ children: [page] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({
@@ -212,7 +217,7 @@ describe('outputter as es6', () => {
         sinon.stub(fs, 'writeFileSync');
 
         const document = figmaDocument.createDocument({ children: [page] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const spyOutputter = sinon.spy(outputter);
 
         return spyOutputter({
@@ -228,7 +233,7 @@ describe('outputter as es6', () => {
     it('should create folders and subfolders when pageName contains slashes', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1WithSlashes] });
-        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document);
+        const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
 
         nockScope.done();

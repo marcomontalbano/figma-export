@@ -12,7 +12,7 @@ export type ComponentExtras = {
     }[];
 }
 
-export interface ComponentNode extends Figma.Component {
+export type ComponentNode = (Figma.Component | Figma.Instance) & {
     figmaExport: ComponentExtras;
     svg: string;
 }
@@ -32,4 +32,4 @@ export type ComponentOutputterParamOption = {
 
 export type StyleNode = Figma.Style & Figma.Node
 
-export type ComponentFilter = (component: Figma.Component) => boolean
+export type ComponentFilter = (component: Figma.Component | Figma.Instance) => boolean

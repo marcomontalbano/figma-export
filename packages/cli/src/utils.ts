@@ -16,6 +16,10 @@ export const requirePackages = <T extends Function>(packages: string[], baseOpti
     });
 };
 
+export function asUndefinableArray<T>(entry: T | T[] | undefined): T[] | undefined {
+    return entry ? ([] as T[]).concat(entry) : undefined;
+}
+
 export function asArray<T>(entry: T | T[] | undefined): T[] {
-    return entry ? ([] as T[]).concat(entry) : [];
+    return asUndefinableArray(entry) ?? [];
 }

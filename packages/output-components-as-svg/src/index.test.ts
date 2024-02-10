@@ -19,7 +19,10 @@ describe('outputter as svg', () => {
     it('should export all components into svg files', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
-        const pages = figma.getPagesWithComponents(document);
+        const pages = figma.getPagesWithComponents(document, {
+            filterComponent: () => true,
+            includeTypes: ['COMPONENT'],
+        });
 
         await outputter({
             output: 'output',
@@ -33,7 +36,10 @@ describe('outputter as svg', () => {
     it('should create folder if component names contain slashes', async () => {
         const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const fakePages = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
-        const pages = figma.getPagesWithComponents(fakePages);
+        const pages = figma.getPagesWithComponents(fakePages, {
+            filterComponent: () => true,
+            includeTypes: ['COMPONENT'],
+        });
 
         await outputter({
             output: 'output',
@@ -45,7 +51,10 @@ describe('outputter as svg', () => {
 
     describe('options', () => {
         const fakePages = figmaDocument.createPage([figmaDocument.componentWithSlashedName]);
-        const pages = figma.getPagesWithComponents(fakePages);
+        const pages = figma.getPagesWithComponents(fakePages, {
+            filterComponent: () => true,
+            includeTypes: ['COMPONENT'],
+        });
 
         it('should be able to customize "basename"', async () => {
             const writeFileSync = sinon.stub(fs, 'writeFileSync');

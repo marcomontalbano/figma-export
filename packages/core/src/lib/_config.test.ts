@@ -53,6 +53,28 @@ export const componentOutput1: FigmaExport.ComponentNode = {
     },
 };
 
+export const instanceComponent1: Figma.Node = {
+    ...({} as Figma.Instance),
+    id: '10:98',
+    name: 'Figma-Logo (INSTANCE)',
+    type: 'INSTANCE',
+    componentId: '10:8',
+};
+
+export const instanceComponentOutput1: FigmaExport.ComponentNode = {
+    ...instanceComponent1,
+    svg: '',
+    figmaExport: {
+        id: '10:98',
+        dirname: '.',
+        basename: 'Figma-Logo (INSTANCE)',
+        pathToComponent: [
+            { name: 'A Frame', type: 'FRAME' },
+            { name: 'A Group', type: 'GROUP' },
+        ],
+    },
+};
+
 export const component2: Figma.Node = {
     ...({} as Figma.Component),
     id: '8:1',
@@ -97,7 +119,7 @@ export const group1: Figma.Group = {
     id: '26:0',
     name: 'A Group',
     type: 'GROUP',
-    children: [component3],
+    children: [instanceComponent1, component3],
 };
 
 export const page1: Figma.Canvas = {

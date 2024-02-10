@@ -7,6 +7,11 @@ import * as Figma from 'figma-js';
 import * as figmaDocument from './_config.test';
 import * as figma from './figma';
 
+const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
+    filterComponent: () => true,
+    includeTypes: ['COMPONENT'],
+};
+
 describe('figma.', () => {
     beforeEach(() => {
         nock(figmaDocument.svg.domain, { reqheaders: { 'Content-Type': 'images/svg+xml' } })
@@ -31,15 +36,41 @@ describe('figma.', () => {
 
     describe('getComponents', () => {
         it('should get zero results if no children are provided', () => {
-            expect(figma.getComponents()).to.eql([]);
+            expect(figma.getComponents([], getComponentsDefaultOptions)).to.eql([]);
         });
 
         it('should get all components from a list of children', () => {
             expect(figma.getComponents([
                 figmaDocument.component1,
                 figmaDocument.group1,
-            ], undefined, [{ name: 'A Frame', type: 'FRAME' }])).to.eql([
+            ], getComponentsDefaultOptions, [{ name: 'A Frame', type: 'FRAME' }])).to.eql([
                 figmaDocument.componentOutput1,
+                figmaDocument.componentOutput3,
+            ]);
+        });
+
+        it('should get all instances from a list of children', () => {
+            expect(figma.getComponents([
+                figmaDocument.component1,
+                figmaDocument.group1,
+            ], {
+                filterComponent: () => true,
+                includeTypes: ['INSTANCE'],
+            }, [{ name: 'A Frame', type: 'FRAME' }])).to.eql([
+                figmaDocument.instanceComponentOutput1,
+            ]);
+        });
+
+        it('should get all components and instances from a list of children', () => {
+            expect(figma.getComponents([
+                figmaDocument.component1,
+                figmaDocument.group1,
+            ], {
+                filterComponent: () => true,
+                includeTypes: ['COMPONENT', 'INSTANCE'],
+            }, [{ name: 'A Frame', type: 'FRAME' }])).to.eql([
+                figmaDocument.componentOutput1,
+                figmaDocument.instanceComponentOutput1,
                 figmaDocument.componentOutput3,
             ]);
         });
@@ -49,19 +80,28 @@ describe('figma.', () => {
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
 
         it('should get all pages by default', () => {
-            expect(figma.getPagesWithComponents(document))
+            expect(figma.getPagesWithComponents(document, getComponentsDefaultOptions))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should get all the pages from the document', () => {
-            expect(figma.getPagesWithComponents(document))
+            expect(figma.getPagesWithComponents(document, getComponentsDefaultOptions))
                 .to.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
 
         it('should be able to filter components', () => {
-            expect(figma.getPagesWithComponents(document, { filterComponent: (component) => ['9:1'].includes(component.id) }))
+            expect(
+                figma
+                    .getPagesWithComponents(
+                        document,
+                        {
+                            filterComponent: (component) => ['9:1'].includes(component.id),
+                            includeTypes: ['COMPONENT'],
+                        },
+                    ),
+            )
                 .to.not.contain.an.item.with.property('name', 'page1')
                 .to.contain.an.item.with.property('name', 'page2');
         });
@@ -74,6 +114,7 @@ describe('figma.', () => {
                         figmaDocument.pageWithoutComponents,
                     ],
                 }),
+                getComponentsDefaultOptions,
             );
 
             expect(pages)
@@ -86,7 +127,7 @@ describe('figma.', () => {
     describe('getIdsFromPages', () => {
         it('should get component ids from specified pages', () => {
             const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
-            const pages = figma.getPagesWithComponents(document);
+            const pages = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
 
             expect(figma.getIdsFromPages(pages)).to.eql(['10:8', '8:1', '9:1']);
         });
