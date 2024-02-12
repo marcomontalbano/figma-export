@@ -102,12 +102,12 @@ describe('utils.', () => {
         });
     });
 
-    describe('sanitizeOnlyFromPages', () => {
+    describe('forceArray', () => {
         it('should return a not nullish and not empty string array', () => {
-            expect(utils.sanitizeOnlyFromPages(undefined)).to.deep.equal([]);
-            expect(utils.sanitizeOnlyFromPages([''])).to.deep.equal([]);
-            expect(utils.sanitizeOnlyFromPages(['John'])).to.deep.equal(['John']);
-            expect(utils.sanitizeOnlyFromPages(['John', 'Doe'])).to.deep.equal(['John', 'Doe']);
+            expect(utils.forceArray(undefined)).to.deep.equal([]);
+            expect(utils.forceArray([''])).to.deep.equal([]);
+            expect(utils.forceArray(['John'])).to.deep.equal(['John']);
+            expect(utils.forceArray(['John', 'Doe'])).to.deep.equal(['John', 'Doe']);
         });
     });
 });

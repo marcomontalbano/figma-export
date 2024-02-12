@@ -4,7 +4,7 @@ module.exports = {
         ['styles', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
-            // onlyFromPages: ['icons'], // optional - Figma page names (all pages when not specified)
+            // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output'

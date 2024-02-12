@@ -29,7 +29,13 @@ export type ComponentsCommandOptions = {
      */
     version?: string;
 
-    /** Figma page names (all pages when not specified) */
+    /**
+     * Export only specified node IDs.
+     * The `onlyFromPages` option is always ignored when set.
+     */
+    ids?: string[];
+
+    /** Figma page names or IDs (all pages when not specified) */
     onlyFromPages?: string[];
 
     /** Filter components to export */
@@ -64,7 +70,13 @@ export type StylesCommandOptions = {
      */
     version?: string;
 
-    /** Figma page names (all pages when not specified) */
+    /**
+     * Export only specified node IDs.
+     * The `onlyFromPages` option is always ignored when set.
+     */
+    ids?: string[];
+
+    /** Figma page names or IDs (all pages when not specified) */
     onlyFromPages?: string[];
 
     /** Outputter module name or path */

@@ -1,17 +1,26 @@
 {
-    "name": "Figma Export (Copy)",
-    "lastModified": "2020-10-30T18:56:51.987978Z",
-    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/761a94c6-4a19-49dd-bfb2-782b960c3a40?Expires=1604880000&Signature=epETf3LgQuX1XH2lFXGpONnEwnH6vcEmK-VvYOO2i9-~wXE2DxNuf7RCsw6YejiT5eq~UtZS0dsWfJcJfZCs8Xiu~fhSY7mT8RZChxjIC5-MysgPmpRRdCmByW82nvGvNRl9bJBUvqSp5HC3pnAdbjj1FllYQ7dtMZOHJEbFuwKmbRgVWb75TGK8E~O6Ag0vUL7saaSbrm9jlnno00UiXDHUbXBd9MFnNsDEk~Is0hPkjnLtCgjLhXaPOyktCgACotLPgOiABIqP8Lru6ExYbgXFgMHl53nNpXW9Xbb6mGqxM~XSPa38xN4S~9G2N3~eFw0a5jMnJQUPqpQfPMc2Xw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-    "version": "522617996",
-    "role": "owner",
+    "name": "figma-export",
+    "lastModified": "2024-02-12T15:56:53Z",
+    "thumbnailUrl": "https://s3-alpha.figma.com/thumbnails/902c7922-b242-45d5-ac36-7676cc4b82d3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQ4GOSFWC7BV3ABO4%2F20240211%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20240211T120000Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=e5e440a039dcb97e069a5e08b2ac9a155d4fa4c2dad5ebdcb278addae1a2493a",
+    "version": "5138552565",
+    "role": "viewer",
+    "editorType": "figma",
+    "linkAccess": "view",
     "nodes": {
         "339:0": {
             "document": {
                 "id": "339:0",
                 "name": "color-linear-gradient",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -67,6 +76,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -75,8 +85,15 @@
                 "id": "598:7",
                 "name": "color-figma-gradient",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -161,6 +178,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -169,8 +187,15 @@
                 "id": "339:5",
                 "name": "color-figma-gradient-10",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -212,21 +237,12 @@
                         "gradientStops": [
                             {
                                 "color": {
-                                    "r": 0.9490196108818054,
-                                    "g": 0.30588236451148987,
-                                    "b": 0.11764705926179886,
+                                    "r": 0.03921568766236305,
+                                    "g": 0.8117647171020508,
+                                    "b": 0.5137255191802979,
                                     "a": 1
                                 },
                                 "position": 0
-                            },
-                            {
-                                "color": {
-                                    "r": 0.7212237119674683,
-                                    "g": 0.3490196466445923,
-                                    "b": 1,
-                                    "a": 1
-                                },
-                                "position": 0.34375
                             },
                             {
                                 "color": {
@@ -235,13 +251,22 @@
                                     "b": 0.9960784316062927,
                                     "a": 1
                                 },
-                                "position": 0.6770833134651184
+                                "position": 0.3177083432674408
                             },
                             {
                                 "color": {
-                                    "r": 0.03921568766236305,
-                                    "g": 0.8117647171020508,
-                                    "b": 0.5137255191802979,
+                                    "r": 0.7212237119674683,
+                                    "g": 0.3490196466445923,
+                                    "b": 1,
+                                    "a": 1
+                                },
+                                "position": 0.7083333134651184
+                            },
+                            {
+                                "color": {
+                                    "r": 0.9490196108818054,
+                                    "g": 0.30588236451148987,
+                                    "b": 0.11764705926179886,
                                     "a": 1
                                 },
                                 "position": 1
@@ -255,6 +280,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -263,8 +289,15 @@
                 "id": "121:17",
                 "name": "color-3",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -292,6 +325,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -300,12 +334,19 @@
                 "id": "122:18",
                 "name": "regular-text",
                 "type": "TEXT",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
                     "y": 0,
-                    "width": 0,
-                    "height": 56
+                    "width": 46,
+                    "height": 16
+                },
+                "absoluteRenderBounds": {
+                    "x": 1.080078125,
+                    "y": 2.91015625,
+                    "width": 43.0185546875,
+                    "height": 13.0087890625
                 },
                 "constraints": {
                     "vertical": "TOP",
@@ -316,18 +357,18 @@
                         "blendMode": "NORMAL",
                         "type": "SOLID",
                         "color": {
-                            "r": 0.7686274647712708,
-                            "g": 0.7686274647712708,
-                            "b": 0.7686274647712708,
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
                             "a": 1
                         }
                     }
                 ],
                 "strokes": [],
-                "strokeWeight": 1,
+                "strokeWeight": 0,
                 "strokeAlign": "INSIDE",
                 "effects": [],
-                "characters": "48px Roboto Regular",
+                "characters": "Rag 123",
                 "style": {
                     "fontFamily": "Roboto Condensed",
                     "fontPostScriptName": "RobotoCondensed-Regular",
@@ -341,10 +382,18 @@
                     "lineHeightPercent": 100,
                     "lineHeightUnit": "INTRINSIC_%"
                 },
+                "layoutVersion": 4,
                 "characterStyleOverrides": [],
-                "styleOverrideTable": {}
+                "styleOverrideTable": {},
+                "lineTypes": [
+                    "NONE"
+                ],
+                "lineIndentations": [
+                    0
+                ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -353,8 +402,15 @@
                 "id": "121:18",
                 "name": "color-4",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -382,6 +438,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -390,12 +447,19 @@
                 "id": "400:33",
                 "name": "deleted-text",
                 "type": "TEXT",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
                     "y": 0,
-                    "width": 0,
-                    "height": 16
+                    "width": 43,
+                    "height": 21
+                },
+                "absoluteRenderBounds": {
+                    "x": 0,
+                    "y": 4.896484375,
+                    "width": 42.5537109375,
+                    "height": 13.015625
                 },
                 "constraints": {
                     "vertical": "TOP",
@@ -406,18 +470,18 @@
                         "blendMode": "NORMAL",
                         "type": "SOLID",
                         "color": {
-                            "r": 0.7686274647712708,
-                            "g": 0.7686274647712708,
-                            "b": 0.7686274647712708,
+                            "r": 0,
+                            "g": 0,
+                            "b": 0,
                             "a": 1
                         }
                     }
                 ],
                 "strokes": [],
-                "strokeWeight": 1,
+                "strokeWeight": 0,
                 "strokeAlign": "INSIDE",
                 "effects": [],
-                "characters": "14px Roboto Condensed Bold",
+                "characters": "Rag 123",
                 "style": {
                     "fontFamily": "Roboto Condensed",
                     "fontPostScriptName": "RobotoCondensed-Bold",
@@ -429,14 +493,23 @@
                     "textAlignHorizontal": "LEFT",
                     "textAlignVertical": "TOP",
                     "letterSpacing": 0,
-                    "lineHeightPx": 16.40625,
-                    "lineHeightPercent": 100,
-                    "lineHeightUnit": "INTRINSIC_%"
+                    "lineHeightPx": 21,
+                    "lineHeightPercent": 128,
+                    "lineHeightPercentFontSize": 150,
+                    "lineHeightUnit": "FONT_SIZE_%"
                 },
+                "layoutVersion": 4,
                 "characterStyleOverrides": [],
-                "styleOverrideTable": {}
+                "styleOverrideTable": {},
+                "lineTypes": [
+                    "NONE"
+                ],
+                "lineIndentations": [
+                    0
+                ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -445,8 +518,15 @@
                 "id": "121:16",
                 "name": "color-2",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -474,6 +554,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -482,6 +563,7 @@
                 "id": "122:16",
                 "name": "h2",
                 "type": "TEXT",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
@@ -489,6 +571,7 @@
                     "width": 0,
                     "height": 75
                 },
+                "absoluteRenderBounds": null,
                 "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -525,9 +608,16 @@
                     "lineHeightUnit": "INTRINSIC_%"
                 },
                 "characterStyleOverrides": [],
-                "styleOverrideTable": {}
+                "styleOverrideTable": {},
+                "lineTypes": [
+                    "NONE"
+                ],
+                "lineIndentations": [
+                    0
+                ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -536,8 +626,15 @@
                 "id": "121:10",
                 "name": "color-1",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -576,6 +673,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -584,6 +682,7 @@
                 "id": "122:14",
                 "name": "h1",
                 "type": "TEXT",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
@@ -591,6 +690,7 @@
                     "width": 0,
                     "height": 75
                 },
+                "absoluteRenderBounds": null,
                 "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -630,9 +730,16 @@
                     "lineHeightUnit": "PIXELS"
                 },
                 "characterStyleOverrides": [],
-                "styleOverrideTable": {}
+                "styleOverrideTable": {},
+                "lineTypes": [
+                    "NONE"
+                ],
+                "lineIndentations": [
+                    0
+                ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -641,12 +748,19 @@
                 "id": "433:8",
                 "name": "multi-shadows",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
                     "height": 100
+                },
+                "absoluteRenderBounds": {
+                    "x": -4,
+                    "y": 0,
+                    "width": 108,
+                    "height": 108
                 },
                 "constraints": {
                     "vertical": "TOP",
@@ -682,7 +796,8 @@
                             "x": 0,
                             "y": 4
                         },
-                        "radius": 4
+                        "radius": 4,
+                        "showShadowBehindNode": true
                     },
                     {
                         "type": "INNER_SHADOW",
@@ -703,6 +818,7 @@
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -711,12 +827,19 @@
                 "id": "376:13",
                 "name": "mixed-effects",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
                     "height": 100
+                },
+                "absoluteRenderBounds": {
+                    "x": -4,
+                    "y": -4,
+                    "width": 108,
+                    "height": 112
                 },
                 "constraints": {
                     "vertical": "TOP",
@@ -757,7 +880,8 @@
                             "x": 0,
                             "y": 4
                         },
-                        "radius": 4
+                        "radius": 4,
+                        "showShadowBehindNode": true
                     },
                     {
                         "type": "INNER_SHADOW",
@@ -778,6 +902,7 @@
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -786,12 +911,19 @@
                 "id": "296:7",
                 "name": "layer-blur",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
                     "height": 100
+                },
+                "absoluteRenderBounds": {
+                    "x": -4,
+                    "y": -4,
+                    "width": 108,
+                    "height": 108
                 },
                 "constraints": {
                     "vertical": "TOP",
@@ -821,6 +953,7 @@
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -829,12 +962,19 @@
                 "id": "124:8",
                 "name": "drop-shadow",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
                     "height": 100
+                },
+                "absoluteRenderBounds": {
+                    "x": -10,
+                    "y": -9,
+                    "width": 126,
+                    "height": 126
                 },
                 "constraints": {
                     "vertical": "TOP",
@@ -871,11 +1011,13 @@
                             "y": 4
                         },
                         "radius": 7,
-                        "spread": 6
+                        "spread": 6,
+                        "showShadowBehindNode": true
                     }
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -884,8 +1026,15 @@
                 "id": "376:15",
                 "name": "inner-shadow-bottom",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -931,6 +1080,7 @@
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -939,8 +1089,15 @@
                 "id": "376:2",
                 "name": "inner-shadow",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -986,6 +1143,7 @@
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -994,8 +1152,15 @@
                 "id": "408:8",
                 "name": "color-multi-gradient",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1099,6 +1264,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1107,8 +1273,15 @@
                 "id": "341:2",
                 "name": "color-linear-gradient-alpha",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1164,6 +1337,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1172,8 +1346,15 @@
                 "id": "336:5",
                 "name": "color-alpha-50",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1202,6 +1383,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1210,8 +1392,15 @@
                 "id": "121:12",
                 "name": "color-1-lighter",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1239,6 +1428,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1249,6 +1439,7 @@
                 "visible": false,
                 "type": "RECTANGLE",
                 "locked": true,
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
                     "x": 0,
@@ -1256,6 +1447,7 @@
                     "width": 100,
                     "height": 100
                 },
+                "absoluteRenderBounds": null,
                 "constraints": {
                     "vertical": "TOP",
                     "horizontal": "LEFT"
@@ -1278,6 +1470,52 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
+            "schemaVersion": 0,
+            "styles": {}
+        },
+        "2009:792": {
+            "document": {
+                "id": "2009:792",
+                "name": "purple/with/special#characters",
+                "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "constraints": {
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
+                },
+                "fills": [
+                    {
+                        "blendMode": "NORMAL",
+                        "type": "SOLID",
+                        "color": {
+                            "r": 0.6352941393852234,
+                            "g": 0.3490196168422699,
+                            "b": 1,
+                            "a": 1
+                        }
+                    }
+                ],
+                "strokes": [],
+                "strokeWeight": 1,
+                "strokeAlign": "INSIDE",
+                "effects": []
+            },
+            "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1286,9 +1524,16 @@
                 "id": "124:18",
                 "name": "grid-12",
                 "type": "FRAME",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "children": [],
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1352,6 +1597,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1360,8 +1606,15 @@
                 "id": "330:1",
                 "name": "unused-color",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1389,6 +1642,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1397,8 +1651,15 @@
                 "id": "339:1",
                 "name": "color-radial-gradient",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1454,6 +1715,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1462,8 +1724,15 @@
                 "id": "339:2",
                 "name": "color-angular-gradient",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1519,6 +1788,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1527,8 +1797,15 @@
                 "id": "339:3",
                 "name": "color-diamond-gradient",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1584,6 +1861,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1592,8 +1870,15 @@
                 "id": "339:7",
                 "name": "color-image",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1617,6 +1902,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
@@ -1625,8 +1911,15 @@
                 "id": "376:9",
                 "name": "background-blur",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1660,16 +1953,24 @@
                 ]
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         },
-        "626:1": {
+        "630:791": {
             "document": {
-                "id": "626:1",
+                "id": "630:791",
                 "name": "color-figma-gradient-05",
                 "type": "RECTANGLE",
+                "scrollBehavior": "SCROLLS",
                 "blendMode": "PASS_THROUGH",
                 "absoluteBoundingBox": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 100,
+                    "height": 100
+                },
+                "absoluteRenderBounds": {
                     "x": 0,
                     "y": 0,
                     "width": 100,
@@ -1711,21 +2012,12 @@
                         "gradientStops": [
                             {
                                 "color": {
-                                    "r": 0.9490196108818054,
-                                    "g": 0.30588236451148987,
-                                    "b": 0.11764705926179886,
+                                    "r": 0.03921568766236305,
+                                    "g": 0.8117647171020508,
+                                    "b": 0.5137255191802979,
                                     "a": 1
                                 },
                                 "position": 0
-                            },
-                            {
-                                "color": {
-                                    "r": 0.7212237119674683,
-                                    "g": 0.3490196466445923,
-                                    "b": 1,
-                                    "a": 1
-                                },
-                                "position": 0.34375
                             },
                             {
                                 "color": {
@@ -1734,13 +2026,22 @@
                                     "b": 0.9960784316062927,
                                     "a": 1
                                 },
-                                "position": 0.6770833134651184
+                                "position": 0.3177083432674408
                             },
                             {
                                 "color": {
-                                    "r": 0.03921568766236305,
-                                    "g": 0.8117647171020508,
-                                    "b": 0.5137255191802979,
+                                    "r": 0.7212237119674683,
+                                    "g": 0.3490196466445923,
+                                    "b": 1,
+                                    "a": 1
+                                },
+                                "position": 0.7083333134651184
+                            },
+                            {
+                                "color": {
+                                    "r": 0.9490196108818054,
+                                    "g": 0.30588236451148987,
+                                    "b": 0.11764705926179886,
                                     "a": 1
                                 },
                                 "position": 1
@@ -1754,6 +2055,7 @@
                 "effects": []
             },
             "components": {},
+            "componentSets": {},
             "schemaVersion": 0,
             "styles": {}
         }

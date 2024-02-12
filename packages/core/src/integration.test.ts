@@ -8,7 +8,7 @@ describe('@figma-export/core', () => {
         const pageNodes = await exportComponents({
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             token: process.env.FIGMA_TOKEN ?? '',
-            onlyFromPages: ['unit-test'],
+            onlyFromPages: ['138:28'],
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             log: () => {},
         });

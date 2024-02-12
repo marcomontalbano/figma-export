@@ -20,7 +20,7 @@ import outputComponentsAsSvgstore from './packages/output-components-as-svgstore
 
 const styleOptions: StylesCommandOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
-    // onlyFromPages: ['icons'], // optional - Figma page names (all pages when not specified)
+    // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
     outputters: [
         outputStylesAsCss({
             output: './output/styles/css'

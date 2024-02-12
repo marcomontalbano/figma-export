@@ -176,7 +176,8 @@ module.exports = {
         ['styles', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
-            // onlyFromPages: ['icons'], // optional - Figma page names (all pages when not specified)
+            // ids: ['138:52'], // optional - Export only specified node IDs (the `onlyFromPages` option is always ignored when set)
+            // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
             outputters: [
                 require('@figma-export/output-styles-as-sass')({
                     output: './output/styles'
@@ -187,6 +188,7 @@ module.exports = {
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
+            // ids: ['54:22'], // optional - Export only specified node IDs (the `onlyFromPages`    option is always ignored when set)
             onlyFromPages: ['icons'],
             // filterComponent: (component) => !/^figma/.test(component.name), // optional
             transformers: [

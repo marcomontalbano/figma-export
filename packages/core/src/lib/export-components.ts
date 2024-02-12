@@ -11,6 +11,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     token,
     fileId,
     version,
+    ids = [],
     onlyFromPages = [],
     filterComponent = () => true,
     includeTypes = ['COMPONENT'],
@@ -31,6 +32,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
         {
             fileId,
             version,
+            ids,
             onlyFromPages,
         },
     );

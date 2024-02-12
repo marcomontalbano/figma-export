@@ -14,7 +14,8 @@ import outputComponentsAsEs6 from '@figma-export/output-components-as-es6';
 const styleOptions: StylesCommandOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
     // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
-    // onlyFromPages: ['icons'], // optional - Figma page names (all pages when not specified)
+    // ids: ['138:52'], // optional - Export only specified node IDs (the `onlyFromPages` option is always ignored when set)
+    // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
     outputters: [
         outputStylesAsSass({
             output: './output'
@@ -25,6 +26,7 @@ const styleOptions: StylesCommandOptions = {
 const componentOptions: ComponentsCommandOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
     // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
+    // ids: ['54:22'], // optional - Export only specified node IDs (the `onlyFromPages` option is always ignored when set)
     onlyFromPages: ['icons'],
     transformers: [
         transformSvgWithSvgo({

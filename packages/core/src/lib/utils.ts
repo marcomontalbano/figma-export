@@ -75,10 +75,9 @@ export type PickOption<T extends FigmaExport.ComponentsCommand | FigmaExport.Sty
     Pick<Parameters<T>[0], K>
 
 /**
- * Sanitize `onlyFromPages` option by converting to a not nullish and not empty string array.
+ * Sanitize an array by converting it to a not nullish and not empty string array.
  */
-export function sanitizeOnlyFromPages(
-    onlyFromPages: PickOption<FigmaExport.ComponentsCommand | FigmaExport.StylesCommand, 'onlyFromPages'>['onlyFromPages'],
-) {
-    return (onlyFromPages ?? []).filter((v) => notNullish(v) && notEmptyString(v));
+export function forceArray(maybeArray: string[] | undefined) {
+    return (maybeArray ?? [])
+        .filter((v) => notNullish(v) && notEmptyString(v));
 }
