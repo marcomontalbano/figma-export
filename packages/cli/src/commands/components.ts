@@ -14,7 +14,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .option('-c, --concurrency', 'Concurrency when fetching', 30)
     .option('-r, --retries', 'Maximum number of retries when fetching fails', 3)
     .option('-o, --output', 'Output directory', 'output')
-    .option('-p, --page', 'Figma page names (all pages when not specified)')
+    .option('-p, --page', 'Figma page names or IDs (all pages when not specified)')
     .option('-t, --types', 'Node types to be exported (COMPONENT or INSTANCE)', 'COMPONENT')
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)

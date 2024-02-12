@@ -154,6 +154,62 @@ describe('export-component', () => {
         expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
     });
 
+    it('should filter by selected page IDs when setting onlyFromPages', async () => {
+        const pagesWithSvg = await exportComponents({
+            fileId: 'fileABCD',
+            version: 'versionABCD',
+            token: 'token1234',
+            log: logger,
+            outputters: [outputter],
+            transformers: [transformer],
+            onlyFromPages: ['10:7'],
+        });
+
+        nockScope.done();
+
+        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
+        expect(clientFileImages).to.have.been.calledOnceWith('fileABCD', {
+            format: 'svg',
+            ids: ['10:8', '8:1', '9:1'],
+            svg_include_id: true,
+            version: 'versionABCD',
+        });
+
+        expect(clientFile).to.have.been.calledTwice;
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1, ids: undefined });
+        expect(clientFile.secondCall).to.have.been.calledWith('fileABCD', {
+            version: 'versionABCD', depth: undefined, ids: ['10:7'],
+        });
+
+        expect(logger).to.have.been.callCount(6);
+        expect(logger.getCall(0)).to.have.been.calledWith('fetching document');
+        expect(logger.getCall(1)).to.have.been.calledWith('preparing components');
+        expect(logger.getCall(2)).to.have.been.calledWith('fetching components 1/3');
+        expect(logger.getCall(3)).to.have.been.calledWith('fetching components 2/3');
+        expect(logger.getCall(4)).to.have.been.calledWith('fetching components 3/3');
+        expect(logger.getCall(5)).to.have.been.calledWith('exported components from fileABCD');
+
+        expect(transformer).to.have.been.calledThrice;
+        expect(transformer.firstCall).to.have.been.calledWith(figmaDocument.svg.content);
+        expect(transformer.secondCall).to.have.been.calledWith(figmaDocument.svg.content);
+        expect(transformer.thirdCall).to.have.been.calledWith(figmaDocument.svg.content);
+
+        expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
+    });
+
+    it('should throw an error when onlyFromPages is set to a page not found', async () => {
+        // eslint-disable-next-line no-return-await
+        await expect(exportComponents({
+            fileId: 'fileABCD',
+            version: 'versionABCD',
+            token: 'token1234',
+            log: logger,
+            outputters: [outputter],
+            transformers: [transformer],
+            onlyFromPages: ['nonexistingNameOrId'],
+        })).to.be.rejectedWith('Cannot find any page with "onlyForPages" equal to ["nonexistingNameOrId"]');
+    });
+
     it('should use default "logger" if not defined', async () => {
         await exportComponents({
             fileId: 'fileABCD',

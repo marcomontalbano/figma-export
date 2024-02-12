@@ -11,7 +11,7 @@ export const addStyles = (prog: Sade, spinner: Ora) => prog
     .describe('Export styles from a Figma file.')
     .option('-O, --outputter', 'Outputter module or path')
     .option('-o, --output', 'Output directory', 'output')
-    .option('-p, --page', 'Figma page names (all pages when not specified)')
+    .option('-p, --page', 'Figma page names or IDs (all pages when not specified)')
     .option('--fileVersion', `A specific version ID to get. Omitting this will get the current version of the file.
                          https://help.figma.com/hc/en-us/articles/360038006754-View-a-file-s-version-history`)
     .example('styles fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-styles-as-css')

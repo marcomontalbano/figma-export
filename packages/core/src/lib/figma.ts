@@ -12,7 +12,7 @@ import {
     chunk,
     emptySvg,
     PickOption,
-    sanitizeOnlyFromPages,
+    forceArray,
 } from './utils';
 
 /**
@@ -65,10 +65,11 @@ const getPagesFromDocument = (
     document: Figma.Document,
     options: PickOption<FigmaExport.StylesCommand | FigmaExport.StylesCommand, 'onlyFromPages'> = {},
 ): Figma.Canvas[] => {
-    const onlyFromPages = sanitizeOnlyFromPages(options.onlyFromPages);
+    const onlyFromPages = forceArray(options.onlyFromPages);
     return document.children
         .filter((node): node is Figma.Canvas => {
-            return node.type === 'CANVAS' && (onlyFromPages.length === 0 || onlyFromPages.includes(node.name));
+            return node.type === 'CANVAS' && (
+                onlyFromPages.length === 0 || onlyFromPages.includes(node.name) || onlyFromPages.includes(node.id));
         });
 };
 
@@ -91,7 +92,11 @@ const getAllPageIds = async (
         .map((page) => page.id);
 
     if (pageIds.length === 0) {
-        throw new Error(`Cannot find any page with "onlyForPages" equal to [${sanitizeOnlyFromPages(options.onlyFromPages).join(', ')}].`);
+        const errorAsString = forceArray(options.onlyFromPages)
+            .map((page) => `"${page}"`)
+            .join(', ');
+
+        throw new Error(`Cannot find any page with "onlyForPages" equal to [${errorAsString}].`);
     }
 
     return pageIds;
@@ -150,23 +155,26 @@ export const getComponents = (
 // eslint-disable-next-line no-underscore-dangle
 const __getDocumentAndStyles = async (
     client: Figma.ClientInterface,
-    options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'onlyFromPages'>,
+    options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'ids' | 'onlyFromPages'>,
 ): ReturnType<typeof getFile> => {
     return getFile(
         client,
         options,
         {
             // when `onlyFromPages` is set, we avoid traversing all the document tree, but instead we get only requested ids.
-            ids: sanitizeOnlyFromPages(options.onlyFromPages).length > 0
-                ? await getAllPageIds(client, options)
-                : undefined,
+            // eslint-disable-next-line no-nested-ternary
+            ids: forceArray(options.ids).length > 0
+                ? options.ids
+                : forceArray(options.onlyFromPages).length > 0
+                    ? await getAllPageIds(client, options)
+                    : undefined,
         },
     );
 };
 
 export const getDocument = async (
     client: Figma.ClientInterface,
-    options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'onlyFromPages'>,
+    options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'ids' | 'onlyFromPages'>,
 ): Promise<Figma.Document> => {
     const { document } = await __getDocumentAndStyles(client, options);
 
@@ -179,7 +187,7 @@ export const getDocument = async (
 
 export const getStyles = async (
     client: Figma.ClientInterface,
-    options: PickOption<FigmaExport.ComponentsCommand, 'fileId' | 'version' | 'onlyFromPages'>,
+    options: PickOption<FigmaExport.StylesCommand, 'fileId' | 'version' | 'ids' | 'onlyFromPages'>,
 ): Promise<{
     readonly [key: string]: Figma.Style
 }> => {

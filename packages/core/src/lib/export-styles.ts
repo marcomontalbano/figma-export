@@ -7,6 +7,7 @@ export const styles: FigmaExport.StylesCommand = async ({
     token,
     fileId,
     version,
+    ids = [],
     onlyFromPages = [],
     outputters = [],
     log = (msg): void => {
@@ -22,6 +23,7 @@ export const styles: FigmaExport.StylesCommand = async ({
         {
             fileId,
             version,
+            ids,
             onlyFromPages,
         },
     );
