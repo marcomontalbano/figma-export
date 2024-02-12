@@ -13,6 +13,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     version,
     onlyFromPages = [],
     filterComponent = () => true,
+    includeTypes = ['COMPONENT'],
     transformers = [],
     outputters = [],
     concurrency = 30,
@@ -34,7 +35,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
         },
     );
 
-    const pages = getPagesWithComponents(figmaDocument, { filterComponent });
+    const pages = getPagesWithComponents(figmaDocument, { filterComponent, includeTypes });
 
     log('preparing components');
     const pagesWithSvg = await enrichPagesWithSvg(client, fileId, pages, version, {
