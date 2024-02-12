@@ -85,7 +85,7 @@ describe('figmaStyles.', () => {
 
             expect(client.fileNodes).to.have.been.calledWith('ABC123', { ids: nodeIds, version: 'version123' });
 
-            const expectedStyleNodesLength = 30;
+            const expectedStyleNodesLength = 31;
             const expectedUnusedLength = 1;
             expect(styleNodes.length).to.equal(expectedStyleNodesLength);
             expect(styleNodes.filter((node) => node.visible === false).map((node) => node.name)).to.deep.equal(['black']);
@@ -221,12 +221,12 @@ describe('figmaStyles.', () => {
                                 visible: true,
                                 angle: '90deg',
                                 gradientStops: [
-                                    { color: { r: 242, g: 78, b: 30, a: 0.1, rgba: 'rgba(242, 78, 30, 0.1)' }, position: 0 },
-                                    { color: { r: 184, g: 89, b: 255, a: 0.1, rgba: 'rgba(184, 89, 255, 0.1)' }, position: 34.375 },
-                                    { color: { r: 26, g: 188, b: 254, a: 0.1, rgba: 'rgba(26, 188, 254, 0.1)' }, position: 67.708 },
-                                    { color: { r: 10, g: 207, b: 131, a: 0.1, rgba: 'rgba(10, 207, 131, 0.1)' }, position: 100 },
+                                    { color: { r: 10, g: 207, b: 131, a: 0.1, rgba: 'rgba(10, 207, 131, 0.1)' }, position: 0 },
+                                    { color: { r: 26, g: 188, b: 254, a: 0.1, rgba: 'rgba(26, 188, 254, 0.1)' }, position: 31.771 },
+                                    { color: { r: 184, g: 89, b: 255, a: 0.1, rgba: 'rgba(184, 89, 255, 0.1)' }, position: 70.833 },
+                                    { color: { r: 242, g: 78, b: 30, a: 0.1, rgba: 'rgba(242, 78, 30, 0.1)' }, position: 100 },
                                 ],
-                                value: 'linear-gradient(90deg, rgba(242, 78, 30, 0.1) 0%, rgba(184, 89, 255, 0.1) 34.375%, rgba(26, 188, 254, 0.1) 67.708%, rgba(10, 207, 131, 0.1) 100%)',
+                                value: 'linear-gradient(90deg, rgba(10, 207, 131, 0.1) 0%, rgba(26, 188, 254, 0.1) 31.771%, rgba(184, 89, 255, 0.1) 70.833%, rgba(242, 78, 30, 0.1) 100%)',
                             },
                             {
                                 type: 'SOLID',
@@ -519,11 +519,7 @@ describe('figmaStyles.', () => {
             });
 
             it('should parse a Text style when lineHeightUnit=FONT_SIZE_%', () => {
-                const node = getNode(styleNodes, 'h1');
-
-                // https://jemgold.github.io/figma-js/interfaces/typestyle.html#lineheightunit
-                // @ts-expect-error: "node" has style for sure
-                node.style.lineHeightUnit = 'FONT_SIZE_%';
+                const node = getNode(styleNodes, 'deleted-text');
 
                 const parsed = figmaStyles.parseStyles([node]);
 
@@ -531,20 +527,20 @@ describe('figmaStyles.', () => {
                     {
                         styleType: 'TEXT',
                         visible: true,
-                        name: 'h1',
-                        comment: 'Page title',
+                        name: 'deleted-text',
+                        comment: '',
                         originalNode: node,
                         style: {
-                            fontFamily: 'Spinnaker',
-                            fontSize: 24,
+                            fontFamily: 'Roboto Condensed',
+                            fontSize: 14,
                             fontStyle: 'normal',
                             fontVariant: 'normal',
-                            fontWeight: 400,
-                            letterSpacing: 2,
-                            lineHeight: '1.25',
+                            fontWeight: 700,
+                            letterSpacing: 0,
+                            lineHeight: '1.5',
                             textAlign: 'left',
-                            textDecoration: 'underline',
-                            textTransform: 'capitalize',
+                            textDecoration: 'line-through',
+                            textTransform: 'lowercase',
                             verticalAlign: 'top',
                         },
                     },

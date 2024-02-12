@@ -197,6 +197,27 @@ describe('export-component', () => {
         expect(outputter).to.have.been.calledOnceWithExactly(pagesWithSvg);
     });
 
+    it('should filter by selected IDs when setting "ids" argument', async () => {
+        await exportComponents({
+            fileId: 'fileABCD',
+            version: 'versionABCD',
+            token: 'token1234',
+            log: logger,
+            outputters: [outputter],
+            transformers: [transformer],
+            ids: ['9:1'],
+        });
+
+        nockScope.done();
+
+        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
+
+        expect(clientFile).to.have.been.calledOnce;
+        expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', {
+            version: 'versionABCD', depth: undefined, ids: ['9:1'],
+        });
+    });
+
     it('should throw an error when onlyFromPages is set to a page not found', async () => {
         // eslint-disable-next-line no-return-await
         await expect(exportComponents({
