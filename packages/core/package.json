@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/core",
-    "version": "4.8.0-alpha.3",
+    "version": "4.8.0-alpha.4",
     "description": "@figma-export core functionalities",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^4.8.0-alpha.3",
+        "@figma-export/types": "^4.8.0-alpha.4",
         "axios": "^1.6.7",
         "figma-js": "~1.16.0",
         "p-limit": "^3.1.0",
