@@ -29,7 +29,10 @@ export type ComponentsCommandOptions = {
      */
     version?: string;
 
-    /** // TODO: add description */
+    /**
+     * Export only specified node IDs.
+     * The `onlyFromPages` option is always ignored when set.
+     */
     ids?: string[];
 
     /** Figma page names or IDs (all pages when not specified) */
@@ -67,7 +70,10 @@ export type StylesCommandOptions = {
      */
     version?: string;
 
-    /** // TODO: add description */
+    /**
+     * Export only specified node IDs.
+     * The `onlyFromPages` option is always ignored when set.
+     */
     ids?: string[];
 
     /** Figma page names or IDs (all pages when not specified) */
