@@ -15,16 +15,14 @@
     "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {
-        "clean": "rimraf dist output .next",
+        "clean": "rimraf dist output out .next",
         "export": "figma-export use-config",
         "next:lint": "next lint",
         "next:dev": "next dev",
         "next:build": "next build",
         "next:export": "next export -o dist/",
-        "next:start": "next start",
         "dev": "run-s export next:dev",
-        "build": "run-s clean export next:build next:export",
-        "start": "run-s next:start"
+        "build": "run-s clean export next:build"
     },
     "devDependencies": {
         "@figma-export/cli": "^4.8.0",
@@ -36,6 +34,7 @@
         "sass": "~1.70.0"
     },
     "dependencies": {
+        "@svgr/plugin-jsx": "^8.1.0",
         "next": "^13.5.6",
         "prismjs": "^1.29.0",
         "react": "^18.2.0",

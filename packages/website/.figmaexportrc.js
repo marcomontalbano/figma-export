@@ -25,6 +25,7 @@ module.exports = {
                 require('../output-components-as-svgr')({
                     output: './output/svgr-octicons',
                     getSvgrConfig: () => ({
+                        plugins: ['@svgr/plugin-jsx'],
                         template: ({ componentName, props, jsx, exports }, { tpl }) => tpl`
                             const ${componentName} = (${props}) => (${jsx});
                             ${exports}
@@ -63,6 +64,7 @@ module.exports = {
                 require('../output-components-as-svgr')({
                     output: './output/svgr',
                     getSvgrConfig: () => ({
+                        plugins: ['@svgr/plugin-jsx'],
                         template: ({ componentName, props, jsx, exports }, { tpl }) => tpl`
                             const ${componentName} = (${props}) => (${jsx});
                             ${exports}
