@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/utils",
-    "version": "4.8.0",
+    "version": "5.0.0",
     "description": "Utils for @figma-export",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
