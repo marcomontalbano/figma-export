@@ -80,6 +80,31 @@ require('@figma-export/output-components-as-svgr')({
 
 `getSvgrConfig` is a function that returns the [SVGR configuration](https://react-svgr.com/docs/options/) object.
 
+## :warning: @svgr/plugin-jsx
+
+Starting from v7 they [removed `plugin-jsx` from the core](https://github.com/gregberge/svgr/releases/tag/v7.0.0) so you'll need to [install it manually](https://www.npmjs.com/package/@svgr/plugin-jsx).
+
+```sh
+npm install --save-dev @svgr/plugin-jsx
+```
+
+```js
+// .figmaexportrc.js
+
+...
+
+outputters: [
+  require('@figma-export/output-components-as-svgr')({
+    output: './output/svgr',
+    getSvgrConfig: () => ({
+      plugins: ['@svgr/plugin-jsx']
+    })
+  })
+]
+
+...
+```
+
 ## Install
 
 Using npm:

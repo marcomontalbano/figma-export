@@ -26,8 +26,8 @@
     "coverage:watch": "npx nodemon -e js,mjs,ts --exec yarn coverage",
     "website:start": "yarn build && yarn workspace @figma-export/website dev",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
-    "website:serve": "yarn workspace @figma-export/website start",
-    "upgrade:major": "yarn workspaces foreach -iv exec npx npm-check-updates -u",
+    "website:serve": "yarn dlx serve packages/website/dist/",
+    "upgrade:major": "npx npm-check-updates -ws --root -u",
     "upgrade:minor": "yarn upgrade:major --target minor",
     "ls-engines": "yarn dlx ls-engines",
     "version": "yarn && git add yarn.lock",
@@ -42,37 +42,38 @@
     ]
   },
   "devDependencies": {
-    "@types/chai": "~4.3.3",
-    "@types/chai-as-promised": "^7.1.5",
-    "@types/chai-things": "0.0.35",
-    "@types/mocha": "~9.1.1",
-    "@types/node": "~16.11.59",
-    "@types/sinon": "~10.0.13",
-    "@types/sinon-chai": "~3.2.8",
-    "@typescript-eslint/eslint-plugin": "~5.37.0",
-    "@typescript-eslint/parser": "~5.37.0",
-    "chai": "~4.3.6",
+    "@types/chai": "~4.3.12",
+    "@types/chai-as-promised": "^7.1.8",
+    "@types/chai-things": "0.0.38",
+    "@types/mocha": "~10.0.6",
+    "@types/node": "~20.11.20",
+    "@types/sinon": "~17.0.3",
+    "@types/sinon-chai": "~3.2.12",
+    "@typescript-eslint/eslint-plugin": "~7.0.2",
+    "@typescript-eslint/parser": "~7.0.2",
+    "chai": "~4.4.1",
     "chai-as-promised": "^7.1.1",
     "chai-things": "~0.2.0",
-    "eslint": "~8.23.1",
+    "eslint": "~8.57.0",
     "eslint-config-airbnb": "~19.0.4",
-    "eslint-plugin-chai-friendly": "~0.7.2",
-    "eslint-plugin-import": "~2.26.0",
-    "husky": "^7.0.4",
-    "lerna": "^4.0.0",
+    "eslint-plugin-chai-friendly": "~0.7.4",
+    "eslint-plugin-import": "~2.29.1",
+    "husky": "^9.0.11",
+    "lerna": "^8.1.2",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~12.5.0",
-    "mocha": "~9.2.2",
-    "nock": "~13.2.9",
-    "npm-check-updates": "^12.5.12",
+    "lint-staged": "~15.2.2",
+    "ls-engines": "^0.9.1",
+    "mocha": "~10.3.0",
+    "nock": "~13.5.3",
+    "npm-check-updates": "^16.14.15",
     "nyc": "~15.1.0",
-    "sinon": "~13.0.2",
+    "sinon": "~17.0.1",
     "sinon-chai": "~3.7.0",
-    "ts-node": "~10.9.1",
-    "typescript": "~4.8.3"
+    "ts-node": "~10.9.2",
+    "typescript": "~5.3.3"
   },
   "engines": {
-    "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+    "node": ">= 16.14"
   },
   "resolutions": {
     "axios": "^1.6.7"
@@ -89,5 +90,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@3.1.1"
+  "packageManager": "yarn@3.8.0"
 }

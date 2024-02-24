@@ -14,14 +14,14 @@ jobs:
 
     strategy:
       matrix:
-        node: [12.22.0, 12.x, 14.x, 16.x, 18.x, 20.x]
+        node: [16.14.0, 16.x, 18.x, 20.x, 21.x]
 
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Node 🧰
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node }}
 
@@ -41,12 +41,12 @@ jobs:
         
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Node 🧰
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: 16.x
+        node-version: 20.x
 
     - name: Install 📦
       run: yarn --immutable
@@ -55,13 +55,13 @@ jobs:
       run: yarn coverage
 
     - name: Export `coverage`
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2.2.3
       with:
         github-token: ${{ secrets.github_token }}
-        path-to-lcov: ./coverage/lcov.info # optional (default value)
+        file: ./coverage/lcov.info # optional (default value)
 
     - name: Upload `coverage` artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage
         path: coverage/lcov-report
@@ -78,7 +78,7 @@ jobs:
   #   - name: Node 🧰
   #     uses: actions/setup-node@v3
   #     with:
-  #       node-version: 14.x
+  #       node-version: 18.x
 
   #   - name: Install 📦
   #     run: yarn --immutable
