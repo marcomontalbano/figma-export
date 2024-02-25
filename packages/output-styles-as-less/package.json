@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-styles-as-less",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "description": "Outputter for @figma-export that exports styles to LESS",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^5.0.0",
+        "@figma-export/types": "^5.0.1",
         "@figma-export/utils": "^5.0.0"
     },
     "engines": {

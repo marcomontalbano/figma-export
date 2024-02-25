@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/output-components-as-svg",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "description": "Outputter for @figma-export that exports components as svg",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^5.0.0"
+        "@figma-export/types": "^5.0.1"
     },
     "engines": {
         "node": ">= 16.14"
