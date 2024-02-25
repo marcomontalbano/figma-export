@@ -75,6 +75,9 @@
   "engines": {
     "node": ">= 16.14"
   },
+  "overrides": {
+    "axios": "^1.6.7"
+  },
   "resolutions": {
     "axios": "^1.6.7"
   },

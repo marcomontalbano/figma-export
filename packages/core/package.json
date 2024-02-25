@@ -29,6 +29,9 @@
         "p-limit": "^3.1.0",
         "p-retry": "^4.6.2"
     },
+    "overrides": {
+        "axios": "^1.6.7"
+    },
     "resolutions": {
         "axios": "^1.6.7"
     },
