@@ -80,7 +80,7 @@ pre[class*=language-] {
 
 .hero {
     text-align: center;
-    margin-bottom: 25px;
+    // margin-bottom: 25px;
 
     &:last-child {
         margin-bottom: 0;
@@ -343,4 +343,8 @@ h2 {
     max-width: 700px;
     display: block;
     margin: 0 -15px;
+}
+
+.mb-25px {
+    margin-bottom: 25px;
 }

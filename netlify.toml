@@ -1,6 +1,10 @@
 [build]
-  publish = './packages/website/dist'
   command = 'yarn website:build'
+  # publish = './packages/website/dist'
+  publish = './packages/website/.next'
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[redirects]]
   from = "https://figma-export.netlify.app/*"
