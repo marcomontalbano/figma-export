@@ -20,10 +20,9 @@
         "next:lint": "next lint",
         "next:dev": "next dev",
         "next:build": "next build",
-        "next:export": "next export -o dist/",
+        "next:start": "next start",
         "dev": "run-s export next:dev",
-        "build-only": "run-s clean export next:build",
-        "build": "run-s clean export next:build next:export",
+        "build": "run-s clean export next:build",
         "start": "run-s next:start"
     },
     "devDependencies": {

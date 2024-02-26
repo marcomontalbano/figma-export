@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 export default function HomePage() {
     const [pin, setPin] = useState<number>(NaN)
     const [timer, setTimer] = useState<number>(30)
-    const interval = useRef<NodeJS.Timer>()
+    const interval = useRef<number>()
 
     useEffect(function handleTimer() {
         if (interval.current == null && !isNaN(pin)) {
@@ -17,6 +17,7 @@ export default function HomePage() {
                 setTimer(Math.round((endTime - Date.now()) / 1000))
             }
 
+            /** @ts-expect-error Interval is a number */
             interval.current = setInterval(() => setTimer((t) => t - 1), 1000);
         }
 
