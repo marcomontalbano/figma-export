@@ -3,7 +3,6 @@ import { Ora } from 'ora';
 import { Sade } from 'sade';
 
 import readline from 'readline';
-import { jsonFetch } from '../jsonFetch';
 
 type Auth = {
     user_id: number
@@ -13,7 +12,9 @@ type Auth = {
 }
 
 function check(state: string): Promise<Auth | undefined> {
-    return jsonFetch<Auth>(`http://127.0.0.1:3000/api/check/${state}`).then((response) => response.data).catch(() => undefined);
+    return fetch(`http://127.0.0.1:3000/api/check/${state}`)
+        .then((response) => response.json() as Promise<Auth>)
+        .catch(() => undefined);
 }
 
 export const addLogin = (prog: Sade, spinner: Ora) => prog
