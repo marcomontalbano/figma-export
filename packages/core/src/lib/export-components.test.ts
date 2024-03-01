@@ -71,6 +71,7 @@ describe('export-component', () => {
     afterEach(() => {
         sinon.restore();
         nock.cleanAll();
+        td.reset();
     });
 
     it('should use transformers and outputter to export components', async () => {

@@ -22,6 +22,7 @@ describe('figma.', () => {
 
     afterEach(() => {
         sinon.restore();
+        td.reset();
     });
 
     describe('', () => {

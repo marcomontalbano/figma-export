@@ -47,6 +47,7 @@ describe('export-styles', () => {
 
     afterEach(() => {
         sinon.restore();
+        td.reset();
     });
 
     it('should use outputter to export styles without defining the "onlyFromPages" option', async () => {
