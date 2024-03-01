@@ -20,9 +20,9 @@
     "lint": "yarn build && eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts",
     "test": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
     "test:integration": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha --config .mocharc.integration.json",
-    "test:watch": "yarn test --watch --reporter=dot",
-    "coverage": "nyc yarn test --reporter=dot",
-    "coverage:watch": "npx nodemon -e js,mjs,ts --exec yarn coverage",
+    "test:watch": "yarn dlx nodemon -e js,mjs,ts --exec yarn test --reporter=dot",
+    "coverage": "c8 yarn test --reporter=dot",
+    "coverage:watch": "yarn dlx nodemon -e js,mjs,ts --exec yarn coverage",
     "website:start": "yarn build && yarn workspace @figma-export/website dev",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
     "website:serve": "yarn dlx serve packages/website/dist/",
@@ -33,7 +33,7 @@
     "pre-commit": "lint-staged -c ./lint-staged.config.js"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
-  "nyc": {
+  "c8": {
     "all": false,
     "include": [
       "**/*.js",
@@ -50,6 +50,7 @@
     "@types/sinon-chai": "~3.2.12",
     "@typescript-eslint/eslint-plugin": "~7.0.2",
     "@typescript-eslint/parser": "~7.0.2",
+    "c8": "^9.1.0",
     "chai": "~5.1.0",
     "chai-as-promised": "^7.1.1",
     "chai-things": "~0.2.0",
@@ -65,7 +66,6 @@
     "mocha": "~10.3.0",
     "nock": "~13.5.3",
     "npm-check-updates": "^16.14.15",
-    "nyc": "~15.1.0",
     "sinon": "~17.0.1",
     "sinon-chai": "~3.7.0",
     "testdouble": "^3.20.1",

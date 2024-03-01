@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import { components as exportComponents } from './lib/export-components';
-import { styles as exportStyles } from './lib/export-styles';
+import { components as exportComponents } from './lib/export-components.js';
+import { styles as exportStyles } from './lib/export-styles.js';
 
 describe('@figma-export/core', () => {
     it('Export components', async () => {

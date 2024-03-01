@@ -1,11 +1,8 @@
 import * as sinon from 'sinon';
 import { expect } from 'chai';
+import * as td from 'testdouble';
 
 import * as Figma from 'figma-js';
-
-import * as FigmaExport from './figma.js';
-
-import { styles as exportStyles } from './export-styles.js';
 
 import fileJson from './_mocks_/figma.files.json' assert { type: 'json' };
 import fileNodesJson from './_mocks_/figma.fileNodes.json' assert { type: 'json' };
@@ -27,7 +24,9 @@ describe('export-styles', () => {
 
     let client: Figma.ClientInterface;
 
-    beforeEach(() => {
+    let exportStyles: typeof import('./export-styles.js').styles;
+
+    beforeEach(async () => {
         logger = sinon.spy();
         outputter = sinon.spy();
 
@@ -40,7 +39,10 @@ describe('export-styles', () => {
             fileNodes: clientFileNodes,
         };
 
-        sinon.stub(FigmaExport, 'getClient').returns(client);
+        const FigmaJS = await td.replaceEsm('figma-js');
+        td.when(FigmaJS.Client({ personalAccessToken: 'token1234' })).thenReturn(client);
+
+        exportStyles = (await import('./export-styles.js')).styles;
     });
 
     afterEach(() => {
@@ -56,7 +58,6 @@ describe('export-styles', () => {
             outputters: [outputter],
         });
 
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
         expect(clientFile).to.have.been.calledOnce;
         expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: undefined, ids: undefined });
@@ -80,7 +81,6 @@ describe('export-styles', () => {
             outputters: [outputter],
         });
 
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileNodes).to.have.been.calledOnceWith('fileABCD', { ids: fileNodeIds, version: 'versionABCD' });
         expect(clientFile).to.have.been.calledTwice;
         expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', { version: 'versionABCD', depth: 1, ids: undefined });

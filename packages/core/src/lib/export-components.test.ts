@@ -1,13 +1,11 @@
-import * as sinon from 'sinon';
 import { expect } from 'chai';
 import nock from 'nock';
+import * as sinon from 'sinon';
+import * as td from 'testdouble';
 
-import * as Figma from 'figma-js';
+import type * as Figma from 'figma-js';
 
 import * as figmaDocument from './_config.test.js';
-import * as FigmaExport from './figma.js';
-
-import { components as exportComponents } from './export-components.js';
 
 describe('export-component', () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,7 +22,9 @@ describe('export-component', () => {
     let client: Figma.ClientInterface;
     let nockScope: nock.Scope;
 
-    beforeEach(() => {
+    let exportComponents: typeof import('./export-components.js').components;
+
+    beforeEach(async () => {
         logger = sinon.spy();
         outputter = sinon.spy();
         transformer = sinon.spy((svg) => svg);
@@ -62,7 +62,10 @@ describe('export-component', () => {
             .delay(2)
             .reply(200, figmaDocument.svg.content);
 
-        sinon.stub(FigmaExport, 'getClient').returns(client);
+        const FigmaJS = await td.replaceEsm('figma-js');
+        td.when(FigmaJS.Client({ personalAccessToken: 'token1234' })).thenReturn(client);
+
+        exportComponents = (await import('./export-components.js')).components;
     });
 
     afterEach(() => {
@@ -82,7 +85,6 @@ describe('export-component', () => {
 
         nockScope.done();
 
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileImages).to.have.been.calledOnceWith('fileABCD', {
             format: 'svg',
             ids: ['10:8', '8:1', '9:1'],
@@ -124,7 +126,6 @@ describe('export-component', () => {
 
         nockScope.done();
 
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileImages).to.have.been.calledOnceWith('fileABCD', {
             format: 'svg',
             ids: ['10:8', '8:1', '9:1'],
@@ -167,7 +168,6 @@ describe('export-component', () => {
 
         nockScope.done();
 
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileImages).to.have.been.calledOnceWith('fileABCD', {
             format: 'svg',
             ids: ['10:8', '8:1', '9:1'],
@@ -209,8 +209,6 @@ describe('export-component', () => {
         });
 
         nockScope.done();
-
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
 
         expect(clientFile).to.have.been.calledOnce;
         expect(clientFile.firstCall).to.have.been.calledWith('fileABCD', {
@@ -266,7 +264,6 @@ describe('export-component', () => {
             filterComponent: (component) => component.name === figmaDocument.component1.name,
         });
 
-        expect(FigmaExport.getClient).to.have.been.calledOnceWithExactly('token1234');
         expect(clientFileImages).to.have.been.calledOnceWith('fileABCD', {
             format: 'svg',
             ids: ['10:8'],
