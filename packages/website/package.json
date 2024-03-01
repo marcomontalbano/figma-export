@@ -16,7 +16,7 @@
     "license": "MIT",
     "scripts": {
         "clean": "rimraf dist output .next",
-        "export": "figma-export use-config .figmaexportrc.cjs",
+        "export": "figma-export use-config .figmaexportrc.mjs",
         "next:lint": "next lint",
         "next:dev": "next dev",
         "next:build": "next build",
@@ -41,7 +41,7 @@
         "react-dom": "^18.2.0"
     },
     "engines": {
-        "node": ">= 18"
+        "node": ">= 16.14"
     },
     "browserslist": [
         ">0.3%",
