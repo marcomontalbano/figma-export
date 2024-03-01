@@ -2,7 +2,7 @@
     "extension": ["js", "ts"],
     "spec": "packages/**/*.test.ts",
     "require": "ts-node/register",
-    "file": ["test--registers.ts", "test--packages.ts"],
+    "file": ["test--registers.js", "test--packages.js"],
     "ignore": ["**/integration.test.ts"],
     "node-option": [
         "loader=ts-node/esm",

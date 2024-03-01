@@ -1,3 +1,5 @@
+// @ts-check
+
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 
@@ -11,7 +13,8 @@ chai.use(sinonChai);
 chai.use(chaiThings);
 chai.use(chaiAsPromises);
 
-let consoleSandbox: sinon.SinonSandbox;
+/** @type {sinon.SinonSandbox} */
+let consoleSandbox;
 beforeEach(() => {
     consoleSandbox = sinon.createSandbox();
     console.log = consoleSandbox.spy();
