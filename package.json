@@ -73,7 +73,7 @@
     "typescript": "~5.3.3"
   },
   "engines": {
-    "node": ">= 16.14"
+    "node": ">= 18"
   },
   "overrides": {
     "axios": "^1.6.7"
