@@ -19,48 +19,51 @@ export const addUseConfig = (prog: Sade, spinner: Ora) => prog
     .example('use-config')
     .example('use-config ./figmaexportrc.production.js')
     .action(
-        (configFile = '.figmaexportrc.js') => {
+        async (configFile = '.figmaexportrc.js') => {
             const configPath = path.resolve(configFile);
 
-            // eslint-disable-next-line import/no-dynamic-require, global-require
-            const { commands = [] } = (fs.existsSync(configPath) ? require(configPath) : {}) as FigmaExportRC;
+            if (!fs.existsSync(configPath)) {
+                throw new Error(`Cannot find the configuration file at '${configPath}'`);
+            }
 
-            const baseCommandOptions: BaseCommandOptions = {
-                token: process.env.FIGMA_TOKEN || '',
+            import(configPath).then((m) => m.default as FigmaExportRC).then((({ commands }) => {
+                const baseCommandOptions: BaseCommandOptions = {
+                    token: process.env.FIGMA_TOKEN || '',
 
-                // eslint-disable-next-line no-param-reassign
-                log: (message: string) => { spinner.text = message; },
-            };
+                    // eslint-disable-next-line no-param-reassign
+                    log: (message: string) => { spinner.text = message; },
+                };
 
-            const commandPromises = commands.map((command) => {
-                switch (command[0]) {
-                    case 'components':
-                        return async () => {
-                            await figmaExport.components({ ...baseCommandOptions, ...command[1] });
-                            spinner.succeed().start();
-                        };
-                    case 'styles':
-                        return async () => {
-                            await figmaExport.styles({ ...baseCommandOptions, ...command[1] });
-                            spinner.succeed().start();
-                        };
-                    default:
-                        throw new Error(`Command ${command[0]} is not found.`);
-                }
-            });
+                const commandPromises = commands.map((command) => {
+                    switch (command[0]) {
+                        case 'components':
+                            return async () => {
+                                await figmaExport.components({ ...baseCommandOptions, ...command[1] });
+                                spinner.succeed().start();
+                            };
+                        case 'styles':
+                            return async () => {
+                                await figmaExport.styles({ ...baseCommandOptions, ...command[1] });
+                                spinner.succeed().start();
+                            };
+                        default:
+                            throw new Error(`Command ${command[0]} is not found.`);
+                    }
+                });
 
-            spinner.start();
+                spinner.start();
 
-            commandPromises.reduce(
-                (actualPromise, nextPromise) => actualPromise.finally(nextPromise),
-                Promise.resolve() as unknown as ReturnType<ComponentsCommand> | ReturnType<StylesCommand>,
-            ).then(() => {
-                spinner.succeed('done');
-            }).catch((error: Error) => {
-                spinner.fail();
+                commandPromises.reduce(
+                    (actualPromise, nextPromise) => actualPromise.finally(nextPromise),
+                    Promise.resolve() as unknown as ReturnType<ComponentsCommand> | ReturnType<StylesCommand>,
+                ).then(() => {
+                    spinner.succeed('done');
+                }).catch((error: Error) => {
+                    spinner.fail();
 
-                // eslint-disable-next-line no-console
-                console.error(error);
-            });
+                    // eslint-disable-next-line no-console
+                    console.error(error);
+                });
+            }));
         },
     );

@@ -2,11 +2,11 @@ import { camelCase } from '@figma-export/utils';
 
 import * as FigmaExport from '@figma-export/types';
 
-import fs = require('fs');
-import path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const svgToMiniDataURI = require('mini-svg-data-uri');
+import svgToMiniDataURI from 'mini-svg-data-uri';
 
 type Options = {
     output: string;
@@ -15,7 +15,7 @@ type Options = {
     getVariableName?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 }
 
-export = ({
+export default ({
     output,
     getVariableName = (options): string => camelCase(options.componentName.trim()),
     useBase64 = false,

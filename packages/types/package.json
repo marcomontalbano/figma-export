@@ -20,11 +20,12 @@
         "types"
     ],
     "license": "MIT",
+    "type": "module",
     "publishConfig": {
         "access": "public"
     },
     "engines": {
-        "node": ">= 16.14"
+        "node": ">= 18.12"
     },
     "dependencies": {
         "figma-js": "~1.16.0"

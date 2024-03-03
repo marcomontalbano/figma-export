@@ -1,5 +1,5 @@
 [build]
-  publish = './packages/website/dist'
+  publish = './packages/website/out'
   command = 'yarn website:build'
 
 [[redirects]]

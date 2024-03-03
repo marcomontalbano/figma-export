@@ -1,3 +1,3 @@
-export * from './global';
-export * from './styles';
-export * from './commands';
+export * from './global.js';
+export * from './styles/index.js';
+export * from './commands.js';

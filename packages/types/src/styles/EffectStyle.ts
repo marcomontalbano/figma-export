@@ -1,5 +1,5 @@
 import * as Figma from 'figma-js';
-import { Color } from './PaintStyle';
+import { Color } from './PaintStyle.js';
 
 export type EffectStyleShadow = {
     type: 'DROP_SHADOW' | 'INNER_SHADOW'

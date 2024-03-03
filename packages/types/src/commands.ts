@@ -4,8 +4,8 @@ import {
     ComponentOutputter,
     PageNode,
     ComponentFilter,
-} from './global';
-import { StyleOutputter, Style } from './styles';
+} from './global.js';
+import { StyleOutputter, Style } from './styles/index.js';
 
 export type BaseCommandOptions = {
     /**

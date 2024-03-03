@@ -1,7 +1,7 @@
 import * as Figma from 'figma-js';
 import * as FigmaExport from '@figma-export/types';
 
-import { notNullish } from '../utils';
+import { notNullish } from '../utils.js';
 
 const extractColor = ({ color, opacity = 1 }: FigmaExport.ExtractableColor): (FigmaExport.Color | undefined) => {
     if (!color) {

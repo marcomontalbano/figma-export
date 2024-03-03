@@ -19,6 +19,7 @@
         "components"
     ],
     "license": "MIT",
+    "type": "module",
     "publishConfig": {
         "access": "public"
     },
@@ -28,6 +29,6 @@
         "mini-svg-data-uri": "~1.4.4"
     },
     "engines": {
-        "node": ">= 16.14"
+        "node": ">= 18.12"
     }
 }

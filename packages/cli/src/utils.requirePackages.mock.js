@@ -1,4 +1,4 @@
 // eslint-disable-next-line func-names
-module.exports = function (options) {
+export default function (options) {
     return options;
-};
+}

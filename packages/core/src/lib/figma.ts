@@ -13,7 +13,7 @@ import {
     emptySvg,
     PickOption,
     forceArray,
-} from './utils';
+} from './utils.js';
 
 /**
  * Create a new Figma client.

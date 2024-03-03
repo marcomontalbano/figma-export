@@ -1,7 +1,6 @@
-import sinon from 'sinon';
-import { expect } from 'chai';
+import { expect, describe, it } from 'vitest';
 
-import transformer = require('./index');
+import transformer from './index.js';
 
 const svg = `
 <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -9,10 +8,6 @@ const svg = `
 </svg>`;
 
 describe('transform svg with svgo', () => {
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should optimize a given svg with svgo', async () => {
         const actualSvg = await transformer({})(svg);
 

@@ -1,9 +1,9 @@
 import * as FigmaExport from '@figma-export/types';
 import { pascalCase } from '@figma-export/utils';
-import { transform, Config, State } from '@svgr/core';
+import { transform, type Config, type State } from '@svgr/core';
 
-import fs = require('fs');
-import path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 type Options = {
     output: string;
@@ -27,7 +27,7 @@ type IndexFile = {
     };
 };
 
-export = ({
+export default ({
     output,
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getComponentName = (options): string => `${pascalCase(options.basename)}`,

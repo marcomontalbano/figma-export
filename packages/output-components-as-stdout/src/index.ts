@@ -2,7 +2,7 @@
 
 import * as FigmaExport from '@figma-export/types';
 
-export = (): FigmaExport.ComponentOutputter => {
+export default (): FigmaExport.ComponentOutputter => {
     return async (pages): Promise<void> => {
         console.log(JSON.stringify(pages));
     };

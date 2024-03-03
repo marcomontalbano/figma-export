@@ -7,13 +7,16 @@ const resolveNameOrPath = (nameOrPath: string): string => {
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const requirePackages = <T extends Function>(packages: string[], baseOptions = {}): T[] => {
-    return packages.map((pkg) => {
-        const pkgNameOrPath = resolveNameOrPath(pkg);
+export const requirePackages = async <T extends Function>(packages: string[], baseOptions = {}): Promise<T[]> => {
+    return Promise.all(
+        packages.map(async (_pkg) => {
+            const pkgNameOrPath = resolveNameOrPath(_pkg);
 
-        // eslint-disable-next-line import/no-dynamic-require, global-require, @typescript-eslint/no-var-requires
-        return require(pkgNameOrPath)(baseOptions);
-    });
+            const pkg = await import(pkgNameOrPath).then((p) => p.default);
+
+            return pkg(baseOptions);
+        }),
+    );
 };
 
 export function asUndefinableArray<T>(entry: T | T[] | undefined): T[] | undefined {

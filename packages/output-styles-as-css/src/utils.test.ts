@@ -1,6 +1,6 @@
-import { expect } from 'chai';
+import { expect, describe, it } from 'vitest';
 
-import { writeComment, writeVariable } from './utils';
+import { writeComment, writeVariable } from './utils.js';
 
 describe('utils', () => {
     describe('writeComment', () => {

@@ -1,4 +1,4 @@
-import { Extension } from './types';
+import { Extension } from './types.js';
 
 const sanitizeText = (text: string): string => {
     return text

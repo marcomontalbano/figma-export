@@ -1,12 +1,12 @@
 import * as Figma from 'figma-js';
 import * as FigmaExport from '@figma-export/types';
 
-import { notNullish } from '../utils';
+import { notNullish } from '../utils.js';
 
-import { parse as parsePaintStyle } from './paintStyle';
-import { parse as parseEffectStyle } from './effectStyle';
-import { parse as parseTextStyle } from './textStyle';
-// import { parse as parseGridStyle } from './gridStyle';
+import { parse as parsePaintStyle } from './paintStyle.js';
+import { parse as parseEffectStyle } from './effectStyle.js';
+import { parse as parseTextStyle } from './textStyle.js';
+// import { parse as parseGridStyle } from './gridStyle.js';
 
 const fetchStyles = async (
     client: Figma.ClientInterface,

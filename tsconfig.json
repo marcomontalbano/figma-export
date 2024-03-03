@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "NodeNext",
     "allowSyntheticDefaultImports": true,
     "target": "es6",
     "sourceMap": true,
@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Module Resolution Options */
-    "moduleResolution": "node",
+    "moduleResolution": "Node16",
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
