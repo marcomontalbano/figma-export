@@ -25,7 +25,7 @@
         "access": "public"
     },
     "engines": {
-        "node": ">= 18"
+        "node": ">= 18.12"
     },
     "dependencies": {
         "figma-js": "~1.16.0"

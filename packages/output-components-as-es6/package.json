@@ -29,6 +29,6 @@
         "mini-svg-data-uri": "~1.4.4"
     },
     "engines": {
-        "node": ">= 18"
+        "node": ">= 18.12"
     }
 }

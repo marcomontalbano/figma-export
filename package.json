@@ -53,7 +53,7 @@
     "vitest": "^1.3.1"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 18.12"
   },
   "overrides": {
     "axios": "^1.6.7"
@@ -73,5 +73,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@3.8.0"
+  "packageManager": "yarn@4.1.0"
 }
