@@ -1,19 +1,22 @@
 /* eslint-disable no-console */
 
-import * as sinon from 'sinon';
-import { expect } from 'chai';
+import {
+    expect, describe, it, beforeEach, afterEach, vi,
+} from 'vitest';
 import nock from 'nock';
 
 import { camelCase } from '@figma-export/utils';
 
 import * as FigmaExport from '@figma-export/types';
 
-import * as figmaDocument from '../../core/src/lib/_config.test.js';
+import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
 import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'fs';
 import path from 'path';
 import outputter from './index.js';
+
+vi.mock('fs');
 
 const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
     filterComponent: () => true,
@@ -21,39 +24,25 @@ const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
 };
 
 describe('outputter as es6', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let clientFileImages: sinon.SinonStub<any[], any>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let clientFile: sinon.SinonStub<any[], any>;
-
     let client;
     let nockScope: nock.Scope;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let mkdirSync: sinon.SinonStub<any[], any>;
-
     beforeEach(() => {
-        mkdirSync = sinon.stub(fs, 'mkdirSync').returnsArg(0);
-
-        clientFileImages = sinon.stub().returns(Promise.resolve({
-            data: {
-                images: {
-                    '10:8': 'https://example.com/10:8.svg',
-                    '8:1': 'https://example.com/8:1.svg',
-                    '9:1': 'https://example.com/9:1.svg',
-                },
-            },
-        }));
-
-        clientFile = sinon.stub().resolves({
-            data: {
-                document: figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] }),
-            },
-        });
-
         client = {
-            fileImages: clientFileImages,
-            file: clientFile,
+            fileImages: vi.fn().mockResolvedValue({
+                data: {
+                    images: {
+                        '10:8': 'https://example.com/10:8.svg',
+                        '8:1': 'https://example.com/8:1.svg',
+                        '9:1': 'https://example.com/9:1.svg',
+                    },
+                },
+            }),
+            file: vi.fn().mockResolvedValue({
+                data: {
+                    document: figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] }),
+                },
+            }),
         };
 
         nockScope = nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
@@ -67,13 +56,13 @@ describe('outputter as es6', () => {
             .delay(2)
             .reply(200, figmaDocument.svg.content);
     });
+
     afterEach(() => {
-        sinon.restore();
+        vi.resetAllMocks();
         nock.cleanAll();
     });
 
     it('should export all components into an es6 file', async () => {
-        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
@@ -84,17 +73,17 @@ describe('outputter as es6', () => {
             output: 'output',
         })(pagesWithSvg);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            path.join('output', 'page1.js'),
+        expect(fs.writeFileSync).toHaveBeenCalledOnce;
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1.js'),
 
             // eslint-disable-next-line max-len
-            'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
+            'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;\n'
+            + 'export const search = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;\n',
         );
     });
 
     it('should use "variablePrefix" and "variableSuffix" options to prepend or append a text to the variable name', async () => {
-        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
@@ -106,17 +95,17 @@ describe('outputter as es6', () => {
             getVariableName: (options) => camelCase(`i ${options.componentName} my ico`),
         })(pagesWithSvg);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            path.join('output', 'page1.js'),
+        expect(fs.writeFileSync).toHaveBeenCalledOnce;
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1.js'),
 
             // eslint-disable-next-line max-len
-            'export const iFigmaLogoMyIco = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
+            'export const iFigmaLogoMyIco = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;\n'
+            + 'export const iSearchMyIco = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;\n',
         );
     });
 
     it('should export all components into an es6 file using base64 encoding if set', async () => {
-        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
@@ -128,16 +117,18 @@ describe('outputter as es6', () => {
             useBase64: true,
         })(pagesWithSvg);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            path.join('output', 'page1.js'),
+        expect(fs.writeFileSync).toHaveBeenCalledOnce;
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1.js'),
+
             // eslint-disable-next-line max-len
-            'export const figmaLogo = `PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA0MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=`;',
+            'export const figmaLogo = `PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA0MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=`;\n'
+            // eslint-disable-next-line max-len
+            + 'export const search = `PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA0MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48L3N2Zz4=`;\n',
         );
     });
 
     it('should export all components into an es6 file using dataUrl if set', async () => {
-        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
@@ -149,22 +140,24 @@ describe('outputter as es6', () => {
             useDataUrl: true,
         })(pagesWithSvg);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            path.join('output', 'page1.js'),
+        expect(fs.writeFileSync).toHaveBeenCalledOnce;
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1.js'),
+
             // eslint-disable-next-line max-len
-            "export const figmaLogo = `data:image/svg+xml,%3csvg width='40' height='60' viewBox='0 0 40 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3c/svg%3e`;",
+            "export const figmaLogo = `data:image/svg+xml,%3csvg width='40' height='60' viewBox='0 0 40 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3c/svg%3e`;\n"
+            // eslint-disable-next-line max-len
+            + "export const search = `data:image/svg+xml,%3csvg width='40' height='60' viewBox='0 0 40 60' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3c/svg%3e`;\n",
         );
 
-        expect(mkdirSync).to.be.calledOnce;
-        expect(mkdirSync).to.be.calledWithMatch(
-            'output',
+        expect(fs.mkdirSync).toHaveBeenCalledOnce;
+        expect(fs.mkdirSync).toHaveBeenCalledWith(
+            path.resolve('output'),
             { recursive: true },
         );
     });
 
     it('should not break when transformers return "undefined"', async () => {
-        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages, undefined, {
@@ -177,12 +170,13 @@ describe('outputter as es6', () => {
             output: 'output',
         })(pagesWithSvg);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            path.join('output', 'page1.js'),
+        expect(fs.writeFileSync).toHaveBeenCalledOnce;
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1.js'),
 
             // eslint-disable-next-line max-len
-            'export const figmaLogo = `<svg></svg>`;',
+            'export const figmaLogo = `<svg></svg>`;\n'
+            + 'export const search = `<svg></svg>`;\n',
         );
     });
 
@@ -192,20 +186,14 @@ describe('outputter as es6', () => {
             children: [figmaDocument.componentWithNumber],
         };
 
-        sinon.stub(fs, 'writeFileSync');
-
         const document = figmaDocument.createDocument({ children: [page] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
-        const spyOutputter = sinon.spy(outputter);
 
-        return spyOutputter({
-            output: 'output',
-        })(pages).then(() => {
-            sinon.assert.fail();
-        }).catch((err) => {
-            expect(err).to.be.an('Error');
-            expect(err.message).to.be.equal('"1-icon" thrown an error: component names cannot start with a number.');
-        });
+        expect(
+            () => outputter({
+                output: 'output',
+            })(pages),
+        ).rejects.toThrow('"1-icon" thrown an error: component names cannot start with a number.');
     });
 
     it('should throw an error if two or more components have the same name', async () => {
@@ -214,24 +202,17 @@ describe('outputter as es6', () => {
             children: [figmaDocument.component1, figmaDocument.component1],
         };
 
-        sinon.stub(fs, 'writeFileSync');
-
         const document = figmaDocument.createDocument({ children: [page] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
-        const spyOutputter = sinon.spy(outputter);
 
-        return spyOutputter({
-            output: 'output',
-        })(pages).then(() => {
-            sinon.assert.fail();
-        }).catch((err) => {
-            expect(err).to.be.an('Error');
-            expect(err.message).to.be.equal('Component "Figma-Logo" has an error: two components cannot have a same name.');
-        });
+        expect(
+            () => outputter({
+                output: 'output',
+            })(pages),
+        ).rejects.toThrow('Component "Figma-Logo" has an error: two components cannot have a same name.');
     });
 
     it('should create folders and subfolders when pageName contains slashes', async () => {
-        const writeFileSync = sinon.stub(fs, 'writeFileSync');
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1WithSlashes] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
         const pagesWithSvg = await figma.enrichPagesWithSvg(client, 'fileABCD', pages);
@@ -242,17 +223,18 @@ describe('outputter as es6', () => {
             output: 'output',
         })(pagesWithSvg);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            path.join('output', 'page1', 'subpath', 'subsubpath.js'),
+        expect(fs.writeFileSync).toHaveBeenCalledOnce;
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1', 'subpath', 'subsubpath.js'),
 
             // eslint-disable-next-line max-len
-            'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;',
+            'export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;\n'
+            + 'export const search = `<svg width="40" height="60" viewBox="0 0 40 60" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>`;\n',
         );
 
-        expect(mkdirSync).to.be.calledOnce;
-        expect(mkdirSync).to.be.calledWithMatch(
-            path.join('output', 'page1', 'subpath'),
+        expect(fs.mkdirSync).toHaveBeenCalledOnce;
+        expect(fs.mkdirSync).toHaveBeenCalledWith(
+            path.resolve('output', 'page1', 'subpath'),
             { recursive: true },
         );
     });

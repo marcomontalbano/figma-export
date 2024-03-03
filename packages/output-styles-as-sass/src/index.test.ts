@@ -1,5 +1,6 @@
-import * as sinon from 'sinon';
-import { expect } from 'chai';
+import {
+    expect, describe, it, vi, afterEach,
+} from 'vitest';
 import {
     StyleNode,
     FillStyle,
@@ -11,6 +12,8 @@ import { camelCase } from '@figma-export/utils';
 import fs from 'fs';
 import path from 'path';
 import outputter from './index.js';
+
+vi.mock('fs');
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,
@@ -89,15 +92,8 @@ const mockText = (visible = true): Style => ({
 });
 
 describe('style output as scss', () => {
-    let writeFileSync;
-
-    beforeEach(() => {
-        sinon.stub(fs, 'mkdirSync').returnsArg(0);
-        writeFileSync = sinon.stub(fs, 'writeFileSync');
-    });
-
     afterEach(() => {
-        sinon.restore();
+        vi.resetAllMocks();
     });
 
     it('should not print anything if style is not visible', async () => {
@@ -109,8 +105,8 @@ describe('style output as scss', () => {
             ], { visible: false }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.scss'), '');
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', '_variables.scss'), '');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
@@ -120,8 +116,8 @@ describe('style output as scss', () => {
             getFilename: () => '_figma-styles',
         })([]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_figma-styles.sass'));
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', '_figma-styles.sass'), '');
     });
 
     it('should sanitize variable names', async () => {
@@ -133,9 +129,9 @@ describe('style output as scss', () => {
             ], { name: 'Grey/900' }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            sinon.match.any,
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output-folder', '_variables.scss'),
 
             // eslint-disable-next-line indent
             '\n'
@@ -156,9 +152,9 @@ describe('style output as scss', () => {
             ], { name: 'Grey/Dark' }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            sinon.match.any,
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output-folder', '_variables.scss'),
 
             // eslint-disable-next-line indent
             '\n'
@@ -179,8 +175,8 @@ describe('style output as scss', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.scss'), '');
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', '_variables.scss'), '');
         });
 
         it('should be able to extract a solid color', async () => {
@@ -193,9 +189,9 @@ describe('style output as scss', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.scss'),
 
                 // eslint-disable-next-line indent
                   '\n'
@@ -216,9 +212,9 @@ describe('style output as scss', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.scss'),
 
                 // eslint-disable-next-line indent
                   '\n'
@@ -241,9 +237,9 @@ describe('style output as scss', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.scss'),
 
                 // eslint-disable-next-line indent
                   '\n\n'
@@ -260,9 +256,9 @@ describe('style output as scss', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.scss'),
 
                 // eslint-disable-next-line indent
                   '\n\n'
@@ -281,9 +277,9 @@ describe('style output as scss', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWith(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.scss'),
 
                 // eslint-disable-next-line indent
                   '\n\n'
@@ -300,9 +296,9 @@ describe('style output as scss', () => {
                 mockText(),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWith(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.scss'),
 
                 // eslint-disable-next-line indent
                   '\n\n'

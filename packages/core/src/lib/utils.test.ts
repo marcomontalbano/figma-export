@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect, describe, it } from 'vitest';
 import nock from 'nock';
 
 import * as utils from './utils.js';

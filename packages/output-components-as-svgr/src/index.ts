@@ -65,13 +65,7 @@ export default ({
                 const svgrConfig = getSvgrConfig(options);
                 const svgrState: State = { componentName: reactComponentName };
 
-                const jsCode = transform.sync(svg, {
-                    ...svgrConfig,
-                    plugins: [
-                        '@svgr/plugin-jsx',
-                        ...svgrConfig.plugins?.filter((p) => p !== '@svgr/plugin-jsx') ?? [],
-                    ],
-                }, svgrState);
+                const jsCode = transform.sync(svg, svgrConfig, svgrState);
 
                 fs.writeFileSync(path.resolve(filePath, reactComponentFilename), jsCode);
             });

@@ -1,5 +1,6 @@
-import * as sinon from 'sinon';
-import { expect } from 'chai';
+import {
+    expect, describe, it, vi, afterEach,
+} from 'vitest';
 import {
     StyleNode,
     FillStyle,
@@ -11,6 +12,8 @@ import { camelCase } from '@figma-export/utils';
 import fs from 'fs';
 import path from 'path';
 import outputter from './index.js';
+
+vi.mock('fs');
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,
@@ -89,15 +92,8 @@ const mockText = (visible = true): Style => ({
 });
 
 describe('style output as less', () => {
-    let writeFileSync;
-
-    beforeEach(() => {
-        sinon.stub(fs, 'mkdirSync').returnsArg(0);
-        writeFileSync = sinon.stub(fs, 'writeFileSync');
-    });
-
     afterEach(() => {
-        sinon.restore();
+        vi.resetAllMocks();
     });
 
     it('should not print anything if style is not visible', async () => {
@@ -109,8 +105,8 @@ describe('style output as less', () => {
             ], { visible: false }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.less'), '');
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', '_variables.less'), '');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
@@ -119,8 +115,8 @@ describe('style output as less', () => {
             getFilename: () => '_figma-styles',
         })([]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_figma-styles.less'));
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', '_figma-styles.less'), '');
     });
 
     it('should sanitize variable names', async () => {
@@ -132,9 +128,9 @@ describe('style output as less', () => {
             ], { name: 'Grey/900' }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            sinon.match.any,
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output-folder', '_variables.less'),
 
             // eslint-disable-next-line indent
             '\n'
@@ -155,9 +151,9 @@ describe('style output as less', () => {
             ], { name: 'Grey/Dark' }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            sinon.match.any,
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output-folder', '_variables.less'),
 
             // eslint-disable-next-line indent
             '\n'
@@ -178,8 +174,8 @@ describe('style output as less', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', '_variables.less'), '');
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', '_variables.less'), '');
         });
 
         it('should be able to extract a solid color', async () => {
@@ -192,9 +188,9 @@ describe('style output as less', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.less'),
 
                 // eslint-disable-next-line indent
                   '\n'
@@ -215,9 +211,9 @@ describe('style output as less', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.less'),
 
                 // eslint-disable-next-line indent
                   '\n'
@@ -240,9 +236,9 @@ describe('style output as less', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.less'),
 
                 // eslint-disable-next-line indent
                   '\n\n'
@@ -259,9 +255,9 @@ describe('style output as less', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.less'),
 
                 // eslint-disable-next-line indent
                   '\n\n'
@@ -280,9 +276,9 @@ describe('style output as less', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWith(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.less'),
 
                 // eslint-disable-next-line indent
                   '\n\n'
@@ -299,9 +295,9 @@ describe('style output as less', () => {
                 mockText(),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWith(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', '_variables.less'),
 
                 // eslint-disable-next-line indent
                   '\n\n'

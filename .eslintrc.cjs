@@ -3,7 +3,6 @@ module.exports = {
         commonjs: true,
         es6: true,
         node: true,
-        mocha: true,
     },
     settings: {
         'import/resolver': {
@@ -15,15 +14,9 @@ module.exports = {
     extends: [
         'airbnb-base',
     ],
-    plugins: [
-        'chai-friendly',
-    ],
     globals: {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
-        expect: true,
-        sinon: true,
-        chai: true,
     },
     parserOptions: {
         ecmaVersion: 2020,
@@ -32,9 +25,8 @@ module.exports = {
         indent: ['error', 4, {
             SwitchCase: 1,
         }],
-        'max-len': ['error', 140],
+        'max-len': ['error', 160],
         'no-unused-expressions': 'off',
-        'chai-friendly/no-unused-expressions': 'error',
         'arrow-body-style': 'off',
         'import/extensions': [
             'error',

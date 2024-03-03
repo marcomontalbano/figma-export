@@ -1,48 +1,36 @@
-import * as sinon from 'sinon';
-import { expect } from 'chai';
+import {
+    expect, describe, it, vi, beforeEach, afterEach,
+} from 'vitest';
 import * as svgr from '@svgr/core';
 import nock from 'nock';
-import { camelCase, kebabCase } from '@figma-export/utils';
-import * as figmaDocument from '../../core/src/lib/_config.test.js';
+import { camelCase, kebabCase, pascalCase } from '@figma-export/utils';
+import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
 import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'fs';
 import path from 'path';
 import outputter from './index.js';
 
-describe('outputter as svgr', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let clientFileImages: sinon.SinonStub<any[], any>;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let clientFile: sinon.SinonStub<any[], any>;
+vi.mock('fs');
+vi.mock('@svgr/core');
 
+describe('outputter as svgr', () => {
     let client;
 
-    let writeFileSync;
-    let svgrAsync;
-
     beforeEach(() => {
-        sinon.stub(fs, 'mkdirSync').returnsArg(0);
-        writeFileSync = sinon.stub(fs, 'writeFileSync');
-        svgrAsync = sinon.stub(svgr.transform, 'sync').returns('# code for react component #');
-
-        clientFileImages = sinon.stub().returns(Promise.resolve({
-            data: {
-                images: {
-                    '9:10': 'https://example.com/9:10.svg',
-                },
-            },
-        }));
-
-        clientFile = sinon.stub().resolves({
-            data: {
-                document: figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] }),
-            },
-        });
-
         client = {
-            fileImages: clientFileImages,
-            file: clientFile,
+            fileImages: vi.fn().mockResolvedValue({
+                data: {
+                    images: {
+                        '9:10': 'https://example.com/9:10.svg',
+                    },
+                },
+            }),
+            file: vi.fn().mockResolvedValue({
+                data: {
+                    document: figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] }),
+                },
+            }),
         };
 
         nock('https://example.com', { reqheaders: { 'Content-Type': 'images/svg+xml' } })
@@ -50,7 +38,7 @@ describe('outputter as svgr', () => {
     });
 
     afterEach(() => {
-        sinon.restore();
+        vi.resetAllMocks();
         nock.cleanAll();
     });
 
@@ -65,12 +53,15 @@ describe('outputter as svgr', () => {
             output: 'output',
         })(pages);
 
-        expect(writeFileSync).to.be.calledThrice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'FigmaLogo.jsx'));
-        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'Search.jsx'));
-        expect(writeFileSync.thirdCall).to.be.calledWithMatch(
-            path.join('output', 'fakePage', 'index.js'),
-            'export { default as FigmaLogo } from \'./FigmaLogo.jsx\';',
+        expect(fs.writeFileSync).toHaveBeenCalledTimes(3);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'FigmaLogo.jsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(2, path.resolve('output', 'fakePage', 'Search.jsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+            3,
+            path.resolve('output', 'fakePage', 'index.js'),
+
+            'export { default as FigmaLogo } from \'./FigmaLogo.jsx\';\n'
+            + 'export { default as Search } from \'./Search.jsx\';',
         );
     });
 
@@ -86,17 +77,20 @@ describe('outputter as svgr', () => {
             getFileExtension: () => '.tsx',
         })(pages);
 
-        expect(writeFileSync).to.be.calledThrice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'FigmaLogo.tsx'));
-        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'Search.tsx'));
-        expect(writeFileSync.thirdCall).to.be.calledWithMatch(
-            path.join('output', 'fakePage', 'index.ts'),
-            'export { default as FigmaLogo } from \'./FigmaLogo.tsx\';',
+        expect(fs.writeFileSync).toHaveBeenCalledTimes(3);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'FigmaLogo.tsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(2, path.resolve('output', 'fakePage', 'Search.tsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+            3,
+            path.resolve('output', 'fakePage', 'index.ts'),
+
+            'export { default as FigmaLogo } from \'./FigmaLogo.tsx\';\n'
+            + 'export { default as Search } from \'./Search.tsx\';',
         );
     });
 
     it('should create a custom export for every component using the template passed', async () => {
-        const fakePage = figmaDocument.createPage([figmaDocument.component2]);
+        const fakePage = figmaDocument.createPage([figmaDocument.component1, figmaDocument.component2]);
         const pages = figma.getPagesWithComponents(fakePage, {
             filterComponent: () => true,
             includeTypes: ['COMPONENT'],
@@ -104,14 +98,18 @@ describe('outputter as svgr', () => {
 
         await outputter({
             output: 'output',
-            getExportTemplate: (options) => `export { ${options.basename} } from './customPath';`,
+            getExportTemplate: (options) => `export { ${pascalCase(options.basename)} } from './customPath';`,
         })(pages);
 
-        expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'Search.jsx'));
-        expect(writeFileSync.secondCall).to.be.calledWithMatch(
-            path.join('output', 'fakePage', 'index.js'),
-            'export { Search } from \'./customPath\';',
+        expect(fs.writeFileSync).toHaveBeenCalledTimes(3);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'FigmaLogo.jsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(2, path.resolve('output', 'fakePage', 'Search.jsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+            3,
+            path.resolve('output', 'fakePage', 'index.js'),
+
+            'export { FigmaLogo } from \'./customPath\';\n'
+            + 'export { Search } from \'./customPath\';',
         );
     });
 
@@ -126,9 +124,13 @@ describe('outputter as svgr', () => {
             output: 'output',
         })(pages);
 
-        expect(writeFileSync).to.be.calledTwice;
-        expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FigmaLogo.jsx'));
-        expect(writeFileSync.secondCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'index.js'));
+        expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'icon', 'FigmaLogo.jsx'), undefined);
+        expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+            2,
+            path.resolve('output', 'fakePage', 'icon', 'index.js'),
+            'export { default as FigmaLogo } from \'./FigmaLogo.jsx\';',
+        );
     });
 
     describe('options', () => {
@@ -144,9 +146,10 @@ describe('outputter as svgr', () => {
                 getDirname: (options) => `${options.dirname}`,
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'icon', 'FigmaLogo.jsx'));
-            expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                path.join('output', 'icon', 'index.js'),
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'icon', 'FigmaLogo.jsx'), undefined);
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+                2,
+                path.resolve('output', 'icon', 'index.js'),
                 "export { default as FigmaLogo } from './FigmaLogo.jsx';",
             );
         });
@@ -157,9 +160,10 @@ describe('outputter as svgr', () => {
                 getComponentName: (options) => options.basename.toUpperCase(),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FIGMA-LOGO.jsx'));
-            expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                path.join('output', 'fakePage', 'icon', 'index.js'),
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'icon', 'FIGMA-LOGO.jsx'), undefined);
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+                2,
+                path.resolve('output', 'fakePage', 'icon', 'index.js'),
                 "export { default as FIGMA-LOGO } from './FIGMA-LOGO.jsx';",
             );
         });
@@ -170,9 +174,10 @@ describe('outputter as svgr', () => {
                 getComponentFilename: (options) => kebabCase(options.basename).toLowerCase(),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'figma-logo.jsx'));
-            expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                path.join('output', 'fakePage', 'icon', 'index.js'),
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'icon', 'figma-logo.jsx'), undefined);
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+                2,
+                path.resolve('output', 'fakePage', 'icon', 'index.js'),
                 "export { default as FigmaLogo } from './figma-logo.jsx';",
             );
         });
@@ -184,9 +189,10 @@ describe('outputter as svgr', () => {
                 getComponentFilename: (options) => camelCase(options.basename),
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'figmaLogo.jsx'));
-            expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                path.join('output', 'fakePage', 'icon', 'index.js'),
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'icon', 'figmaLogo.jsx'), undefined);
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+                2,
+                path.resolve('output', 'fakePage', 'icon', 'index.js'),
                 "export { default as FIGMA-LOGO } from './figmaLogo.jsx';",
             );
         });
@@ -197,10 +203,11 @@ describe('outputter as svgr', () => {
                 getFileExtension: () => '.js',
             })(pages);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FigmaLogo.js'));
-            expect(writeFileSync.secondCall).to.be.calledWithMatch(
-                path.join('output', 'fakePage', 'icon', 'index.js'),
-                "from './FigmaLogo.js';",
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(1, path.resolve('output', 'fakePage', 'icon', 'FigmaLogo.js'), undefined);
+            expect(fs.writeFileSync).toHaveBeenNthCalledWith(
+                2,
+                path.resolve('output', 'fakePage', 'icon', 'index.js'),
+                "export { default as FigmaLogo } from './FigmaLogo.js';",
             );
         });
 
@@ -212,8 +219,16 @@ describe('outputter as svgr', () => {
                 getSvgrConfig: () => ({ native: true }),
             })(pagesWithSvg);
 
-            expect(writeFileSync.firstCall).to.be.calledWithMatch(path.join('output', 'fakePage', 'icon', 'FigmaLogo.jsx'));
-            expect(svgrAsync.firstCall).to.be.calledWithMatch(figmaDocument.componentWithSlashedNameOutput.svg, { native: true });
+            expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output', 'fakePage', 'icon', 'FigmaLogo.jsx'), undefined);
+            expect(svgr.transform.sync).toHaveBeenCalledWith(
+                figmaDocument.componentWithSlashedNameOutput.svg,
+                {
+                    native: true,
+                },
+                {
+                    componentName: 'FigmaLogo',
+                },
+            );
         });
     });
 });

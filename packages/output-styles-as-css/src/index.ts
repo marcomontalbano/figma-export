@@ -85,10 +85,10 @@ export default ({
         const filePath = path.resolve(output);
 
         fs.mkdirSync(filePath, { recursive: true });
-        fs.writeFileSync(path.resolve(filePath, `${getFilename()}.css`), sanitizeText(`
+        fs.writeFileSync(path.resolve(filePath, `${getFilename()}.css`), text !== '' ? sanitizeText(`
             :root {
                 ${text}
             }
-        `));
+        `) : '');
     };
 };

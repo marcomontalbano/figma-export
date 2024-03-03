@@ -1,5 +1,4 @@
-import * as sinon from 'sinon';
-import { expect } from 'chai';
+import { expect, describe, it } from 'vitest';
 
 import transformer from './index.js';
 
@@ -9,10 +8,6 @@ const svg = `
 </svg>`;
 
 describe('transform svg with svgo', () => {
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should optimize a given svg with svgo', async () => {
         const actualSvg = await transformer({})(svg);
 

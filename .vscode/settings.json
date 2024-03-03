@@ -4,7 +4,7 @@
     "eslint.validate": ["typescript", "typescriptreact"],
     "eslint.lintTask.options": ". --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist --ext .js,.ts",
     "editor.rulers": [
-        140
+        160
     ],
     "javascript.preferences.importModuleSpecifierEnding": "js",
 }
