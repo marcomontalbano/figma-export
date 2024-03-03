@@ -27,8 +27,8 @@
         "@figma-export/types": "^5.0.1",
         "axios": "^1.6.7",
         "figma-js": "~1.16.0",
-        "p-limit": "^4.0.0",
-        "p-retry": "^5.1.2"
+        "p-limit": "^5.0.0",
+        "p-retry": "^6.2.0"
     },
     "overrides": {
         "axios": "^1.6.7"

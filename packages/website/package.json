@@ -15,33 +15,32 @@
     "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {
-        "clean": "rimraf dist output .next",
-        "export": "figma-export use-config .figmaexportrc.mjs",
+        "clean": "rimraf dist output .next out",
+        "figma:export": "figma-export use-config .figmaexportrc.mjs",
         "next:lint": "next lint",
         "next:dev": "next dev",
         "next:build": "next build",
-        "next:export": "next export -o dist/",
-        "dev": "run-s export next:dev",
-        "build": "run-s clean export next:build"
+        "dev": "run-s figma:export next:dev",
+        "build": "run-s clean figma:export next:build"
     },
     "devDependencies": {
         "@figma-export/cli": "^5.0.1",
         "@figma-export/utils": "^5.0.0",
-        "@types/react": "^18.2.58",
-        "eslint-config-next": "^13.5.6",
+        "@types/react": "^18.2.61",
+        "eslint-config-next": "^14.1.1",
         "npm-run-all": "~4.1.5",
         "rimraf": "~5.0.5",
         "sass": "~1.71.1"
     },
     "dependencies": {
         "@svgr/plugin-jsx": "^8.1.0",
-        "next": "^13.5.6",
+        "next": "^14.1.1",
         "prismjs": "^1.29.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
     "engines": {
-        "node": ">= 16.14"
+        "node": ">= 18"
     },
     "browserslist": [
         ">0.3%",

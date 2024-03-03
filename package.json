@@ -25,7 +25,7 @@
     "coverage:watch": "yarn build && vitest watch --coverage --exclude '**/integration.test.ts'",
     "website:dev": "yarn build && yarn workspace @figma-export/website dev",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
-    "website:start": "yarn dlx serve packages/website/dist/",
+    "website:serve": "yarn dlx serve packages/website/out/",
     "upgrade:major": "npx npm-check-updates -ws --root -u",
     "upgrade:minor": "yarn upgrade:major --target minor",
     "ls-engines": "yarn dlx ls-engines",
@@ -33,17 +33,10 @@
     "pre-commit": "lint-staged -c ./lint-staged.config.js"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
-  "c8": {
-    "all": false,
-    "include": [
-      "**/*.js",
-      "**/*.ts"
-    ]
-  },
   "devDependencies": {
-    "@types/node": "~20.11.20",
-    "@typescript-eslint/eslint-plugin": "~7.0.2",
-    "@typescript-eslint/parser": "~7.0.2",
+    "@types/node": "~20.11.24",
+    "@typescript-eslint/eslint-plugin": "~7.1.0",
+    "@typescript-eslint/parser": "~7.1.0",
     "@vitest/coverage-istanbul": "^1.3.1",
     "eslint": "~8.57.0",
     "eslint-config-airbnb": "~19.0.4",
@@ -53,7 +46,7 @@
     "lerna-changelog": "~2.2.0",
     "lint-staged": "~15.2.2",
     "ls-engines": "^0.9.1",
-    "nock": "~13.5.3",
+    "nock": "~13.5.4",
     "npm-check-updates": "^16.14.15",
     "ts-node": "~10.9.2",
     "typescript": "~5.3.3",
