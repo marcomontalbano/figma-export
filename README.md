@@ -169,56 +169,62 @@ Last but not least, you can create a configuration file and use a single command
 Let's create the file `.figmaexportrc.js` and paste the following:
 
 ```js
-module.exports = {
+// @ts-check
 
-    commands: [
+import outputComponentsAsSvg from '@figma-export/output-components-as-svg'
+import outputStylesAsSass from '@figma-export/output-styles-as-sass'
+import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo'
 
-        ['styles', {
-            fileId: 'fzYhvQpqwhZDUImRz431Qo',
-            // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
-            // ids: ['138:52'], // optional - Export only specified node IDs (the `onlyFromPages` option is always ignored when set)
-            // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
-            outputters: [
-                require('@figma-export/output-styles-as-sass')({
-                    output: './output/styles'
-                })
-            ]
-        }],
+/** @type { import('@figma-export/types').StylesCommandOptions } */
+const styleOptions = {
+  fileId: 'fzYhvQpqwhZDUImRz431Qo',
+  // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
+  // ids: ['138:52'], // optional - Export only specified node IDs (the `onlyFromPages` option is always ignored when set)
+  // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
+  outputters: [
+    outputStylesAsSass({
+      output: './output'
+    })
+  ]
+}
 
-        ['components', {
-            fileId: 'fzYhvQpqwhZDUImRz431Qo',
-            // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
-            // ids: ['54:22'], // optional - Export only specified node IDs (the `onlyFromPages`    option is always ignored when set)
-            onlyFromPages: ['icons'],
-            // filterComponent: (component) => !/^figma/.test(component.name), // optional
-            transformers: [
-                require('@figma-export/transform-svg-with-svgo')({
-                    plugins: [
-                        {
-                            name: 'preset-default',
-                            params: {
-                                overrides: {
-                                    removeViewBox: false,
-                                }
-                            }
-                        },
-                        {
-                            name: 'removeDimensions',
-                            active: true
-                        }
-                    ]
-                })
-            ],
-            outputters: [
-                require('@figma-export/output-components-as-svg')({
-                    output: './output/components'
-                })
-            ]
-        }]
+/** @type { import('@figma-export/types').ComponentsCommandOptions } */
+const componentOptions = {
+  fileId: 'fzYhvQpqwhZDUImRz431Qo',
+  // version: 'xxx123456', // optional - file's version history is only supported on paid Figma plans
+  // ids: ['54:22'], // optional - Export only specified node IDs (the `onlyFromPages` option is always ignored when set)
+  onlyFromPages: ['icons'],
+  transformers: [
+    transformSvgWithSvgo({
+      plugins: [
+        {
+          name: 'preset-default',
+          params: {
+            overrides: {
+              removeViewBox: false,
+            }
+          }
+        },
+        {
+          name: 'removeDimensions'
+        }
+      ]
+    })
+  ],
+  outputters: [
+    outputComponentsAsSvg({
+      output: './output'
+    })
+  ]
+}
 
-    ]
-
-};
+/** @type { import('@figma-export/types').FigmaExportRC } */
+export default {
+  commands: [
+    ['styles', styleOptions],
+    ['components', componentOptions]
+  ]
+}
 ```
 
 > :information_source: Take a look at [.figmaexportrc.example.js](/.figmaexportrc.example.js) for more details.
@@ -226,7 +232,7 @@ module.exports = {
 now you can install the `@figma-export` dependencies that you need
 
 ```sh
-npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg
+npm install --save-dev @figma-export/cli @figma-export/output-styles-as-sass @figma-export/transform-svg-with-svgo @figma-export/output-components-as-svg @figma-export/types
 ```
 
 and update the `package.json`.
@@ -255,7 +261,7 @@ If you prefer, you can create a `.figmaexportrc.ts` and use TypeScript instead.
 For doing so, you just need to install a few new dependencies in your project.
 
 ```sh
-npm install --save-dev typescript ts-node @types/node @figma-export/types
+npm install --save-dev typescript tsx @types/node
 ```
 
 and slightly change your `package.json`
@@ -263,7 +269,7 @@ and slightly change your `package.json`
 ```diff
 {
   "scripts": {
-+   "figma:export": "ts-node ./node_modules/@figma-export/cli/bin/run use-config .figmaexportrc.ts"
++   "figma:export": "tsx ./node_modules/@figma-export/cli/bin/run use-config .figmaexportrc.ts"
   }
 }
 ```
@@ -275,7 +281,7 @@ Take a look at [.figmaexportrc.example.ts](/.figmaexportrc.example.ts) for more 
 
 Node.js is now supporting [ECMAScript modules (ESM)](https://nodejs.org/api/esm.html).
 
-If your package.json contains the `  "type": "module"` field then you'll need to rename your `.figmaexportrc.js` configuration file:
+If your package.json contains the `"type": "module"` field then you'll need to rename your `.figmaexportrc.js` configuration file:
 
 ```diff
 -  .figmaexportrc.js

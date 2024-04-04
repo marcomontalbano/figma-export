@@ -12,7 +12,7 @@
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "debug": "yarn build && node ./packages/cli/bin/run.js use-config",
+    "debug": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "postinstall": "husky install",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
@@ -48,7 +48,6 @@
     "ls-engines": "^0.9.1",
     "nock": "~13.5.4",
     "npm-check-updates": "^16.14.15",
-    "ts-node": "~10.9.2",
     "typescript": "~5.3.3",
     "vitest": "^1.3.1"
   },
