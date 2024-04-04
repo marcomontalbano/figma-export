@@ -1,4 +1,9 @@
 {
   "version": "5.0.1",
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "command": {
+    "version": {
+      "preid": "beta"
+    }
+  }
 }
