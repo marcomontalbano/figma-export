@@ -291,7 +291,7 @@ If your package.json **does not** contain the `"type": "module"` field then you'
 adjust the command you run:
 
 ```sh
-figma-export use-config .figmaexportrc.cjs
+figma-export use-config .figmaexportrc.mjs
 ```
 
 and start using `import foo from 'foo'` instead of `const foo = require('foo')` to import the packages inside the `.figmaexportrc.mjs`. You can take a look at [.figmaexportrc.example.js](/.figmaexportrc.example.js) as an example.
