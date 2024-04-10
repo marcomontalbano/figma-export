@@ -277,29 +277,24 @@ and slightly change your `package.json`
 Take a look at [.figmaexportrc.example.ts](/.figmaexportrc.example.ts) for more details.
 
 
-#### Node.js ESM
+#### Pure ESM package
 
-Node.js is now supporting [ECMAScript modules (ESM)](https://nodejs.org/api/esm.html).
+This package is pure ESM. It cannot be `require()`'d from CommonJS.
 
-If your package.json contains the `"type": "module"` field then you'll need to rename your `.figmaexportrc.js` configuration file:
+If your package.json **does not** contain the `"type": "module"` field then you'll need to rename your `.figmaexportrc.js` configuration file:
 
 ```diff
 -  .figmaexportrc.js
-+  .figmaexportrc.cjs
++  .figmaexportrc.mjs
 ```
 
-and adjust the command you run:
+adjust the command you run:
 
 ```sh
 figma-export use-config .figmaexportrc.cjs
 ```
 
-If instead you're using the TypeScript setup you'll need to rename the `.figmaexportrc.ts` configuration file.
-
-```diff
--  .figmaexportrc.ts
-+  .figmaexportrc.cts
-```
+and start using `import foo from 'foo'` instead of `const foo = require('foo')` to import the packages inside the `.figmaexportrc.mjs`. You can take a look at [.figmaexportrc.example.js](/.figmaexportrc.example.js) as an example.
 
 
 ## :books: More Packages
