@@ -1,25 +1,26 @@
+// @ts-check
+
 /**
  * If you want to try this configuration you can just run:
  *   $ yarn
  *   $ yarn build
- *   $ npx tsx ./packages/cli/bin/run.js use-config ./.figmaexportrc.example.local.ts
+ *   $ node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js
  */
 
 import path from 'path';
 
-import { FigmaExportRC, StylesCommandOptions, ComponentsCommandOptions } from './packages/types';
+import outputStylesAsCss from './packages/output-styles-as-css/dist/index.js';
+import outputStylesAsLess from './packages/output-styles-as-less/dist/index.js';
+import outputStylesAsSass from './packages/output-styles-as-sass/dist/index.js';
+import outputStylesAsStyleDictionary from './packages/output-styles-as-style-dictionary/dist/index.js';
+import transformSvgWithSvgo from './packages/transform-svg-with-svgo/dist/index.js';
+import outputComponentsAsEs6 from './packages/output-components-as-es6/dist/index.js';
+import outputComponentsAsSvg from './packages/output-components-as-svg/dist/index.js';
+import outputComponentsAsSvgr from './packages/output-components-as-svgr/dist/index.js';
+import outputComponentsAsSvgstore from './packages/output-components-as-svgstore/dist/index.js';
 
-import outputStylesAsCss from './packages/output-styles-as-css/dist/index';
-import outputStylesAsLess from './packages/output-styles-as-less/dist/index';
-import outputStylesAsSass from './packages/output-styles-as-sass/dist/index';
-import outputStylesAsStyleDictionary from './packages/output-styles-as-style-dictionary/dist/index';
-import transformSvgWithSvgo from './packages/transform-svg-with-svgo/dist/index';
-import outputComponentsAsEs6 from './packages/output-components-as-es6/dist/index';
-import outputComponentsAsSvg from './packages/output-components-as-svg/dist/index';
-import outputComponentsAsSvgr from './packages/output-components-as-svgr/dist/index';
-import outputComponentsAsSvgstore from './packages/output-components-as-svgstore/dist/index';
-
-const styleOptions: StylesCommandOptions = {
+/** @type {import('./packages/types').StylesCommandOptions} */
+const styleOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
     // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
     outputters: [
@@ -38,7 +39,8 @@ const styleOptions: StylesCommandOptions = {
     ]
 };
 
-const componentOptions: ComponentsCommandOptions = {
+/** @type {import('./packages/types').ComponentsCommandOptions} */
+const componentOptions = {
     fileId: 'fzYhvQpqwhZDUImRz431Qo',
     onlyFromPages: ['icons', 'unit-test', 'icons/octicons-by-github'],
     // concurrency: 30,
@@ -89,9 +91,10 @@ const componentOptions: ComponentsCommandOptions = {
     ]
 };
 
+/** @type {import('./packages/types').FigmaExportRC} */
 export default {
     commands: [
         ['styles', styleOptions],
         ['components', componentOptions]
     ]
-} satisfies FigmaExportRC;
+};

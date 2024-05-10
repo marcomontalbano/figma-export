@@ -1,7 +1,7 @@
 import * as FigmaExport from '@figma-export/types';
 
-import { getClient, getStyles } from './figma';
-import { fetchStyles, parseStyles } from './figmaStyles';
+import { getClient, getStyles } from './figma.js';
+import { fetchStyles, parseStyles } from './figmaStyles/index.js';
 
 export const styles: FigmaExport.StylesCommand = async ({
     token,

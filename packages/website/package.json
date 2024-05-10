@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@figma-export/website",
-    "version": "5.0.1",
+    "version": "6.0.0-beta.0",
     "description": "Website for @figma-export",
     "author": "Marco Montalbano",
     "keywords": [
@@ -15,33 +15,32 @@
     "homepage": "https://figma-export.marcomontalbano.com/",
     "license": "MIT",
     "scripts": {
-        "clean": "rimraf dist output out .next",
-        "export": "figma-export use-config",
+        "clean": "rimraf dist output .next out",
+        "figma:export": "figma-export use-config .figmaexportrc.mjs",
         "next:lint": "next lint",
         "next:dev": "next dev",
         "next:build": "next build",
-        "next:export": "next export -o dist/",
-        "dev": "run-s export next:dev",
-        "build": "run-s clean export next:build"
+        "dev": "run-s figma:export next:dev",
+        "build": "run-s clean figma:export next:build"
     },
     "devDependencies": {
-        "@figma-export/cli": "^5.0.1",
-        "@figma-export/utils": "^5.0.0",
-        "@types/react": "^18.2.58",
-        "eslint-config-next": "^13.5.6",
+        "@figma-export/cli": "^6.0.0-beta.0",
+        "@figma-export/utils": "^6.0.0-beta.0",
+        "@types/react": "^18.3.1",
+        "eslint-config-next": "^14.2.3",
         "npm-run-all": "~4.1.5",
-        "rimraf": "~5.0.5",
-        "sass": "~1.71.1"
+        "rimraf": "~5.0.6",
+        "sass": "~1.77.0"
     },
     "dependencies": {
         "@svgr/plugin-jsx": "^8.1.0",
-        "next": "^13.5.6",
+        "next": "^14.2.3",
         "prismjs": "^1.29.0",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
     },
     "engines": {
-        "node": ">= 16.14"
+        "node": ">= 18.17"
     },
     "browserslist": [
         ">0.3%",

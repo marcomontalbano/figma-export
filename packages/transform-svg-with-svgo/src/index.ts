@@ -2,7 +2,7 @@ import { optimize, Config } from 'svgo';
 
 import * as FigmaExport from '@figma-export/types';
 
-export = (options: Config): FigmaExport.StringTransformer => {
+export default (options: Config): FigmaExport.StringTransformer => {
     return async (svg) => {
         try {
             const result = optimize(svg, options);

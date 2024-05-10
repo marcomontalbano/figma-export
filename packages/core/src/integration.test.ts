@@ -1,10 +1,10 @@
-import { expect } from 'chai';
+import { expect, describe, it } from 'vitest';
 
-import { components as exportComponents } from './lib/export-components';
-import { styles as exportStyles } from './lib/export-styles';
+import { components as exportComponents } from './lib/export-components.js';
+import { styles as exportStyles } from './lib/export-styles.js';
 
 describe('@figma-export/core', () => {
-    it('Export components', async () => {
+    it('Export components', { timeout: 60 * 1000 }, async () => {
         const pageNodes = await exportComponents({
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             token: process.env.FIGMA_TOKEN ?? '',
@@ -24,9 +24,9 @@ describe('@figma-export/core', () => {
             'figma/logo/main (bright)',
             'Type=Icon only, Visible=No',
         ]);
-    }).timeout(60 * 1000);
+    });
 
-    it('Export components (only instances)', async () => {
+    it('Export components (only instances)', { timeout: 60 * 1000 }, async () => {
         const pageNodes = await exportComponents({
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             token: process.env.FIGMA_TOKEN ?? '',
@@ -43,9 +43,9 @@ describe('@figma-export/core', () => {
         expect(pageNodes[0].components.map((c) => c.name)).to.eql([
             'figma/logo/main (bright) - INSTANCE',
         ]);
-    }).timeout(60 * 1000);
+    });
 
-    it('Export styles', async () => {
+    it('Export styles', { timeout: 60 * 1000 }, async () => {
         const styles = await exportStyles({
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             token: process.env.FIGMA_TOKEN ?? '',
@@ -64,5 +64,5 @@ describe('@figma-export/core', () => {
                 visible: true,
             },
         ]);
-    }).timeout(60 * 1000);
+    });
 });

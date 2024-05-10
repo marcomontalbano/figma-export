@@ -1,11 +1,11 @@
-import { expect } from 'chai';
+import { expect, describe, it } from 'vitest';
 
 import {
     camelCase,
     kebabCase,
     pascalCase,
     snakeCase,
-} from './index';
+} from './index.js';
 
 describe('utils', () => {
     it('camelCase', async () => {

@@ -27,7 +27,6 @@ const componentOptions: ComponentsCommandOptions = {
         },
         {
           name: "removeXMLNS",
-          active: true,
         },
       ],
     }),
@@ -55,6 +54,8 @@ const componentOptions: ComponentsCommandOptions = {
   ],
 };
 
-(module.exports as FigmaExportRC) = {
-  commands: [["components", componentOptions]],
-};
+export default {
+  commands: [
+    ["components", componentOptions]
+  ],
+} satisfies FigmaExportRC;

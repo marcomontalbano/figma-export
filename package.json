@@ -2,31 +2,30 @@
   "name": "figma-export",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "description": "Export tool for Figma",
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
+  "workspaces": [
+    "packages/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/marcomontalbano/figma-export"
   },
   "scripts": {
-    "debug": "yarn build && ts-node ./packages/cli/bin/run use-config .figmaexportrc.ts",
+    "debug": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "postinstall": "husky install",
-    "clean": "rm -rf node_modules/ output/ */*/node_modules */*/output */*/dist */*/tsconfig.tsbuildinfo",
+    "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
     "build": "tsc --build packages/**/tsconfig.json",
     "lint": "yarn build && eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts",
-    "test": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha",
-    "test:integration": "yarn build && TS_NODE_PROJECT='./tsconfig.mocha.json' mocha --config .mocharc.integration.json",
-    "test:watch": "yarn test --watch --reporter=dot",
-    "coverage": "nyc yarn test --reporter=dot",
-    "coverage:watch": "npx nodemon -e js,mjs,ts --exec yarn coverage",
-    "website:start": "yarn build && yarn workspace @figma-export/website dev",
+    "test": "yarn build && vitest run --exclude '**/integration.test.ts'",
+    "test:integration": "yarn build && vitest watch integration.test.ts",
+    "test:watch": "yarn build && vitest watch --exclude '**/integration.test.ts'",
+    "coverage": "yarn build && vitest run --coverage --exclude '**/integration.test.ts'",
+    "coverage:watch": "yarn build && vitest watch --coverage --exclude '**/integration.test.ts'",
+    "website:dev": "yarn build && yarn workspace @figma-export/website dev",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
-    "website:serve": "yarn dlx serve packages/website/dist/",
+    "website:serve": "yarn dlx serve packages/website/out/",
     "upgrade:major": "npx npm-check-updates -ws --root -u",
     "upgrade:minor": "yarn upgrade:major --target minor",
     "ls-engines": "yarn dlx ls-engines",
@@ -34,52 +33,32 @@
     "pre-commit": "lint-staged -c ./lint-staged.config.js"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
-  "nyc": {
-    "all": false,
-    "include": [
-      "**/*.js",
-      "**/*.ts"
-    ]
-  },
   "devDependencies": {
-    "@types/chai": "~4.3.12",
-    "@types/chai-as-promised": "^7.1.8",
-    "@types/chai-things": "0.0.38",
-    "@types/mocha": "~10.0.6",
-    "@types/node": "~20.11.20",
-    "@types/sinon": "~17.0.3",
-    "@types/sinon-chai": "~3.2.12",
-    "@typescript-eslint/eslint-plugin": "~7.0.2",
-    "@typescript-eslint/parser": "~7.0.2",
-    "chai": "~4.4.1",
-    "chai-as-promised": "^7.1.1",
-    "chai-things": "~0.2.0",
+    "@types/node": "~20.12.11",
+    "@typescript-eslint/eslint-plugin": "~7.8.0",
+    "@typescript-eslint/parser": "~7.8.0",
+    "@vitest/coverage-istanbul": "^1.6.0",
     "eslint": "~8.57.0",
     "eslint-config-airbnb": "~19.0.4",
-    "eslint-plugin-chai-friendly": "~0.7.4",
     "eslint-plugin-import": "~2.29.1",
     "husky": "^9.0.11",
     "lerna": "^8.1.2",
     "lerna-changelog": "~2.2.0",
     "lint-staged": "~15.2.2",
     "ls-engines": "^0.9.1",
-    "mocha": "~10.3.0",
-    "nock": "~13.5.3",
-    "npm-check-updates": "^16.14.15",
-    "nyc": "~15.1.0",
-    "sinon": "~17.0.1",
-    "sinon-chai": "~3.7.0",
-    "ts-node": "~10.9.2",
-    "typescript": "~5.3.3"
+    "nock": "~13.5.4",
+    "npm-check-updates": "^16.14.20",
+    "typescript": "~5.4.5",
+    "vitest": "^1.6.0"
   },
   "engines": {
-    "node": ">= 16.14"
+    "node": ">= 18.17"
   },
   "overrides": {
-    "axios": "^1.6.7"
+    "axios": "^1.6.8"
   },
   "resolutions": {
-    "axios": "^1.6.7"
+    "axios": "^1.6.8"
   },
   "changelog": {
     "cacheDir": ".changelog",
@@ -93,5 +72,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@3.8.0"
+  "packageManager": "yarn@4.1.0"
 }

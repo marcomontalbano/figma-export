@@ -1,14 +1,14 @@
-import { StyleNode } from '../global';
+import { StyleNode } from '../global.js';
 
-import * as PaintStyle from './PaintStyle';
-import * as EffectStyle from './EffectStyle';
-import * as TextStyle from './TextStyle';
-import * as GridStyle from './GridStyle';
+import * as PaintStyle from './PaintStyle.js';
+import * as EffectStyle from './EffectStyle.js';
+import * as TextStyle from './TextStyle.js';
+import * as GridStyle from './GridStyle.js';
 
-export * from './PaintStyle';
-export * from './EffectStyle';
-export * from './TextStyle';
-export * from './GridStyle';
+export * from './PaintStyle.js';
+export * from './EffectStyle.js';
+export * from './TextStyle.js';
+export * from './GridStyle.js';
 
 export type Style = {
     name: string

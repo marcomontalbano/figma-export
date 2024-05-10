@@ -1,11 +1,15 @@
-import sinon from 'sinon';
-import { expect } from 'chai';
+import {
+    expect, describe, it, beforeEach, afterEach, vi,
+} from 'vitest';
 import nock from 'nock';
 
-import * as Figma from 'figma-js';
+import type * as Figma from 'figma-js';
 
-import * as figmaDocument from './_config.test';
-import * as figma from './figma';
+import * as figmaDocument from './_config.helper-test.js';
+import * as figma from './figma.js';
+import FigmaJS from 'figma-js';
+
+vi.mock('figma-js');
 
 const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
     filterComponent: () => true,
@@ -20,17 +24,17 @@ describe('figma.', () => {
     });
 
     afterEach(() => {
-        sinon.restore();
+        vi.resetAllMocks();
     });
 
     describe('', () => {
         it('should throw an error if styles are not present', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
-                file: sinon.stub().resolves({ data: {} }),
+                file: vi.fn().mockResolvedValue({ data: {} }),
             };
 
-            await expect(figma.getStyles(client, { fileId: 'ABC123' })).to.be.rejectedWith(Error, '\'styles\' are missing.');
+            await expect(() => figma.getStyles(client, { fileId: 'ABC123' })).rejects.toThrow('\'styles\' are missing.');
         });
     });
 
@@ -80,30 +84,36 @@ describe('figma.', () => {
         const document = figmaDocument.createDocument({ children: [figmaDocument.page1, figmaDocument.page2] });
 
         it('should get all pages by default', () => {
-            expect(figma.getPagesWithComponents(document, getComponentsDefaultOptions))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
-        });
-
-        it('should get all the pages from the document', () => {
-            expect(figma.getPagesWithComponents(document, getComponentsDefaultOptions))
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
+            const pages = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
+            expect(pages).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({ name: 'page1' }),
+                    expect.objectContaining({ name: 'page2' }),
+                ]),
+            );
         });
 
         it('should be able to filter components', () => {
-            expect(
-                figma
-                    .getPagesWithComponents(
-                        document,
-                        {
-                            filterComponent: (component) => ['9:1'].includes(component.id),
-                            includeTypes: ['COMPONENT'],
-                        },
-                    ),
-            )
-                .to.not.contain.an.item.with.property('name', 'page1')
-                .to.contain.an.item.with.property('name', 'page2');
+            const pages = figma
+                .getPagesWithComponents(
+                    document,
+                    {
+                        filterComponent: (component) => ['9:1'].includes(component.id),
+                        includeTypes: ['COMPONENT'],
+                    },
+                );
+
+            expect(pages).toEqual(
+                expect.not.arrayContaining([
+                    expect.objectContaining({ name: 'page1' }),
+                ]),
+            );
+
+            expect(pages).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({ name: 'page2' }),
+                ]),
+            );
         });
 
         it('should excludes pages without components', () => {
@@ -117,10 +127,17 @@ describe('figma.', () => {
                 getComponentsDefaultOptions,
             );
 
-            expect(pages)
-                .to.be.an('array')
-                .to.contain.an.item.with.property('name', 'page1')
-                .to.not.contain.an.item.with.property('name', 'page2');
+            expect(pages).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({ name: 'page1' }),
+                ]),
+            );
+
+            expect(pages).toEqual(
+                expect.not.arrayContaining([
+                    expect.objectContaining({ name: 'page2' }),
+                ]),
+            );
         });
     });
 
@@ -140,10 +157,10 @@ describe('figma.', () => {
             }).to.throw(Error);
         });
 
-        it('should create a figma client providing a token', () => {
-            sinon.spy(Figma, 'Client');
+        it('should create a figma client providing a token', async () => {
             figma.getClient('token1234');
-            expect(Figma.Client).to.have.been.calledOnceWith({ personalAccessToken: 'token1234' });
+            expect(FigmaJS.Client).toHaveBeenCalledOnce();
+            expect(FigmaJS.Client).toHaveBeenCalledWith({ personalAccessToken: 'token1234' });
         });
     });
 
@@ -151,19 +168,20 @@ describe('figma.', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
-                fileImages: sinon.stub().returns(Promise.resolve({
+                fileImages: vi.fn().mockResolvedValue({
                     data: {
                         images: {
                             A1: 'https://example.com/A1.svg',
                             B2: 'https://example.com/B2.svg',
                         },
                     },
-                })),
+                }),
             };
 
             const fileImages = await figma.getImages(client, 'ABC123', ['A1', 'B2']);
 
-            expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
+            expect(client.fileImages).toHaveBeenCalledOnce();
+            expect(client.fileImages).toHaveBeenCalledWith('ABC123', {
                 ids: ['A1', 'B2'],
                 format: 'svg',
                 svg_include_id: true,
@@ -179,11 +197,11 @@ describe('figma.', () => {
         it('should throw an error when connection issue', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
-                fileImages: sinon.stub().returns(Promise.reject(new Error('some network error'))),
+                fileImages: vi.fn().mockRejectedValue(new Error('some network error')),
             };
 
             await expect(figma.getImages(client, 'ABC123', ['A1', 'B2']))
-                .to.be.rejectedWith(Error, 'while fetching fileImages: some network error');
+                .rejects.toThrow('while fetching fileImages: some network error');
         });
     });
 
@@ -191,19 +209,20 @@ describe('figma.', () => {
         it('should get a pair id-url based of provided ids', async () => {
             const client = {
                 ...({} as Figma.ClientInterface),
-                fileImages: sinon.stub().returns(Promise.resolve({
+                fileImages: vi.fn().mockResolvedValue({
                     data: {
                         images: {
                             A1: figmaDocument.svg.url,
                             B1: figmaDocument.svg.url,
                         },
                     },
-                })),
+                }),
             };
 
             const fileSvgs = await figma.fileSvgs(client, 'ABC123', ['A1', 'B1']);
 
-            expect(client.fileImages).to.have.been.calledOnceWith('ABC123', {
+            expect(client.fileImages).toHaveBeenCalledOnce();
+            expect(client.fileImages).toHaveBeenCalledWith('ABC123', {
                 ids: ['A1', 'B1'],
                 format: 'svg',
                 svg_include_id: true,

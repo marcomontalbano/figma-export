@@ -1,20 +1,20 @@
 {
   "name": "@figma-export/cli",
   "description": "Command line for @figma-export",
-  "version": "5.0.1",
+  "version": "6.0.0-beta.0",
   "author": "Marco Montalbano",
   "bin": {
-    "figma-export": "./bin/run"
+    "figma-export": "./bin/run.js"
   },
   "bugs": "https://github.com/marcomontalbano/figma-export/issues",
   "dependencies": {
-    "@figma-export/core": "^5.0.1",
-    "@figma-export/types": "^5.0.1",
-    "ora": "~5.4.1",
+    "@figma-export/core": "^6.0.0-beta.0",
+    "@figma-export/types": "^6.0.0-beta.0",
+    "ora": "~8.0.1",
     "sade": "~1.8.1"
   },
   "engines": {
-    "node": ">= 16.14"
+    "node": ">= 18.17"
   },
   "files": [
     "/bin",
@@ -32,6 +32,7 @@
     "figma cli"
   ],
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marcomontalbano/figma-exporter.git",

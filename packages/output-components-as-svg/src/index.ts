@@ -1,7 +1,7 @@
 import * as FigmaExport from '@figma-export/types';
 
-import fs = require('fs');
-import path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 type Options = {
     output: string;
@@ -9,7 +9,7 @@ type Options = {
     getBasename?: (options: FigmaExport.ComponentOutputterParamOption) => string;
 }
 
-export = ({
+export default ({
     output,
     getDirname = (options): string => `${options.pageName}${path.sep}${options.dirname}`,
     getBasename = (options): string => `${options.basename}.svg`,

@@ -4,7 +4,7 @@ import { Sade } from 'sade';
 import * as figmaExport from '@figma-export/core';
 import * as FigmaExport from '@figma-export/types';
 
-import { asArray, asUndefinableArray, requirePackages } from '../utils';
+import { asArray, asUndefinableArray, requirePackages } from '../utils.js';
 
 export const addComponents = (prog: Sade, spinner: Ora) => prog
     .command('components <fileId>')
@@ -23,7 +23,7 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
     .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg -t COMPONENT -t INSTANCE -o dist')
     .example('components fzYhvQpqwhZDUImRz431Qo -O @figma-export/output-components-as-svg -o dist -i 54:22 -i 138:52')
     .action(
-        (fileId, {
+        async (fileId, {
             fileVersion,
             concurrency,
             retries,
@@ -51,8 +51,8 @@ export const addComponents = (prog: Sade, spinner: Ora) => prog
                 ids,
                 onlyFromPages: page,
                 includeTypes: types,
-                transformers: requirePackages<FigmaExport.StringTransformer>(transformer),
-                outputters: requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
+                transformers: await requirePackages<FigmaExport.StringTransformer>(transformer),
+                outputters: await requirePackages<FigmaExport.ComponentOutputter>(outputter, { output }),
 
                 // eslint-disable-next-line no-param-reassign
                 log: (message: string) => { spinner.text = message; },

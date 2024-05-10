@@ -1,3 +1,5 @@
+# act -j test --container-architecture linux/amd64 -P ubuntu-latest=ghcr.io/catthehacker/ubuntu:js-latest
+
 name: Test
 
 on:
@@ -14,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [16.14.0, 16.x, 18.x, 20.x, 21.x]
+        node: [18.17.0, 18.x, 20.x, 22.x]
 
     steps:
     - name: Checkout 🛎️

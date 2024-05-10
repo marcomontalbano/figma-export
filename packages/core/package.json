@@ -1,6 +1,6 @@
 {
     "name": "@figma-export/core",
-    "version": "5.0.1",
+    "version": "6.0.0-beta.0",
     "description": "@figma-export core functionalities",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -19,23 +19,24 @@
         "components"
     ],
     "license": "MIT",
+    "type": "module",
     "publishConfig": {
         "access": "public"
     },
     "dependencies": {
-        "@figma-export/types": "^5.0.1",
-        "axios": "^1.6.7",
+        "@figma-export/types": "^6.0.0-beta.0",
+        "axios": "^1.6.8",
         "figma-js": "~1.16.0",
-        "p-limit": "^3.1.0",
-        "p-retry": "^4.6.2"
+        "p-limit": "^5.0.0",
+        "p-retry": "^6.2.0"
     },
     "overrides": {
-        "axios": "^1.6.7"
+        "axios": "^1.6.8"
     },
     "resolutions": {
-        "axios": "^1.6.7"
+        "axios": "^1.6.8"
     },
     "engines": {
-        "node": ">= 16.14"
+        "node": ">= 18.17"
     }
 }

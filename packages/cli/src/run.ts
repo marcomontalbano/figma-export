@@ -1,11 +1,14 @@
 import sade from 'sade';
 import ora from 'ora';
 
-import { addComponents } from './commands/components';
-import { addStyles } from './commands/styles';
-import { addUseConfig } from './commands/use-config';
+import { addComponents } from './commands/components.js';
+import { addStyles } from './commands/styles.js';
+import { addUseConfig } from './commands/use-config.js';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+import Module from 'node:module';
+
+const require = Module.createRequire(import.meta.url);
+
 const pkg = require('../package.json');
 
 const prog = sade('figma-export');

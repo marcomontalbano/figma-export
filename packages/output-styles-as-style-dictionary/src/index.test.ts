@@ -1,5 +1,10 @@
-import sinon from 'sinon';
-import { expect } from 'chai';
+import {
+    expect,
+    describe,
+    it,
+    vi,
+    afterEach,
+} from 'vitest';
 import {
     StyleNode,
     FillStyle,
@@ -10,7 +15,9 @@ import { camelCase } from '@figma-export/utils';
 
 import fs from 'fs';
 import path from 'path';
-import outputter from './index';
+import outputter from './index.js';
+
+vi.mock('fs');
 
 const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
     fills,
@@ -89,15 +96,8 @@ const mockText = (visible = true): Style => ({
 });
 
 describe('style output as style-dictionary json', () => {
-    let writeFileSync;
-
-    beforeEach(() => {
-        sinon.stub(fs, 'mkdirSync').returnsArg(0);
-        writeFileSync = sinon.stub(fs, 'writeFileSync');
-    });
-
     afterEach(() => {
-        sinon.restore();
+        vi.resetAllMocks();
     });
 
     it('should not print anything if style is not visible', async () => {
@@ -109,8 +109,8 @@ describe('style output as style-dictionary json', () => {
             ], { visible: false }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', 'base.json'), '');
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', 'base.json'), '{}');
     });
 
     it('should be able to change the filename, the extension and output folder', async () => {
@@ -120,8 +120,8 @@ describe('style output as style-dictionary json', () => {
             getFilename: () => 'base-file',
         })([]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', 'base-file.json'));
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', 'base-file.json'), '{}');
     });
 
     it('should sanitize variable names', async () => {
@@ -133,10 +133,9 @@ describe('style output as style-dictionary json', () => {
             ], { name: 'Grey/900' }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            sinon.match.any,
-
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output-folder', 'base.json'),
             JSON.stringify({
                 grey: {
                     900: {
@@ -158,10 +157,9 @@ describe('style output as style-dictionary json', () => {
             ], { name: 'Grey/Dark' }),
         ]);
 
-        expect(writeFileSync).to.be.calledOnce;
-        expect(writeFileSync).to.be.calledWithMatch(
-            sinon.match.any,
-
+        expect(fs.writeFileSync).toHaveBeenCalledOnce();
+        expect(fs.writeFileSync).toHaveBeenCalledWith(
+            path.resolve('output-folder', 'base.json'),
             JSON.stringify({
                 greyDark: {
                     comment: 'lorem ipsum',
@@ -181,8 +179,8 @@ describe('style output as style-dictionary json', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(path.join('output-folder', 'base.json'), '');
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', 'base.json'), '{}');
         });
 
         it('should be able to extract a solid color', async () => {
@@ -195,9 +193,9 @@ describe('style output as style-dictionary json', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', 'base.json'),
 
                 JSON.stringify({
                     variable: {
@@ -220,9 +218,9 @@ describe('style output as style-dictionary json', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', 'base.json'),
 
                 JSON.stringify({
                     variable: {
@@ -247,9 +245,9 @@ describe('style output as style-dictionary json', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', 'base.json'),
 
                 JSON.stringify({
                     variable: {
@@ -270,9 +268,9 @@ describe('style output as style-dictionary json', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWithMatch(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', 'base.json'),
 
                 JSON.stringify({
                     variable: {
@@ -295,9 +293,9 @@ describe('style output as style-dictionary json', () => {
                 ]),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWith(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', 'base.json'),
 
                 JSON.stringify({
                     variable: {
@@ -318,9 +316,9 @@ describe('style output as style-dictionary json', () => {
                 mockText(),
             ]);
 
-            expect(writeFileSync).to.be.calledOnce;
-            expect(writeFileSync).to.be.calledWith(
-                sinon.match.any,
+            expect(fs.writeFileSync).toHaveBeenCalledOnce();
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                path.resolve('output-folder', 'base.json'),
 
                 JSON.stringify({
                     variable: {

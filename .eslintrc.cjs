@@ -3,32 +3,39 @@ module.exports = {
         commonjs: true,
         es6: true,
         node: true,
-        mocha: true,
+    },
+    settings: {
+        'import/resolver': {
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
     },
     extends: [
         'airbnb-base',
     ],
-    plugins: [
-        'chai-friendly',
-    ],
     globals: {
         Atomics: 'readonly',
         SharedArrayBuffer: 'readonly',
-        expect: true,
-        sinon: true,
-        chai: true,
     },
     parserOptions: {
-        ecmaVersion: 2018,
+        ecmaVersion: 2020,
     },
     rules: {
         indent: ['error', 4, {
             SwitchCase: 1,
         }],
-        'max-len': ['error', 140],
+        'max-len': ['error', 160],
         'no-unused-expressions': 'off',
-        'chai-friendly/no-unused-expressions': 'error',
         'arrow-body-style': 'off',
+        'import/extensions': [
+            'error',
+            'always',
+            {
+                ts: 'never',
+                tsx: 'never',
+            },
+        ],
     },
     overrides: [
         {
@@ -46,17 +53,10 @@ module.exports = {
             ],
             rules: {
                 'import/order': 'off',
+
+                'import/no-unresolved': 'off',
+
                 'import/prefer-default-export': 'off',
-                'import/extensions': [
-                    'error',
-                    'always',
-                    {
-                        ts: 'never',
-                        tsx: 'never',
-                        js: 'never',
-                        jsx: 'never',
-                    },
-                ],
             },
         },
         {
