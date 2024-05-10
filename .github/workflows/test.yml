@@ -56,17 +56,17 @@ jobs:
     - name: Coverage 🌈
       run: yarn coverage
 
-    - name: Export `coverage`
-      uses: coverallsapp/github-action@v2.2.3
-      with:
-        github-token: ${{ secrets.github_token }}
-        file: ./coverage/lcov.info # optional (default value)
-
     - name: Upload `coverage` artifact
       uses: actions/upload-artifact@v4
       with:
         name: coverage
         path: coverage/lcov-report
+
+    - name: Export `coverage`
+      uses: coverallsapp/github-action@v2
+      with:
+        github-token: ${{ secrets.github_token }}
+        file: ./coverage/lcov.info # optional (default value)
 
 
   # stryker:
