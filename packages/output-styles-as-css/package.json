@@ -30,6 +30,6 @@
         "@figma-export/utils": "^6.0.0-beta.0"
     },
     "engines": {
-        "node": ">= 18.12"
+        "node": ">= 18.17"
     }
 }

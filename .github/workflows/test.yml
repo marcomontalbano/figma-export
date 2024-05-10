@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [18.12.0, 18.x, 20.x, 21.x]
+        node: [18.17.0, 18.x, 20.x, 22.x]
 
     steps:
     - name: Checkout 🛎️
