@@ -1,7 +1,7 @@
 {
   "name": "@figma-export/cli",
   "description": "Command line for @figma-export",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "author": "Marco Montalbano",
   "bin": {
     "figma-export": "./bin/run.js"
