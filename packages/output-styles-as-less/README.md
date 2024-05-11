@@ -18,12 +18,14 @@ $ tree output/
 You can easily add this outputter to your `.figmaexportrc.js`:
 
 ```js
-module.exports = {
+import asLess from '@figma-export/output-styles-as-less'
+
+export default {
     commands: [
         ['styles', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             outputters: [
-                require('@figma-export/output-styles-as-less')({
+                asLess({
                     output: './output'
                 })
             ]
@@ -37,11 +39,12 @@ module.exports = {
 `getFilename` and `getVariableName` are **optional**.
 
 ```js
-const { kebabCase } = require('@figma-export/utils');
+import asLess from '@figma-export/output-styles-as-less'
+import { kebabCase } from '@figma-export/utils'
 
 ...
 
-require('@figma-export/output-styles-as-less')({
+asLess({
     output: './output',
     getFilename: () => '_variables',
     getVariableName = (style, descriptor) => `${kebabCase(style.name).toLowerCase()}${descriptor != null ? `-${descriptor}` : ''}`,

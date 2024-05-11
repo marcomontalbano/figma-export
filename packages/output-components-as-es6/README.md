@@ -27,13 +27,15 @@ export const figmaLogo = `<svg width="40" height="60" viewBox="0 0 40 60" fill="
 You can easily add this outputter to your `.figmaexportrc.js`:
 
 ```js
-module.exports = {
+import asES6 from '@figma-export/output-components-as-es6'
+
+export default {
     commands: [
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             onlyFromPages: ['icons', 'unit-test'],
             outputters: [
-                require('@figma-export/output-components-as-es6')({
+                asES6({
                     output: './output'
                 })
             ]
@@ -47,11 +49,12 @@ module.exports = {
 `getVariableName`, `useBase64` and `useDataUrl` are **optional**.
 
 ```js
-const { camelCase } = require('@figma-export/utils');
+import asES6 from '@figma-export/output-components-as-es6'
+import { camelCase } from '@figma-export/utils'
 
 ...
 
-require('@figma-export/output-components-as-es6')({
+asES6({
     output: './output',
     getVariableName: (options) => camelCase(options.componentName.trim()),
     useBase64: false,

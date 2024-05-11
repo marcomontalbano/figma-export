@@ -18,29 +18,34 @@ yarn add @figma-export/transform-svg-with-svgo --dev
 
 ## Usage
 
-You can use a custom configuration for svgo, creating a `.figmaexportrc.js` file and provide a `config` object for this package.
+You can transform an svg before exporting with svgo:
 
 ```js
-// .figmaexportrc.js
+import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo'
 
-module.exports = {
-  configs: [
-    ['@figma-export/transform-svg-with-svgo', {
-      plugins: [
-        {
-          name: 'preset-default',
-          params: {
-            overrides: {
-              removeViewBox: false,
+export default {
+  commands: [
+    ['components', {
+      fileId: 'fzYhvQpqwhZDUImRz431Qo',
+      onlyFromPages: ['icons', 'unit-test'],
+      transformers: [
+        transformSvgWithSvgo({
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                }
+              }
+            },
+            {
+              name: 'removeDimensions'
             }
-          }
-        },
-        {
-          name: 'removeDimensions',
-          active: true
-        }
-      ]
-    }]
+          ]
+        })
+      ],
+    }],
   ]
-};
+}
 ```
