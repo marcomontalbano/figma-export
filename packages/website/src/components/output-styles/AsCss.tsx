@@ -11,8 +11,7 @@ const props = {
     <>
       <div>Once exported, you can easly use them directly into your <code>css</code> file.</div>
       <Code
-        language="css"
-        indent={2}
+        language='css'
         code={`
           body {
             color: var(--color-3);
@@ -32,7 +31,6 @@ const props = {
         ['styles', {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-styles-as-css
             asCss({
               output: './output/css',
             })

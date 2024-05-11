@@ -21,7 +21,6 @@ const props = {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           onlyFromPages: ['icons'],
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-components-as-svgstore
             asSvgstore({
               output: './output/svgstore-monochrome',
               svgstoreConfig: {

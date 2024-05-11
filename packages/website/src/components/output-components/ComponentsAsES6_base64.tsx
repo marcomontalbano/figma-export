@@ -25,7 +25,6 @@ const props = {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           onlyFromPages: ['icons'],
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-components-as-es6
             asES6({
               output: './output/es6-base64',
               useBase64: true,

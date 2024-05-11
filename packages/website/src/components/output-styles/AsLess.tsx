@@ -15,8 +15,7 @@ const props = {
         <a href="http://lesscss.org/#maps">maps</a>.
       </div>
       <Code
-        language="less"
-        indent={2}
+        language='less'
         code={`
           body {
             color: @color-3;
@@ -36,7 +35,6 @@ const props = {
         ['styles', {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-styles-as-less
             asLess({
               output: './output/less',
             })

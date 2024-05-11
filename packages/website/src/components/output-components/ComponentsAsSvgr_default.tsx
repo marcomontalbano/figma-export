@@ -28,7 +28,6 @@ const props = {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           onlyFromPages: ['icons/octicons-by-github'],
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-components-as-svgr
             asSvgr({
               output: './output'
             })

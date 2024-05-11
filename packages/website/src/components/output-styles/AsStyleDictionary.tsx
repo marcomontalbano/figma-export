@@ -25,7 +25,6 @@ const props = {
         ['styles', {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-styles-as-style-dictionary
             asStyleDictionary({
               output: './output/style-dictionary',
             })

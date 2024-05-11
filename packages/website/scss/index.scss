@@ -48,6 +48,11 @@ pre[class*=language-] {
     line-height: 1.8em;
 }
 
+pre.Code {
+    text-align: left;
+    font-size: 12px;
+}
+
 :not(pre)>code[class*=language-], pre[class*=language-] {
     background-color: transparent;
 }

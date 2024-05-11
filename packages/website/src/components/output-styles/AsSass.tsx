@@ -16,8 +16,7 @@ const props = {
         <a href="https://sass-lang.com/documentation/modules/map">maps</a>.
       </div>
       <Code
-        language="sass"
-        indent={2}
+        language='sass'
         code={`
           body {
             color: $color-3;
@@ -37,7 +36,6 @@ const props = {
         ['styles', {
           fileId: 'fzYhvQpqwhZDUImRz431Qo',
           outputters: [
-            // https://www.npmjs.com/package/@figma-export/output-styles-as-sass
             asSass({
               output: './output/scss',
             }),
