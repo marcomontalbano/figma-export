@@ -1,9 +1,3 @@
-// @ts-check
-
-// const withImages = require('next-images');
-// module.exports = withImages(nextConfig);
-
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
@@ -11,4 +5,4 @@ const nextConfig = {
   output: 'export'
 }
 
-module.exports = nextConfig;
+export default nextConfig
