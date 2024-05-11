@@ -1,7 +1,8 @@
 import CodeBlock from '@/components/CodeBlock';
 
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { figmaExport, figmaLogo } from '../../../output/es6-dataurl/icons';
+import { figmaExport, figmaLogo }
+  // @ts-ignore This imported file in auto-generated
+  from '../../../output/es6-dataurl/icons';
 
 const props = {
   title: (

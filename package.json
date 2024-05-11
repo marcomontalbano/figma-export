@@ -17,7 +17,7 @@
     "postinstall": "husky install",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
     "build": "tsc --build packages/**/tsconfig.json",
-    "lint": "yarn build && eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts",
+    "lint": "yarn build && eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts,.tsx",
     "test": "yarn build && vitest run --exclude '**/integration.test.ts'",
     "test:integration": "yarn build && vitest watch integration.test.ts",
     "test:watch": "yarn build && vitest watch --exclude '**/integration.test.ts'",

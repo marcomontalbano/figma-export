@@ -1,8 +1,10 @@
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import * as Octicons from '../../output/es6-dataurl-octicons/icons/octicons-by-github';
+import * as Octicons
+  // @ts-ignore This imported file in auto-generated
+  from '../../output/es6-dataurl-octicons/icons/octicons-by-github';
 
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { figmaArrow } from '../../output/es6-dataurl/icons';
+import { figmaArrow }
+  // @ts-ignore This imported file in auto-generated
+  from '../../output/es6-dataurl/icons';
 
 const SvgOcticons = () => (
   <div className="octicons">
@@ -19,7 +21,7 @@ const SvgOcticons = () => (
     <div className="icons">
       {
         Object.values(Octicons).reverse().map(
-          (octicon, index) => <img key={index} className="icon" alt={`Icon ${index}`} src={octicon} />
+          (octicon, index) => <img key={index} className="icon" alt={`Icon ${index}`} src={octicon as string} />
         )
       }
     </div>

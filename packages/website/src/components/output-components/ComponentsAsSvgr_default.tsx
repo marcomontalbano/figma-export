@@ -1,10 +1,12 @@
 import CodeBlock from '@/components/CodeBlock';
 
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import * as FigmaIcons from '../../../output/svgr/icons';
+import * as FigmaIcons
+  // @ts-ignore This imported file in auto-generated
+  from '../../../output/svgr/icons';
 
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import { Squirrel } from '../../../output/svgr-octicons/icons/octicons-by-github';
+import { Squirrel }
+  // @ts-ignore This imported file in auto-generated
+  from '../../../output/svgr-octicons/icons/octicons-by-github';
 
 const props = {
   title: (
