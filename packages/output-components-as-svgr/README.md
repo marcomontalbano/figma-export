@@ -34,13 +34,15 @@ $ tree output/
 You can easily add this outputter to your `.figmaexportrc.js`:
 
 ```js
-module.exports = {
+import asSvgr from '@figma-export/output-components-as-svgr'
+
+export default {
     commands: [
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             onlyFromPages: ['icons', 'unit-test'],
             outputters: [
-                require('@figma-export/output-components-as-svgr')({
+                asSvgr({
                     output: './output'
                 })
             ]
@@ -54,12 +56,13 @@ module.exports = {
 `getDirname`, `getComponentName`, `getComponentFilename`, `getFileExtension`, `getExportTemplate` and `getSvgrConfig` are **optional**.
 
 ```js
-const path = require('path');
-const { pascalCase } = require('@figma-export/utils');
+import asSvgr from '@figma-export/output-components-as-svgr'
+import { pascalCase } from '@figma-export/utils'
+import path from 'path'
 
 ...
 
-require('@figma-export/output-components-as-svgr')({
+asSvgr({
     output: './output',
     getDirname: (options) => `${options.pageName}${path.sep}${options.dirname}`,
     getComponentName: (options) => `${pascalCase(options.basename)}`,
@@ -90,11 +93,12 @@ npm install --save-dev @svgr/plugin-jsx
 
 ```js
 // .figmaexportrc.js
+import asSvgr from '@figma-export/output-components-as-svgr'
 
 ...
 
 outputters: [
-  require('@figma-export/output-components-as-svgr')({
+  asSvgr({
     output: './output/svgr',
     getSvgrConfig: () => ({
       plugins: ['@svgr/plugin-jsx']

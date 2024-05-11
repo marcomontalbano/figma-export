@@ -24,13 +24,15 @@ You can read more on <a target="_blank" rel="noopener noreferrer" href="https://
 You can easily add this outputter to your `.figmaexportrc.js`:
 
 ```js
-module.exports = {
+import asSvgstore from '@figma-export/output-components-as-svgstore'
+
+export default {
     commands: [
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             onlyFromPages: ['icons', 'unit-test'],
             outputters: [
-                require('@figma-export/output-components-as-svgstore')({
+                asSvgstore({
                     output: './output'
                 })
             ]
@@ -44,7 +46,9 @@ module.exports = {
 `getIconId` and `svgstoreConfig` are **optional**.
 
 ```js
-require('@figma-export/output-components-as-svgstore')({
+import asSvgstore from '@figma-export/output-components-as-svgstore'
+
+asSvgstore({
     output: './output',
     getIconId: (options) => `${options.pageName}/${options.componentName}`,
     svgstoreConfig: {},

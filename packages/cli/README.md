@@ -64,7 +64,7 @@ You can create you own:
 
 ```ts
 // with promise
-module.exports = options => {
+export default options => {
     return (svg) => new Promise((resolve, reject) => {
         resolve(svg);
     });
@@ -73,7 +73,7 @@ module.exports = options => {
 
 ```ts
 // with async/await
-module.exports = options => {
+export default options => {
     return async (svg) => {
         return svg;
     };
@@ -100,7 +100,7 @@ An output function receives a list of pages, in which each page contains compone
 You can create you own:
 
 ```ts
-module.exports = options => {
+export default options => {
     return async pages => {
         console.clear();
         console.log(JSON.stringify(pages));
@@ -144,7 +144,7 @@ An output function receives a list of styles.
 You can create you own:
 
 ```ts
-module.exports = options => {
+export default options => {
     return async styles => {
         console.clear();
         console.log(JSON.stringify(styles));

@@ -29,13 +29,15 @@ $ tree output/
 You can easily add this outputter to your `.figmaexportrc.js`:
 
 ```js
-module.exports = {
+import asSvg from '@figma-export/output-components-as-svg'
+
+export default {
     commands: [
         ['components', {
             fileId: 'fzYhvQpqwhZDUImRz431Qo',
             onlyFromPages: ['icons', 'unit-test'],
             outputters: [
-                require('@figma-export/output-components-as-svg')({
+                asSvg({
                     output: './output'
                 })
             ]
@@ -49,11 +51,12 @@ module.exports = {
 `getDirname` and `getBasename` are **optional**.
 
 ```js
-const path = require('path');
+import asSvg from '@figma-export/output-components-as-svg'
+import path from 'path'
 
 ...
 
-require('@figma-export/output-components-as-svg')({
+asSvg({
     output: './output',
     getDirname: (options) => `${options.pageName}${path.sep}${options.dirname}`,
     getBasename: (options) => `${options.basename}.svg`,
