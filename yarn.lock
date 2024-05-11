@@ -2125,7 +2125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^20, @types/node@npm:~20.12.11":
+"@types/node@npm:*, @types/node@npm:~20.12.11":
   version: 20.12.11
   resolution: "@types/node@npm:20.12.11"
   dependencies:
@@ -2155,22 +2155,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18":
-  version: 18.3.0
-  resolution: "@types/react-dom@npm:18.3.0"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10/6ff53f5a7b7fba952a68e114d3b542ebdc1e87a794234785ebab0bcd9bde7fb4885f21ebaf93d26dc0a1b5b93287f42cad68b78ae04dddf6b20da7aceff0beaf
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:*, @types/react@npm:^18, @types/react@npm:^18.3.1":
-  version: 18.3.1
-  resolution: "@types/react@npm:18.3.1"
+"@types/react@npm:^18.3.1":
+  version: 18.3.2
+  resolution: "@types/react@npm:18.3.2"
   dependencies:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10/baa6b8a75c471c89ebf3477b4feab57102ced25f0c1e553dd04ef6a1f0def28d5e0172fa626a631f22e223f840b5aaa2403b2d4bb671c83c5a9d6c7ae39c7a05
+  checksum: 10/a85eed82c1009dc9d979281d9ea1f5322255003de3378390f35d897b4bdaf1d34ea748636c03e9e9b4b7cc97c2f4582993d2d60e40846226ad497d97c7d8565a
   languageName: node
   linkType: hard
 
@@ -4899,7 +4890,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-next@npm:14.2.3, eslint-config-next@npm:^14.2.3":
+"eslint-config-next@npm:^14.2.3":
   version: 14.2.3
   resolution: "eslint-config-next@npm:14.2.3"
   dependencies:
@@ -5070,7 +5061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^8, eslint@npm:~8.57.0":
+"eslint@npm:~8.57.0":
   version: 8.57.0
   resolution: "eslint@npm:8.57.0"
   dependencies:
@@ -8427,7 +8418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:14.2.3, next@npm:^14.2.3":
+"next@npm:^14.2.3":
   version: 14.2.3
   resolution: "next@npm:14.2.3"
   dependencies:
@@ -10181,7 +10172,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18, react-dom@npm:^18.3.1":
+"react-dom@npm:^18.3.1":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
   dependencies:
@@ -10207,7 +10198,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18, react@npm:^18.3.1":
+"react@npm:^18.3.1":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
@@ -10799,15 +10790,15 @@ __metadata:
   linkType: hard
 
 "sass@npm:~1.77.0":
-  version: 1.77.0
-  resolution: "sass@npm:1.77.0"
+  version: 1.77.1
+  resolution: "sass@npm:1.77.1"
   dependencies:
     chokidar: "npm:>=3.0.0 <4.0.0"
     immutable: "npm:^4.0.0"
     source-map-js: "npm:>=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 10/e6b4ae53c06722d1a58d02c987d4374316bc4594ac08f4d210ef0fdaff9e2edbe0d7a0f81ead1c54c62bd1689a6e20f5e2f0b316283ad6e2254531e5e331e4d7
+  checksum: 10/df9fdd9b729786d0f637a20c3ad65e50864c00ae92d9493ea42fd5ca80a2d0852c5d1b06da49db7e0b8066a75b593a1e34d999a3af3b1e7abb417aae0a4df75c
   languageName: node
   linkType: hard
 
@@ -11989,7 +11980,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:>=3 < 6, typescript@npm:^5, typescript@npm:~5.4.5":
+"typescript@npm:>=3 < 6, typescript@npm:~5.4.5":
   version: 5.4.5
   resolution: "typescript@npm:5.4.5"
   bin:
@@ -11999,7 +11990,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.5#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.5#optional!builtin<compat/typescript>":
   version: 5.4.5
   resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=d69c25"
   bin:
@@ -12374,22 +12365,6 @@ __metadata:
   checksum: 10/b65b9f8d6854572a84a5c69615152b63371395f0c5dcd6729c45789052296df54314db2bc3e977df41705eacb8bc79c247cee139a63fa695192f95816ed528ad
   languageName: node
   linkType: hard
-
-"website-new@workspace:packages/website-new":
-  version: 0.0.0-use.local
-  resolution: "website-new@workspace:packages/website-new"
-  dependencies:
-    "@types/node": "npm:^20"
-    "@types/react": "npm:^18"
-    "@types/react-dom": "npm:^18"
-    eslint: "npm:^8"
-    eslint-config-next: "npm:14.2.3"
-    next: "npm:14.2.3"
-    react: "npm:^18"
-    react-dom: "npm:^18"
-    typescript: "npm:^5"
-  languageName: unknown
-  linkType: soft
 
 "whatwg-url@npm:^5.0.0":
   version: 5.0.0
