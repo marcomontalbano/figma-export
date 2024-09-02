@@ -10,7 +10,7 @@
   "dependencies": {
     "@figma-export/core": "^6.0.0",
     "@figma-export/types": "^6.0.0",
-    "ora": "~8.0.1",
+    "ora": "~8.1.0",
     "sade": "~1.8.1"
   },
   "engines": {

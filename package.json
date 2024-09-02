@@ -14,7 +14,6 @@
   "scripts": {
     "debug": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
-    "postinstall": "husky install",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
     "build": "tsc --build packages/**/tsconfig.json",
     "lint": "yarn build && eslint . --ignore-pattern=node_modules --ignore-pattern=output --ignore-pattern=dist --ext .js,.jsx,.ts,.tsx",
@@ -26,30 +25,31 @@
     "website:dev": "yarn build && yarn workspace @figma-export/website dev",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
     "website:serve": "yarn dlx serve packages/website/out/",
-    "upgrade:major": "npx npm-check-updates -ws --root -u",
-    "upgrade:minor": "yarn upgrade:major --target minor",
+    "dep:major": "npx npm-check-updates -ws --root -u",
+    "dep:minor": "yarn dep:major --target minor",
     "ls-engines": "yarn dlx ls-engines",
     "version": "yarn && git add yarn.lock",
-    "pre-commit": "lint-staged -c ./lint-staged.config.js"
+    "pre-commit": "lint-staged -c ./lint-staged.config.js",
+    "prepare": "husky"
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
-    "@types/node": "~20.12.11",
-    "@typescript-eslint/eslint-plugin": "~7.8.0",
-    "@typescript-eslint/parser": "~7.8.0",
-    "@vitest/coverage-istanbul": "^1.6.0",
-    "eslint": "~8.57.0",
+    "@types/node": "~20.16.3",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "@vitest/coverage-istanbul": "^2.0.5",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb": "~19.0.4",
     "eslint-plugin-import": "~2.29.1",
-    "husky": "^9.0.11",
-    "lerna": "^8.1.2",
+    "husky": "^9.1.5",
+    "lerna": "^8.1.8",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~15.2.2",
-    "ls-engines": "^0.9.1",
-    "nock": "~13.5.4",
-    "npm-check-updates": "^16.14.20",
-    "typescript": "~5.4.5",
-    "vitest": "^1.6.0"
+    "lint-staged": "~15.2.10",
+    "ls-engines": "^0.9.3",
+    "nock": "~13.5.5",
+    "npm-check-updates": "^17.1.1",
+    "typescript": "~5.5.4",
+    "vitest": "^2.0.5"
   },
   "engines": {
     "node": ">= 18.17"
@@ -72,5 +72,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.1.0"
+  "packageManager": "yarn@4.4.1"
 }
