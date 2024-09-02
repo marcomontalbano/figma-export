@@ -25,13 +25,13 @@
     },
     "dependencies": {
         "@figma-export/types": "^6.0.0",
-        "axios": "^1.6.8",
+        "axios": "^1.7.7",
         "figma-js": "~1.16.0",
-        "p-limit": "^5.0.0",
+        "p-limit": "^6.1.0",
         "p-retry": "^6.2.0"
     },
     "overrides": {
-        "axios": "^1.6.8"
+        "axios": "^1.7.7"
     },
     "resolutions": {
         "axios": "^1.6.8"
