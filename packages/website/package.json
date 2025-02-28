@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@figma-export/website",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "Website for @figma-export",
   "author": "Marco Montalbano",
   "keywords": [
@@ -24,7 +24,7 @@
     "build": "run-s clean figma:export next:build"
   },
   "devDependencies": {
-    "@figma-export/cli": "^6.0.2",
+    "@figma-export/cli": "^6.0.3",
     "@figma-export/utils": "^6.0.0",
     "@types/react": "^18.3.5",
     "eslint-config-next": "^14.2.7",
