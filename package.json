@@ -34,22 +34,22 @@
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
-    "@types/node": "~20.16.3",
+    "@types/node": "~20.17.19",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
-    "@vitest/coverage-istanbul": "^2.0.5",
-    "eslint": "^8.57.0",
+    "@vitest/coverage-istanbul": "^3.0.7",
+    "eslint": "^8.57.1",
     "eslint-config-airbnb": "~19.0.4",
-    "eslint-plugin-import": "~2.29.1",
-    "husky": "^9.1.5",
-    "lerna": "^8.1.8",
+    "eslint-plugin-import": "~2.31.0",
+    "husky": "^9.1.7",
+    "lerna": "^8.2.0",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~15.2.10",
+    "lint-staged": "~15.4.3",
     "ls-engines": "^0.9.3",
-    "nock": "~13.5.5",
-    "npm-check-updates": "^17.1.1",
-    "typescript": "~5.5.4",
-    "vitest": "^2.0.5"
+    "nock": "v13.5.6",
+    "npm-check-updates": "^17.1.15",
+    "typescript": "~5.8.2",
+    "vitest": "^3.0.7"
   },
   "engines": {
     "node": ">= 18.17"
@@ -72,5 +72,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.6.0"
 }
