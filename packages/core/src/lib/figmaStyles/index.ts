@@ -34,11 +34,8 @@ const fetchStyles = async (
 
 const parseStyles = (styleNodes: FigmaExport.StyleNode[]): FigmaExport.Style[] => {
     return styleNodes.map((node) => {
-        const parsedStyles = undefined
-            || parsePaintStyle(node)
-            || parseEffectStyle(node)
-            || parseTextStyle(node);
-            // || parseGridStyle(node)
+        // const parsedStyles = parsePaintStyle(node) ?? parseEffectStyle(node) ?? parseTextStyle(node) ?? parseGridStyle(node);
+        const parsedStyles = parsePaintStyle(node) ?? parseEffectStyle(node) ?? parseTextStyle(node);
 
         if (!parsedStyles) {
             return undefined;

@@ -189,7 +189,7 @@ describe('outputter as es6', () => {
         const document = figmaDocument.createDocument({ children: [page] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
 
-        expect(
+        await expect(
             () => outputter({
                 output: 'output',
             })(pages),
@@ -205,7 +205,7 @@ describe('outputter as es6', () => {
         const document = figmaDocument.createDocument({ children: [page] });
         const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(document, getComponentsDefaultOptions);
 
-        expect(
+        await expect(
             () => outputter({
                 output: 'output',
             })(pages),

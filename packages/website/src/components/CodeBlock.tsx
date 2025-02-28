@@ -1,8 +1,9 @@
 import Code from '@/components/Code';
+import type React from 'react'
 
 type Props = {
-  title: JSX.Element
-  description: JSX.Element
+  title: React.JSX.Element
+  description: React.JSX.Element
   code: string
   children?: React.ReactNode
 }
