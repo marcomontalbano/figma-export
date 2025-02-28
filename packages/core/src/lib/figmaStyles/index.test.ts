@@ -322,7 +322,7 @@ describe('figmaStyles.', () => {
                             },
                             inset: true,
                             blurRadius: 10,
-                            spreadRadius: 0,
+                            spreadRadius: 2,
                             color: {
                                 r: 242,
                                 g: 78,
@@ -330,7 +330,7 @@ describe('figmaStyles.', () => {
                                 a: 0.5,
                                 rgba: 'rgba(242, 78, 30, 0.5)',
                             },
-                            value: 'inset 4px 5px 10px 0px rgba(242, 78, 30, 0.5)',
+                            value: 'inset 4px 5px 10px 2px rgba(242, 78, 30, 0.5)',
                         }],
                     },
                 ]);
@@ -357,7 +357,7 @@ describe('figmaStyles.', () => {
                             },
                             inset: true,
                             blurRadius: 10,
-                            spreadRadius: 0,
+                            spreadRadius: 2,
                             color: {
                                 r: 242,
                                 g: 78,
@@ -365,7 +365,7 @@ describe('figmaStyles.', () => {
                                 a: 0.5,
                                 rgba: 'rgba(242, 78, 30, 0.5)',
                             },
-                            value: 'inset 4px 5px 10px 0px rgba(242, 78, 30, 0.5)',
+                            value: 'inset 4px 5px 10px 2px rgba(242, 78, 30, 0.5)',
                         }],
                     },
                 ]);
@@ -392,7 +392,7 @@ describe('figmaStyles.', () => {
                             },
                             inset: false,
                             blurRadius: 7,
-                            spreadRadius: 0,
+                            spreadRadius: 6,
                             color: {
                                 r: 0,
                                 g: 0,
@@ -400,7 +400,7 @@ describe('figmaStyles.', () => {
                                 a: 0.25,
                                 rgba: 'rgba(0, 0, 0, 0.25)',
                             },
-                            value: '3px 4px 7px 0px rgba(0, 0, 0, 0.25)',
+                            value: '3px 4px 7px 6px rgba(0, 0, 0, 0.25)',
                         }],
                     },
                 ]);
