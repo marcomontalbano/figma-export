@@ -10,7 +10,6 @@ const createEffectStyle = (effect: Figma.Effect): FigmaExport.EffectStyle | unde
         case 'INNER_SHADOW':
         case 'DROP_SHADOW': {
             const color = extractColor(effect);
-            const spreadRadius = 0;
             const inset = effect.type === 'INNER_SHADOW';
 
             if (color && effect.offset) {
@@ -21,10 +20,11 @@ const createEffectStyle = (effect: Figma.Effect): FigmaExport.EffectStyle | unde
                     inset,
                     offset: effect.offset,
                     blurRadius: effect.radius,
-                    spreadRadius,
+                    // @ts-expect-error figma-js types are not up-to-date
+                    spreadRadius: effect.spread ?? 0,
 
-                    // eslint-disable-next-line max-len
-                    value: `${inset ? 'inset ' : ''}${effect.offset.x}px ${effect.offset.y}px ${effect.radius}px ${spreadRadius}px ${color.rgba}`,
+                    // @ts-expect-error figma-js types are not up-to-date
+                    value: `${inset ? 'inset ' : ''}${effect.offset.x}px ${effect.offset.y}px ${effect.radius}px ${effect.spread ?? 0}px ${color.rgba}`,
                 };
             }
 
