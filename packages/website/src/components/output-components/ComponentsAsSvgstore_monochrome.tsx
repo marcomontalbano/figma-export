@@ -37,8 +37,8 @@ const props = {
 const SvgAsSvgstoreMonochromeComponent = () => (
   <CodeBlock {...props}>
     <>
-      <svg className="icon"><use href="#[unfilled] icons/figma-export" /></svg>
-      <svg className="icon"><use href="#[unfilled] icons/figma-logo" /></svg>
+      <svg className="icon with-hover"><use href="/output/svgstore-monochrome/icons.svg#[unfilled] icons/figma-export" /></svg>
+      <svg className="icon with-hover"><use href="/output/svgstore-monochrome/icons.svg#[unfilled] icons/figma-logo" /></svg>
     </>
   </CodeBlock>
 );

@@ -10,7 +10,7 @@ const props = {
     <>
       The .svg file contains all components as &lt;symbol&gt;
       so you can easly use an icon with
-      <code>&lt;svg&gt;&lt;use href=&quot;#icon-name&quot; /&gt;&lt;/svg&gt;</code>
+      <code>&lt;svg&gt;&lt;use href=&quot;/icons.svg#icon-name&quot; /&gt;&lt;/svg&gt;</code>
     </>
   ),
   code: `
@@ -35,8 +35,8 @@ const props = {
 const SvgAsSvgstoreComponent = () => (
   <CodeBlock {...props}>
     <>
-      <svg className="icon"><use href="#icons/figma-export" /></svg>
-      <svg className="icon"><use href="#icons/figma-logo" /></svg>
+      <svg className="icon"><use href="/output/svgstore/icons.svg#icons/figma-export" /></svg>
+      <svg className="icon"><use href="/output/svgstore/icons.svg#icons/figma-logo" /></svg>
     </>
   </CodeBlock>
 );

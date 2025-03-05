@@ -200,11 +200,13 @@ pre.Code {
     height: 35px;
     margin: 10px;
 
-    fill: $color-link;
-    transition: fill .2s;
+    &.with-hover {
+        fill: $color-link;
+        transition: fill .2s;
 
-    &:hover {
-        fill: $color-link-hover;
+        &:hover {
+            fill: $color-link-hover;
+        }
     }
 }
 
