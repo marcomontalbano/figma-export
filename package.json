@@ -37,7 +37,7 @@
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "~20.17.19",
+    "@types/node": "~20.17.23",
     "@vitest/coverage-istanbul": "^3.0.7",
     "husky": "^9.1.7",
     "lerna": "^8.2.1",

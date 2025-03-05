@@ -2549,12 +2549,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:~20.17.19":
-  version: 20.17.19
-  resolution: "@types/node@npm:20.17.19"
+"@types/node@npm:~20.17.23":
+  version: 20.17.23
+  resolution: "@types/node@npm:20.17.23"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/4ab6662d3661ad9357d9f1876f5ecaf739fe741d6a1ec5fca3d9183eb3cf87daecb9a3590e8521ad3c460e6257f3aa113585130502519b8ec5fa050c8e6f66ea
+  checksum: 10/162fee54e25b464de91da1c0744f421c0d6301925893f5d8e48effeae321d343c87fa7f8eefc53384bf86cae3974bb1740830d4b62754383b18f2d3dff4e1fe9
   languageName: node
   linkType: hard
 
@@ -5735,7 +5735,7 @@ __metadata:
   resolution: "figma-export@workspace:."
   dependencies:
     "@biomejs/biome": "npm:1.9.4"
-    "@types/node": "npm:~20.17.19"
+    "@types/node": "npm:~20.17.23"
     "@vitest/coverage-istanbul": "npm:^3.0.7"
     husky: "npm:^9.1.7"
     lerna: "npm:^8.2.1"
