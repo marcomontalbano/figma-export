@@ -1,10 +1,10 @@
 {
-    "eslint.enable": true,
-    "eslint.lintTask.enable": true,
-    "eslint.validate": ["typescript", "typescriptreact"],
-    "eslint.lintTask.options": ". --ignore-pattern=node_modules --ignore-pattern=/output --ignore-pattern=dist --ext .js,.ts",
-    "editor.rulers": [
-        160
-    ],
-    "javascript.preferences.importModuleSpecifierEnding": "js",
+  "editor.rulers": [160],
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
+  }
 }

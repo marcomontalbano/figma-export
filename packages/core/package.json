@@ -1,42 +1,42 @@
 {
-    "name": "@figma-export/core",
-    "version": "6.0.3",
-    "description": "@figma-export core functionalities",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
-        "directory": "packages/core"
-    },
-    "author": "Marco Montalbano",
-    "keywords": [
-        "figma",
-        "export",
-        "design",
-        "icons",
-        "typography",
-        "components"
-    ],
-    "license": "MIT",
-    "type": "module",
-    "publishConfig": {
-        "access": "public"
-    },
-    "dependencies": {
-        "@figma-export/types": "^6.0.0",
-        "axios": "^1.8.1",
-        "figma-js": "~1.16.0",
-        "p-limit": "^6.2.0",
-        "p-retry": "^6.2.1"
-    },
-    "overrides": {
-        "axios": "^1.8.1"
-    },
-    "resolutions": {
-        "axios": "^1.6.8"
-    },
-    "engines": {
-        "node": ">= 18.17"
-    }
+  "name": "@figma-export/core",
+  "version": "6.0.3",
+  "description": "@figma-export core functionalities",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+    "directory": "packages/core"
+  },
+  "author": "Marco Montalbano",
+  "keywords": [
+    "figma",
+    "export",
+    "design",
+    "icons",
+    "typography",
+    "components"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@figma-export/types": "^6.0.0",
+    "axios": "^1.8.1",
+    "figma-js": "~1.16.0",
+    "p-limit": "^6.2.0",
+    "p-retry": "^6.2.1"
+  },
+  "overrides": {
+    "axios": "^1.8.1"
+  },
+  "resolutions": {
+    "axios": "^1.6.8"
+  },
+  "engines": {
+    "node": ">= 18.18"
+  }
 }

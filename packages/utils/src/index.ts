@@ -1,6 +1,8 @@
-const upperFirst = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
+const upperFirst = (str: string): string =>
+  str.charAt(0).toUpperCase() + str.slice(1);
 
-const lowerFirst = (str: string): string => str.charAt(0).toLowerCase() + str.slice(1);
+const lowerFirst = (str: string): string =>
+  str.charAt(0).toLowerCase() + str.slice(1);
 
 /**
  * Remove spaces or punctuation from a string, indicating the separation of words with a single capitalized letter,
@@ -9,10 +11,10 @@ const lowerFirst = (str: string): string => str.charAt(0).toLowerCase() + str.sl
  * @example "Camel Case" => "camelCase"
  */
 const camelCase = (str: string): string => {
-    const words: string[] = str.match(/((\b|)[^\W_]+(\b|))/g) || [];
-    return words.reduce((accumulator, word, index) => {
-        return `${accumulator}${index === 0 ? lowerFirst(word) : upperFirst(word)}`;
-    }, '');
+  const words: string[] = str.match(/((\b|)[^\W_]+(\b|))/g) || [];
+  return words.reduce((accumulator, word, index) => {
+    return `${accumulator}${index === 0 ? lowerFirst(word) : upperFirst(word)}`;
+  }, '');
 };
 
 /**
@@ -37,9 +39,4 @@ const snakeCase = (str: string): string => str.replace(/[\W_]+/g, '_');
  */
 const kebabCase = (str: string): string => str.replace(/[\W_]+/g, '-');
 
-export {
-    camelCase,
-    pascalCase,
-    snakeCase,
-    kebabCase,
-};
+export { camelCase, pascalCase, snakeCase, kebabCase };

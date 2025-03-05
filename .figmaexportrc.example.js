@@ -1,8 +1,8 @@
 // @ts-check
 
-import outputComponentsAsSvg from '@figma-export/output-components-as-svg'
-import outputStylesAsSass from '@figma-export/output-styles-as-sass'
-import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo'
+import outputComponentsAsSvg from '@figma-export/output-components-as-svg';
+import outputStylesAsSass from '@figma-export/output-styles-as-sass';
+import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
 
 /** @type { import('@figma-export/types').StylesCommandOptions } */
 const styleOptions = {
@@ -12,10 +12,10 @@ const styleOptions = {
   // onlyFromPages: ['icons'], // optional - Figma page names or IDs (all pages when not specified)
   outputters: [
     outputStylesAsSass({
-      output: './output'
-    })
-  ]
-}
+      output: './output',
+    }),
+  ],
+};
 
 /** @type { import('@figma-export/types').ComponentsCommandOptions } */
 const componentOptions = {
@@ -31,26 +31,26 @@ const componentOptions = {
           params: {
             overrides: {
               removeViewBox: false,
-            }
-          }
+            },
+          },
         },
         {
-          name: 'removeDimensions'
-        }
-      ]
-    })
+          name: 'removeDimensions',
+        },
+      ],
+    }),
   ],
   outputters: [
     outputComponentsAsSvg({
-      output: './output'
-    })
-  ]
-}
+      output: './output',
+    }),
+  ],
+};
 
 /** @type { import('@figma-export/types').FigmaExportRC } */
 export default {
   commands: [
     ['styles', styleOptions],
-    ['components', componentOptions]
-  ]
-}
+    ['components', componentOptions],
+  ],
+};

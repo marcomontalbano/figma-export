@@ -1,375 +1,403 @@
-import {
-    expect,
-    describe,
-    it,
-    vi,
-    afterEach,
-} from 'vitest';
-import {
-    StyleNode,
-    FillStyle,
-    EffectStyle,
-    Style,
+import type {
+  EffectStyle,
+  FillStyle,
+  Style,
+  StyleNode,
 } from '@figma-export/types';
 import { camelCase } from '@figma-export/utils';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import outputter from './index.js';
 
 vi.mock('fs');
 
-const mockFill = (fills: FillStyle[], { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {}): Style => ({
-    fills,
-    visible,
-    name,
-    comment,
-    styleType: 'FILL',
-    originalNode: { ...({} as StyleNode) },
+const mockFill = (
+  fills: FillStyle[],
+  { visible = true, name = 'variable/name', comment = 'lorem ipsum' } = {},
+): Style => ({
+  fills,
+  visible,
+  name,
+  comment,
+  styleType: 'FILL',
+  originalNode: { ...({} as StyleNode) },
 });
 
 const mockSolid = (value: string, visible = true): FillStyle => ({
-    value,
-    visible,
-    type: 'SOLID',
-    color: {
-        a: 1, r: 255, g: 255, b: 255, rgba: 'rgba(255, 255, 255, 1)',
-    },
+  value,
+  visible,
+  type: 'SOLID',
+  color: {
+    a: 1,
+    r: 255,
+    g: 255,
+    b: 255,
+    rgba: 'rgba(255, 255, 255, 1)',
+  },
 });
 
 const mockGradientLinear = (value: string, visible = true): FillStyle => ({
-    value,
-    visible,
-    type: 'GRADIENT_LINEAR',
-    gradientStops: [],
-    angle: '100deg',
+  value,
+  visible,
+  type: 'GRADIENT_LINEAR',
+  gradientStops: [],
+  angle: '100deg',
 });
 
 const mockEffect = (effects: EffectStyle[] = [], visible = true): Style => ({
-    effects,
-    visible,
-    name: 'variable-name',
-    comment: '',
-    styleType: 'EFFECT',
-    originalNode: { ...({} as StyleNode) },
+  effects,
+  visible,
+  name: 'variable-name',
+  comment: '',
+  styleType: 'EFFECT',
+  originalNode: { ...({} as StyleNode) },
 });
 
 const mockShadow = (value: string, visible = true): EffectStyle => ({
-    value,
-    visible,
-    type: 'INNER_SHADOW',
-    color: {
-        a: 1, r: 255, g: 255, b: 255, rgba: 'rgba(255, 255, 255, 1)',
-    },
-    inset: false,
-    blurRadius: 10,
-    spreadRadius: 10,
-    offset: { x: 10, y: 10 },
+  value,
+  visible,
+  type: 'INNER_SHADOW',
+  color: {
+    a: 1,
+    r: 255,
+    g: 255,
+    b: 255,
+    rgba: 'rgba(255, 255, 255, 1)',
+  },
+  inset: false,
+  blurRadius: 10,
+  spreadRadius: 10,
+  offset: { x: 10, y: 10 },
 });
 
 const mockBlur = (value: string, visible = true): EffectStyle => ({
-    value,
-    visible,
-    type: 'LAYER_BLUR',
-    blurRadius: 10,
+  value,
+  visible,
+  type: 'LAYER_BLUR',
+  blurRadius: 10,
 });
 
 const mockText = (visible = true): Style => ({
-    style: {
-        fontFamily: 'Roboto Condensed',
-        fontSize: 12,
-        fontStyle: 'italic',
-        fontVariant: 'normal',
-        fontWeight: 100,
-        letterSpacing: 10,
-        lineHeight: '12px',
-        textAlign: 'left',
-        textDecoration: 'none',
-        textTransform: 'uppercase',
-        verticalAlign: 'middle',
-    },
-    visible,
-    name: 'variable-name',
-    comment: '',
-    styleType: 'TEXT',
-    originalNode: { ...({} as StyleNode) },
+  style: {
+    fontFamily: 'Roboto Condensed',
+    fontSize: 12,
+    fontStyle: 'italic',
+    fontVariant: 'normal',
+    fontWeight: 100,
+    letterSpacing: 10,
+    lineHeight: '12px',
+    textAlign: 'left',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    verticalAlign: 'middle',
+  },
+  visible,
+  name: 'variable-name',
+  comment: '',
+  styleType: 'TEXT',
+  originalNode: { ...({} as StyleNode) },
 });
 
 describe('style output as style-dictionary json', () => {
-    afterEach(() => {
-        vi.resetAllMocks();
+  afterEach(() => {
+    vi.resetAllMocks();
+  });
+
+  it('should not print anything if style is not visible', async () => {
+    await outputter({
+      output: 'output-folder',
+    })([mockFill([mockSolid('solid-1')], { visible: false })]);
+
+    expect(fs.writeFileSync).toHaveBeenCalledOnce();
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      path.resolve('output-folder', 'base.json'),
+      '{}',
+    );
+  });
+
+  it('should be able to change the filename, the extension and output folder', async () => {
+    await outputter({
+      output: 'output-folder',
+      getExtension: () => 'JSON',
+      getFilename: () => 'base-file',
+    })([]);
+
+    expect(fs.writeFileSync).toHaveBeenCalledOnce();
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      path.resolve('output-folder', 'base-file.json'),
+      '{}',
+    );
+  });
+
+  it('should sanitize variable names', async () => {
+    await outputter({
+      output: 'output-folder',
+    })([
+      mockFill([mockSolid('rgba(26, 26, 26, 1)', true)], { name: 'Grey/900' }),
+    ]);
+
+    expect(fs.writeFileSync).toHaveBeenCalledOnce();
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      path.resolve('output-folder', 'base.json'),
+      JSON.stringify(
+        {
+          grey: {
+            900: {
+              comment: 'lorem ipsum',
+              value: 'rgba(26, 26, 26, 1)',
+            },
+          },
+        },
+        undefined,
+        2,
+      ),
+    );
+  });
+
+  it('should be able to change the way a variable name is defined', async () => {
+    await outputter({
+      output: 'output-folder',
+      getVariableName: (style) => camelCase(style.name),
+    })([
+      mockFill([mockSolid('rgba(26, 26, 26, 1)', true)], { name: 'Grey/Dark' }),
+    ]);
+
+    expect(fs.writeFileSync).toHaveBeenCalledOnce();
+    expect(fs.writeFileSync).toHaveBeenCalledWith(
+      path.resolve('output-folder', 'base.json'),
+      JSON.stringify(
+        {
+          greyDark: {
+            comment: 'lorem ipsum',
+            value: 'rgba(26, 26, 26, 1)',
+          },
+        },
+        undefined,
+        2,
+      ),
+    );
+  });
+
+  describe('colors', () => {
+    it('should not print anything if fill is not visible', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([mockFill([mockSolid('solid-1', false)])]);
+
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+        '{}',
+      );
     });
 
-    it('should not print anything if style is not visible', async () => {
-        await outputter({
-            output: 'output-folder',
-        })([
-            mockFill([
-                mockSolid('solid-1'),
-            ], { visible: false }),
-        ]);
+    it('should be able to extract a solid color', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([
+        mockFill([
+          mockSolid('rgba(solid-1)', true),
+          mockSolid('rgba(solid-2)', false),
+        ]),
+      ]);
 
-        expect(fs.writeFileSync).toHaveBeenCalledOnce();
-        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', 'base.json'), '{}');
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+
+        JSON.stringify(
+          {
+            variable: {
+              name: {
+                comment: 'lorem ipsum',
+                value: 'rgba(solid-1)',
+              },
+            },
+          },
+          undefined,
+          2,
+        ),
+      );
     });
 
-    it('should be able to change the filename, the extension and output folder', async () => {
-        await outputter({
-            output: 'output-folder',
-            getExtension: () => 'JSON',
-            getFilename: () => 'base-file',
-        })([]);
+    it('should be able to extract a linear gradient', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([
+        mockFill([
+          mockGradientLinear('linear-gradient-1'),
+          mockGradientLinear('linear-gradient-2'),
+        ]),
+      ]);
 
-        expect(fs.writeFileSync).toHaveBeenCalledOnce();
-        expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', 'base-file.json'), '{}');
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+
+        JSON.stringify(
+          {
+            variable: {
+              name: {
+                comment: 'lorem ipsum',
+                value: 'linear-gradient-1, linear-gradient-2',
+              },
+            },
+          },
+          undefined,
+          2,
+        ),
+      );
+    });
+  });
+
+  describe('effects', () => {
+    it('should be able to extract a box-shadow', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([
+        mockEffect([
+          mockShadow('shadow-effect-1'),
+          mockShadow('shadow-effect-2'),
+        ]),
+      ]);
+
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+
+        JSON.stringify(
+          {
+            variable: {
+              name: {
+                value: 'shadow-effect-1, shadow-effect-2',
+              },
+            },
+          },
+          undefined,
+          2,
+        ),
+      );
     });
 
-    it('should sanitize variable names', async () => {
-        await outputter({
-            output: 'output-folder',
-        })([
-            mockFill([
-                mockSolid('rgba(26, 26, 26, 1)', true),
-            ], { name: 'Grey/900' }),
-        ]);
+    it('should be able to extract a filter: blur()', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([mockEffect([mockBlur('blur-effect')])]);
 
-        expect(fs.writeFileSync).toHaveBeenCalledOnce();
-        expect(fs.writeFileSync).toHaveBeenCalledWith(
-            path.resolve('output-folder', 'base.json'),
-            JSON.stringify({
-                grey: {
-                    900: {
-                        comment: 'lorem ipsum',
-                        value: 'rgba(26, 26, 26, 1)',
-                    },
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+
+        JSON.stringify(
+          {
+            variable: {
+              name: {
+                value: 'blur-effect',
+              },
+            },
+          },
+          undefined,
+          2,
+        ),
+      );
+    });
+
+    it('should not combine shadow and blur effects', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([
+        mockEffect([
+          mockShadow('shadow-effect-1'),
+          mockBlur('blur-effect-1'),
+          mockShadow('shadow-effect-2'),
+        ]),
+      ]);
+
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+
+        JSON.stringify(
+          {
+            variable: {
+              name: {
+                value: 'shadow-effect-1, shadow-effect-2',
+              },
+            },
+          },
+          undefined,
+          2,
+        ),
+      );
+    });
+  });
+
+  describe('texts', () => {
+    it('should be able to extract a text', async () => {
+      await outputter({
+        output: 'output-folder',
+      })([mockText()]);
+
+      expect(fs.writeFileSync).toHaveBeenCalledOnce();
+      expect(fs.writeFileSync).toHaveBeenCalledWith(
+        path.resolve('output-folder', 'base.json'),
+
+        JSON.stringify(
+          {
+            variable: {
+              name: {
+                font: {
+                  family: {
+                    value: '"Roboto Condensed"',
+                  },
+                  size: {
+                    value: '12px',
+                  },
+                  style: {
+                    value: 'italic',
+                  },
+                  variant: {
+                    value: 'normal',
+                  },
+                  weight: {
+                    value: '100',
+                  },
                 },
-            }, undefined, 2),
-        );
-    });
-
-    it('should be able to change the way a variable name is defined', async () => {
-        await outputter({
-            output: 'output-folder',
-            getVariableName: (style) => camelCase(style.name),
-        })([
-            mockFill([
-                mockSolid('rgba(26, 26, 26, 1)', true),
-            ], { name: 'Grey/Dark' }),
-        ]);
-
-        expect(fs.writeFileSync).toHaveBeenCalledOnce();
-        expect(fs.writeFileSync).toHaveBeenCalledWith(
-            path.resolve('output-folder', 'base.json'),
-            JSON.stringify({
-                greyDark: {
-                    comment: 'lorem ipsum',
-                    value: 'rgba(26, 26, 26, 1)',
+                letter: {
+                  spacing: {
+                    value: '10px',
+                  },
                 },
-            }, undefined, 2),
-        );
+                line: {
+                  height: {
+                    value: '12px',
+                  },
+                },
+                text: {
+                  align: {
+                    value: 'left',
+                  },
+                  decoration: {
+                    value: 'none',
+                  },
+                  transform: {
+                    value: 'uppercase',
+                  },
+                },
+                vertical: {
+                  align: {
+                    value: 'middle',
+                  },
+                },
+              },
+            },
+          },
+          undefined,
+          2,
+        ),
+      );
     });
-
-    describe('colors', () => {
-        it('should not print anything if fill is not visible', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockFill([
-                    mockSolid('solid-1', false),
-                ]),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(path.resolve('output-folder', 'base.json'), '{}');
-        });
-
-        it('should be able to extract a solid color', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockFill([
-                    mockSolid('rgba(solid-1)', true),
-                    mockSolid('rgba(solid-2)', false),
-                ]),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(
-                path.resolve('output-folder', 'base.json'),
-
-                JSON.stringify({
-                    variable: {
-                        name: {
-                            comment: 'lorem ipsum',
-                            value: 'rgba(solid-1)',
-                        },
-                    },
-                }, undefined, 2),
-            );
-        });
-
-        it('should be able to extract a linear gradient', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockFill([
-                    mockGradientLinear('linear-gradient-1'),
-                    mockGradientLinear('linear-gradient-2'),
-                ]),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(
-                path.resolve('output-folder', 'base.json'),
-
-                JSON.stringify({
-                    variable: {
-                        name: {
-                            comment: 'lorem ipsum',
-                            value: 'linear-gradient-1, linear-gradient-2',
-                        },
-                    },
-                }, undefined, 2),
-            );
-        });
-    });
-
-    describe('effects', () => {
-        it('should be able to extract a box-shadow', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockEffect([
-                    mockShadow('shadow-effect-1'),
-                    mockShadow('shadow-effect-2'),
-                ]),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(
-                path.resolve('output-folder', 'base.json'),
-
-                JSON.stringify({
-                    variable: {
-                        name: {
-                            value: 'shadow-effect-1, shadow-effect-2',
-                        },
-                    },
-                }, undefined, 2),
-            );
-        });
-
-        it('should be able to extract a filter: blur()', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockEffect([
-                    mockBlur('blur-effect'),
-                ]),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(
-                path.resolve('output-folder', 'base.json'),
-
-                JSON.stringify({
-                    variable: {
-                        name: {
-                            value: 'blur-effect',
-                        },
-                    },
-                }, undefined, 2),
-            );
-        });
-
-        it('should not combine shadow and blur effects', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockEffect([
-                    mockShadow('shadow-effect-1'),
-                    mockBlur('blur-effect-1'),
-                    mockShadow('shadow-effect-2'),
-                ]),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(
-                path.resolve('output-folder', 'base.json'),
-
-                JSON.stringify({
-                    variable: {
-                        name: {
-                            value: 'shadow-effect-1, shadow-effect-2',
-                        },
-                    },
-                }, undefined, 2),
-            );
-        });
-    });
-
-    describe('texts', () => {
-        it('should be able to extract a text', async () => {
-            await outputter({
-                output: 'output-folder',
-            })([
-                mockText(),
-            ]);
-
-            expect(fs.writeFileSync).toHaveBeenCalledOnce();
-            expect(fs.writeFileSync).toHaveBeenCalledWith(
-                path.resolve('output-folder', 'base.json'),
-
-                JSON.stringify({
-                    variable: {
-                        name: {
-                            font: {
-                                family: {
-                                    value: '"Roboto Condensed"',
-                                },
-                                size: {
-                                    value: '12px',
-                                },
-                                style: {
-                                    value: 'italic',
-                                },
-                                variant: {
-                                    value: 'normal',
-                                },
-                                weight: {
-                                    value: '100',
-                                },
-                            },
-                            letter: {
-                                spacing: {
-                                    value: '10px',
-                                },
-                            },
-                            line: {
-                                height: {
-                                    value: '12px',
-                                },
-                            },
-                            text: {
-                                align: {
-                                    value: 'left',
-                                },
-                                decoration: {
-                                    value: 'none',
-                                },
-                                transform: {
-                                    value: 'uppercase',
-                                },
-                            },
-                            vertical: {
-                                align: {
-                                    value: 'middle',
-                                },
-                            },
-                        },
-                    },
-                }, undefined, 2),
-            );
-        });
-    });
+  });
 });

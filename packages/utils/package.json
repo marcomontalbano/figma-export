@@ -1,29 +1,29 @@
 {
-    "name": "@figma-export/utils",
-    "version": "6.0.0",
-    "description": "Utils for @figma-export",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
-        "directory": "packages/utils"
-    },
-    "author": "Marco Montalbano",
-    "keywords": [
-        "figma",
-        "export",
-        "design",
-        "icons",
-        "typography",
-        "components"
-    ],
-    "license": "MIT",
-    "type": "module",
-    "publishConfig": {
-        "access": "public"
-    },
-    "engines": {
-        "node": ">= 18.17"
-    }
+  "name": "@figma-export/utils",
+  "version": "6.0.0",
+  "description": "Utils for @figma-export",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+    "directory": "packages/utils"
+  },
+  "author": "Marco Montalbano",
+  "keywords": [
+    "figma",
+    "export",
+    "design",
+    "icons",
+    "typography",
+    "components"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">= 18.18"
+  }
 }

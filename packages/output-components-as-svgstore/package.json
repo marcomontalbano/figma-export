@@ -1,35 +1,35 @@
 {
-    "name": "@figma-export/output-components-as-svgstore",
-    "version": "6.0.1",
-    "description": "Outputter for @figma-export that exports components in svg file ( SVG Sprites )",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
-        "directory": "packages/output-components-as-svgstore"
-    },
-    "author": "Marco Montalbano",
-    "keywords": [
-        "figma",
-        "export",
-        "design",
-        "icons",
-        "typography",
-        "components",
-        "svg",
-        "svgstore"
-    ],
-    "license": "MIT",
-    "type": "module",
-    "publishConfig": {
-        "access": "public"
-    },
-    "dependencies": {
-        "@figma-export/types": "^6.0.0",
-        "svgstore": "~3.0.1"
-    },
-    "engines": {
-        "node": ">= 18.17"
-    }
+  "name": "@figma-export/output-components-as-svgstore",
+  "version": "6.0.1",
+  "description": "Outputter for @figma-export that exports components in svg file ( SVG Sprites )",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+    "directory": "packages/output-components-as-svgstore"
+  },
+  "author": "Marco Montalbano",
+  "keywords": [
+    "figma",
+    "export",
+    "design",
+    "icons",
+    "typography",
+    "components",
+    "svg",
+    "svgstore"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@figma-export/types": "^6.0.0",
+    "svgstore": "~3.0.1"
+  },
+  "engines": {
+    "node": ">= 18.18"
+  }
 }

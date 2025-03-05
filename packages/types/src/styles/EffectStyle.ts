@@ -1,26 +1,26 @@
-import * as Figma from 'figma-js';
-import { Color } from './PaintStyle.js';
+import type * as Figma from 'figma-js';
+import type { Color } from './PaintStyle.js';
 
 export type EffectStyleShadow = {
-    type: 'DROP_SHADOW' | 'INNER_SHADOW'
-    color: Color
-    inset: boolean
-    offset: Figma.Vector2
-    blurRadius: number
-    spreadRadius: number
-}
+  type: 'DROP_SHADOW' | 'INNER_SHADOW';
+  color: Color;
+  inset: boolean;
+  offset: Figma.Vector2;
+  blurRadius: number;
+  spreadRadius: number;
+};
 
 export type EffectStyleLayerBlur = {
-    type: 'LAYER_BLUR'
-    blurRadius: number
-}
+  type: 'LAYER_BLUR';
+  blurRadius: number;
+};
 
 export type EffectStyle = {
-    visible: boolean
-    value: string
-} & (EffectStyleShadow | EffectStyleLayerBlur)
+  visible: boolean;
+  value: string;
+} & (EffectStyleShadow | EffectStyleLayerBlur);
 
 export type StyleTypeEffect = {
-    styleType: 'EFFECT'
-    effects: EffectStyle[]
-}
+  styleType: 'EFFECT';
+  effects: EffectStyle[];
+};

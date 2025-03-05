@@ -1,5 +1,5 @@
-import sade from 'sade';
 import ora from 'ora';
+import sade from 'sade';
 
 import { addComponents } from './commands/components.js';
 import { addStyles } from './commands/styles.js';
@@ -17,5 +17,6 @@ const spinner = ora({});
 
 prog.version(pkg.version);
 
-addUseConfig(addStyles(addComponents(prog, spinner), spinner), spinner)
-    .parse(process.argv);
+addUseConfig(addStyles(addComponents(prog, spinner), spinner), spinner).parse(
+  process.argv,
+);
