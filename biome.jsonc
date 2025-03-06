@@ -8,6 +8,7 @@
   "files": {
     "ignoreUnknown": false,
     "ignore": [
+      "lerna.json",
       "package.json",
       "dist",
       "_mocks_/**/*.json",
