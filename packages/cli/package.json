@@ -10,11 +10,11 @@
   "dependencies": {
     "@figma-export/core": "^6.0.3",
     "@figma-export/types": "^6.0.0",
-    "ora": "~8.1.0",
+    "ora": "~8.2.0",
     "sade": "~1.8.1"
   },
   "engines": {
-    "node": ">= 18.17"
+    "node": ">= 18.18"
   },
   "files": [
     "/bin",

@@ -1,7 +1,7 @@
-@import "../output/figma-styles/variables";
-@import "./mixin";
-@import "./figma-styles";
-@import "./tooltip";
+@use "../output/figma-styles/variables";
+@use "mixin";
+@use "figma-styles";
+@use "tooltip";
 
 // $color-1: #f24e1e;
 // $color-2: #a259ff;
@@ -21,7 +21,7 @@ $color-link-hover: #1976D2;
 }
 
 body {
-    margin: 0;
+    margin: 0 0 -25px 0;
     font-family: Lato;
     font-weight: 300;
     font-size: 16px;
@@ -58,8 +58,8 @@ pre.Code {
 }
 
 .figma-gradient {
-    background: $color-1;
-    background: $color-figma-gradient;
+    background: variables.$color-1;
+    background: variables.$color-figma-gradient;
     line-height: 2em;
 
     @at-root code:not([class*=language-]) {
@@ -69,11 +69,11 @@ pre.Code {
     }
 
     &.with-opacity-05 {
-        background: $color-figma-gradient-05;
+        background: variables.$color-figma-gradient-05;
     }
 
     &.with-opacity-10 {
-        background: $color-figma-gradient-10;
+        background: variables.$color-figma-gradient-10;
     }
 
     &.text {
@@ -102,7 +102,7 @@ pre.Code {
         padding: 0;
     } 
 
-    @include for-desktop-up {
+    @include mixin.for-desktop-up {
         min-height: 635px;
         height: 100vh;
         display: flex;
@@ -122,7 +122,7 @@ pre.Code {
         justify-content: space-around;
         flex-wrap: wrap;
     
-        @include for-desktop-up {
+        @include mixin.for-desktop-up {
             flex-wrap: nowrap;
         }
     
@@ -135,7 +135,7 @@ pre.Code {
                 max-width: 100%;
             }
     
-            @include for-desktop-up {
+            @include mixin.for-desktop-up {
                 width: 35vw;
             }
         }
@@ -157,7 +157,7 @@ pre.Code {
             margin-top: 50px;
             display: none;
         
-            @include for-desktop-up {
+            @include mixin.for-desktop-up {
                 display: inline-block;
             }
         }
@@ -174,7 +174,7 @@ pre.Code {
             flex-wrap: wrap;
             justify-content: space-between;
     
-            @include for-desktop-up {
+            @include mixin.for-desktop-up {
                 width: 35vw;
                 height: calc(35vw - 170px);
             }
@@ -200,11 +200,13 @@ pre.Code {
     height: 35px;
     margin: 10px;
 
-    fill: $color-link;
-    transition: fill .2s;
+    &.with-hover {
+        fill: $color-link;
+        transition: fill .2s;
 
-    &:hover {
-        fill: $color-link-hover;
+        &:hover {
+            fill: $color-link-hover;
+        }
     }
 }
 
@@ -239,7 +241,7 @@ h2 {
     flex-direction: column;
     margin: 30px 0;
 
-    @include for-desktop-up {
+    @include mixin.for-desktop-up {
         align-items: center;
         flex-direction: row;
     }
@@ -274,7 +276,7 @@ h2 {
         }
     }
 
-    @include for-desktop-up {
+    @include mixin.for-desktop-up {
         &:nth-child(odd) > div.code-block--code {
             order: -1;
         }
@@ -291,7 +293,7 @@ h2 {
     display: block;
     text-align: right;
 
-    @include for-desktop-up {
+    @include mixin.for-desktop-up {
         @at-root .hero + .github-link {
             position: absolute;
         }
@@ -329,7 +331,7 @@ h2 {
         width: 40px;
         height: 40px;
 
-        @include for-desktop-up {
+        @include mixin.for-desktop-up {
             width: 50px;
             height: 50px;
         }
@@ -337,7 +339,7 @@ h2 {
 
     &:not(.no-margin) {
         margin: 8px;
-        @include for-desktop-up {
+        @include mixin.for-desktop-up {
             margin: 10px;
         }
     }

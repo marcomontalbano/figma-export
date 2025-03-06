@@ -1,19 +1,19 @@
-import { optimize, Config } from 'svgo';
+import { type Config, optimize } from 'svgo';
 
-import * as FigmaExport from '@figma-export/types';
+import type * as FigmaExport from '@figma-export/types';
 
 export default (options: Config): FigmaExport.StringTransformer => {
-    return async (svg) => {
-        try {
-            const result = optimize(svg, options);
+  return async (svg) => {
+    try {
+      const result = optimize(svg, options);
 
-            if (!('data' in result)) {
-                return undefined;
-            }
+      if (!('data' in result)) {
+        return undefined;
+      }
 
-            return result.data;
-        } catch (error) {
-            return undefined;
-        }
-    };
+      return result.data;
+    } catch (error) {
+      return undefined;
+    }
+  };
 };

@@ -25,8 +25,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "exclude": [
-    "**/dist",
-    "**/*.test.ts"
-  ]
+  "exclude": ["**/dist", "**/*.test.ts"]
 }

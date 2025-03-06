@@ -1,4 +1,4 @@
-import { expect, describe, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import transformer from './index.js';
 
@@ -8,16 +8,16 @@ const svg = `
 </svg>`;
 
 describe('transform svg with svgo', () => {
-    it('should optimize a given svg with svgo', async () => {
-        const actualSvg = await transformer({})(svg);
+  it('should optimize a given svg with svgo', async () => {
+    const actualSvg = await transformer({})(svg);
 
-        expect(actualSvg).to.be.eql(
-            '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"><path fill="#fff" d="M0 0h50v50H0z"/></svg>',
-        );
-    });
+    expect(actualSvg).to.be.eql(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="none"><path fill="#fff" d="M0 0h50v50H0z"/></svg>',
+    );
+  });
 
-    it('should handle exception when something fails', async () => {
-        const actualSvg = await transformer({})('bad svg');
-        await expect(actualSvg).to.be.undefined;
-    });
+  it('should handle exception when something fails', async () => {
+    const actualSvg = await transformer({})('bad svg');
+    await expect(actualSvg).to.be.undefined;
+  });
 });

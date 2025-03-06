@@ -1,5 +1,7 @@
+@use "mixin";
+
 [data-tooltip] {
-    @include for-desktop-up {
+    @include mixin.for-desktop-up {
         position: relative;
     }
 }

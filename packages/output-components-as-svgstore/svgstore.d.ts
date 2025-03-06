@@ -1,3 +1,3 @@
 declare module 'svgstore' {
-    export = svgstore;
+  export = svgstore;
 }

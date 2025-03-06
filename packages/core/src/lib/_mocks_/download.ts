@@ -1,29 +1,38 @@
+import { writeFileSync } from 'node:fs';
+import { sep } from 'node:path';
 import axios from 'axios';
-import * as Figma from 'figma-js';
-import { writeFileSync } from 'fs';
-import { sep } from 'path';
+import type * as Figma from 'figma-js';
 
 (async () => {
-    const { FIGMA_TOKEN } = process.env;
+  const { FIGMA_TOKEN } = process.env;
 
-    if (!FIGMA_TOKEN) {
-        throw new Error('FIGMA_TOKEN is not defined');
-    }
+  if (!FIGMA_TOKEN) {
+    throw new Error('FIGMA_TOKEN is not defined');
+  }
 
-    const fetch = async (url: string) => (await axios.get(url, {
+  const fetch = async (url: string) =>
+    (
+      await axios.get(url, {
         headers: { 'X-FIGMA-TOKEN': FIGMA_TOKEN },
-    })).data;
+      })
+    ).data;
 
-    const figmaFiles: Figma.FileResponse = await fetch(
-        'https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo',
-    );
+  const figmaFiles: Figma.FileResponse = await fetch(
+    'https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo',
+  );
 
-    const nodes = Object.keys(figmaFiles.styles);
+  const nodes = Object.keys(figmaFiles.styles);
 
-    const figmaFileNodes: Figma.FileNodesResponse = await fetch(
-        `https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo/nodes?ids=${nodes.join(',')}`,
-    );
+  const figmaFileNodes: Figma.FileNodesResponse = await fetch(
+    `https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo/nodes?ids=${nodes.join(',')}`,
+  );
 
-    writeFileSync(`${__dirname}${sep}figma.files.json`, JSON.stringify(figmaFiles, undefined, 4));
-    writeFileSync(`${__dirname}${sep}figma.fileNodes.json`, JSON.stringify(figmaFileNodes, undefined, 4));
+  writeFileSync(
+    `${__dirname}${sep}figma.files.json`,
+    JSON.stringify(figmaFiles, undefined, 4),
+  );
+  writeFileSync(
+    `${__dirname}${sep}figma.fileNodes.json`,
+    JSON.stringify(figmaFileNodes, undefined, 4),
+  );
 })();
