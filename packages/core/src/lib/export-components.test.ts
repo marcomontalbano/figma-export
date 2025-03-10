@@ -14,26 +14,22 @@ describe('export-component', async () => {
 
   const client = {
     fileImages: vi.fn().mockResolvedValue({
-      data: {
-        images: {
-          '10:8': 'https://example.com/10:8.svg',
-          '8:1': 'https://example.com/8:1.svg',
-          '9:1': 'https://example.com/9:1.svg',
-        },
+      images: {
+        '10:8': 'https://example.com/10:8.svg',
+        '8:1': 'https://example.com/8:1.svg',
+        '9:1': 'https://example.com/9:1.svg',
       },
     }),
     file: vi.fn().mockResolvedValue({
-      data: {
-        document: figmaDocument.createDocument({
-          children: [figmaDocument.page1, figmaDocument.page2],
-        }),
-      },
+      document: figmaDocument.createDocument({
+        children: [figmaDocument.page1, figmaDocument.page2],
+      }),
     }),
   };
 
-  vi.doMock('figma-js', () => {
+  vi.doMock('./client.js', () => {
     return {
-      Client: vi.fn().mockReturnValue(client),
+      createClient: vi.fn().mockReturnValue(client),
     };
   });
 
@@ -76,7 +72,7 @@ describe('export-component', async () => {
     expect(client.fileImages).toHaveBeenCalledOnce();
     expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
       format: 'svg',
-      ids: ['10:8', '8:1', '9:1'],
+      ids: '10:8,8:1,9:1',
       svg_include_id: true,
       version: 'versionABCD',
     });
@@ -123,7 +119,7 @@ describe('export-component', async () => {
 
     expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
       format: 'svg',
-      ids: ['10:8', '8:1', '9:1'],
+      ids: '10:8,8:1,9:1',
       svg_include_id: true,
       version: 'versionABCD',
     });
@@ -137,7 +133,7 @@ describe('export-component', async () => {
     expect(client.file).toHaveBeenNthCalledWith(2, 'fileABCD', {
       version: 'versionABCD',
       depth: undefined,
-      ids: ['10:7'],
+      ids: '10:7',
     });
 
     expect(logger).toHaveBeenCalledTimes(6);
@@ -175,7 +171,7 @@ describe('export-component', async () => {
 
     expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
       format: 'svg',
-      ids: ['10:8', '8:1', '9:1'],
+      ids: '10:8,8:1,9:1',
       svg_include_id: true,
       version: 'versionABCD',
     });
@@ -189,7 +185,7 @@ describe('export-component', async () => {
     expect(client.file).toHaveBeenNthCalledWith(2, 'fileABCD', {
       version: 'versionABCD',
       depth: undefined,
-      ids: ['10:7'],
+      ids: '10:7',
     });
 
     expect(logger).toHaveBeenCalledTimes(6);
@@ -229,7 +225,7 @@ describe('export-component', async () => {
     expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
       version: 'versionABCD',
       depth: undefined,
-      ids: ['9:1'],
+      ids: '9:1',
     });
   });
 
@@ -271,10 +267,8 @@ describe('export-component', async () => {
 
   it('should use filter before fetch components', async () => {
     client.fileImages.mockResolvedValueOnce({
-      data: {
-        images: {
-          '10:8': 'https://example.com/10:8.svg',
-        },
+      images: {
+        '10:8': 'https://example.com/10:8.svg',
       },
     });
 
@@ -291,7 +285,7 @@ describe('export-component', async () => {
 
     expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
       format: 'svg',
-      ids: ['10:8'],
+      ids: '10:8',
       svg_include_id: true,
       version: 'versionABCD',
     });
@@ -343,11 +337,9 @@ describe('export-component', async () => {
 
   it('should throw an error when fetching a document without components', async () => {
     client.file.mockResolvedValueOnce({
-      data: {
-        document: figmaDocument.createDocument({
-          children: [figmaDocument.pageWithoutComponents],
-        }),
-      },
+      document: figmaDocument.createDocument({
+        children: [figmaDocument.pageWithoutComponents],
+      }),
     });
 
     await expect(

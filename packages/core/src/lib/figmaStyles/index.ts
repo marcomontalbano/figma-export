@@ -1,5 +1,6 @@
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
+import type * as FigmaSDK from '../client.js';
 
 import { notNullish } from '../utils.js';
 
@@ -9,7 +10,7 @@ import { parse as parseTextStyle } from './textStyle.js';
 // import { parse as parseGridStyle } from './gridStyle.js';
 
 const fetchStyles = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   fileId: string,
   styles: { readonly [key: string]: Figma.Style },
   version?: string,
@@ -20,10 +21,8 @@ const fetchStyles = async (
     throw new Error('No styles found');
   }
 
-  const {
-    data: { nodes },
-  } = await client
-    .fileNodes(fileId, { ids: styleIds, version })
+  const { nodes } = await client
+    .fileNodes(fileId, { ids: styleIds.join(','), version })
     .catch((error: Error) => {
       throw new Error(`while fetching fileNodes: ${error.message}`);
     });

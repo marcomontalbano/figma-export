@@ -581,7 +581,7 @@ __metadata:
   resolution: "@figma-export/core@workspace:packages/core"
   dependencies:
     "@figma-export/types": "npm:^6.1.0"
-    figma-js: "npm:~1.16.0"
+    "@figma/rest-api-spec": "npm:^0.24.0"
     p-limit: "npm:^6.2.0"
     p-retry: "npm:^6.2.1"
   languageName: unknown
@@ -682,7 +682,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/types@workspace:packages/types"
   dependencies:
-    figma-js: "npm:~1.16.0"
+    "@figma/rest-api-spec": "npm:^0.24.0"
   languageName: unknown
   linkType: soft
 
@@ -712,6 +712,13 @@ __metadata:
     sass: "npm:~1.85.1"
   languageName: unknown
   linkType: soft
+
+"@figma/rest-api-spec@npm:^0.24.0":
+  version: 0.24.0
+  resolution: "@figma/rest-api-spec@npm:0.24.0"
+  checksum: 10/67cce37e6ad831b005b417081cbd1bf938d00fd0bbbce9e977dfd00900f4fe3901a8db7450ed869620520d94c38ab6561e98094e18556aa255c87111eea1b2f1
+  languageName: node
+  linkType: hard
 
 "@gar/promisify@npm:^1.0.1, @gar/promisify@npm:^1.1.3":
   version: 1.1.3
@@ -3260,15 +3267,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^0.21.1":
-  version: 0.21.4
-  resolution: "axios@npm:0.21.4"
-  dependencies:
-    follow-redirects: "npm:^1.14.0"
-  checksum: 10/da644592cb6f8f9f8c64fdabd7e1396d6769d7a4c1ea5f8ae8beb5c2eb90a823e3a574352b0b934ac62edc762c0f52647753dc54f7d07279127a7e5c4cd20272
-  languageName: node
-  linkType: hard
-
 "axios@npm:^1.7.4":
   version: 1.8.2
   resolution: "axios@npm:1.8.2"
@@ -5510,15 +5508,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"figma-js@npm:~1.16.0":
-  version: 1.16.0
-  resolution: "figma-js@npm:1.16.0"
-  dependencies:
-    axios: "npm:^0.21.1"
-  checksum: 10/28f16ac8af8b12ecae6e2c92e3b7965011f8cd0e7da6dbc2b1be08c6162c9c7544bf69ed2555c8e60160859ded3a7cb1f8abaa2851feb5ca50f83809366fe814
-  languageName: node
-  linkType: hard
-
 "figures@npm:3.2.0, figures@npm:^3.0.0":
   version: 3.2.0
   resolution: "figures@npm:3.2.0"
@@ -5610,7 +5599,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.15.6":
+"follow-redirects@npm:^1.15.6":
   version: 1.15.9
   resolution: "follow-redirects@npm:1.15.9"
   peerDependenciesMeta:

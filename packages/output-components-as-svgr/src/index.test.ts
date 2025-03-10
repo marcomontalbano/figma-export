@@ -3,11 +3,11 @@ import * as svgr from '@svgr/core';
 import nock from 'nock';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
+import type { ClientInterface } from '../../core/src/lib/client.js';
 import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'node:fs';
 import path from 'node:path';
-import type { ClientInterface } from 'figma-js';
 import outputter from './index.js';
 
 vi.mock('fs');
@@ -19,10 +19,8 @@ describe('outputter as svgr', () => {
   beforeEach(() => {
     client = {
       fileImages: vi.fn().mockResolvedValue({
-        data: {
-          images: {
-            '9:10': 'https://example.com/9:10.svg',
-          },
+        images: {
+          '9:10': 'https://example.com/9:10.svg',
         },
       }),
       file: vi.fn().mockResolvedValue({

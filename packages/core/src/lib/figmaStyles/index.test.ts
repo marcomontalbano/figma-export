@@ -4,8 +4,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
+import type { ClientInterface } from '../client.js';
 import * as figma from '../figma.js';
 import * as figmaStyles from './index.js';
 
@@ -14,8 +15,8 @@ import fileNodesJson from '../_mocks_/figma.fileNodes.json' assert {
 };
 import fileJson from '../_mocks_/figma.files.json' assert { type: 'json' };
 
-const file = fileJson as Figma.FileResponse;
-const fileNodes = fileNodesJson as Figma.FileNodesResponse;
+const file = fileJson as Figma.GetFileResponse;
+const fileNodes = fileNodesJson as Figma.GetFileNodesResponse;
 
 const nodeIds = Object.keys(fileNodes.nodes);
 
@@ -40,24 +41,20 @@ describe('figmaStyles.', () => {
   describe('fetch', () => {
     it('should fetch style from a specified Figma fileId', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
+        ...({} as ClientInterface),
         file: vi.fn().mockResolvedValue({
-          data: {
-            styles: {
-              '121:10': { name: 'color-1', styleType: 'FILL' },
-              '131:20': { name: 'text-A', styleType: 'TEXT' },
-            },
+          styles: {
+            '121:10': { name: 'color-1', styleType: 'FILL' },
+            '131:20': { name: 'text-A', styleType: 'TEXT' },
           },
         }),
         fileNodes: vi.fn().mockResolvedValue({
-          data: {
-            nodes: {
-              '121:10': {
-                document: { id: '121:10', name: 'color-1' },
-              },
-              '131:20': {
-                document: { id: '131:20', name: 'text-A' },
-              },
+          nodes: {
+            '121:10': {
+              document: { id: '121:10', name: 'color-1' },
+            },
+            '131:20': {
+              document: { id: '131:20', name: 'text-A' },
             },
           },
         }),
@@ -82,7 +79,7 @@ describe('figmaStyles.', () => {
       });
 
       expect(client.fileNodes).toHaveBeenCalledWith('ABC123', {
-        ids: ['121:10', '131:20'],
+        ids: '121:10,131:20',
         version: 'version123',
       });
 
@@ -95,9 +92,9 @@ describe('figmaStyles.', () => {
 
     it('should fetch style from a specified Figma fileId using a real example (mocked)', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
-        file: vi.fn().mockResolvedValue({ data: file }),
-        fileNodes: vi.fn().mockResolvedValue({ data: fileNodes }),
+        ...({} as ClientInterface),
+        file: vi.fn().mockResolvedValue({ ...file }),
+        fileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
       };
 
       const styles = await figma.getStyles(client, {
@@ -119,7 +116,7 @@ describe('figmaStyles.', () => {
       );
 
       expect(client.fileNodes).toHaveBeenCalledWith('ABC123', {
-        ids: nodeIds,
+        ids: nodeIds.join(','),
         version: 'version123',
       });
 
@@ -151,9 +148,9 @@ describe('figmaStyles.', () => {
 
     beforeEach(async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
-        file: vi.fn().mockResolvedValue({ data: file }),
-        fileNodes: vi.fn().mockResolvedValue({ data: fileNodes }),
+        ...({} as ClientInterface),
+        file: vi.fn().mockResolvedValue({ ...file }),
+        fileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
       };
 
       const styles = await figma.getStyles(client, { fileId: 'ABC1234' });
@@ -476,7 +473,7 @@ describe('figmaStyles.', () => {
           ...originalNode,
           effects: [
             {
-              ...(originalNode as Figma.Rectangle).effects[0],
+              ...(originalNode as Figma.RectangleNode).effects[0],
               visible: false,
             },
           ],

@@ -1,5 +1,5 @@
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 import { notNullish } from '../utils.js';
 
@@ -33,14 +33,14 @@ const extractColor = ({
 };
 
 const extractGradientLinear = (
-  paint: Figma.Paint,
+  paint: Figma.GradientPaint,
 ): FigmaExport.LinearGradient | undefined => {
   if (!paint.gradientStops || !paint.gradientHandlePositions) {
     return undefined;
   }
 
   const getAngle = (
-    figmaGradientHandlePositions: readonly Figma.Vector2[],
+    figmaGradientHandlePositions: readonly Figma.Vector[],
   ): string => {
     const [startPoint, endPoint] = figmaGradientHandlePositions;
     const deltaY = endPoint.y - startPoint.y;

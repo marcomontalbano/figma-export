@@ -28,6 +28,6 @@
     "node": ">= 18.18"
   },
   "dependencies": {
-    "figma-js": "~1.16.0"
+    "@figma/rest-api-spec": "^0.24.0"
   }
 }

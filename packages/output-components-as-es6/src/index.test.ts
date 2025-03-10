@@ -8,11 +8,11 @@ import { camelCase } from '@figma-export/utils';
 import type * as FigmaExport from '@figma-export/types';
 
 import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
+import type { ClientInterface } from '../../core/src/lib/client.js';
 import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'node:fs';
 import path from 'node:path';
-import type { ClientInterface } from 'figma-js';
 import outputter from './index.js';
 
 vi.mock('fs');
@@ -29,20 +29,16 @@ describe('outputter as es6', () => {
   beforeEach(() => {
     client = {
       fileImages: vi.fn().mockResolvedValue({
-        data: {
-          images: {
-            '10:8': 'https://example.com/10:8.svg',
-            '8:1': 'https://example.com/8:1.svg',
-            '9:1': 'https://example.com/9:1.svg',
-          },
+        images: {
+          '10:8': 'https://example.com/10:8.svg',
+          '8:1': 'https://example.com/8:1.svg',
+          '9:1': 'https://example.com/9:1.svg',
         },
       }),
       file: vi.fn().mockResolvedValue({
-        data: {
-          document: figmaDocument.createDocument({
-            children: [figmaDocument.page1, figmaDocument.page2],
-          }),
-        },
+        document: figmaDocument.createDocument({
+          children: [figmaDocument.page1, figmaDocument.page2],
+        }),
       }),
     } as unknown as ClientInterface;
 

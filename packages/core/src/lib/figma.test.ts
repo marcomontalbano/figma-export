@@ -1,13 +1,10 @@
 import nock from 'nock';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-
-import type * as Figma from 'figma-js';
-
-import FigmaJS from 'figma-js';
 import * as figmaDocument from './_config.helper-test.js';
+import * as FigmaSDK from './client.js';
 import * as figma from './figma.js';
 
-vi.mock('figma-js');
+vi.mock('./client.js');
 
 const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
   filterComponent: () => true,
@@ -30,8 +27,8 @@ describe('figma.', () => {
   describe('', () => {
     it('should throw an error if styles are not present', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
-        file: vi.fn().mockResolvedValue({ data: {} }),
+        ...({} as FigmaSDK.ClientInterface),
+        file: vi.fn().mockResolvedValue({}),
       };
 
       await expect(() =>
@@ -167,8 +164,8 @@ describe('figma.', () => {
 
     it('should create a figma client providing a token', async () => {
       figma.getClient('token1234');
-      expect(FigmaJS.Client).toHaveBeenCalledOnce();
-      expect(FigmaJS.Client).toHaveBeenCalledWith({
+      expect(FigmaSDK.createClient).toHaveBeenCalledOnce();
+      expect(FigmaSDK.createClient).toHaveBeenCalledWith({
         personalAccessToken: 'token1234',
       });
     });
@@ -177,13 +174,11 @@ describe('figma.', () => {
   describe('fileImages', () => {
     it('should get a pair id-url based of provided ids', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
+        ...({} as FigmaSDK.ClientInterface),
         fileImages: vi.fn().mockResolvedValue({
-          data: {
-            images: {
-              A1: 'https://example.com/A1.svg',
-              B2: 'https://example.com/B2.svg',
-            },
+          images: {
+            A1: 'https://example.com/A1.svg',
+            B2: 'https://example.com/B2.svg',
           },
         }),
       };
@@ -192,7 +187,7 @@ describe('figma.', () => {
 
       expect(client.fileImages).toHaveBeenCalledOnce();
       expect(client.fileImages).toHaveBeenCalledWith('ABC123', {
-        ids: ['A1', 'B2'],
+        ids: 'A1,B2',
         format: 'svg',
         svg_include_id: true,
         version: undefined,
@@ -206,7 +201,7 @@ describe('figma.', () => {
 
     it('should throw an error when connection issue', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
+        ...({} as FigmaSDK.ClientInterface),
         fileImages: vi.fn().mockRejectedValue(new Error('some network error')),
       };
 
@@ -219,13 +214,11 @@ describe('figma.', () => {
   describe('fileSvgs', () => {
     it('should get a pair id-url based of provided ids', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
+        ...({} as FigmaSDK.ClientInterface),
         fileImages: vi.fn().mockResolvedValue({
-          data: {
-            images: {
-              A1: figmaDocument.svg.url,
-              B1: figmaDocument.svg.url,
-            },
+          images: {
+            A1: figmaDocument.svg.url,
+            B1: figmaDocument.svg.url,
           },
         }),
       };
@@ -234,7 +227,7 @@ describe('figma.', () => {
 
       expect(client.fileImages).toHaveBeenCalledOnce();
       expect(client.fileImages).toHaveBeenCalledWith('ABC123', {
-        ids: ['A1', 'B1'],
+        ids: 'A1,B1',
         format: 'svg',
         svg_include_id: true,
         version: undefined,

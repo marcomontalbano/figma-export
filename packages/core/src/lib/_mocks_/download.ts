@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
 import { sep } from 'node:path';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -15,7 +15,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
   }
 
   const doFetch = async <
-    T extends Figma.FileResponse | Figma.FileNodesResponse,
+    T extends Figma.GetFileResponse | Figma.GetFileNodesResponse,
   >(
     url: string,
   ) =>
@@ -23,13 +23,13 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
       headers: { 'X-FIGMA-TOKEN': FIGMA_TOKEN },
     }).then<T>((response) => response.json() as Promise<T>);
 
-  const figmaFiles: Figma.FileResponse = await doFetch(
+  const figmaFiles: Figma.GetFileResponse = await doFetch(
     'https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo',
   );
 
   const nodes = Object.keys(figmaFiles.styles);
 
-  const figmaFileNodes: Figma.FileNodesResponse = await doFetch(
+  const figmaFileNodes: Figma.GetFileNodesResponse = await doFetch(
     `https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo/nodes?ids=${nodes.join(',')}`,
   );
 

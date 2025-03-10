@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 import fileNodesJson from './_mocks_/figma.fileNodes.json' assert {
   type: 'json',
 };
 import fileJson from './_mocks_/figma.files.json' assert { type: 'json' };
 
-const file = fileJson as Figma.FileResponse;
-const fileNodes = fileNodesJson as Figma.FileNodesResponse;
+const file = fileJson as Figma.GetFileResponse;
+const fileNodes = fileNodesJson as Figma.GetFileNodesResponse;
 
 const fileNodeIds = Object.keys(fileNodes.nodes);
 
@@ -22,13 +22,13 @@ describe('export-styles', async () => {
   const outputter = vi.fn();
 
   const client = {
-    file: vi.fn().mockResolvedValue({ data: file }),
-    fileNodes: vi.fn().mockResolvedValue({ data: fileNodes }),
+    file: vi.fn().mockResolvedValue({ ...file }),
+    fileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
   };
 
-  vi.doMock('figma-js', () => {
+  vi.doMock('./client.js', () => {
     return {
-      Client: vi.fn().mockReturnValue(client),
+      createClient: vi.fn().mockReturnValue(client),
     };
   });
 
@@ -49,7 +49,7 @@ describe('export-styles', async () => {
 
     expect(client.fileNodes).toHaveBeenCalledOnce();
     expect(client.fileNodes).toHaveBeenCalledWith('fileABCD', {
-      ids: fileNodeIds,
+      ids: fileNodeIds.join(','),
       version: 'versionABCD',
     });
     expect(client.file).toHaveBeenCalledOnce;
@@ -80,7 +80,7 @@ describe('export-styles', async () => {
 
     expect(client.fileNodes).toHaveBeenCalledOnce();
     expect(client.fileNodes).toHaveBeenCalledWith('fileABCD', {
-      ids: fileNodeIds,
+      ids: fileNodeIds.join(','),
       version: 'versionABCD',
     });
     expect(client.file).toHaveBeenCalledTimes(2);
@@ -92,7 +92,7 @@ describe('export-styles', async () => {
     expect(client.file).toHaveBeenNthCalledWith(2, 'fileABCD', {
       version: 'versionABCD',
       depth: undefined,
-      ids: ['254:0'],
+      ids: '254:0',
     });
 
     expect(logger).toHaveBeenCalledTimes(4);
@@ -155,7 +155,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error if styles property is missing when fetching file', async () => {
-    client.file.mockResolvedValueOnce({ data: { document: file.document } });
+    client.file.mockResolvedValueOnce({ document: file.document });
 
     await expect(
       exportStyles({

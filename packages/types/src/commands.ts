@@ -1,4 +1,4 @@
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 import type {
   ComponentFilter,
   ComponentOutputter,
@@ -43,8 +43,8 @@ export type ComponentsCommandOptions = {
 
   /** Node types to be exported @default ['COMPONENT'] */
   includeTypes?: [
-    Extract<Figma.NodeType, 'COMPONENT' | 'INSTANCE'>,
-    ...Extract<Figma.NodeType, 'COMPONENT' | 'INSTANCE'>[],
+    Extract<Figma.Node['type'], 'COMPONENT' | 'INSTANCE'>,
+    ...Extract<Figma.Node['type'], 'COMPONENT' | 'INSTANCE'>[],
   ];
 
   /** Transformer module name or path */

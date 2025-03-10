@@ -1,4 +1,5 @@
-import * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
+import * as FigmaSDK from './client.js';
 
 import { basename, dirname } from 'node:path';
 import type * as FigmaExport from '@figma-export/types';
@@ -18,21 +19,21 @@ import {
 /**
  * Create a new Figma client.
  */
-export const getClient = (token: string): Figma.ClientInterface => {
+export const getClient = (token: string): FigmaSDK.ClientInterface => {
   if (!token) {
     throw new Error(
       "'Access Token' is missing. https://www.figma.com/developers/docs#authentication",
     );
   }
 
-  return Figma.Client({ personalAccessToken: token });
+  return FigmaSDK.createClient({ personalAccessToken: token });
 };
 
 /**
  * Get the Figma document and styles from a `fileId` and a `version`.
  */
 const getFile = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   options: PickOption<
     FigmaExport.StylesCommand | FigmaExport.StylesCommand,
     'fileId' | 'version'
@@ -42,16 +43,14 @@ const getFile = async (
     ids?: string[];
   },
 ): Promise<{
-  document: Figma.Document | null;
+  document: Figma.DocumentNode | null;
   styles: { readonly [key: string]: Figma.Style } | null;
 }> => {
-  const {
-    data: { document = null, styles = null } = {},
-  } = await client
+  const { document = null, styles = null } = await client
     .file(options.fileId, {
       version: options.version,
       depth: params.depth,
-      ids: params.ids,
+      ids: params.ids?.join(','),
     })
     .catch((error: Error) => {
       throw new Error(
@@ -67,14 +66,14 @@ const getFile = async (
  * When `onlyFromPages` is not set it returns all the pages.
  */
 const getPagesFromDocument = (
-  document: Figma.Document,
+  document: Figma.DocumentNode,
   options: PickOption<
     FigmaExport.StylesCommand | FigmaExport.StylesCommand,
     'onlyFromPages'
   > = {},
-): Figma.Canvas[] => {
+): Figma.CanvasNode[] => {
   const onlyFromPages = forceArray(options.onlyFromPages);
-  return document.children.filter((node): node is Figma.Canvas => {
+  return document.children.filter((node): node is Figma.CanvasNode => {
     return (
       node.type === 'CANVAS' &&
       (onlyFromPages.length === 0 ||
@@ -90,7 +89,7 @@ const getPagesFromDocument = (
  * This method is particularly fast because it looks to a Figma file with `depth=1`.
  */
 const getAllPageIds = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   options: PickOption<
     FigmaExport.StylesCommand | FigmaExport.StylesCommand,
     'fileId' | 'version' | 'onlyFromPages'
@@ -180,7 +179,7 @@ export const getComponents = (
 
 // eslint-disable-next-line no-underscore-dangle
 const __getDocumentAndStyles = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   options: PickOption<
     FigmaExport.ComponentsCommand,
     'fileId' | 'version' | 'ids' | 'onlyFromPages'
@@ -199,12 +198,12 @@ const __getDocumentAndStyles = async (
 };
 
 export const getDocument = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   options: PickOption<
     FigmaExport.ComponentsCommand,
     'fileId' | 'version' | 'ids' | 'onlyFromPages'
   >,
-): Promise<Figma.Document> => {
+): Promise<Figma.DocumentNode> => {
   const { document } = await __getDocumentAndStyles(client, options);
 
   if (document == null) {
@@ -215,7 +214,7 @@ export const getDocument = async (
 };
 
 export const getStyles = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   options: PickOption<
     FigmaExport.StylesCommand,
     'fileId' | 'version' | 'ids' | 'onlyFromPages'
@@ -240,14 +239,14 @@ export const getIdsFromPages = (pages: FigmaExport.PageNode[]): string[] =>
   );
 
 const fileImages = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   fileId: string,
   ids: string[],
   version?: string,
 ) => {
-  const response = await client
+  const { images } = await client
     .fileImages(fileId, {
-      ids,
+      ids: ids.join(','),
       format: 'svg',
       svg_include_id: true,
       version,
@@ -256,27 +255,11 @@ const fileImages = async (
       throw new Error(`while fetching fileImages: ${error.message}`);
     });
 
-  /**
-   * // TODO: wrong `Figma.FileImageResponse` type on `figma-js`
-   *
-   * Important: the image map may contain values that are null.
-   * This indicates that rendering of that specific node has failed.
-   * This may be due to the node id not existing, or other reasons such has the node having no renderable components.
-   * For example, a node that is invisible or has 0 % opacity cannot be rendered.
-   */
-  const { images } = response.data as
-    | Figma.FileImageResponse
-    | {
-        readonly images: {
-          readonly [key: string]: string | null;
-        };
-      };
-
   return images;
 };
 
 export const getImages = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   fileId: string,
   ids: string[],
   version?: string,
@@ -305,7 +288,7 @@ type FileSvgOptions = {
 };
 
 export const fileSvgs = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   fileId: string,
   ids: string[],
   version?: string,
@@ -344,7 +327,7 @@ export const fileSvgs = async (
 };
 
 export const getPagesWithComponents = (
-  document: Figma.Document,
+  document: Figma.DocumentNode,
   options: Required<
     PickOption<
       FigmaExport.ComponentsCommand,
@@ -356,16 +339,13 @@ export const getPagesWithComponents = (
   return pages
     .map((page) => ({
       ...page,
-      components: getComponents(
-        page.children as readonly FigmaExport.ComponentNode[],
-        options,
-      ),
+      components: getComponents(page.children, options),
     }))
     .filter((page) => page.components.length > 0);
 };
 
 export const enrichPagesWithSvg = async (
-  client: Figma.ClientInterface,
+  client: FigmaSDK.ClientInterface,
   fileId: string,
   pages: FigmaExport.PageNode[],
   version?: string,
