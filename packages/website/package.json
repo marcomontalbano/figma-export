@@ -37,7 +37,7 @@
     "@svgr/plugin-jsx": "^8.1.0",
     "@types/prismjs": "^1.26.5",
     "next": "^15.2.1",
-    "prismjs": "^1.29.0",
+    "prismjs": "^1.30.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

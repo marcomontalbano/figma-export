@@ -584,6 +584,7 @@ __metadata:
     "@figma/rest-api-spec": "npm:^0.24.0"
     p-limit: "npm:^6.2.0"
     p-retry: "npm:^6.2.1"
+    undici: "npm:^6.21.1"
   languageName: unknown
   linkType: soft
 
@@ -705,7 +706,7 @@ __metadata:
     eslint-config-next: "npm:^15.2.1"
     next: "npm:^15.2.1"
     npm-run-all: "npm:~4.1.5"
-    prismjs: "npm:^1.29.0"
+    prismjs: "npm:^1.30.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     rimraf: "npm:~6.0.1"
@@ -2504,12 +2505,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:~20.17.23":
-  version: 20.17.23
-  resolution: "@types/node@npm:20.17.23"
+"@types/node@npm:~20.17.24":
+  version: 20.17.24
+  resolution: "@types/node@npm:20.17.24"
   dependencies:
     undici-types: "npm:~6.19.2"
-  checksum: 10/162fee54e25b464de91da1c0744f421c0d6301925893f5d8e48effeae321d343c87fa7f8eefc53384bf86cae3974bb1740830d4b62754383b18f2d3dff4e1fe9
+  checksum: 10/0c5fe294b003656b0f95ffce295c08e7ed3fa814ba9bf891e146dced90322d186e63837db9d9bb14d4f294fbe1a6fa1c89ced0b173380c8aaeb90de6c3eddb3b
   languageName: node
   linkType: hard
 
@@ -5494,7 +5495,7 @@ __metadata:
   resolution: "figma-export@workspace:."
   dependencies:
     "@biomejs/biome": "npm:1.9.4"
-    "@types/node": "npm:~20.17.23"
+    "@types/node": "npm:~20.17.24"
     "@vitest/coverage-istanbul": "npm:^3.0.8"
     husky: "npm:^9.1.7"
     lerna: "npm:^8.2.1"
@@ -9798,10 +9799,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prismjs@npm:^1.29.0":
-  version: 1.29.0
-  resolution: "prismjs@npm:1.29.0"
-  checksum: 10/2080db382c2dde0cfc7693769e89b501ef1bfc8ff4f8d25c07fd4c37ca31bc443f6133d5b7c145a73309dc396e829ddb7cc18560026d862a887ae08864ef6b07
+"prismjs@npm:^1.30.0":
+  version: 1.30.0
+  resolution: "prismjs@npm:1.30.0"
+  checksum: 10/6b48a2439a82e5c6882f48ebc1564c3890e16463ba17ac10c3ad4f62d98dea5b5c915b172b63b83023a70ad4f5d7be3e8a60304420db34a161fae69dd4e3e2da
   languageName: node
   linkType: hard
 
@@ -11848,6 +11849,13 @@ __metadata:
   version: 6.19.8
   resolution: "undici-types@npm:6.19.8"
   checksum: 10/cf0b48ed4fc99baf56584afa91aaffa5010c268b8842f62e02f752df209e3dea138b372a60a963b3b2576ed932f32329ce7ddb9cb5f27a6c83040d8cd74b7a70
+  languageName: node
+  linkType: hard
+
+"undici@npm:^6.21.1":
+  version: 6.21.1
+  resolution: "undici@npm:6.21.1"
+  checksum: 10/eeccc07e9073ae8e755fdc0dc8cdfaa426c01ec6f815425c3ecedba2e5394cea4993962c040dd168951714a82f0d001a13018c3ae3ad4534f0fa97afe425c08d
   languageName: node
   linkType: hard
 

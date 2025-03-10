@@ -27,7 +27,8 @@
     "@figma-export/types": "^6.1.0",
     "@figma/rest-api-spec": "^0.24.0",
     "p-limit": "^6.2.0",
-    "p-retry": "^6.2.1"
+    "p-retry": "^6.2.1",
+    "undici": "^6.21.1"
   },
   "engines": {
     "node": ">= 18.18"
