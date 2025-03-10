@@ -25,16 +25,9 @@
   },
   "dependencies": {
     "@figma-export/types": "^6.1.0",
-    "axios": "^1.8.1",
     "figma-js": "~1.16.0",
     "p-limit": "^6.2.0",
     "p-retry": "^6.2.1"
-  },
-  "overrides": {
-    "axios": "^1.8.1"
-  },
-  "resolutions": {
-    "axios": "^1.6.8"
   },
   "engines": {
     "node": ">= 18.18"

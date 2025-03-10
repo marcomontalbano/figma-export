@@ -38,25 +38,19 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "~20.17.23",
-    "@vitest/coverage-istanbul": "^3.0.7",
+    "@vitest/coverage-istanbul": "^3.0.8",
     "husky": "^9.1.7",
     "lerna": "^8.2.1",
     "lerna-changelog": "~2.2.0",
     "lint-staged": "~15.4.3",
     "ls-engines": "^0.9.3",
-    "nock": "v13.5.6",
+    "nock": "v14.0.1",
     "npm-check-updates": "^17.1.15",
     "typescript": "~5.8.2",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.8"
   },
   "engines": {
     "node": ">= 18.18"
-  },
-  "overrides": {
-    "axios": "^1.6.8"
-  },
-  "resolutions": {
-    "axios": "^1.6.8"
   },
   "changelog": {
     "cacheDir": ".changelog",
