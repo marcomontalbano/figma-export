@@ -1,12 +1,18 @@
-import { env } from 'node:process';
-import { ProxyAgent, setGlobalDispatcher } from 'undici';
+import { EnvHttpProxyAgent, setGlobalDispatcher } from 'undici';
 
-const proxy =
-  env.HTTPS_PROXY ?? env.https_proxy ?? env.HTTP_PROXY ?? env.http_proxy;
+// TODO: waiting for https://github.com/nodejs/node/pull/57165 to be released
+setupHttpProxy();
 
-if (proxy) {
-  // TODO: waiting for https://github.com/nodejs/node/pull/57165 to be released
-  setGlobalDispatcher(new ProxyAgent(proxy));
+function setupHttpProxy(): void {
+  if (
+    process.env.HTTP_PROXY ||
+    process.env.HTTPS_PROXY ||
+    process.env.http_proxy ||
+    process.env.https_proxy
+  ) {
+    const envHttpProxyAgent = new EnvHttpProxyAgent();
+    setGlobalDispatcher(envHttpProxyAgent);
+  }
 }
 
 export { components } from './lib/export-components.js';
