@@ -18,12 +18,12 @@ describe('outputter as svgr', () => {
 
   beforeEach(() => {
     client = {
-      fileImages: vi.fn().mockResolvedValue({
+      getImages: vi.fn().mockResolvedValue({
         images: {
           '9:10': 'https://example.com/9:10.svg',
         },
       }),
-      file: vi.fn().mockResolvedValue({
+      getFile: vi.fn().mockResolvedValue({
         data: {
           document: figmaDocument.createDocument({
             children: [figmaDocument.page1, figmaDocument.page2],

@@ -22,8 +22,8 @@ describe('export-styles', async () => {
   const outputter = vi.fn();
 
   const client = {
-    file: vi.fn().mockResolvedValue({ ...file }),
-    fileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
+    getFile: vi.fn().mockResolvedValue({ ...file }),
+    getFileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
   };
 
   vi.doMock('./client.js', () => {
@@ -47,17 +47,24 @@ describe('export-styles', async () => {
       outputters: [outputter],
     });
 
-    expect(client.fileNodes).toHaveBeenCalledOnce();
-    expect(client.fileNodes).toHaveBeenCalledWith('fileABCD', {
-      ids: fileNodeIds.join(','),
-      version: 'versionABCD',
-    });
-    expect(client.file).toHaveBeenCalledOnce;
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: undefined,
-    });
+    expect(client.getFileNodes).toHaveBeenCalledOnce();
+    expect(client.getFileNodes).toHaveBeenCalledWith(
+      { file_key: 'fileABCD' },
+      {
+        ids: fileNodeIds.join(','),
+        version: 'versionABCD',
+      },
+    );
+    expect(client.getFile).toHaveBeenCalledOnce;
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: undefined,
+      },
+    );
 
     expect(logger).toHaveBeenCalledTimes(4);
     expect(logger).toHaveBeenNthCalledWith(1, 'fetching document');
@@ -78,22 +85,33 @@ describe('export-styles', async () => {
       outputters: [outputter],
     });
 
-    expect(client.fileNodes).toHaveBeenCalledOnce();
-    expect(client.fileNodes).toHaveBeenCalledWith('fileABCD', {
-      ids: fileNodeIds.join(','),
-      version: 'versionABCD',
-    });
-    expect(client.file).toHaveBeenCalledTimes(2);
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: 1,
-      ids: undefined,
-    });
-    expect(client.file).toHaveBeenNthCalledWith(2, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: '254:0',
-    });
+    expect(client.getFileNodes).toHaveBeenCalledOnce();
+    expect(client.getFileNodes).toHaveBeenCalledWith(
+      { file_key: 'fileABCD' },
+      {
+        ids: fileNodeIds.join(','),
+        version: 'versionABCD',
+      },
+    );
+    expect(client.getFile).toHaveBeenCalledTimes(2);
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: 1,
+        ids: undefined,
+      },
+    );
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      2,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: '254:0',
+      },
+    );
 
     expect(logger).toHaveBeenCalledTimes(4);
     expect(logger).toHaveBeenNthCalledWith(1, 'fetching document');
@@ -122,7 +140,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error when fetching document fails', async () => {
-    client.file.mockRejectedValueOnce(new Error('some error'));
+    client.getFile.mockRejectedValueOnce(new Error('some error'));
 
     await expect(
       exportStyles({
@@ -133,7 +151,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error when fetching styles fails', async () => {
-    client.file.mockRejectedValueOnce(new Error('some error'));
+    client.getFile.mockRejectedValueOnce(new Error('some error'));
 
     await expect(
       exportStyles({
@@ -144,7 +162,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error if pages are missing when fetching file', async () => {
-    client.file.mockResolvedValueOnce({});
+    client.getFile.mockResolvedValueOnce({});
 
     await expect(
       exportStyles({
@@ -155,7 +173,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error if styles property is missing when fetching file', async () => {
-    client.file.mockResolvedValueOnce({ document: file.document });
+    client.getFile.mockResolvedValueOnce({ document: file.document });
 
     await expect(
       exportStyles({
@@ -166,7 +184,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error when fetching fileNodes fails', async () => {
-    client.fileNodes.mockRejectedValueOnce(new Error('some error'));
+    client.getFileNodes.mockRejectedValueOnce(new Error('some error'));
 
     await expect(
       exportStyles({

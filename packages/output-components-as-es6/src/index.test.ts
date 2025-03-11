@@ -28,14 +28,14 @@ describe('outputter as es6', () => {
 
   beforeEach(() => {
     client = {
-      fileImages: vi.fn().mockResolvedValue({
+      getImages: vi.fn().mockResolvedValue({
         images: {
           '10:8': 'https://example.com/10:8.svg',
           '8:1': 'https://example.com/8:1.svg',
           '9:1': 'https://example.com/9:1.svg',
         },
       }),
-      file: vi.fn().mockResolvedValue({
+      getFile: vi.fn().mockResolvedValue({
         document: figmaDocument.createDocument({
           children: [figmaDocument.page1, figmaDocument.page2],
         }),

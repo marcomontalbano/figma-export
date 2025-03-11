@@ -47,11 +47,14 @@ const getFile = async (
   styles: { readonly [key: string]: Figma.Style } | null;
 }> => {
   const { document = null, styles = null } = await client
-    .file(options.fileId, {
-      version: options.version,
-      depth: params.depth,
-      ids: params.ids?.join(','),
-    })
+    .getFile(
+      { file_key: options.fileId },
+      {
+        version: options.version,
+        depth: params.depth,
+        ids: params.ids?.join(','),
+      },
+    )
     .catch((error: Error) => {
       throw new Error(
         `while fetching file "${options.fileId}${options.version ? `?version=${options.version}` : ''}": ${error.message}`,
@@ -245,12 +248,17 @@ const fileImages = async (
   version?: string,
 ) => {
   const { images } = await client
-    .fileImages(fileId, {
-      ids: ids.join(','),
-      format: 'svg',
-      svg_include_id: true,
-      version,
-    })
+    .getImages(
+      {
+        file_key: fileId,
+      },
+      {
+        ids: ids.join(','),
+        format: 'svg',
+        svg_include_id: true,
+        version,
+      },
+    )
     .catch((error: Error) => {
       throw new Error(`while fetching fileImages: ${error.message}`);
     });

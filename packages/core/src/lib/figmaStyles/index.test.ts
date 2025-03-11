@@ -42,13 +42,13 @@ describe('figmaStyles.', () => {
     it('should fetch style from a specified Figma fileId', async () => {
       const client = {
         ...({} as ClientInterface),
-        file: vi.fn().mockResolvedValue({
+        getFile: vi.fn().mockResolvedValue({
           styles: {
             '121:10': { name: 'color-1', styleType: 'FILL' },
             '131:20': { name: 'text-A', styleType: 'TEXT' },
           },
         }),
-        fileNodes: vi.fn().mockResolvedValue({
+        getFileNodes: vi.fn().mockResolvedValue({
           nodes: {
             '121:10': {
               document: { id: '121:10', name: 'color-1' },
@@ -71,17 +71,24 @@ describe('figmaStyles.', () => {
         'version123',
       );
 
-      expect(client.file).toHaveBeenCalledOnce();
-      expect(client.file).toHaveBeenNthCalledWith(1, 'ABC123', {
-        version: 'version123',
-        depth: undefined,
-        ids: undefined,
-      });
+      expect(client.getFile).toHaveBeenCalledOnce();
+      expect(client.getFile).toHaveBeenNthCalledWith(
+        1,
+        { file_key: 'ABC123' },
+        {
+          version: 'version123',
+          depth: undefined,
+          ids: undefined,
+        },
+      );
 
-      expect(client.fileNodes).toHaveBeenCalledWith('ABC123', {
-        ids: '121:10,131:20',
-        version: 'version123',
-      });
+      expect(client.getFileNodes).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          ids: '121:10,131:20',
+          version: 'version123',
+        },
+      );
 
       expect(styleNodes.length).to.equal(2);
       expect(styleNodes).to.deep.equal([
@@ -93,20 +100,23 @@ describe('figmaStyles.', () => {
     it('should fetch style from a specified Figma fileId using a real example (mocked)', async () => {
       const client = {
         ...({} as ClientInterface),
-        file: vi.fn().mockResolvedValue({ ...file }),
-        fileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
+        getFile: vi.fn().mockResolvedValue({ ...file }),
+        getFileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
       };
 
       const styles = await figma.getStyles(client, {
         fileId: 'ABC123',
         version: 'version123',
       });
-      expect(client.file).toHaveBeenCalledOnce();
-      expect(client.file).toHaveBeenCalledWith('ABC123', {
-        version: 'version123',
-        depth: undefined,
-        ids: undefined,
-      });
+      expect(client.getFile).toHaveBeenCalledOnce();
+      expect(client.getFile).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          version: 'version123',
+          depth: undefined,
+          ids: undefined,
+        },
+      );
 
       const styleNodes = await figmaStyles.fetchStyles(
         client,
@@ -115,10 +125,13 @@ describe('figmaStyles.', () => {
         'version123',
       );
 
-      expect(client.fileNodes).toHaveBeenCalledWith('ABC123', {
-        ids: nodeIds.join(','),
-        version: 'version123',
-      });
+      expect(client.getFileNodes).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          ids: nodeIds.join(','),
+          version: 'version123',
+        },
+      );
 
       const expectedStyleNodesLength = 31;
       const expectedUnusedLength = 1;
@@ -149,8 +162,8 @@ describe('figmaStyles.', () => {
     beforeEach(async () => {
       const client = {
         ...({} as ClientInterface),
-        file: vi.fn().mockResolvedValue({ ...file }),
-        fileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
+        getFile: vi.fn().mockResolvedValue({ ...file }),
+        getFileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
       };
 
       const styles = await figma.getStyles(client, { fileId: 'ABC1234' });

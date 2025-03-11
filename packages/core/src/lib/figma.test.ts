@@ -28,7 +28,7 @@ describe('figma.', () => {
     it('should throw an error if styles are not present', async () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
-        file: vi.fn().mockResolvedValue({}),
+        getFile: vi.fn().mockResolvedValue({}),
       };
 
       await expect(() =>
@@ -175,7 +175,7 @@ describe('figma.', () => {
     it('should get a pair id-url based of provided ids', async () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
-        fileImages: vi.fn().mockResolvedValue({
+        getImages: vi.fn().mockResolvedValue({
           images: {
             A1: 'https://example.com/A1.svg',
             B2: 'https://example.com/B2.svg',
@@ -185,13 +185,16 @@ describe('figma.', () => {
 
       const fileImages = await figma.getImages(client, 'ABC123', ['A1', 'B2']);
 
-      expect(client.fileImages).toHaveBeenCalledOnce();
-      expect(client.fileImages).toHaveBeenCalledWith('ABC123', {
-        ids: 'A1,B2',
-        format: 'svg',
-        svg_include_id: true,
-        version: undefined,
-      });
+      expect(client.getImages).toHaveBeenCalledOnce();
+      expect(client.getImages).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          ids: 'A1,B2',
+          format: 'svg',
+          svg_include_id: true,
+          version: undefined,
+        },
+      );
 
       expect(fileImages).to.deep.equal({
         A1: 'https://example.com/A1.svg',
@@ -202,7 +205,7 @@ describe('figma.', () => {
     it('should throw an error when connection issue', async () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
-        fileImages: vi.fn().mockRejectedValue(new Error('some network error')),
+        getImages: vi.fn().mockRejectedValue(new Error('some network error')),
       };
 
       await expect(
@@ -215,7 +218,7 @@ describe('figma.', () => {
     it('should get a pair id-url based of provided ids', async () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
-        fileImages: vi.fn().mockResolvedValue({
+        getImages: vi.fn().mockResolvedValue({
           images: {
             A1: figmaDocument.svg.url,
             B1: figmaDocument.svg.url,
@@ -225,13 +228,16 @@ describe('figma.', () => {
 
       const fileSvgs = await figma.fileSvgs(client, 'ABC123', ['A1', 'B1']);
 
-      expect(client.fileImages).toHaveBeenCalledOnce();
-      expect(client.fileImages).toHaveBeenCalledWith('ABC123', {
-        ids: 'A1,B1',
-        format: 'svg',
-        svg_include_id: true,
-        version: undefined,
-      });
+      expect(client.getImages).toHaveBeenCalledOnce();
+      expect(client.getImages).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          ids: 'A1,B1',
+          format: 'svg',
+          svg_include_id: true,
+          version: undefined,
+        },
+      );
 
       expect(fileSvgs).to.deep.equal({
         A1: figmaDocument.svg.content,
