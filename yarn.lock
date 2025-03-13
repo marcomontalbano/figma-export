@@ -584,7 +584,7 @@ __metadata:
     "@figma/rest-api-spec": "npm:^0.24.0"
     p-limit: "npm:^6.2.0"
     p-retry: "npm:^6.2.1"
-    undici: "npm:^6.21.1"
+    undici: "npm:^6.21.2"
   languageName: unknown
   linkType: soft
 
@@ -5500,7 +5500,7 @@ __metadata:
     husky: "npm:^9.1.7"
     lerna: "npm:^8.2.1"
     lerna-changelog: "npm:~2.2.0"
-    lint-staged: "npm:~15.4.3"
+    lint-staged: "npm:~15.5.0"
     ls-engines: "npm:^0.9.3"
     nock: "npm:v14.0.1"
     npm-check-updates: "npm:^17.1.15"
@@ -7555,9 +7555,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:~15.4.3":
-  version: 15.4.3
-  resolution: "lint-staged@npm:15.4.3"
+"lint-staged@npm:~15.5.0":
+  version: 15.5.0
+  resolution: "lint-staged@npm:15.5.0"
   dependencies:
     chalk: "npm:^5.4.1"
     commander: "npm:^13.1.0"
@@ -7571,7 +7571,7 @@ __metadata:
     yaml: "npm:^2.7.0"
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 10/14a6a9cb9b5e8027b1347cb24e114839d618d343d5c724c26def7d45ca9b9a9b813b585531c68f5a3d13332407c2dba198987a73f0350df483d99a876ba69c60
+  checksum: 10/5873584649c5f840b990036c20abd4b58d6b1313dad5505627b4d0cc077f0ec8ac0d6cf4cf4d959e66e0ab085db384bb12dce9490ff29217bf4ed96d0442ed51
   languageName: node
   linkType: hard
 
@@ -11852,10 +11852,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^6.21.1":
-  version: 6.21.1
-  resolution: "undici@npm:6.21.1"
-  checksum: 10/eeccc07e9073ae8e755fdc0dc8cdfaa426c01ec6f815425c3ecedba2e5394cea4993962c040dd168951714a82f0d001a13018c3ae3ad4534f0fa97afe425c08d
+"undici@npm:^6.21.2":
+  version: 6.21.2
+  resolution: "undici@npm:6.21.2"
+  checksum: 10/9cd9ead22599c23aa2a7dfa5b80fa1491bebb294bf1dc64c9c0f90ea4ec8e272a4db2810e2565d65b952249f105523d2929d7cc951f88cf0a1f082143bae8d75
   languageName: node
   linkType: hard
 
