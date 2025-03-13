@@ -22,6 +22,7 @@ describe('export-styles', async () => {
   const outputter = vi.fn();
 
   const client = {
+    hasError: vi.fn().mockReturnValue(false),
     getFile: vi.fn().mockResolvedValue({ ...file }),
     getFileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
   };
@@ -162,18 +163,7 @@ describe('export-styles', async () => {
   });
 
   it('should throw an error if pages are missing when fetching file', async () => {
-    client.getFile.mockResolvedValueOnce({});
-
-    await expect(
-      exportStyles({
-        fileId: 'fileABCD',
-        token: 'token1234',
-      }),
-    ).rejects.toThrow("'styles' are missing.");
-  });
-
-  it('should throw an error if styles property is missing when fetching file', async () => {
-    client.getFile.mockResolvedValueOnce({ document: file.document });
+    client.hasError.mockResolvedValueOnce(true);
 
     await expect(
       exportStyles({

@@ -3,7 +3,7 @@ import type * as FigmaExport from '@figma-export/types';
 import {
   enrichPagesWithSvg,
   getClient,
-  getDocument,
+  getFile,
   getPagesWithComponents,
 } from './figma.js';
 
@@ -20,21 +20,19 @@ export const components: FigmaExport.ComponentsCommand = async ({
   concurrency = 30,
   retries = 3,
   log = (msg): void => {
-    // eslint-disable-next-line no-console
     console.log(msg);
   },
 }) => {
   const client = getClient(token);
 
   log('fetching document');
-  const figmaDocument = await getDocument(client, {
-    fileId,
-    version,
-    ids,
-    onlyFromPages,
-  });
+  const file = await getFile(client, { fileId, onlyFromPages, version, ids });
 
-  const pages = getPagesWithComponents(figmaDocument, {
+  if (client.hasError(file)) {
+    throw new Error("'document' is missing.");
+  }
+
+  const pages = getPagesWithComponents(file.document, {
     filterComponent,
     includeTypes,
   });

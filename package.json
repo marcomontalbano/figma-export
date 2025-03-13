@@ -13,6 +13,7 @@
   },
   "scripts": {
     "debug": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js",
+    "debug:components": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.components.local.js",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
     "build": "tsc --build packages/**/tsconfig.json",

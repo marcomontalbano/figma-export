@@ -18,6 +18,7 @@ describe('outputter as svgr', () => {
 
   beforeEach(() => {
     client = {
+      hasError: vi.fn().mockReturnValue(false),
       getImages: vi.fn().mockResolvedValue({
         images: {
           '9:10': 'https://example.com/9:10.svg',

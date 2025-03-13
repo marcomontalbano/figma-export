@@ -28,6 +28,7 @@ describe('outputter as es6', () => {
 
   beforeEach(() => {
     client = {
+      hasError: vi.fn().mockReturnValue(false),
       getImages: vi.fn().mockResolvedValue({
         images: {
           '10:8': 'https://example.com/10:8.svg',

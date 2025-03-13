@@ -21,13 +21,19 @@ const fetchStyles = async (
     throw new Error('No styles found');
   }
 
-  const { nodes } = await client
+  const response = await client
     .getFileNodes({ file_key: fileId }, { ids: styleIds.join(','), version })
     .catch((error: Error) => {
       throw new Error(`while fetching fileNodes: ${error.message}`);
     });
 
-  const styleNodes = Object.values(nodes).map((node) => node?.document);
+  if (client.hasError(response)) {
+    throw new Error("'fileNodes' are missing.");
+  }
+
+  const styleNodes = Object.values(response.nodes).map(
+    (node) => node?.document,
+  );
 
   return styleNodes.map((node) => ({
     ...(node ? styles[node.id] : ({} as Figma.Style)),

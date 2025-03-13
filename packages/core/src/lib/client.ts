@@ -2,6 +2,13 @@ import type * as Figma from '@figma/rest-api-spec';
 
 export function createClient(options: ClientOptions): ClientInterface {
   return {
+    hasError: (
+      response,
+    ): response is
+      | Figma.ErrorResponsePayloadWithErrMessage
+      | Figma.ErrorResponsePayloadWithErrorBoolean =>
+      ('err' in response && response.err != null) ||
+      ('error' in response && response.error === true),
     getFile: async (pathParams, queryParams) =>
       fetchGet('/v1/files/{file_key}', options, pathParams, queryParams),
     getImages: async (pathParams, queryParams) =>
@@ -41,6 +48,14 @@ type ClientOptions = {
  */
 export type ClientInterface = {
   /**
+   *
+   */
+  hasError: (
+    response: Record<string, unknown>,
+  ) => response is
+    | Figma.ErrorResponsePayloadWithErrMessage
+    | Figma.ErrorResponsePayloadWithErrorBoolean;
+  /**
    * Returns the document identified by `file_key` as a JSON object. The file key can be parsed from any Figma file url: `https://www.figma.com/file/{file_key}/{title}`.
    *
    * The `document` property contains a node of type `DOCUMENT`.
@@ -50,7 +65,9 @@ export type ClientInterface = {
   getFile: Get<
     Figma.GetFilePathParams,
     Figma.GetFileQueryParams,
-    Figma.GetFileResponse
+    | Figma.GetFileResponse
+    | Figma.ErrorResponsePayloadWithErrMessage
+    | Figma.ErrorResponsePayloadWithErrorBoolean
   >;
   /**
    * Renders images from a file.
@@ -68,7 +85,9 @@ export type ClientInterface = {
   getImages: Get<
     Figma.GetImagesPathParams,
     Figma.GetImagesQueryParams,
-    Figma.GetImagesResponse
+    | Figma.GetImagesResponse
+    | Figma.ErrorResponsePayloadWithErrMessage
+    | Figma.ErrorResponsePayloadWithErrorBoolean
   >;
   /**
    * Returns the nodes referenced to by `ids` as a JSON object. The nodes are retrieved from the Figma file referenced to by `file_key`.
@@ -91,7 +110,9 @@ export type ClientInterface = {
   getFileNodes: Get<
     Figma.GetFileNodesPathParams,
     Figma.GetFileNodesQueryParams,
-    Figma.GetFileNodesResponse
+    | Figma.GetFileNodesResponse
+    | Figma.ErrorResponsePayloadWithErrMessage
+    | Figma.ErrorResponsePayloadWithErrorBoolean
   >;
 };
 

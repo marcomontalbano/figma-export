@@ -1,3 +1,4 @@
+import type * as Figma from '@figma/rest-api-spec';
 import nock from 'nock';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as figmaDocument from './_config.helper-test.js';
@@ -22,19 +23,6 @@ describe('figma.', () => {
 
   afterEach(() => {
     vi.resetAllMocks();
-  });
-
-  describe('', () => {
-    it('should throw an error if styles are not present', async () => {
-      const client = {
-        ...({} as FigmaSDK.ClientInterface),
-        getFile: vi.fn().mockResolvedValue({}),
-      };
-
-      await expect(() =>
-        figma.getStyles(client, { fileId: 'ABC123' }),
-      ).rejects.toThrow("'styles' are missing.");
-    });
   });
 
   describe('getComponents', () => {
@@ -151,7 +139,11 @@ describe('figma.', () => {
         getComponentsDefaultOptions,
       );
 
-      expect(figma.getIdsFromPages(pages)).to.eql(['10:8', '8:1', '9:1']);
+      expect(figma.getComponentIdsFromPages(pages)).to.eql([
+        '10:8',
+        '8:1',
+        '9:1',
+      ]);
     });
   });
 
@@ -173,8 +165,13 @@ describe('figma.', () => {
 
   describe('fileImages', () => {
     it('should get a pair id-url based of provided ids', async () => {
-      const client = {
+      const client: FigmaSDK.ClientInterface = {
         ...({} as FigmaSDK.ClientInterface),
+        hasError: (
+          response,
+        ): response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
         getImages: vi.fn().mockResolvedValue({
           images: {
             A1: 'https://example.com/A1.svg',
@@ -205,6 +202,11 @@ describe('figma.', () => {
     it('should throw an error when connection issue', async () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
+        hasError: (
+          response,
+        ): response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
         getImages: vi.fn().mockRejectedValue(new Error('some network error')),
       };
 
@@ -218,6 +220,11 @@ describe('figma.', () => {
     it('should get a pair id-url based of provided ids', async () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
+        hasError: (
+          response,
+        ): response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
         getImages: vi.fn().mockResolvedValue({
           images: {
             A1: figmaDocument.svg.url,

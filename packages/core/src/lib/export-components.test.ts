@@ -13,6 +13,7 @@ describe('export-component', async () => {
   });
 
   const client = {
+    hasError: vi.fn().mockReturnValue(false),
     getImages: vi.fn().mockResolvedValue({
       images: {
         '10:8': 'https://example.com/10:8.svg',
@@ -365,7 +366,7 @@ describe('export-component', async () => {
   });
 
   it('should throw an error if document property is missing when fetching file', async () => {
-    client.getFile.mockResolvedValueOnce({});
+    client.hasError.mockResolvedValueOnce(true);
 
     await expect(
       exportComponents({
