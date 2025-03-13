@@ -289,7 +289,7 @@ export const fileSvgs = async (
 };
 
 export const getPagesWithComponents = (
-  document: Figma.DocumentNode,
+  file: Figma.GetFileResponse,
   options: Required<
     PickOption<
       FigmaExport.ComponentsCommand,
@@ -297,7 +297,7 @@ export const getPagesWithComponents = (
     >
   >,
 ): FigmaExport.PageNode[] => {
-  const pages = getPagesFromDocument(document);
+  const pages = getPagesFromDocument(file.document);
   return pages
     .map((page) => ({
       ...page,

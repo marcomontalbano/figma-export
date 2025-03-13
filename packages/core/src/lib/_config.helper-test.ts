@@ -155,6 +155,13 @@ export const pageWithoutComponents: Figma.CanvasNode = {
   children: [],
 };
 
+export const createFile = (
+  props: Pick<Figma.GetFileResponse, 'document'>,
+): Figma.GetFileResponse => ({
+  ...({} as Figma.GetFileResponse),
+  ...props,
+});
+
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const createDocument = (props: any): Figma.DocumentNode => ({
   ...({} as Figma.DocumentNode),

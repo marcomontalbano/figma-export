@@ -17,10 +17,13 @@ describe('outputter as svg', () => {
     const document = figmaDocument.createDocument({
       children: [figmaDocument.page1],
     });
-    const pages = figma.getPagesWithComponents(document, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -43,10 +46,13 @@ describe('outputter as svg', () => {
     const fakePages = figmaDocument.createPage([
       figmaDocument.componentWithSlashedName,
     ]);
-    const pages = figma.getPagesWithComponents(fakePages, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePages }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -64,10 +70,13 @@ describe('outputter as svg', () => {
     const fakePages = figmaDocument.createPage([
       figmaDocument.componentWithSlashedName,
     ]);
-    const pages = figma.getPagesWithComponents(fakePages, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePages }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     it('should be able to customize "basename"', async () => {
       await outputter({

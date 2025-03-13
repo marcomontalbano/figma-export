@@ -67,7 +67,7 @@ describe('outputter as es6', () => {
       children: [figmaDocument.page1],
     });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
     const pagesWithSvg = await figma.enrichPagesWithSvg(
@@ -97,7 +97,7 @@ describe('outputter as es6', () => {
       children: [figmaDocument.page1],
     });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
     const pagesWithSvg = await figma.enrichPagesWithSvg(
@@ -129,7 +129,7 @@ describe('outputter as es6', () => {
       children: [figmaDocument.page1],
     });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
     const pagesWithSvg = await figma.enrichPagesWithSvg(
@@ -161,7 +161,7 @@ describe('outputter as es6', () => {
       children: [figmaDocument.page1],
     });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
     const pagesWithSvg = await figma.enrichPagesWithSvg(
@@ -198,7 +198,7 @@ describe('outputter as es6', () => {
       children: [figmaDocument.page1],
     });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
     const pagesWithSvg = await figma.enrichPagesWithSvg(
@@ -235,7 +235,7 @@ describe('outputter as es6', () => {
 
     const document = figmaDocument.createDocument({ children: [page] });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
 
@@ -256,7 +256,7 @@ describe('outputter as es6', () => {
 
     const document = figmaDocument.createDocument({ children: [page] });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
 
@@ -274,7 +274,7 @@ describe('outputter as es6', () => {
       children: [figmaDocument.page1WithSlashes],
     });
     const pages: FigmaExport.PageNode[] = figma.getPagesWithComponents(
-      document,
+      figmaDocument.createFile({ document }),
       getComponentsDefaultOptions,
     );
     const pagesWithSvg = await figma.enrichPagesWithSvg(

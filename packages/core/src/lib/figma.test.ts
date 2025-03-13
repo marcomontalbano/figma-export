@@ -81,7 +81,7 @@ describe('figma.', () => {
 
     it('should get all pages by default', () => {
       const pages = figma.getPagesWithComponents(
-        document,
+        figmaDocument.createFile({ document }),
         getComponentsDefaultOptions,
       );
       expect(pages).toEqual(
@@ -93,10 +93,13 @@ describe('figma.', () => {
     });
 
     it('should be able to filter components', () => {
-      const pages = figma.getPagesWithComponents(document, {
-        filterComponent: (component) => ['9:1'].includes(component.id),
-        includeTypes: ['COMPONENT'],
-      });
+      const pages = figma.getPagesWithComponents(
+        figmaDocument.createFile({ document }),
+        {
+          filterComponent: (component) => ['9:1'].includes(component.id),
+          includeTypes: ['COMPONENT'],
+        },
+      );
 
       expect(pages).toEqual(
         expect.not.arrayContaining([
@@ -110,10 +113,12 @@ describe('figma.', () => {
     });
 
     it('should excludes pages without components', () => {
+      const document = figmaDocument.createDocument({
+        children: [figmaDocument.page1, figmaDocument.pageWithoutComponents],
+      });
+
       const pages = figma.getPagesWithComponents(
-        figmaDocument.createDocument({
-          children: [figmaDocument.page1, figmaDocument.pageWithoutComponents],
-        }),
+        figmaDocument.createFile({ document }),
         getComponentsDefaultOptions,
       );
 
@@ -135,7 +140,7 @@ describe('figma.', () => {
         children: [figmaDocument.page1, figmaDocument.page2],
       });
       const pages = figma.getPagesWithComponents(
-        document,
+        figmaDocument.createFile({ document }),
         getComponentsDefaultOptions,
       );
 

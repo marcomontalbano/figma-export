@@ -32,7 +32,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     throw new Error("'document' is missing.");
   }
 
-  const pages = getPagesWithComponents(file.document, {
+  const pages = getPagesWithComponents(file, {
     filterComponent,
     includeTypes,
   });

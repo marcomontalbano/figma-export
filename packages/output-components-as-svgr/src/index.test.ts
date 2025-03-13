@@ -51,10 +51,13 @@ describe('outputter as svgr', () => {
       figmaDocument.component1,
       figmaDocument.component2,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -85,10 +88,13 @@ describe('outputter as svgr', () => {
       figmaDocument.component1,
       figmaDocument.component2,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -120,10 +126,13 @@ describe('outputter as svgr', () => {
       figmaDocument.component1,
       figmaDocument.component2,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -155,10 +164,13 @@ describe('outputter as svgr', () => {
     const fakePage = figmaDocument.createPage([
       figmaDocument.componentWithSlashedName,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -181,10 +193,13 @@ describe('outputter as svgr', () => {
     const fakePage = figmaDocument.createPage([
       figmaDocument.componentWithSlashedName,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     it('should be able to customize "dirname"', async () => {
       await outputter({
