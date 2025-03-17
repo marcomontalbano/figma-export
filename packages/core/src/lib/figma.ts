@@ -57,7 +57,7 @@ export const getFile = async (
     )
     .catch((error: Error) => {
       throw new Error(
-        `while fetching file "${options.fileId}${options.version ? `?version=${options.version}` : ''}": ${error.message}`,
+        `while fetching file "${options.fileId}${options.version ? `?version=${options.version}` : ''}": ${'cause' in error ? error.cause : error.message}`,
       );
     });
 };
@@ -210,7 +210,9 @@ const fileImages = async (
       },
     )
     .catch((error: Error) => {
-      throw new Error(`while fetching fileImages: ${error.message}`);
+      throw new Error(
+        `while fetching fileImages: ${'cause' in error ? error.cause : error.message}`,
+      );
     });
 
   if (client.hasError(response)) {

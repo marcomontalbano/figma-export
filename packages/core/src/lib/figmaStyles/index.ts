@@ -24,7 +24,9 @@ const fetchStyles = async (
   const response = await client
     .getFileNodes({ file_key: fileId }, { ids: styleIds.join(','), version })
     .catch((error: Error) => {
-      throw new Error(`while fetching fileNodes: ${error.message}`);
+      throw new Error(
+        `while fetching fileNodes: ${'cause' in error ? error.cause : error.message}`,
+      );
     });
 
   if (client.hasError(response)) {

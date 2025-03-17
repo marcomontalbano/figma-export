@@ -55,7 +55,9 @@ export const fetchAsSvgXml = (url: string): Promise<string> => {
       return text;
     })
     .catch((error: Error) => {
-      throw new Error(`while fetching svg "${url}": ${error.message}`);
+      throw new Error(
+        `while fetching svg "${url}": ${'cause' in error ? error.cause : error.message}`,
+      );
     });
 };
 
