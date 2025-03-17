@@ -1,7 +1,11 @@
 import { writeFileSync } from 'node:fs';
 import { sep } from 'node:path';
-import axios from 'axios';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
+
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 (async () => {
   const { FIGMA_TOKEN } = process.env;
@@ -10,20 +14,22 @@ import type * as Figma from 'figma-js';
     throw new Error('FIGMA_TOKEN is not defined');
   }
 
-  const fetch = async (url: string) =>
-    (
-      await axios.get(url, {
-        headers: { 'X-FIGMA-TOKEN': FIGMA_TOKEN },
-      })
-    ).data;
+  const doFetch = async <
+    T extends Figma.GetFileResponse | Figma.GetFileNodesResponse,
+  >(
+    url: string,
+  ) =>
+    await fetch(url, {
+      headers: { 'X-FIGMA-TOKEN': FIGMA_TOKEN },
+    }).then<T>((response) => response.json() as Promise<T>);
 
-  const figmaFiles: Figma.FileResponse = await fetch(
+  const figmaFiles: Figma.GetFileResponse = await doFetch(
     'https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo',
   );
 
   const nodes = Object.keys(figmaFiles.styles);
 
-  const figmaFileNodes: Figma.FileNodesResponse = await fetch(
+  const figmaFileNodes: Figma.GetFileNodesResponse = await doFetch(
     `https://api.figma.com/v1/files/fzYhvQpqwhZDUImRz431Qo/nodes?ids=${nodes.join(',')}`,
   );
 

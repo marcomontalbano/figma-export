@@ -1,5 +1,5 @@
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 import { notNullish } from '../utils.js';
 import { extractColor } from './paintStyle.js';
@@ -22,10 +22,7 @@ const createEffectStyle = (
           inset,
           offset: effect.offset,
           blurRadius: effect.radius,
-          // @ts-expect-error figma-js types are not up-to-date
           spreadRadius: effect.spread ?? 0,
-
-          // @ts-expect-error figma-js types are not up-to-date
           value: `${inset ? 'inset ' : ''}${effect.offset.x}px ${effect.offset.y}px ${effect.radius}px ${effect.spread ?? 0}px ${color.rgba}`,
         };
       }

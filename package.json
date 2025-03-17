@@ -13,6 +13,7 @@
   },
   "scripts": {
     "debug": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js",
+    "debug:components": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.components.local.js",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
     "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
     "build": "tsc --build packages/**/tsconfig.json",
@@ -37,26 +38,20 @@
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/node": "~20.17.23",
-    "@vitest/coverage-istanbul": "^3.0.7",
+    "@types/node": "~20.17.24",
+    "@vitest/coverage-istanbul": "^3.0.9",
     "husky": "^9.1.7",
     "lerna": "^8.2.1",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~15.4.3",
+    "lint-staged": "~15.5.0",
     "ls-engines": "^0.9.3",
-    "nock": "v13.5.6",
+    "nock": "v14.0.1",
     "npm-check-updates": "^17.1.15",
     "typescript": "~5.8.2",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.9"
   },
   "engines": {
     "node": ">= 18.18"
-  },
-  "overrides": {
-    "axios": "^1.6.8"
-  },
-  "resolutions": {
-    "axios": "^1.6.8"
   },
   "changelog": {
     "cacheDir": ".changelog",
@@ -70,5 +65,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.6.0"
+  "packageManager": "yarn@4.7.0"
 }

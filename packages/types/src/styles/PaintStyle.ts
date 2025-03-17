@@ -1,21 +1,13 @@
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 /** Minimum necessary information for extracting a color */
 export type ExtractableColor = {
-  color?: Figma.Color;
+  color?: Figma.RGBA;
   opacity?: number;
 };
 
 /** An RGBA color */
-export type Color = {
-  /** Red channel value, between 0 and 255 */
-  readonly r: number;
-  /** Green channel value, between 0 and 255 */
-  readonly g: number;
-  /** Blue channel value, between 0 and 255 */
-  readonly b: number;
-  /** Alpha channel value, between 0 and 1 */
-  readonly a: number;
+export type Color = Pick<Figma.RGBA, 'r' | 'g' | 'b' | 'a'> & {
   /** rgba() CSS Function as a string */
   rgba: string;
 };

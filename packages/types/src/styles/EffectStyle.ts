@@ -1,11 +1,11 @@
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 import type { Color } from './PaintStyle.js';
 
 export type EffectStyleShadow = {
   type: 'DROP_SHADOW' | 'INNER_SHADOW';
   color: Color;
   inset: boolean;
-  offset: Figma.Vector2;
+  offset: Figma.Vector;
   blurRadius: number;
   spreadRadius: number;
 };

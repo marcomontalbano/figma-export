@@ -13,27 +13,24 @@ describe('export-component', async () => {
   });
 
   const client = {
-    fileImages: vi.fn().mockResolvedValue({
-      data: {
-        images: {
-          '10:8': 'https://example.com/10:8.svg',
-          '8:1': 'https://example.com/8:1.svg',
-          '9:1': 'https://example.com/9:1.svg',
-        },
+    hasError: vi.fn().mockReturnValue(false),
+    getImages: vi.fn().mockResolvedValue({
+      images: {
+        '10:8': 'https://example.com/10:8.svg',
+        '8:1': 'https://example.com/8:1.svg',
+        '9:1': 'https://example.com/9:1.svg',
       },
     }),
-    file: vi.fn().mockResolvedValue({
-      data: {
-        document: figmaDocument.createDocument({
-          children: [figmaDocument.page1, figmaDocument.page2],
-        }),
-      },
+    getFile: vi.fn().mockResolvedValue({
+      document: figmaDocument.createDocument({
+        children: [figmaDocument.page1, figmaDocument.page2],
+      }),
     }),
   };
 
-  vi.doMock('figma-js', () => {
+  vi.doMock('./client.js', () => {
     return {
-      Client: vi.fn().mockReturnValue(client),
+      createClient: vi.fn().mockReturnValue(client),
     };
   });
 
@@ -73,20 +70,27 @@ describe('export-component', async () => {
 
     nockScope.done();
 
-    expect(client.fileImages).toHaveBeenCalledOnce();
-    expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
-      format: 'svg',
-      ids: ['10:8', '8:1', '9:1'],
-      svg_include_id: true,
-      version: 'versionABCD',
-    });
+    expect(client.getImages).toHaveBeenCalledOnce();
+    expect(client.getImages).toHaveBeenCalledWith(
+      { file_key: 'fileABCD' },
+      {
+        format: 'svg',
+        ids: '10:8,8:1,9:1',
+        svg_include_id: true,
+        version: 'versionABCD',
+      },
+    );
 
-    expect(client.file).toHaveBeenCalledOnce();
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: undefined,
-    });
+    expect(client.getFile).toHaveBeenCalledOnce();
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: undefined,
+      },
+    );
 
     expect(logger).toHaveBeenCalledTimes(6);
     expect(logger).toHaveBeenNthCalledWith(1, 'fetching document');
@@ -121,24 +125,35 @@ describe('export-component', async () => {
 
     nockScope.done();
 
-    expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
-      format: 'svg',
-      ids: ['10:8', '8:1', '9:1'],
-      svg_include_id: true,
-      version: 'versionABCD',
-    });
+    expect(client.getImages).toHaveBeenCalledWith(
+      { file_key: 'fileABCD' },
+      {
+        format: 'svg',
+        ids: '10:8,8:1,9:1',
+        svg_include_id: true,
+        version: 'versionABCD',
+      },
+    );
 
-    expect(client.file).toHaveBeenCalledTimes(2);
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: 1,
-      ids: undefined,
-    });
-    expect(client.file).toHaveBeenNthCalledWith(2, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: ['10:7'],
-    });
+    expect(client.getFile).toHaveBeenCalledTimes(2);
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: 1,
+        ids: undefined,
+      },
+    );
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      2,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: '10:7',
+      },
+    );
 
     expect(logger).toHaveBeenCalledTimes(6);
     expect(logger).toHaveBeenNthCalledWith(1, 'fetching document');
@@ -173,24 +188,35 @@ describe('export-component', async () => {
 
     nockScope.done();
 
-    expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
-      format: 'svg',
-      ids: ['10:8', '8:1', '9:1'],
-      svg_include_id: true,
-      version: 'versionABCD',
-    });
+    expect(client.getImages).toHaveBeenCalledWith(
+      { file_key: 'fileABCD' },
+      {
+        format: 'svg',
+        ids: '10:8,8:1,9:1',
+        svg_include_id: true,
+        version: 'versionABCD',
+      },
+    );
 
-    expect(client.file).toHaveBeenCalledTimes(2);
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: 1,
-      ids: undefined,
-    });
-    expect(client.file).toHaveBeenNthCalledWith(2, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: ['10:7'],
-    });
+    expect(client.getFile).toHaveBeenCalledTimes(2);
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: 1,
+        ids: undefined,
+      },
+    );
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      2,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: '10:7',
+      },
+    );
 
     expect(logger).toHaveBeenCalledTimes(6);
     expect(logger).toHaveBeenNthCalledWith(1, 'fetching document');
@@ -225,12 +251,16 @@ describe('export-component', async () => {
 
     nockScope.done();
 
-    expect(client.file).toHaveBeenCalledOnce();
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: ['9:1'],
-    });
+    expect(client.getFile).toHaveBeenCalledOnce();
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: '9:1',
+      },
+    );
   });
 
   it('should throw an error when onlyFromPages is set to a page not found', async () => {
@@ -270,11 +300,9 @@ describe('export-component', async () => {
   });
 
   it('should use filter before fetch components', async () => {
-    client.fileImages.mockResolvedValueOnce({
-      data: {
-        images: {
-          '10:8': 'https://example.com/10:8.svg',
-        },
+    client.getImages.mockResolvedValueOnce({
+      images: {
+        '10:8': 'https://example.com/10:8.svg',
       },
     });
 
@@ -289,19 +317,26 @@ describe('export-component', async () => {
         component.name === figmaDocument.component1.name,
     });
 
-    expect(client.fileImages).toHaveBeenCalledWith('fileABCD', {
-      format: 'svg',
-      ids: ['10:8'],
-      svg_include_id: true,
-      version: 'versionABCD',
-    });
+    expect(client.getImages).toHaveBeenCalledWith(
+      { file_key: 'fileABCD' },
+      {
+        format: 'svg',
+        ids: '10:8',
+        svg_include_id: true,
+        version: 'versionABCD',
+      },
+    );
 
-    expect(client.file).toHaveBeenCalledOnce();
-    expect(client.file).toHaveBeenNthCalledWith(1, 'fileABCD', {
-      version: 'versionABCD',
-      depth: undefined,
-      ids: undefined,
-    });
+    expect(client.getFile).toHaveBeenCalledOnce();
+    expect(client.getFile).toHaveBeenNthCalledWith(
+      1,
+      { file_key: 'fileABCD' },
+      {
+        version: 'versionABCD',
+        depth: undefined,
+        ids: undefined,
+      },
+    );
 
     expect(logger).toHaveBeenCalledTimes(4);
     expect(logger).toHaveBeenNthCalledWith(1, 'fetching document');
@@ -320,7 +355,7 @@ describe('export-component', async () => {
   });
 
   it('should throw an error when fetching file fails', async () => {
-    client.file.mockRejectedValueOnce(new Error('some error'));
+    client.getFile.mockRejectedValueOnce(new Error('some error'));
 
     await expect(
       exportComponents({
@@ -331,7 +366,7 @@ describe('export-component', async () => {
   });
 
   it('should throw an error if document property is missing when fetching file', async () => {
-    client.file.mockResolvedValueOnce({});
+    client.hasError.mockResolvedValueOnce(true);
 
     await expect(
       exportComponents({
@@ -342,12 +377,10 @@ describe('export-component', async () => {
   });
 
   it('should throw an error when fetching a document without components', async () => {
-    client.file.mockResolvedValueOnce({
-      data: {
-        document: figmaDocument.createDocument({
-          children: [figmaDocument.pageWithoutComponents],
-        }),
-      },
+    client.getFile.mockResolvedValueOnce({
+      document: figmaDocument.createDocument({
+        children: [figmaDocument.pageWithoutComponents],
+      }),
     });
 
     await expect(
@@ -358,7 +391,12 @@ describe('export-component', async () => {
     ).rejects.toThrow('No components found');
   });
 
-  it('should throw an error when fetching svg fails', async () => {
+  /**
+   * Nock v14 introduced breaking changes that prevent the test from working as expected.
+   * The test is disabled until the issue is resolved.
+   * https://github.com/marcomontalbano/figma-export/issues/177
+   */
+  it.fails('should throw an error when fetching svg fails', async () => {
     nock.cleanAll();
     nock('https://example.com', {
       reqheaders: { 'Content-Type': 'images/svg+xml' },

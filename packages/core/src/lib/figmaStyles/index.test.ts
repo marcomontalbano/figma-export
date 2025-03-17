@@ -4,8 +4,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
+import type { ClientInterface } from '../client.js';
 import * as figma from '../figma.js';
 import * as figmaStyles from './index.js';
 
@@ -14,8 +15,8 @@ import fileNodesJson from '../_mocks_/figma.fileNodes.json' assert {
 };
 import fileJson from '../_mocks_/figma.files.json' assert { type: 'json' };
 
-const file = fileJson as Figma.FileResponse;
-const fileNodes = fileNodesJson as Figma.FileNodesResponse;
+const file = fileJson as Figma.GetFileResponse;
+const fileNodes = fileNodesJson as Figma.GetFileNodesResponse;
 
 const nodeIds = Object.keys(fileNodes.nodes);
 
@@ -40,51 +41,64 @@ describe('figmaStyles.', () => {
   describe('fetch', () => {
     it('should fetch style from a specified Figma fileId', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
-        file: vi.fn().mockResolvedValue({
-          data: {
-            styles: {
-              '121:10': { name: 'color-1', styleType: 'FILL' },
-              '131:20': { name: 'text-A', styleType: 'TEXT' },
-            },
+        ...({} as ClientInterface),
+        hasError: (
+          response,
+        ): response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
+        getFile: vi.fn().mockResolvedValue({
+          styles: {
+            '121:10': { name: 'color-1', styleType: 'FILL' },
+            '131:20': { name: 'text-A', styleType: 'TEXT' },
           },
         }),
-        fileNodes: vi.fn().mockResolvedValue({
-          data: {
-            nodes: {
-              '121:10': {
-                document: { id: '121:10', name: 'color-1' },
-              },
-              '131:20': {
-                document: { id: '131:20', name: 'text-A' },
-              },
+        getFileNodes: vi.fn().mockResolvedValue({
+          nodes: {
+            '121:10': {
+              document: { id: '121:10', name: 'color-1' },
+            },
+            '131:20': {
+              document: { id: '131:20', name: 'text-A' },
             },
           },
         }),
       };
 
-      const styles = await figma.getStyles(client, {
+      const fileResponse = await figma.getFile(client, {
         fileId: 'ABC123',
         version: 'version123',
       });
+
+      if (client.hasError(fileResponse)) {
+        throw new Error('Error fetching file');
+      }
+
       const styleNodes = await figmaStyles.fetchStyles(
         client,
         'ABC123',
-        styles,
+        fileResponse.styles,
         'version123',
       );
 
-      expect(client.file).toHaveBeenCalledOnce();
-      expect(client.file).toHaveBeenNthCalledWith(1, 'ABC123', {
-        version: 'version123',
-        depth: undefined,
-        ids: undefined,
-      });
+      expect(client.getFile).toHaveBeenCalledOnce();
+      expect(client.getFile).toHaveBeenNthCalledWith(
+        1,
+        { file_key: 'ABC123' },
+        {
+          version: 'version123',
+          depth: undefined,
+          ids: undefined,
+        },
+      );
 
-      expect(client.fileNodes).toHaveBeenCalledWith('ABC123', {
-        ids: ['121:10', '131:20'],
-        version: 'version123',
-      });
+      expect(client.getFileNodes).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          ids: '121:10,131:20',
+          version: 'version123',
+        },
+      );
 
       expect(styleNodes.length).to.equal(2);
       expect(styleNodes).to.deep.equal([
@@ -95,33 +109,49 @@ describe('figmaStyles.', () => {
 
     it('should fetch style from a specified Figma fileId using a real example (mocked)', async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
-        file: vi.fn().mockResolvedValue({ data: file }),
-        fileNodes: vi.fn().mockResolvedValue({ data: fileNodes }),
+        ...({} as ClientInterface),
+        hasError: (
+          response,
+        ): response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
+        getFile: vi.fn().mockResolvedValue({ ...file }),
+        getFileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
       };
 
-      const styles = await figma.getStyles(client, {
+      const fileResponse = await figma.getFile(client, {
         fileId: 'ABC123',
         version: 'version123',
       });
-      expect(client.file).toHaveBeenCalledOnce();
-      expect(client.file).toHaveBeenCalledWith('ABC123', {
-        version: 'version123',
-        depth: undefined,
-        ids: undefined,
-      });
+
+      if (client.hasError(fileResponse)) {
+        throw new Error('Error fetching file');
+      }
+
+      expect(client.getFile).toHaveBeenCalledOnce();
+      expect(client.getFile).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          version: 'version123',
+          depth: undefined,
+          ids: undefined,
+        },
+      );
 
       const styleNodes = await figmaStyles.fetchStyles(
         client,
         'ABC123',
-        styles,
+        fileResponse.styles,
         'version123',
       );
 
-      expect(client.fileNodes).toHaveBeenCalledWith('ABC123', {
-        ids: nodeIds,
-        version: 'version123',
-      });
+      expect(client.getFileNodes).toHaveBeenCalledWith(
+        { file_key: 'ABC123' },
+        {
+          ids: nodeIds.join(','),
+          version: 'version123',
+        },
+      );
 
       const expectedStyleNodesLength = 31;
       const expectedUnusedLength = 1;
@@ -151,13 +181,27 @@ describe('figmaStyles.', () => {
 
     beforeEach(async () => {
       const client = {
-        ...({} as Figma.ClientInterface),
-        file: vi.fn().mockResolvedValue({ data: file }),
-        fileNodes: vi.fn().mockResolvedValue({ data: fileNodes }),
+        ...({} as ClientInterface),
+        hasError: (
+          response,
+        ): response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
+        getFile: vi.fn().mockResolvedValue({ ...file }),
+        getFileNodes: vi.fn().mockResolvedValue({ ...fileNodes }),
       };
 
-      const styles = await figma.getStyles(client, { fileId: 'ABC1234' });
-      styleNodes = await figmaStyles.fetchStyles(client, 'ABC123', styles);
+      const fileResponse = await figma.getFile(client, { fileId: 'ABC1234' });
+
+      if (client.hasError(fileResponse)) {
+        throw new Error('Error fetching file');
+      }
+
+      styleNodes = await figmaStyles.fetchStyles(
+        client,
+        'ABC123',
+        fileResponse.styles,
+      );
     });
 
     describe('Color Styles', () => {
@@ -476,7 +520,7 @@ describe('figmaStyles.', () => {
           ...originalNode,
           effects: [
             {
-              ...(originalNode as Figma.Rectangle).effects[0],
+              ...(originalNode as Figma.RectangleNode).effects[0],
               visible: false,
             },
           ],

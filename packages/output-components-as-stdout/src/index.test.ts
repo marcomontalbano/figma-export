@@ -20,10 +20,13 @@ describe('outputter as stdout', () => {
     const document = figmaDocument.createDocument({
       children: [figmaDocument.page1],
     });
-    const pages = figma.getPagesWithComponents(document, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
     await outputter()(pages);
 
     // eslint-disable-next-line no-console

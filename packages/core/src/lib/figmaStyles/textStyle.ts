@@ -1,5 +1,5 @@
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 const translateTextTransform = (
   figmaTextCase?: string,
@@ -42,7 +42,7 @@ const translateTextDecoration = (
 };
 
 const translateTextAlign = (
-  figmaTextAlignHorizontal: string,
+  figmaTextAlignHorizontal = 'LEFT',
 ): FigmaExport.TextAlign => {
   const map: { [key: string]: FigmaExport.TextAlign } = {
     LEFT: 'left',
@@ -55,7 +55,7 @@ const translateTextAlign = (
 };
 
 const translateVerticalAlign = (
-  figmaTextAlignVertical: string,
+  figmaTextAlignVertical = 'TOP',
 ): FigmaExport.VerticalAlign => {
   const map: { [key: string]: FigmaExport.VerticalAlign } = {
     TOP: 'top',
@@ -97,7 +97,7 @@ const translateLineHeight = ({
 };
 
 const createTextStyle = (
-  textNode: Figma.Style & Figma.Text,
+  textNode: Figma.Style & Figma.TextNode,
 ): FigmaExport.TextStyle => {
   const {
     fontFamily,
@@ -112,10 +112,10 @@ const createTextStyle = (
   } = textNode.style;
 
   return {
-    fontFamily,
-    fontWeight,
-    fontSize,
-    letterSpacing,
+    fontFamily: fontFamily ?? '',
+    fontWeight: fontWeight ?? 400,
+    fontSize: fontSize ?? 16,
+    letterSpacing: letterSpacing ?? 0,
     lineHeight: translateLineHeight(textNode.style),
     fontStyle: italic ? 'italic' : 'normal',
     fontVariant: translateFontVariant(textCase),

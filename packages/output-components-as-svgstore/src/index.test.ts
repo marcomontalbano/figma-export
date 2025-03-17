@@ -18,10 +18,13 @@ describe('outputter as svgstore', () => {
     const document = figmaDocument.createDocument({
       children: [figmaDocument.page1],
     });
-    const pages = figma.getPagesWithComponents(document, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -45,10 +48,13 @@ describe('outputter as svgstore', () => {
     const document = figmaDocument.createDocument({
       children: [figmaDocument.page1WithSlashes],
     });
-    const pages = figma.getPagesWithComponents(document, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',

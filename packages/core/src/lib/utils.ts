@@ -1,5 +1,4 @@
 import type * as FigmaExport from '@figma-export/types';
-import axios from 'axios';
 
 export const toArray = <T>(any: T | T[]): T[] =>
   Array.isArray(any) ? any : [any];
@@ -42,19 +41,23 @@ export const fetchAsSvgXml = (url: string): Promise<string> => {
     throw new TypeError('Only absolute URLs are supported');
   }
 
-  return axios
-    .get(url, {
-      headers: {
-        'Content-Type': 'images/svg+xml',
-      },
-    })
-    .then((response) => {
-      if (response.data.length === 0) return emptySvg;
+  return fetch(url, {
+    headers: {
+      'Content-Type': 'images/svg+xml',
+    },
+  })
+    .then((response) => response.text())
+    .then((text) => {
+      if (text.length === 0) {
+        return emptySvg;
+      }
 
-      return response.data;
+      return text;
     })
     .catch((error: Error) => {
-      throw new Error(`while fetching svg "${url}": ${error.message}`);
+      throw new Error(
+        `while fetching svg "${url}": ${'cause' in error ? error.cause : error.message}`,
+      );
     });
 };
 

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type * as FigmaExport from '@figma-export/types';
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 export const svg = {
   domain: 'https://s3-us-west-2.amazonaws.com',
@@ -19,7 +19,7 @@ export const componentWithNumber = {
 };
 
 export const componentWithSlashedName: Figma.Node = {
-  ...({} as Figma.Component),
+  ...({} as Figma.ComponentNode),
   id: '9:10',
   name: 'icon/Figma-logo',
   type: 'COMPONENT',
@@ -37,7 +37,7 @@ export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
 };
 
 export const component1: Figma.Node = {
-  ...({} as Figma.Component),
+  ...({} as Figma.ComponentNode),
   id: '10:8',
   name: 'Figma-Logo',
   type: 'COMPONENT',
@@ -55,7 +55,7 @@ export const componentOutput1: FigmaExport.ComponentNode = {
 };
 
 export const instanceComponent1: Figma.Node = {
-  ...({} as Figma.Instance),
+  ...({} as Figma.InstanceNode),
   id: '10:98',
   name: 'Figma-Logo (INSTANCE)',
   type: 'INSTANCE',
@@ -77,7 +77,7 @@ export const instanceComponentOutput1: FigmaExport.ComponentNode = {
 };
 
 export const component2: Figma.Node = {
-  ...({} as Figma.Component),
+  ...({} as Figma.ComponentNode),
   id: '8:1',
   name: 'Search',
   type: 'COMPONENT',
@@ -95,7 +95,7 @@ export const componentOutput2: FigmaExport.ComponentNode = {
 };
 
 export const component3: Figma.Node = {
-  ...({} as Figma.Component),
+  ...({} as Figma.ComponentNode),
   id: '9:1',
   name: 'Login',
   type: 'COMPONENT',
@@ -115,59 +115,66 @@ export const componentOutput3: FigmaExport.ComponentNode = {
   },
 };
 
-export const group1: Figma.Group = {
-  ...({} as Figma.Group),
+export const group1: Figma.GroupNode = {
+  ...({} as Figma.GroupNode),
   id: '26:0',
   name: 'A Group',
   type: 'GROUP',
   children: [instanceComponent1, component3],
 };
 
-export const page1: Figma.Canvas = {
-  ...({} as Figma.Canvas),
+export const page1: Figma.CanvasNode = {
+  ...({} as Figma.CanvasNode),
   id: '10:6',
   name: 'page1',
   type: 'CANVAS',
   children: [component1, component2],
 };
 
-export const page1WithSlashes: Figma.Canvas = {
-  ...({} as Figma.Canvas),
+export const page1WithSlashes: Figma.CanvasNode = {
+  ...({} as Figma.CanvasNode),
   id: '10:6',
   name: 'page1/subpath/subsubpath',
   type: 'CANVAS',
   children: [component1, component2],
 };
 
-export const page2: Figma.Canvas = {
-  ...({} as Figma.Canvas),
+export const page2: Figma.CanvasNode = {
+  ...({} as Figma.CanvasNode),
   id: '10:7',
   name: 'page2',
   type: 'CANVAS',
   children: [group1],
 };
 
-export const pageWithoutComponents: Figma.Canvas = {
-  ...({} as Figma.Canvas),
+export const pageWithoutComponents: Figma.CanvasNode = {
+  ...({} as Figma.CanvasNode),
   id: '10:7',
   name: 'page2',
   type: 'CANVAS',
   children: [],
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const createDocument = (props: any): Figma.Document => ({
-  ...({} as Figma.Document),
+export const createFile = (
+  props: Pick<Figma.GetFileResponse, 'document'>,
+): Figma.GetFileResponse => ({
+  ...({} as Figma.GetFileResponse),
   ...props,
 });
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const createPage = (children: any): Figma.Document => ({
-  ...({} as Figma.Document),
+export const createDocument = (props: any): Figma.DocumentNode => ({
+  ...({} as Figma.DocumentNode),
+  ...props,
+});
+
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export const createPage = (children: any): Figma.DocumentNode => ({
+  ...({} as Figma.DocumentNode),
   type: 'DOCUMENT',
   children: [
     {
-      ...({} as Figma.Canvas),
+      ...({} as Figma.CanvasNode),
       type: 'CANVAS',
       id: '10:8',
       name: 'fakePage',

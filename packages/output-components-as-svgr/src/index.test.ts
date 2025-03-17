@@ -3,11 +3,11 @@ import * as svgr from '@svgr/core';
 import nock from 'nock';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
+import type { ClientInterface } from '../../core/src/lib/client.js';
 import * as figma from '../../core/src/lib/figma.js';
 
 import fs from 'node:fs';
 import path from 'node:path';
-import type { ClientInterface } from 'figma-js';
 import outputter from './index.js';
 
 vi.mock('fs');
@@ -18,14 +18,13 @@ describe('outputter as svgr', () => {
 
   beforeEach(() => {
     client = {
-      fileImages: vi.fn().mockResolvedValue({
-        data: {
-          images: {
-            '9:10': 'https://example.com/9:10.svg',
-          },
+      hasError: vi.fn().mockReturnValue(false),
+      getImages: vi.fn().mockResolvedValue({
+        images: {
+          '9:10': 'https://example.com/9:10.svg',
         },
       }),
-      file: vi.fn().mockResolvedValue({
+      getFile: vi.fn().mockResolvedValue({
         data: {
           document: figmaDocument.createDocument({
             children: [figmaDocument.page1, figmaDocument.page2],
@@ -52,10 +51,13 @@ describe('outputter as svgr', () => {
       figmaDocument.component1,
       figmaDocument.component2,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -86,10 +88,13 @@ describe('outputter as svgr', () => {
       figmaDocument.component1,
       figmaDocument.component2,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -121,10 +126,13 @@ describe('outputter as svgr', () => {
       figmaDocument.component1,
       figmaDocument.component2,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -156,10 +164,13 @@ describe('outputter as svgr', () => {
     const fakePage = figmaDocument.createPage([
       figmaDocument.componentWithSlashedName,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     await outputter({
       output: 'output',
@@ -182,10 +193,13 @@ describe('outputter as svgr', () => {
     const fakePage = figmaDocument.createPage([
       figmaDocument.componentWithSlashedName,
     ]);
-    const pages = figma.getPagesWithComponents(fakePage, {
-      filterComponent: () => true,
-      includeTypes: ['COMPONENT'],
-    });
+    const pages = figma.getPagesWithComponents(
+      figmaDocument.createFile({ document: fakePage }),
+      {
+        filterComponent: () => true,
+        includeTypes: ['COMPONENT'],
+      },
+    );
 
     it('should be able to customize "dirname"', async () => {
       await outputter({

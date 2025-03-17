@@ -1,6 +1,6 @@
 {
   "name": "@figma-export/types",
-  "version": "6.1.0",
+  "version": "6.2.0-beta.0",
   "description": "Type definition for @figma-export",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -28,12 +28,6 @@
     "node": ">= 18.18"
   },
   "dependencies": {
-    "figma-js": "~1.16.0"
-  },
-  "overrides": {
-    "axios": "^1.6.7"
-  },
-  "resolutions": {
-    "axios": "^1.6.7"
+    "@figma/rest-api-spec": "^0.24.0"
   }
 }

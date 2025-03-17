@@ -1,6 +1,6 @@
 {
   "name": "@figma-export/output-components-as-svgstore",
-  "version": "6.1.0",
+  "version": "6.2.0-beta.0",
   "description": "Outputter for @figma-export that exports components in svg file ( SVG Sprites )",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,7 +26,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@figma-export/types": "^6.1.0",
+    "@figma-export/types": "^6.2.0-beta.0",
     "svgstore": "~3.0.1"
   },
   "engines": {

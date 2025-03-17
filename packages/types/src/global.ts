@@ -1,4 +1,4 @@
-import type * as Figma from 'figma-js';
+import type * as Figma from '@figma/rest-api-spec';
 
 type NodeWithChildren = Extract<
   Figma.Node,
@@ -15,12 +15,12 @@ export type ComponentExtras = {
   }[];
 };
 
-export type ComponentNode = (Figma.Component | Figma.Instance) & {
+export type ComponentNode = (Figma.ComponentNode | Figma.InstanceNode) & {
   figmaExport: ComponentExtras;
   svg: string;
 };
 
-export interface PageNode extends Figma.Canvas {
+export interface PageNode extends Figma.CanvasNode {
   components: ComponentNode[];
 }
 
@@ -36,5 +36,5 @@ export type ComponentOutputterParamOption = {
 export type StyleNode = Figma.Style & Figma.Node;
 
 export type ComponentFilter = (
-  component: Figma.Component | Figma.Instance,
+  component: Figma.ComponentNode | Figma.InstanceNode,
 ) => boolean;

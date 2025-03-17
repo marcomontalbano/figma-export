@@ -1,7 +1,7 @@
 # MOCKS
 
 ```sh
-./node_modules/.bin/ts-node ./packages/core/src/lib/_mocks_/download.ts
+yarn dlx tsx ./packages/core/src/lib/_mocks_/download.ts
 ```
 
 ## Endpoints

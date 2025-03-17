@@ -9,7 +9,7 @@ export type TextStyle = {
   /** Font family of text (standard name) */
   fontFamily: string;
   /** Numeric font weight */
-  fontWeight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  fontWeight: number;
   /** Font size in px */
   fontSize: number;
   /**
