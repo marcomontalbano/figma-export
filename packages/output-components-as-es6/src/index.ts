@@ -29,7 +29,13 @@ export default ({
       let jsCode = '';
 
       for (const component of components) {
-        const { name: componentName, svg, figmaExport } = component;
+        const {
+          name: componentName,
+          svg,
+          figmaExport,
+          description,
+          documentationLinks,
+        } = component;
 
         const options = {
           pageName,
@@ -64,7 +70,14 @@ export default ({
           );
         }
 
-        jsCode += `export const ${variableName} = \`${variableValue}\`;\n`;
+        const documentationLink = documentationLinks.map((link) => link.uri);
+
+        const comment =
+          description != null && description.trim() !== ''
+            ? `/**\n * ${description}${documentationLink != null ? `\n * ${documentationLink.join('\n * ')}` : ''}\n */\n`
+            : '';
+
+        jsCode += `${comment}export const ${variableName} = \`${variableValue}\`;\n`;
       }
 
       const filePath = path.resolve(output, `${pageName}.js`);
