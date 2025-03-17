@@ -2,6 +2,7 @@ import nock from 'nock';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import * as figmaDocument from './_config.helper-test.js';
+import { components } from './export-components.js';
 
 describe('export-component', async () => {
   const logger = vi.fn();
@@ -25,6 +26,7 @@ describe('export-component', async () => {
       document: figmaDocument.createDocument({
         children: [figmaDocument.page1, figmaDocument.page2],
       }),
+      components: {},
     }),
   };
 

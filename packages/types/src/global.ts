@@ -15,10 +15,11 @@ export type ComponentExtras = {
   }[];
 };
 
-export type ComponentNode = (Figma.ComponentNode | Figma.InstanceNode) & {
-  figmaExport: ComponentExtras;
-  svg: string;
-};
+export type ComponentNode = (Figma.ComponentNode | Figma.InstanceNode) &
+  Pick<Figma.Component, 'description' | 'documentationLinks'> & {
+    figmaExport: ComponentExtras;
+    svg: string;
+  };
 
 export interface PageNode extends Figma.CanvasNode {
   components: ComponentNode[];

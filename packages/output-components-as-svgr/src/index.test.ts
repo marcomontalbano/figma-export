@@ -52,7 +52,7 @@ describe('outputter as svgr', () => {
       figmaDocument.component2,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePage }),
+      figmaDocument.createFile({ document: fakePage, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -89,7 +89,7 @@ describe('outputter as svgr', () => {
       figmaDocument.component2,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePage }),
+      figmaDocument.createFile({ document: fakePage, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -127,7 +127,7 @@ describe('outputter as svgr', () => {
       figmaDocument.component2,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePage }),
+      figmaDocument.createFile({ document: fakePage, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -165,7 +165,7 @@ describe('outputter as svgr', () => {
       figmaDocument.componentWithSlashedName,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePage }),
+      figmaDocument.createFile({ document: fakePage, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -194,7 +194,7 @@ describe('outputter as svgr', () => {
       figmaDocument.componentWithSlashedName,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePage }),
+      figmaDocument.createFile({ document: fakePage, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],

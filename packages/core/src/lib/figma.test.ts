@@ -7,7 +7,7 @@ import * as figma from './figma.js';
 
 vi.mock('./client.js');
 
-const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[1] = {
+const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[2] = {
   filterComponent: () => true,
   includeTypes: ['COMPONENT'],
 };
@@ -27,13 +27,24 @@ describe('figma.', () => {
 
   describe('getComponents', () => {
     it('should get zero results if no children are provided', () => {
-      expect(figma.getComponents([], getComponentsDefaultOptions)).to.eql([]);
+      expect(figma.getComponents([], {}, getComponentsDefaultOptions)).to.eql(
+        [],
+      );
     });
 
     it('should get all components from a list of children', () => {
       expect(
         figma.getComponents(
           [figmaDocument.component1, figmaDocument.group1],
+          {
+            '10:8': {
+              key: 'KEY_FOR_10:8',
+              name: 'Figma-Logo',
+              remote: false,
+              description: 'The official Figma logo',
+              documentationLinks: [{ uri: 'https://www.figma.com' }],
+            },
+          },
           getComponentsDefaultOptions,
           [{ name: 'A Frame', type: 'FRAME' }],
         ),
@@ -48,6 +59,15 @@ describe('figma.', () => {
         figma.getComponents(
           [figmaDocument.component1, figmaDocument.group1],
           {
+            '10:8': {
+              key: 'KEY_FOR_10:8',
+              name: 'Figma-Logo',
+              remote: false,
+              description: 'The official Figma logo',
+              documentationLinks: [{ uri: 'https://www.figma.com' }],
+            },
+          },
+          {
             filterComponent: () => true,
             includeTypes: ['INSTANCE'],
           },
@@ -60,6 +80,15 @@ describe('figma.', () => {
       expect(
         figma.getComponents(
           [figmaDocument.component1, figmaDocument.group1],
+          {
+            '10:8': {
+              key: 'KEY_FOR_10:8',
+              name: 'Figma-Logo',
+              remote: false,
+              description: 'The official Figma logo',
+              documentationLinks: [{ uri: 'https://www.figma.com' }],
+            },
+          },
           {
             filterComponent: () => true,
             includeTypes: ['COMPONENT', 'INSTANCE'],
@@ -81,7 +110,7 @@ describe('figma.', () => {
 
     it('should get all pages by default', () => {
       const pages = figma.getPagesWithComponents(
-        figmaDocument.createFile({ document }),
+        figmaDocument.createFile({ document, components: {} }),
         getComponentsDefaultOptions,
       );
       expect(pages).toEqual(
@@ -94,7 +123,7 @@ describe('figma.', () => {
 
     it('should be able to filter components', () => {
       const pages = figma.getPagesWithComponents(
-        figmaDocument.createFile({ document }),
+        figmaDocument.createFile({ document, components: {} }),
         {
           filterComponent: (component) => ['9:1'].includes(component.id),
           includeTypes: ['COMPONENT'],
@@ -118,7 +147,7 @@ describe('figma.', () => {
       });
 
       const pages = figma.getPagesWithComponents(
-        figmaDocument.createFile({ document }),
+        figmaDocument.createFile({ document, components: {} }),
         getComponentsDefaultOptions,
       );
 
@@ -140,7 +169,7 @@ describe('figma.', () => {
         children: [figmaDocument.page1, figmaDocument.page2],
       });
       const pages = figma.getPagesWithComponents(
-        figmaDocument.createFile({ document }),
+        figmaDocument.createFile({ document, components: {} }),
         getComponentsDefaultOptions,
       );
 
