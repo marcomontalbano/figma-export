@@ -1,6 +1,6 @@
 {
   "name": "@figma-export/output-components-as-es6",
-  "version": "6.2.0-beta.0",
+  "version": "6.2.0",
   "description": "Outputter for @figma-export that exports components in javascript file",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@figma-export/types": "^6.2.0-beta.0",
+    "@figma-export/types": "^6.2.0",
     "@figma-export/utils": "^6.1.0",
     "mini-svg-data-uri": "~1.4.4"
   },
