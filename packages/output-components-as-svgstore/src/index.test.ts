@@ -19,7 +19,7 @@ describe('outputter as svgstore', () => {
       children: [figmaDocument.page1],
     });
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document }),
+      figmaDocument.createFile({ document, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -49,7 +49,7 @@ describe('outputter as svgstore', () => {
       children: [figmaDocument.page1WithSlashes],
     });
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document }),
+      figmaDocument.createFile({ document, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],

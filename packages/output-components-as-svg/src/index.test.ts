@@ -18,7 +18,7 @@ describe('outputter as svg', () => {
       children: [figmaDocument.page1],
     });
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document }),
+      figmaDocument.createFile({ document, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -47,7 +47,7 @@ describe('outputter as svg', () => {
       figmaDocument.componentWithSlashedName,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePages }),
+      figmaDocument.createFile({ document: fakePages, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],
@@ -71,7 +71,7 @@ describe('outputter as svg', () => {
       figmaDocument.componentWithSlashedName,
     ]);
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document: fakePages }),
+      figmaDocument.createFile({ document: fakePages, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],

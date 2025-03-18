@@ -21,7 +21,7 @@ describe('outputter as stdout', () => {
       children: [figmaDocument.page1],
     });
     const pages = figma.getPagesWithComponents(
-      figmaDocument.createFile({ document }),
+      figmaDocument.createFile({ document, components: {} }),
       {
         filterComponent: () => true,
         includeTypes: ['COMPONENT'],

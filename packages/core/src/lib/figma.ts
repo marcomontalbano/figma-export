@@ -1,10 +1,9 @@
-import type * as Figma from '@figma/rest-api-spec';
-import * as FigmaSDK from './client.js';
-
 import { basename, dirname } from 'node:path';
 import type * as FigmaExport from '@figma-export/types';
+import type * as Figma from '@figma/rest-api-spec';
 import pLimit from 'p-limit';
 import pRetry from 'p-retry';
+import * as FigmaSDK from './client.js';
 
 import {
   type PickOption,
@@ -139,7 +138,8 @@ function isNodeOfType<
 }
 
 export const getComponents = (
-  children: readonly Figma.Node[],
+  children: readonly Figma.SubcanvasNode[],
+  componentMetadata: { [key: string]: Figma.Component },
   {
     filterComponent,
     includeTypes,
@@ -155,8 +155,11 @@ export const getComponents = (
 
   for (const node of children) {
     if (isNodeOfType(includeTypes, node) && filterComponent(node)) {
+      const metadata: Figma.Component | undefined = componentMetadata[node.id];
       components.push({
         ...node,
+        description: metadata?.description ?? '',
+        documentationLinks: metadata?.documentationLinks ?? [],
         svg: '',
         figmaExport: {
           id: node.id,
@@ -171,10 +174,12 @@ export const getComponents = (
     if ('children' in node) {
       components = [
         ...components,
-        ...getComponents(node.children, { filterComponent, includeTypes }, [
-          ...pathToComponent,
-          { name: node.name, type: node.type },
-        ]),
+        ...getComponents(
+          node.children,
+          componentMetadata,
+          { filterComponent, includeTypes },
+          [...pathToComponent, { name: node.name, type: node.type }],
+        ),
       ];
     }
   }
@@ -303,7 +308,7 @@ export const getPagesWithComponents = (
   return pages
     .map((page) => ({
       ...page,
-      components: getComponents(page.children, options),
+      components: getComponents(page.children, file.components, options),
     }))
     .filter((page) => page.components.length > 0);
 };

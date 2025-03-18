@@ -12,13 +12,14 @@ export const svg = {
   },
 };
 
-export const componentWithNumber = {
+export const componentWithNumber: Figma.SubcanvasNode = {
+  ...({} as Figma.ComponentNode),
   id: '12:3',
   name: '1-icon',
   type: 'COMPONENT',
 };
 
-export const componentWithSlashedName: Figma.Node = {
+export const componentWithSlashedName: Figma.SubcanvasNode = {
   ...({} as Figma.ComponentNode),
   id: '9:10',
   name: 'icon/Figma-logo',
@@ -27,6 +28,8 @@ export const componentWithSlashedName: Figma.Node = {
 
 export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
   ...componentWithSlashedName,
+  description: '',
+  documentationLinks: [],
   svg: svg.content,
   figmaExport: {
     id: '9:10',
@@ -36,7 +39,7 @@ export const componentWithSlashedNameOutput: FigmaExport.ComponentNode = {
   },
 };
 
-export const component1: Figma.Node = {
+export const component1: Figma.SubcanvasNode = {
   ...({} as Figma.ComponentNode),
   id: '10:8',
   name: 'Figma-Logo',
@@ -45,6 +48,8 @@ export const component1: Figma.Node = {
 
 export const componentOutput1: FigmaExport.ComponentNode = {
   ...component1,
+  description: 'The official Figma logo',
+  documentationLinks: [{ uri: 'https://www.figma.com' }],
   svg: '',
   figmaExport: {
     id: '10:8',
@@ -54,7 +59,7 @@ export const componentOutput1: FigmaExport.ComponentNode = {
   },
 };
 
-export const instanceComponent1: Figma.Node = {
+export const instanceComponent1: Figma.SubcanvasNode = {
   ...({} as Figma.InstanceNode),
   id: '10:98',
   name: 'Figma-Logo (INSTANCE)',
@@ -64,6 +69,8 @@ export const instanceComponent1: Figma.Node = {
 
 export const instanceComponentOutput1: FigmaExport.ComponentNode = {
   ...instanceComponent1,
+  description: '',
+  documentationLinks: [],
   svg: '',
   figmaExport: {
     id: '10:98',
@@ -76,7 +83,7 @@ export const instanceComponentOutput1: FigmaExport.ComponentNode = {
   },
 };
 
-export const component2: Figma.Node = {
+export const component2: Figma.SubcanvasNode = {
   ...({} as Figma.ComponentNode),
   id: '8:1',
   name: 'Search',
@@ -85,6 +92,8 @@ export const component2: Figma.Node = {
 
 export const componentOutput2: FigmaExport.ComponentNode = {
   ...component2,
+  description: '',
+  documentationLinks: [],
   svg: '',
   figmaExport: {
     id: '8:1',
@@ -94,7 +103,7 @@ export const componentOutput2: FigmaExport.ComponentNode = {
   },
 };
 
-export const component3: Figma.Node = {
+export const component3: Figma.SubcanvasNode = {
   ...({} as Figma.ComponentNode),
   id: '9:1',
   name: 'Login',
@@ -103,6 +112,8 @@ export const component3: Figma.Node = {
 
 export const componentOutput3: FigmaExport.ComponentNode = {
   ...component3,
+  description: '',
+  documentationLinks: [],
   svg: '',
   figmaExport: {
     id: '9:1',
@@ -155,15 +166,17 @@ export const pageWithoutComponents: Figma.CanvasNode = {
   children: [],
 };
 
-export const createFile = (
-  props: Pick<Figma.GetFileResponse, 'document'>,
-): Figma.GetFileResponse => ({
+export const createFile = (props: {
+  document: Figma.GetFileResponse['document'];
+  components: Figma.GetFileResponse['components'];
+}): Figma.GetFileResponse => ({
   ...({} as Figma.GetFileResponse),
   ...props,
 });
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const createDocument = (props: any): Figma.DocumentNode => ({
+export const createDocument = (
+  props: Partial<Figma.DocumentNode>,
+): Figma.DocumentNode => ({
   ...({} as Figma.DocumentNode),
   ...props,
 });
