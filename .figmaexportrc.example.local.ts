@@ -80,6 +80,7 @@ const componentOptions: ComponentsCommandOptions = {
     outputComponentsAsSvgr({
       output: './output/components/svgr',
       getSvgrConfig: () => ({
+        plugins: ['@svgr/plugin-jsx'],
         template: ({ componentName, props, jsx, exports }, { tpl }) => tpl`
                     const ${componentName} = (${props}) => (${jsx});
                     ${exports}
