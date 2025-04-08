@@ -674,7 +674,6 @@ __metadata:
   resolution: "@figma-export/transform-svg-with-svgo@workspace:packages/transform-svg-with-svgo"
   dependencies:
     "@figma-export/types": "npm:^6.2.0"
-    "@types/svgo": "npm:~3.0.0"
     svgo: "npm:~3.3.2"
   languageName: unknown
   linkType: soft
@@ -2541,15 +2540,6 @@ __metadata:
   version: 0.12.2
   resolution: "@types/retry@npm:0.12.2"
   checksum: 10/e5675035717b39ce4f42f339657cae9637cf0c0051cf54314a6a2c44d38d91f6544be9ddc0280587789b6afd056be5d99dbe3e9f4df68c286c36321579b1bf4a
-  languageName: node
-  linkType: hard
-
-"@types/svgo@npm:~3.0.0":
-  version: 3.0.0
-  resolution: "@types/svgo@npm:3.0.0"
-  dependencies:
-    svgo: "npm:*"
-  checksum: 10/057509c4def1a4e9ac5d1650961dc0ef2683ec80daf109aad910312ae9657877d07fc0c294df8d59e2746c5030d50f173049a7721972acfc1788c7dfb794927d
   languageName: node
   linkType: hard
 
@@ -11402,7 +11392,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"svgo@npm:*, svgo@npm:~3.3.2":
+"svgo@npm:~3.3.2":
   version: 3.3.2
   resolution: "svgo@npm:3.3.2"
   dependencies:
