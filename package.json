@@ -40,16 +40,16 @@
     "@biomejs/biome": "1.9.4",
     "@svgr/plugin-jsx": "^8.1.0",
     "@types/node": "~20.17.30",
-    "@vitest/coverage-istanbul": "^3.1.1",
+    "@vitest/coverage-istanbul": "^3.2.3",
     "husky": "^9.1.7",
-    "lerna": "^8.2.1",
+    "lerna": "^8.2.2",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~15.5.0",
+    "lint-staged": "~16.1.0",
     "ls-engines": "^0.9.3",
-    "nock": "v14.0.3",
-    "npm-check-updates": "^17.1.16",
+    "nock": "v14.0.5",
+    "npm-check-updates": "^18.0.1",
     "typescript": "~5.8.3",
-    "vitest": "^3.1.1"
+    "vitest": "^3.2.3"
   },
   "engines": {
     "node": ">= 18.18"
@@ -66,5 +66,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.8.1"
+  "packageManager": "yarn@4.9.2"
 }
