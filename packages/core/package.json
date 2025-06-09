@@ -1,6 +1,6 @@
 {
   "name": "@figma-export/core",
-  "version": "6.2.0",
+  "version": "6.2.2",
   "description": "@figma-export core functionalities",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@figma-export/types": "^6.2.0",
+    "@figma-export/types": "^6.2.2",
     "@figma/rest-api-spec": "^0.31.0",
     "p-limit": "^6.2.0",
     "p-retry": "^6.2.1",
