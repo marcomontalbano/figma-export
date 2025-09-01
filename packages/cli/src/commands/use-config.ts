@@ -3,6 +3,7 @@ import type { Sade } from 'sade';
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 import * as figmaExport from '@figma-export/core';
 
@@ -28,7 +29,7 @@ export const addUseConfig = (prog: Sade, spinner: Ora) =>
         );
       }
 
-      import(configPath)
+      import(pathToFileURL(configPath).href)
         .then((m) => m.default as FigmaExportRC)
         .then(({ commands }) => {
           const baseCommandOptions: BaseCommandOptions = {
