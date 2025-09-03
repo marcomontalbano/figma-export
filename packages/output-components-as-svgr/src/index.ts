@@ -1,9 +1,8 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import type * as FigmaExport from '@figma-export/types';
 import { pascalCase } from '@figma-export/utils';
 import { type Config, type State, transform } from '@svgr/core';
-
-import fs from 'node:fs';
-import path from 'node:path';
 
 type Options = {
   output: string;

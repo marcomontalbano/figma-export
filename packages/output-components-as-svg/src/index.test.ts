@@ -1,9 +1,8 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
 import * as figma from '../../core/src/lib/figma.js';
-
-import fs from 'node:fs';
-import path from 'node:path';
 import outputter from './index.js';
 
 vi.mock('fs');

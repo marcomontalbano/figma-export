@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -7,14 +7,18 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": [
-      "lerna.json",
-      "package.json",
-      "dist",
-      "_mocks_/**/*.json",
-      "packages/website/",
-      "output/",
-      "coverage/"
+    "includes": [
+      "**",
+      "!node_modules",
+      "!.yarn",
+      "!packages/website/out",
+      "!**/.next",
+      "!**/dist",
+      "!**/lerna.json",
+      "!**/package.json",
+      "!**/_mocks_/**/*.json",
+      "!**/output",
+      "!**/coverage"
     ]
   },
   "formatter": {
@@ -22,13 +26,20 @@
     "indentStyle": "space",
     "indentWidth": 2
   },
-  "organizeImports": {
-    "enabled": true
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "performance": {
+        "noImgElement": "off"
+      }
     }
   },
   "javascript": {

@@ -4,14 +4,18 @@ import CodeBlock from '@/components/CodeBlock';
 const props = {
   title: (
     <>
-      Export your styles as <code className="figma-gradient with-opacity-10">CSS Variables</code>
+      Export your styles as{' '}
+      <code className="figma-gradient with-opacity-10">CSS Variables</code>
     </>
   ),
   description: (
     <>
-      <div>Once exported, you can easly use them directly into your <code>css</code> file.</div>
+      <div>
+        Once exported, you can easly use them directly into your{' '}
+        <code>css</code> file.
+      </div>
       <Code
-        language='css'
+        language="css"
         code={`
           body {
             color: var(--color-3);
@@ -38,11 +42,9 @@ const props = {
         }]
       ]
     }
-    `
+    `,
 };
 
-const AsCss = () => (
-  <CodeBlock {...props} />
-);
+const AsCss = () => <CodeBlock {...props} />;
 
 export default AsCss;

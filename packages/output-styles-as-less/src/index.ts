@@ -1,10 +1,8 @@
-import type * as FigmaExport from '@figma-export/types';
-import { kebabCase } from '@figma-export/utils';
-
-import { writeMap, writeVariable } from './utils.js';
-
 import fs from 'node:fs';
 import path from 'node:path';
+import type * as FigmaExport from '@figma-export/types';
+import { kebabCase } from '@figma-export/utils';
+import { writeMap, writeVariable } from './utils.js';
 
 type Options = {
   output: string;

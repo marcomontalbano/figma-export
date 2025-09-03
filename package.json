@@ -24,7 +24,6 @@
     "test:watch": "yarn build && vitest watch --exclude '**/integration.test.ts'",
     "coverage": "yarn build && vitest run --coverage --exclude '**/integration.test.ts'",
     "coverage:watch": "yarn build && vitest watch --coverage --exclude '**/integration.test.ts'",
-    "website:lint": "yarn workspace @figma-export/website next:lint",
     "website:dev": "yarn build && yarn workspace @figma-export/website dev",
     "website:build": "yarn build && yarn workspace @figma-export/website build",
     "website:serve": "yarn dlx serve packages/website/out/",
@@ -37,7 +36,7 @@
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.2.2",
     "@svgr/plugin-jsx": "^8.1.0",
     "@types/node": "~20.17.30",
     "@vitest/coverage-istanbul": "^3.2.3",

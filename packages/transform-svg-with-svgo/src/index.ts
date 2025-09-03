@@ -1,6 +1,5 @@
-import { type Config, optimize } from 'svgo';
-
 import type * as FigmaExport from '@figma-export/types';
+import { type Config, optimize } from 'svgo';
 
 export default (options: Config): FigmaExport.StringTransformer => {
   return async (svg) => {
@@ -12,7 +11,7 @@ export default (options: Config): FigmaExport.StringTransformer => {
       }
 
       return result.data;
-    } catch (error) {
+    } catch (_error) {
       return undefined;
     }
   };

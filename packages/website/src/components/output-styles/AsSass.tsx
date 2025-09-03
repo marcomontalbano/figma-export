@@ -4,19 +4,24 @@ import CodeBlock from '@/components/CodeBlock';
 const props = {
   title: (
     <>
-      Export your styles
-      as <code className="figma-gradient with-opacity-10">SASS</code> and <code className="figma-gradient with-opacity-10">SCSS</code>
+      Export your styles as{' '}
+      <code className="figma-gradient with-opacity-10">SASS</code> and{' '}
+      <code className="figma-gradient with-opacity-10">SCSS</code>
     </>
   ),
   description: (
     <>
       <div>
-        Once exported, you can import the generated <code>_variables.scss</code> and use it.<br />
-        It contains <a href="https://sass-lang.com/documentation/variables">variables</a> and&nbsp;
+        Once exported, you can import the generated <code>_variables.scss</code>{' '}
+        and use it.
+        <br />
+        It contains{' '}
+        <a href="https://sass-lang.com/documentation/variables">variables</a>{' '}
+        and&nbsp;
         <a href="https://sass-lang.com/documentation/modules/map">maps</a>.
       </div>
       <Code
-        language='sass'
+        language="sass"
         code={`
           body {
             color: $color-3;
@@ -47,11 +52,9 @@ const props = {
         }]
       ]
     }
-`
+`,
 };
 
-const AsSass = () => (
-  <CodeBlock {...props} />
-);
+const AsSass = () => <CodeBlock {...props} />;
 
 export default AsSass;

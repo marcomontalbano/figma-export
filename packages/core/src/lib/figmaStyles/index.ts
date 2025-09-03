@@ -1,5 +1,5 @@
-import type * as FigmaExport from '@figma-export/types';
 import type * as Figma from '@figma/rest-api-spec';
+import type * as FigmaExport from '@figma-export/types';
 import type * as FigmaSDK from '../client.js';
 
 import { notNullish } from '../utils.js';
@@ -7,6 +7,7 @@ import { notNullish } from '../utils.js';
 import { parse as parseEffectStyle } from './effectStyle.js';
 import { parse as parsePaintStyle } from './paintStyle.js';
 import { parse as parseTextStyle } from './textStyle.js';
+
 // import { parse as parseGridStyle } from './gridStyle.js';
 
 const fetchStyles = async (

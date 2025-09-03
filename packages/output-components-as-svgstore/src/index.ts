@@ -1,13 +1,10 @@
 /* eslint-disable import/order */
 
-import svgstore from 'svgstore';
-
-import type * as FigmaExport from '@figma-export/types';
-
-import type { Options as SvgStoreOptions } from './svgstore.js';
-
 import fs from 'node:fs';
 import path from 'node:path';
+import type * as FigmaExport from '@figma-export/types';
+import svgstore from 'svgstore';
+import type { Options as SvgStoreOptions } from './svgstore.js';
 
 type Options = {
   output: string;

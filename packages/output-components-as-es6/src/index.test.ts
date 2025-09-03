@@ -1,18 +1,14 @@
 /* eslint-disable no-console */
 
+import fs from 'node:fs';
+import path from 'node:path';
+import type * as FigmaExport from '@figma-export/types';
+import { camelCase } from '@figma-export/utils';
 import nock from 'nock';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-
-import { camelCase } from '@figma-export/utils';
-
-import type * as FigmaExport from '@figma-export/types';
-
 import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
 import type { ClientInterface } from '../../core/src/lib/client.js';
 import * as figma from '../../core/src/lib/figma.js';
-
-import fs from 'node:fs';
-import path from 'node:path';
 import outputter from './index.js';
 
 vi.mock('fs');

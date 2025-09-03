@@ -6,13 +6,6 @@
  */
 
 import path from 'node:path';
-
-import type {
-  ComponentsCommandOptions,
-  FigmaExportRC,
-  StylesCommandOptions,
-} from './packages/types';
-
 import outputComponentsAsEs6 from './packages/output-components-as-es6/dist/index';
 import outputComponentsAsSvg from './packages/output-components-as-svg/dist/index';
 import outputComponentsAsSvgr from './packages/output-components-as-svgr/dist/index';
@@ -22,6 +15,11 @@ import outputStylesAsLess from './packages/output-styles-as-less/dist/index';
 import outputStylesAsSass from './packages/output-styles-as-sass/dist/index';
 import outputStylesAsStyleDictionary from './packages/output-styles-as-style-dictionary/dist/index';
 import transformSvgWithSvgo from './packages/transform-svg-with-svgo/dist/index';
+import type {
+  ComponentsCommandOptions,
+  FigmaExportRC,
+  StylesCommandOptions,
+} from './packages/types';
 
 const styleOptions: StylesCommandOptions = {
   fileId: 'fzYhvQpqwhZDUImRz431Qo',

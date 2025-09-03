@@ -1,5 +1,5 @@
-import type * as FigmaExport from '@figma-export/types';
 import type * as Figma from '@figma/rest-api-spec';
+import type * as FigmaExport from '@figma-export/types';
 
 import { notNullish } from '../utils.js';
 import { extractColor } from './paintStyle.js';

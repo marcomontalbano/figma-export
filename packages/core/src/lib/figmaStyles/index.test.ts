@@ -1,19 +1,17 @@
 /* eslint-disable max-len */
 /* eslint-disable object-curly-newline */
 
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-
-import type * as FigmaExport from '@figma-export/types';
 import type * as Figma from '@figma/rest-api-spec';
 
+import type * as FigmaExport from '@figma-export/types';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import fileNodesJson from '../_mocks_/figma.fileNodes.json' with {
+  type: 'json',
+};
+import fileJson from '../_mocks_/figma.files.json' with { type: 'json' };
 import type { ClientInterface } from '../client.js';
 import * as figma from '../figma.js';
 import * as figmaStyles from './index.js';
-
-import fileNodesJson from '../_mocks_/figma.fileNodes.json' assert {
-  type: 'json',
-};
-import fileJson from '../_mocks_/figma.files.json' assert { type: 'json' };
 
 const file = fileJson as Figma.GetFileResponse;
 const fileNodes = fileNodesJson as Figma.GetFileNodesResponse;

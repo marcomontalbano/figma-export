@@ -1,11 +1,10 @@
+import type * as Figma from '@figma/rest-api-spec';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import type * as Figma from '@figma/rest-api-spec';
-
-import fileNodesJson from './_mocks_/figma.fileNodes.json' assert {
+import fileNodesJson from './_mocks_/figma.fileNodes.json' with {
   type: 'json',
 };
-import fileJson from './_mocks_/figma.files.json' assert { type: 'json' };
+import fileJson from './_mocks_/figma.files.json' with { type: 'json' };
 
 const file = fileJson as Figma.GetFileResponse;
 const fileNodes = fileNodesJson as Figma.GetFileNodesResponse;

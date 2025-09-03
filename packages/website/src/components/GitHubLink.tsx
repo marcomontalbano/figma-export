@@ -1,6 +1,6 @@
-import { iconMarkGithub }
-  // @ts-ignore This imported file in auto-generated
-  from '../../output/es6-dataurl-octicons/icons/octicons-by-github';
+// biome-ignore lint/suspicious/noTsIgnore: This imported file in auto-generated
+// @ts-ignore This imported file in auto-generated
+import { iconMarkGithub } from '../../output/es6-dataurl-octicons/icons/octicons-by-github';
 
 const GitHubLink = () => (
   <div className="github-link">

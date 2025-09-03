@@ -1,9 +1,7 @@
 import { writeFileSync } from 'node:fs';
-import { sep } from 'node:path';
-import type * as Figma from '@figma/rest-api-spec';
-
-import { dirname } from 'node:path';
+import { dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import type * as Figma from '@figma/rest-api-spec';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

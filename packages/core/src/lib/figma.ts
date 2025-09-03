@@ -1,17 +1,17 @@
 import { basename, dirname } from 'node:path';
-import type * as FigmaExport from '@figma-export/types';
 import type * as Figma from '@figma/rest-api-spec';
+import type * as FigmaExport from '@figma-export/types';
 import pLimit from 'p-limit';
 import pRetry from 'p-retry';
 import * as FigmaSDK from './client.js';
 
 import {
-  type PickOption,
   chunk,
   emptySvg,
   fetchAsSvgXml,
   forceArray,
   fromEntries,
+  type PickOption,
   promiseSequentially,
 } from './utils.js';
 

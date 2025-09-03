@@ -6,7 +6,7 @@ const resolveNameOrPath = (nameOrPath: string): string => {
   return fs.existsSync(absolutePath) ? absolutePath : nameOrPath;
 };
 
-// biome-ignore lint/complexity/noBannedTypes: <explanation>
+// biome-ignore lint/complexity/noBannedTypes: TODO: fix this
 export const requirePackages = async <T extends Function>(
   packages: string[],
   baseOptions = {},

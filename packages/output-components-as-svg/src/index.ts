@@ -1,7 +1,6 @@
-import type * as FigmaExport from '@figma-export/types';
-
 import fs from 'node:fs';
 import path from 'node:path';
+import type * as FigmaExport from '@figma-export/types';
 
 type Options = {
   output: string;

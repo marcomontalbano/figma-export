@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import type {
   EffectStyle,
   FillStyle,
@@ -6,9 +8,6 @@ import type {
 } from '@figma-export/types';
 import { camelCase } from '@figma-export/utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-
-import fs from 'node:fs';
-import path from 'node:path';
 import outputter from './index.js';
 
 vi.mock('fs');
