@@ -1,6 +1,6 @@
 {
   "name": "@figma-export/types",
-  "version": "6.2.2",
+  "version": "6.2.3",
   "description": "Type definition for @figma-export",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
