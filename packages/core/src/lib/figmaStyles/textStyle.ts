@@ -1,5 +1,5 @@
-import type * as FigmaExport from '@figma-export/types';
 import type * as Figma from '@figma/rest-api-spec';
+import type * as FigmaExport from '@figma-export/types';
 
 const translateTextTransform = (
   figmaTextCase?: string,
@@ -11,7 +11,7 @@ const translateTextTransform = (
     TITLE: 'capitalize',
   };
 
-  // biome-ignore lint/style/noNonNullAssertion: <explanation>
+  // biome-ignore lint/style/noNonNullAssertion: TODO: fix this
   return map[figmaTextCase!] || map.undefined;
 };
 
@@ -24,7 +24,7 @@ const translateFontVariant = (
     SMALL_CAPS_FORCED: 'all-small-caps',
   };
 
-  // biome-ignore lint/style/noNonNullAssertion: <explanation>
+  // biome-ignore lint/style/noNonNullAssertion: TODO: fix this
   return map[figmaTextCase!] || map.undefined;
 };
 
@@ -37,7 +37,7 @@ const translateTextDecoration = (
     UNDERLINE: 'underline',
   };
 
-  // biome-ignore lint/style/noNonNullAssertion: <explanation>
+  // biome-ignore lint/style/noNonNullAssertion: TODO: fix this
   return map[figmaTextDecoration!] || map.undefined;
 };
 

@@ -3,8 +3,9 @@ module.exports = {
   filterResults: (name, { upgradedVersionSemver }) => {
     if (
       (name === '@types/node' &&
-        Number.parseInt(upgradedVersionSemver?.major) >= 22) ||
-      (name === 'undici' && Number.parseInt(upgradedVersionSemver?.major) >= 7)
+        Number.parseInt(upgradedVersionSemver?.major, 10) >= 22) ||
+      (name === 'undici' &&
+        Number.parseInt(upgradedVersionSemver?.major, 10) >= 7)
     ) {
       return false;
     }

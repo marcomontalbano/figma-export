@@ -1,7 +1,3 @@
 export default {
-  '!(*.d).{js,ts}': () => [
-    'yarn lint:fix',
-    'yarn coverage',
-    'yarn website:lint --fix',
-  ],
+  '!(*.d).{js,ts}': () => ['yarn lint:fix', 'yarn coverage'],
 };

@@ -1,20 +1,28 @@
+import Image from 'next/image';
 import CodeBlock from '@/components/CodeBlock';
-
-import { figmaExport, figmaLogo }
-  // @ts-ignore This imported file in auto-generated
-  from '../../../output/es6-dataurl/icons';
+// biome-ignore lint/suspicious/noTsIgnore: This imported file in auto-generated
+// @ts-ignore This imported file in auto-generated
+import { figmaExport, figmaLogo } from '../../../output/es6-dataurl/icons';
 
 const props = {
   title: (
     <>
-      Export your icons as <code className="figma-gradient with-opacity-10">data:image/svg+xml</code>
+      Export your icons as{' '}
+      <code className="figma-gradient with-opacity-10">data:image/svg+xml</code>
     </>
   ),
   description: (
     <>
-      The .js file contains all components as Data URL so you can easly put this value into
-      the src of your images. <a target="_blank" rel="noopener noreferrer" href="https://css-tricks.com/probably-dont-base64-svg/">
-      This is the best way</a> to load an svg as image.
+      The .js file contains all components as Data URL so you can easly put this
+      value into the src of your images.{' '}
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://css-tricks.com/probably-dont-base64-svg/"
+      >
+        This is the best way
+      </a>{' '}
+      to load an svg as image.
     </>
   ),
   code: `
@@ -34,17 +42,25 @@ const props = {
         }]
       ]
     }
-`
+`,
 };
-
-
 
 const SvgAsES6ComponentDataUrl = () => (
   <CodeBlock {...props}>
-    <>
-      <img className="icon" alt="Figma Export icon" src={figmaExport} />
-      <img className="icon" alt="Figma Export logo" src={figmaLogo} />
-    </>
+    <Image
+      width={35}
+      height={35}
+      className="icon"
+      alt="Figma Export icon"
+      src={figmaExport}
+    />
+    <Image
+      width={35}
+      height={35}
+      className="icon"
+      alt="Figma Export logo"
+      src={figmaLogo}
+    />
   </CodeBlock>
 );
 

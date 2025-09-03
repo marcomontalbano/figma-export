@@ -1,6 +1,6 @@
 import ComponentsAsES6 from './ComponentsAsES6';
-import ComponentsAsSvgstore from './ComponentsAsSvgstore';
 import ComponentsAsSvgr from './ComponentsAsSvgr';
+import ComponentsAsSvgstore from './ComponentsAsSvgstore';
 
 const OutputComponents = () => (
   <div>

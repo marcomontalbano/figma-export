@@ -1,8 +1,7 @@
-import type { Ora } from 'ora';
-import type { Sade } from 'sade';
-
 import * as figmaExport from '@figma-export/core';
 import type * as FigmaExport from '@figma-export/types';
+import type { Ora } from 'ora';
+import type { Sade } from 'sade';
 
 import { asArray, requirePackages } from '../utils.js';
 

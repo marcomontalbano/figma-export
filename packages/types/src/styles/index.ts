@@ -5,10 +5,10 @@ import type * as GridStyle from './GridStyle.js';
 import type * as PaintStyle from './PaintStyle.js';
 import type * as TextStyle from './TextStyle.js';
 
-export * from './PaintStyle.js';
 export * from './EffectStyle.js';
-export * from './TextStyle.js';
 export * from './GridStyle.js';
+export * from './PaintStyle.js';
+export * from './TextStyle.js';
 
 export type Style = {
   name: string;

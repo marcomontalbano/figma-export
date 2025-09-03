@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { camelCase, kebabCase, pascalCase } from '@figma-export/utils';
 import * as svgr from '@svgr/core';
 import nock from 'nock';
@@ -5,9 +7,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as figmaDocument from '../../core/src/lib/_config.helper-test.js';
 import type { ClientInterface } from '../../core/src/lib/client.js';
 import * as figma from '../../core/src/lib/figma.js';
-
-import fs from 'node:fs';
-import path from 'node:path';
 import outputter from './index.js';
 
 vi.mock('fs');

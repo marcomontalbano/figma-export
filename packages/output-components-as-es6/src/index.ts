@@ -1,9 +1,7 @@
-import { camelCase } from '@figma-export/utils';
-
-import type * as FigmaExport from '@figma-export/types';
-
 import fs from 'node:fs';
 import path from 'node:path';
+import type * as FigmaExport from '@figma-export/types';
+import { camelCase } from '@figma-export/utils';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import svgToMiniDataURI from 'mini-svg-data-uri';

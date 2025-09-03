@@ -5,7 +5,7 @@ export const toArray = <T>(any: T | T[]): T[] =>
 
 export const emptySvg = '<svg></svg>';
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: TODO: get rid of any
 export const fromEntries = (iterable: any[][]): { [key: string]: any } => {
   return [...iterable].reduce((obj: { [key: string]: unknown }, [key, val]) => {
     // eslint-disable-next-line no-param-reassign
@@ -15,7 +15,7 @@ export const fromEntries = (iterable: any[][]): { [key: string]: any } => {
 };
 
 export const promiseSequentially = (
-  // biome-ignore lint/complexity/noBannedTypes: <explanation>
+  // biome-ignore lint/complexity/noBannedTypes: TODO: get rid of Function
   promiseFactories: Function[],
   initialValue: unknown,
 ): Promise<unknown> => {

@@ -4,18 +4,22 @@ import CodeBlock from '@/components/CodeBlock';
 const props = {
   title: (
     <>
-      Export your styles as <code className="figma-gradient with-opacity-10">LESS</code>
+      Export your styles as{' '}
+      <code className="figma-gradient with-opacity-10">LESS</code>
     </>
   ),
   description: (
     <>
       <div>
-        Once exported, you can import the generated <code>_variables.less</code> and use it.<br />
-        It contains <a href="http://lesscss.org/#variables">variables</a> and&nbsp;
+        Once exported, you can import the generated <code>_variables.less</code>{' '}
+        and use it.
+        <br />
+        It contains <a href="http://lesscss.org/#variables">variables</a>{' '}
+        and&nbsp;
         <a href="http://lesscss.org/#maps">maps</a>.
       </div>
       <Code
-        language='less'
+        language="less"
         code={`
           body {
             color: @color-3;
@@ -42,11 +46,9 @@ const props = {
         }]
       ]
     }
-`
+`,
 };
 
-const AsLess = () => (
-  <CodeBlock {...props} />
-);
+const AsLess = () => <CodeBlock {...props} />;
 
 export default AsLess;

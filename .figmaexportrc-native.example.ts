@@ -5,13 +5,12 @@
  *   $ npm install --save-dev @svgr/plugin-svgo @svgr/plugin-jsx @svgr/plugin-prettier
  * */
 
+import transformSvgWithSvgr from '@figma-export/output-components-as-svgr';
+import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
 import type {
   ComponentsCommandOptions,
   FigmaExportRC,
 } from '@figma-export/types';
-
-import transformSvgWithSvgr from '@figma-export/output-components-as-svgr';
-import transformSvgWithSvgo from '@figma-export/transform-svg-with-svgo';
 
 const componentOptions: ComponentsCommandOptions = {
   fileId: 'fzYhvQpqwhZDUImRz431Qo',

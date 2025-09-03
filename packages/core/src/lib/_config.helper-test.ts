@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type * as FigmaExport from '@figma-export/types';
 import type * as Figma from '@figma/rest-api-spec';
+import type * as FigmaExport from '@figma-export/types';
 
 export const svg = {
   domain: 'https://s3-us-west-2.amazonaws.com',
@@ -181,7 +180,7 @@ export const createDocument = (
   ...props,
 });
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: TODO: fix this
 export const createPage = (children: any): Figma.DocumentNode => ({
   ...({} as Figma.DocumentNode),
   type: 'DOCUMENT',

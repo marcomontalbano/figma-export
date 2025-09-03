@@ -1,12 +1,12 @@
 // @ts-check
 
-import { camelCase } from '@figma-export/utils'
+import { camelCase } from '@figma-export/utils';
 
-import outputComponentsAsEs6 from '../output-components-as-es6/dist/index.js'
-import outputComponentsAsSvg from '../output-components-as-svg/dist/index.js'
-import outputComponentsAsSvgr from '../output-components-as-svgr/dist/index.js'
-import outputComponentsAsSvgstore from '../output-components-as-svgstore/dist/index.js'
-import outputStylesAsSass from '../output-styles-as-sass/dist/index.js'
+import outputComponentsAsEs6 from '../output-components-as-es6/dist/index.js';
+import outputComponentsAsSvg from '../output-components-as-svg/dist/index.js';
+import outputComponentsAsSvgr from '../output-components-as-svgr/dist/index.js';
+import outputComponentsAsSvgstore from '../output-components-as-svgstore/dist/index.js';
+import outputStylesAsSass from '../output-styles-as-sass/dist/index.js';
 
 export default {
   commands: [
@@ -92,7 +92,8 @@ export default {
 
           outputComponentsAsSvgstore({
             output: './public/output/svgstore-monochrome',
-            getIconId: (options) => `[unfilled] ${options.pageName}/${options.componentName}`,
+            getIconId: (options) =>
+              `[unfilled] ${options.pageName}/${options.componentName}`,
             svgstoreConfig: {
               cleanSymbols: ['fill'],
             },

@@ -1,18 +1,15 @@
-import type { Ora } from 'ora';
-import type { Sade } from 'sade';
-
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-
 import * as figmaExport from '@figma-export/core';
-
 import type {
   BaseCommandOptions,
   ComponentsCommand,
   FigmaExportRC,
   StylesCommand,
 } from '@figma-export/types';
+import type { Ora } from 'ora';
+import type { Sade } from 'sade';
 
 export const addUseConfig = (prog: Sade, spinner: Ora) =>
   prog

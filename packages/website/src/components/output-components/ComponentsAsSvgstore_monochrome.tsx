@@ -3,13 +3,18 @@ import CodeBlock from '@/components/CodeBlock';
 const props = {
   title: (
     <>
-      Export your icons as <code className="figma-gradient with-opacity-10">Monochrome SVG Symbols</code>
+      Export your icons as{' '}
+      <code className="figma-gradient with-opacity-10">
+        Monochrome SVG Symbols
+      </code>
     </>
   ),
   description: (
     <>
-      The .svg file contains all components as &lt;symbol&gt; and all <code>fill</code>
-      properties are removed from the svg so you can easily customize the icon color from css.
+      The .svg file contains all components as &lt;symbol&gt; and all{' '}
+      <code>fill</code>
+      properties are removed from the svg so you can easily customize the icon
+      color from css.
     </>
   ),
   code: `
@@ -31,15 +36,19 @@ const props = {
         }]
       ]
     }
-`
+`,
 };
 
 const SvgAsSvgstoreMonochromeComponent = () => (
   <CodeBlock {...props}>
-    <>
-      <svg className="icon with-hover"><use href="/output/svgstore-monochrome/icons.svg#[unfilled] icons/figma-export" /></svg>
-      <svg className="icon with-hover"><use href="/output/svgstore-monochrome/icons.svg#[unfilled] icons/figma-logo" /></svg>
-    </>
+    <svg className="icon with-hover">
+      <title>Figma Export - monochrome</title>
+      <use href="/output/svgstore-monochrome/icons.svg#[unfilled] icons/figma-export" />
+    </svg>
+    <svg className="icon with-hover">
+      <title>Figma Logo - monochrome</title>
+      <use href="/output/svgstore-monochrome/icons.svg#[unfilled] icons/figma-logo" />
+    </svg>
   </CodeBlock>
 );
 

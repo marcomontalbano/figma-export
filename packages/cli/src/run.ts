@@ -1,11 +1,9 @@
+import Module from 'node:module';
 import ora from 'ora';
 import sade from 'sade';
-
 import { addComponents } from './commands/components.js';
 import { addStyles } from './commands/styles.js';
 import { addUseConfig } from './commands/use-config.js';
-
-import Module from 'node:module';
 
 const require = Module.createRequire(import.meta.url);
 
