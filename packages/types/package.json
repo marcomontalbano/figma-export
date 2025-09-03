@@ -28,6 +28,6 @@
     "node": ">= 18.18"
   },
   "dependencies": {
-    "@figma/rest-api-spec": "^0.31.0"
+    "@figma/rest-api-spec": "^0.33.0"
   }
 }

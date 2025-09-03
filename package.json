@@ -38,17 +38,17 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.2",
     "@svgr/plugin-jsx": "^8.1.0",
-    "@types/node": "~20.17.30",
-    "@vitest/coverage-istanbul": "^3.2.3",
+    "@types/node": "~20.19.11",
+    "@vitest/coverage-istanbul": "^3.2.4",
     "husky": "^9.1.7",
-    "lerna": "^8.2.2",
+    "lerna": "^8.2.4",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~16.1.0",
+    "lint-staged": "~16.1.6",
     "ls-engines": "^0.9.3",
-    "nock": "v14.0.5",
-    "npm-check-updates": "^18.0.1",
-    "typescript": "~5.8.3",
-    "vitest": "^3.2.3"
+    "nock": "v14.0.10",
+    "npm-check-updates": "^18.0.3",
+    "typescript": "~5.9.2",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">= 18.18"
