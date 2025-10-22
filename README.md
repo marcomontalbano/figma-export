@@ -11,9 +11,10 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/marcomontalbano/figma-export/actions/workflows/test.yml"><img alt="Test" src="https://github.com/marcomontalbano/figma-export/actions/workflows/test.yml/badge.svg" /></a>
-    <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=main"><img alt="Coverage Status" src="https://coveralls.io/repos/github/marcomontalbano/figma-export/badge.svg?branch=main" /></a>
-    <a href="https://github.com/sponsors/marcomontalbano"><img alt="Sponsor" src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors" /></a>
+    <a href="https://github.com/marcomontalbano/figma-export/actions/workflows/test.yml"><img alt="Test" src="https://img.shields.io/github/actions/workflow/status/marcomontalbano/figma-export/test.yml?style=for-the-badge" /></a>
+    <a href="https://coveralls.io/github/marcomontalbano/figma-export?branch=main"><img alt="Coverage Status" src="https://img.shields.io/coverallsCoverage/github/marcomontalbano/figma-export?style=for-the-badge" /></a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="https://github.com/sponsors/marcomontalbano"><img alt="Sponsor" src="https://img.shields.io/badge/-Sponsor-fafbfc?logo=GitHub%20Sponsors&style=for-the-badge" /></a>
 </p>
 
 
