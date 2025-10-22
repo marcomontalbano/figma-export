@@ -80,7 +80,7 @@ const getAllPageIds = async (
   });
 
   if (client.hasError(file)) {
-    throw new Error("'document' is missing.");
+    throw new Error(`while fetching file: ${client.extractErrorMessage(file)}`);
   }
 
   const pageIds = getPagesFromDocument(file.document, options).map(
