@@ -1,14 +1,27 @@
 import type * as Figma from '@figma/rest-api-spec';
 
 export function createClient(options: ClientOptions): ClientInterface {
+  const hasError = (
+    response: Record<string, unknown>,
+  ): response is
+    | Figma.ErrorResponsePayloadWithErrMessage
+    | Figma.ErrorResponsePayloadWithErrorBoolean =>
+    ('err' in response && response.err != null) ||
+    ('error' in response && response.error === true);
+
   return {
-    hasError: (
-      response,
-    ): response is
-      | Figma.ErrorResponsePayloadWithErrMessage
-      | Figma.ErrorResponsePayloadWithErrorBoolean =>
-      ('err' in response && response.err != null) ||
-      ('error' in response && response.error === true),
+    hasError,
+    extractErrorMessage: (response) => {
+      if (hasError(response)) {
+        if ('err' in response) {
+          return response.err;
+        } else {
+          return response.message;
+        }
+      }
+
+      return null;
+    },
     getFile: async (pathParams, queryParams) =>
       fetchGet('/v1/files/{file_key}', options, pathParams, queryParams),
     getImages: async (pathParams, queryParams) =>
@@ -48,13 +61,17 @@ type ClientOptions = {
  */
 export type ClientInterface = {
   /**
-   *
+   * Check if the response from Figma API contains an error.
    */
   hasError: (
     response: Record<string, unknown>,
   ) => response is
     | Figma.ErrorResponsePayloadWithErrMessage
     | Figma.ErrorResponsePayloadWithErrorBoolean;
+  /**
+   * Extract error message from Figma API response.
+   */
+  extractErrorMessage: (response: Record<string, unknown>) => string | null;
   /**
    * Returns the document identified by `file_key` as a JSON object. The file key can be parsed from any Figma file url: `https://www.figma.com/file/{file_key}/{title}`.
    *

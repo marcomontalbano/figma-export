@@ -13,7 +13,6 @@ describe('export-component', async () => {
   });
 
   const client = {
-    hasError: vi.fn().mockReturnValue(false),
     getImages: vi.fn().mockResolvedValue({
       images: {
         '10:8': 'https://example.com/10:8.svg',
@@ -29,9 +28,16 @@ describe('export-component', async () => {
     }),
   };
 
-  vi.doMock('./client.js', () => {
+  vi.doMock('./client.js', async (importOriginal) => {
+    const { createClient: originalCreateClient } =
+      await importOriginal<typeof import('./client.js')>();
     return {
-      createClient: vi.fn().mockReturnValue(client),
+      createClient: vi.fn().mockImplementation((options) => {
+        return {
+          ...originalCreateClient(options),
+          ...client,
+        };
+      }),
     };
   });
 
@@ -367,14 +373,14 @@ describe('export-component', async () => {
   });
 
   it('should throw an error if document property is missing when fetching file', async () => {
-    client.hasError.mockResolvedValueOnce(true);
+    client.getFile.mockResolvedValueOnce({ status: 403, err: 'Token expired' });
 
     await expect(
       exportComponents({
         fileId: 'fileABCD',
         token: 'token1234',
       }),
-    ).rejects.toThrow("'document' is missing.");
+    ).rejects.toThrow('while fetching file: Token expired');
   });
 
   it('should throw an error when fetching a document without components', async () => {

@@ -29,7 +29,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
   const file = await getFile(client, { fileId, onlyFromPages, version, ids });
 
   if (client.hasError(file)) {
-    throw new Error("'document' is missing.");
+    throw new Error(`while fetching file: ${client.extractErrorMessage(file)}`);
   }
 
   const pages = getPagesWithComponents(file, {
