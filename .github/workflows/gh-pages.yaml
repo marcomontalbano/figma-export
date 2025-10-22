@@ -39,6 +39,8 @@ jobs:
 
       - name: Build 🛠
         run: yarn website:build
+        env:
+          FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
 
       - name: Setup Pages 🧰
         uses: actions/configure-pages@v5
