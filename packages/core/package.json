@@ -25,10 +25,10 @@
   },
   "dependencies": {
     "@figma-export/types": "^6.2.3",
-    "@figma/rest-api-spec": "^0.33.0",
-    "p-limit": "^6.2.0",
-    "p-retry": "^6.2.1",
-    "undici": "^6.21.3"
+    "@figma/rest-api-spec": "^0.34.0",
+    "p-limit": "^7.2.0",
+    "p-retry": "^7.1.0",
+    "undici": "^6.22.0"
   },
   "engines": {
     "node": ">= 18.18"
