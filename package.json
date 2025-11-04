@@ -36,19 +36,19 @@
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
-    "@biomejs/biome": "2.2.2",
+    "@biomejs/biome": "2.3.3",
     "@svgr/plugin-jsx": "^8.1.0",
-    "@types/node": "~20.19.11",
-    "@vitest/coverage-istanbul": "^3.2.4",
+    "@types/node": "~20.19.24",
+    "@vitest/coverage-istanbul": "^4.0.7",
     "husky": "^9.1.7",
-    "lerna": "^8.2.4",
+    "lerna": "^9.0.0",
     "lerna-changelog": "~2.2.0",
-    "lint-staged": "~16.1.6",
+    "lint-staged": "~16.2.6",
     "ls-engines": "^0.9.3",
     "nock": "v14.0.10",
-    "npm-check-updates": "^18.0.3",
-    "typescript": "~5.9.2",
-    "vitest": "^3.2.4"
+    "npm-check-updates": "^19.1.2",
+    "typescript": "~5.9.3",
+    "vitest": "^4.0.7"
   },
   "engines": {
     "node": ">= 18.18"
@@ -65,5 +65,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.3"
 }
