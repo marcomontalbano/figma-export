@@ -481,12 +481,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@figma-export/cli@npm:^6.2.3, @figma-export/cli@workspace:packages/cli":
+"@figma-export/cli@npm:^6.2.4, @figma-export/cli@workspace:packages/cli":
   version: 0.0.0-use.local
   resolution: "@figma-export/cli@workspace:packages/cli"
   dependencies:
-    "@figma-export/core": "npm:^6.2.3"
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/core": "npm:^6.2.4"
+    "@figma-export/types": "npm:^6.2.4"
     ora: "npm:~8.2.0"
     sade: "npm:~1.8.1"
   bin:
@@ -494,11 +494,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@figma-export/core@npm:^6.2.3, @figma-export/core@workspace:packages/core":
+"@figma-export/core@npm:^6.2.4, @figma-export/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@figma-export/core@workspace:packages/core"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma/rest-api-spec": "npm:^0.34.0"
     p-limit: "npm:^7.2.0"
     p-retry: "npm:^7.1.0"
@@ -510,7 +510,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-es6@workspace:packages/output-components-as-es6"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
     mini-svg-data-uri: "npm:~1.4.4"
   languageName: unknown
@@ -520,7 +520,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-stdout@workspace:packages/output-components-as-stdout"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
   languageName: unknown
   linkType: soft
 
@@ -528,7 +528,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-svg@workspace:packages/output-components-as-svg"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
   languageName: unknown
   linkType: soft
 
@@ -536,7 +536,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-svgr@workspace:packages/output-components-as-svgr"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
     "@svgr/core": "npm:~8.1.0"
   languageName: unknown
@@ -546,7 +546,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-components-as-svgstore@workspace:packages/output-components-as-svgstore"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     svgstore: "npm:~3.0.1"
   languageName: unknown
   linkType: soft
@@ -555,7 +555,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-css@workspace:packages/output-styles-as-css"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
   languageName: unknown
   linkType: soft
@@ -564,7 +564,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-less@workspace:packages/output-styles-as-less"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
   languageName: unknown
   linkType: soft
@@ -573,7 +573,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-sass@workspace:packages/output-styles-as-sass"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
   languageName: unknown
   linkType: soft
@@ -582,7 +582,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/output-styles-as-style-dictionary@workspace:packages/output-styles-as-style-dictionary"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
   languageName: unknown
   linkType: soft
@@ -591,12 +591,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/transform-svg-with-svgo@workspace:packages/transform-svg-with-svgo"
   dependencies:
-    "@figma-export/types": "npm:^6.2.3"
+    "@figma-export/types": "npm:^6.2.4"
     svgo: "npm:~3.3.2"
   languageName: unknown
   linkType: soft
 
-"@figma-export/types@npm:^6.2.3, @figma-export/types@workspace:packages/types":
+"@figma-export/types@npm:^6.2.4, @figma-export/types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "@figma-export/types@workspace:packages/types"
   dependencies:
@@ -614,7 +614,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@figma-export/website@workspace:packages/website"
   dependencies:
-    "@figma-export/cli": "npm:^6.2.3"
+    "@figma-export/cli": "npm:^6.2.4"
     "@figma-export/utils": "npm:^6.1.0"
     "@svgr/plugin-jsx": "npm:^8.1.0"
     "@types/prismjs": "npm:^1.26.5"
