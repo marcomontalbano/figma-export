@@ -9,7 +9,14 @@ const ReadyToStart = () => (
         src="/images/shell.png"
         alt="Shell - npm install @figma-export/cli"
       />
-      <GitHubLink />
+      <GitHubLink>
+        <div>
+          This site is powered by{' '}
+          <a href="https://www.netlify.com" target="_blank" rel="noopener">
+            Netlify
+          </a>
+        </div>
+      </GitHubLink>
     </section>
   </div>
 );
