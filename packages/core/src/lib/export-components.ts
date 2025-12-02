@@ -23,7 +23,7 @@ export const components: FigmaExport.ComponentsCommand = async ({
     console.log(msg);
   },
 }) => {
-  const client = getClient(token);
+  const client = getClient(token, log);
 
   log('fetching document');
   const file = await getFile(client, { fileId, onlyFromPages, version, ids });

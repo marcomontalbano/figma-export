@@ -18,14 +18,17 @@ import {
 /**
  * Create a new Figma client.
  */
-export const getClient = (token: string): FigmaSDK.ClientInterface => {
+export const getClient = (
+  token: string,
+  log: (msg: string) => void,
+): FigmaSDK.ClientInterface => {
   if (!token) {
     throw new Error(
       "'Access Token' is missing. https://www.figma.com/developers/docs#authentication",
     );
   }
 
-  return FigmaSDK.createClient({ personalAccessToken: token });
+  return FigmaSDK.createClient({ personalAccessToken: token, log });
 };
 
 /**
