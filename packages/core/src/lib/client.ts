@@ -1,4 +1,5 @@
 import type * as Figma from '@figma/rest-api-spec';
+import pRetry from 'p-retry';
 
 export function createClient(options: ClientOptions): ClientInterface {
   const hasError = (
@@ -31,6 +32,27 @@ export function createClient(options: ClientOptions): ClientInterface {
   };
 }
 
+class RateLimitError extends Error {
+  retryAfterSec: number;
+  figmaPlanTier: string | null;
+  figmaRateLimitType: string | null;
+
+  constructor(
+    message: string,
+    meta: {
+      retryAfterSec: number;
+      figmaPlanTier: string | null;
+      figmaRateLimitType: string | null;
+    },
+  ) {
+    super(message);
+    this.name = 'RateLimitError';
+    this.retryAfterSec = meta.retryAfterSec;
+    this.figmaPlanTier = meta.figmaPlanTier;
+    this.figmaRateLimitType = meta.figmaRateLimitType;
+  }
+}
+
 const fetchGet = async <T>(
   rawEndpoint: `/${string}`,
   clientOptions: ClientOptions,
@@ -42,18 +64,69 @@ const fetchGet = async <T>(
     rawEndpoint,
   );
 
-  return fetch(
-    `https://api.figma.com${endpoint}?${new URLSearchParams(JSON.parse(JSON.stringify(queryParams)))}`,
-    {
-      headers: {
-        'X-Figma-Token': clientOptions.personalAccessToken,
+  const run = async () => {
+    return fetch(
+      `https://api.figma.com${endpoint}${queryParams != null ? `?${new URLSearchParams(JSON.parse(JSON.stringify(queryParams)))}` : ''}`,
+      {
+        headers: {
+          'X-Figma-Token': clientOptions.personalAccessToken,
+        },
       },
+    ).then((response) => {
+      if (response.status === 429) {
+        throw new RateLimitError('Rate limit exceeded', {
+          retryAfterSec: Number(response.headers.get('Retry-After')) || 1,
+          figmaPlanTier: response.headers.get('X-Figma-Plan-Tier'),
+          figmaRateLimitType: response.headers.get('X-Figma-Rate-Limit-Type'),
+        });
+      }
+
+      return response.json() as T;
+    });
+  };
+
+  const result = await pRetry(run, {
+    retries: 2,
+    shouldRetry: ({ error }) => {
+      if (error instanceof RateLimitError) {
+        /** Delay retry based on Retry-After header in milliseconds */
+        const delay = error.retryAfterSec * 1000;
+        const maxDelay = 60 * 60 * 1000; // 1 hour
+
+        if (delay > maxDelay) {
+          clientOptions.log(
+            `rate limit exceeded, retry-after is too long (${millisecondsToReadableString(
+              delay,
+            )}), aborting retries\nhttps://developers.figma.com/docs/rest-api/rate-limits\n`,
+          );
+
+          return false;
+        }
+
+        clientOptions.log(
+          `rate limit exceeded, retrying in ${millisecondsToReadableString(delay)}`,
+        );
+
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(true);
+          }, delay);
+        });
+      }
+
+      return true;
     },
-  ).then((res) => res.json() as T);
+    shouldConsumeRetry: ({ error }) => {
+      return !(error instanceof RateLimitError);
+    },
+  });
+
+  return result;
 };
 
 type ClientOptions = {
   personalAccessToken: string;
+  log: (msg: string) => void;
 };
 
 /**
@@ -138,3 +211,41 @@ type Get<
   QueryParams extends Record<string, unknown>,
   Response extends Record<string, unknown>,
 > = (pathParams: PathParams, queryParams?: QueryParams) => Promise<Response>;
+
+/**
+ * Converts milliseconds to a human-readable string.
+ * @param milliseconds The duration in milliseconds.
+ * @returns A human-readable string representing the duration.
+ */
+function millisecondsToReadableString(milliseconds: number): string {
+  function numberEnding(number: number): string {
+    return number > 1 ? 's' : '';
+  }
+
+  let temp = Math.floor(milliseconds / 1000);
+  const years = Math.floor(temp / 31536000);
+  if (years) {
+    return `${years} year${numberEnding(years)}`;
+  }
+
+  // biome-ignore lint/suspicious/noAssignInExpressions: Ignored
+  const days = Math.floor((temp %= 31536000) / 86400);
+  if (days) {
+    return `${days} day${numberEnding(days)}`;
+  }
+  // biome-ignore lint/suspicious/noAssignInExpressions: Ignored
+  const hours = Math.floor((temp %= 86400) / 3600);
+  if (hours) {
+    return `${hours} hour${numberEnding(hours)}`;
+  }
+  // biome-ignore lint/suspicious/noAssignInExpressions: Ignored
+  const minutes = Math.floor((temp %= 3600) / 60);
+  if (minutes) {
+    return `${minutes} minute${numberEnding(minutes)}`;
+  }
+  const seconds = temp % 60;
+  if (seconds) {
+    return `${seconds} second${numberEnding(seconds)}`;
+  }
+  return 'less than a second'; //'just now' //or other string you like;
+}
