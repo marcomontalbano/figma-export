@@ -56,7 +56,7 @@ body:
     attributes:
       label: Related Figma file link
       description: Optional link to a Figma file that gives context.
-      placeholder: https://www.figma.com/file/<fileId>/<fileName>
+      placeholder: https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo
     validations:
       required: false
   - type: textarea
