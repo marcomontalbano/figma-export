@@ -2,4 +2,7 @@ blank_issues_enabled: false
 contact_links:
   - name: Website
     url: https://figma-export.marcomontalbano.com
-    about: You can easily and automatically export your figma components and styles and use them directly into your website.
+    about: The official website of figma-export.
+  - name: Discussions
+    url: https://github.com/marcomontalbano/figma-export/discussions
+    about: For questions, help, or anything else that is not a bug report or feature request.
