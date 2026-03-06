@@ -65,5 +65,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.10.3"
+  "packageManager": "yarn@4.13.0"
 }
