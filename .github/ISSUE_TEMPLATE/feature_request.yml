@@ -1,0 +1,75 @@
+name: Feature request
+description: Suggest an idea or improvement for figma-export.
+labels:
+  - Issue: needs triage
+  - Issue: enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing an idea!
+
+        The more details you can provide, the better.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Feature summary
+      description: What would you like to add or improve?
+      placeholder: Add support for ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      description: Which part of figma-export is this about?
+      multiple: true
+      options:
+        - CLI (@figma-export/cli)
+        - Core (@figma-export/core)
+        - Components output
+        - Styles output
+        - Transformer
+        - Utils
+        - Docs
+        - Other
+    validations:
+      required: false
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What problem are you facing today?
+      placeholder: I need this because ...
+    validations:
+      required: false
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How do you imagine this working?
+      placeholder: It could work like ...
+    validations:
+      required: false
+  - type: input
+    id: figma_file
+    attributes:
+      label: Related Figma file link
+      description: Optional link to a Figma file that gives context.
+      placeholder: https://www.figma.com/file/<fileId>/<fileName>
+    validations:
+      required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds or alternatives you have tried.
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: References, screenshots, or anything else helpful.
+    validations:
+      required: false

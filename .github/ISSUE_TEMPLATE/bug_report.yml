@@ -1,0 +1,50 @@
+name: Bug report 🐛
+description: |
+  Something is broken and you have a reliable reproduction? Let us know here.
+  For questions, please use the "Discussion" section.
+labels:
+  - Issue: needs triage
+  - Issue: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+        We prioritize issues with more details over those without.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: Describe what you expected to happen and what happened instead. If possible, include the command/config used and the exact error message.
+    validations:
+      required: true
+  - type: input
+    id: figma_file
+    attributes:
+      label: Figma file link
+      description: Strongly recommended: share a reproducible Figma file link and remove or anonymize any sensitive information first.
+      placeholder: https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo
+    validations:
+      required: false
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Version details that help reproduce the issue.
+      placeholder: |
+        - OS: macOS 15.3
+        - Node.js: 22.x
+        - Package manager: npm / yarn / pnpm
+        - figma-export package(s) and version(s)
+        - Figma plan: Free / Professional / Organization (if relevant)
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: |
+        Anything else that can help us investigate.
+        You can also paste logs, stack traces, or add screenshots here.
