@@ -13,6 +13,14 @@ const getComponentsDefaultOptions: Parameters<typeof figma.getComponents>[2] = {
 };
 
 describe('figma.', () => {
+  const createIds = (count: number): string[] =>
+    Array.from({ length: count }, (_, index) => `ID${index + 1}`);
+
+  const wait = async (ms: number) =>
+    await new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
+
   beforeEach(() => {
     nock(figmaDocument.svg.domain, {
       reqheaders: { 'Content-Type': 'images/svg+xml' },
@@ -184,15 +192,16 @@ describe('figma.', () => {
   describe('getClient', () => {
     it('should not create a figma client if no token is provided', () => {
       expect(() => {
-        figma.getClient('');
+        figma.getClient('', () => {});
       }).to.throw(Error);
     });
 
     it('should create a figma client providing a token', async () => {
-      figma.getClient('token1234');
+      figma.getClient('token1234', () => {});
       expect(FigmaSDK.createClient).toHaveBeenCalledOnce();
       expect(FigmaSDK.createClient).toHaveBeenCalledWith({
         personalAccessToken: 'token1234',
+        log: expect.any(Function),
       });
     });
   });
@@ -237,8 +246,8 @@ describe('figma.', () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
         hasError: (
-          response,
-        ): response is
+          _response: unknown,
+        ): _response is
           | Figma.ErrorResponsePayloadWithErrMessage
           | Figma.ErrorResponsePayloadWithErrorBoolean => false,
         getImages: vi.fn().mockRejectedValue(new Error('some network error')),
@@ -248,6 +257,62 @@ describe('figma.', () => {
         figma.getImages(client, 'ABC123', ['A1', 'B2']),
       ).rejects.toThrow('while fetching fileImages: some network error');
     });
+
+    it('should use default concurrency 30 in getImages', async () => {
+      let pendingCalls = 0;
+      let maxPendingCalls = 0;
+
+      const client = {
+        ...({} as FigmaSDK.ClientInterface),
+        hasError: (
+          _response: unknown,
+        ): _response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
+        getImages: vi.fn().mockImplementation(async () => {
+          pendingCalls += 1;
+          maxPendingCalls = Math.max(maxPendingCalls, pendingCalls);
+
+          await wait(5);
+
+          pendingCalls -= 1;
+          return { images: {} };
+        }),
+      };
+
+      await figma.getImages(client, 'ABC123', createIds(6200));
+
+      expect(client.getImages).toHaveBeenCalledTimes(31);
+      expect(maxPendingCalls).to.equal(30);
+    });
+
+    it('should use custom concurrency in getImages', async () => {
+      let pendingCalls = 0;
+      let maxPendingCalls = 0;
+
+      const client = {
+        ...({} as FigmaSDK.ClientInterface),
+        hasError: (
+          _response: unknown,
+        ): _response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
+        getImages: vi.fn().mockImplementation(async () => {
+          pendingCalls += 1;
+          maxPendingCalls = Math.max(maxPendingCalls, pendingCalls);
+
+          await wait(5);
+
+          pendingCalls -= 1;
+          return { images: {} };
+        }),
+      };
+
+      await figma.getImages(client, 'ABC123', createIds(800), undefined, 2);
+
+      expect(client.getImages).toHaveBeenCalledTimes(4);
+      expect(maxPendingCalls).to.equal(2);
+    });
   });
 
   describe('fileSvgs', () => {
@@ -255,8 +320,8 @@ describe('figma.', () => {
       const client = {
         ...({} as FigmaSDK.ClientInterface),
         hasError: (
-          response,
-        ): response is
+          _response: unknown,
+        ): _response is
           | Figma.ErrorResponsePayloadWithErrMessage
           | Figma.ErrorResponsePayloadWithErrorBoolean => false,
         getImages: vi.fn().mockResolvedValue({
@@ -284,6 +349,36 @@ describe('figma.', () => {
         A1: figmaDocument.svg.content,
         B1: figmaDocument.svg.content,
       });
+    });
+
+    it('should pass concurrency to getImages', async () => {
+      let pendingCalls = 0;
+      let maxPendingCalls = 0;
+
+      const client = {
+        ...({} as FigmaSDK.ClientInterface),
+        hasError: (
+          _response: unknown,
+        ): _response is
+          | Figma.ErrorResponsePayloadWithErrMessage
+          | Figma.ErrorResponsePayloadWithErrorBoolean => false,
+        getImages: vi.fn().mockImplementation(async () => {
+          pendingCalls += 1;
+          maxPendingCalls = Math.max(maxPendingCalls, pendingCalls);
+
+          await wait(5);
+
+          pendingCalls -= 1;
+          return { images: {} };
+        }),
+      };
+
+      await figma.fileSvgs(client, 'ABC123', createIds(800), undefined, {
+        concurrency: 2,
+      });
+
+      expect(client.getImages).toHaveBeenCalledTimes(4);
+      expect(maxPendingCalls).to.equal(2);
     });
   });
 

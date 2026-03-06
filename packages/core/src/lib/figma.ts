@@ -235,9 +235,10 @@ export const getImages = async (
   fileId: string,
   ids: string[],
   version?: string,
+  concurrency = 30,
 ) => {
   const idss = chunk(ids, 200);
-  const limit = pLimit(30);
+  const limit = pLimit(concurrency);
 
   const resolves = await Promise.all(
     idss.map((groupIds) => {
@@ -272,7 +273,7 @@ export const fileSvgs = async (
     onFetchCompleted = () => {},
   }: FileSvgOptions = {},
 ): Promise<FigmaExportFileSvg> => {
-  const images = await getImages(client, fileId, ids, version);
+  const images = await getImages(client, fileId, ids, version, concurrency);
   const limit = pLimit(concurrency);
   let index = 0;
   const svgPromises = Object.entries(images)
