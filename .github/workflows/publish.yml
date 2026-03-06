@@ -27,16 +27,8 @@ jobs:
 
       - name: Publish 🚀 PRERELEASE
         if: 'github.event.release.prerelease'
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          ./node_modules/.bin/lerna publish from-git --dist-tag next --require-scripts --yes
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: ./node_modules/.bin/lerna publish from-git --dist-tag next --require-scripts --yes
 
       - name: Publish 🚀 PRODUCTION
         if: '!github.event.release.prerelease'
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          ./node_modules/.bin/lerna publish from-git --require-scripts --yes
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: ./node_modules/.bin/lerna publish from-git --require-scripts --yes

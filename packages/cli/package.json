@@ -35,7 +35,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcomontalbano/figma-exporter.git",
+    "url": "https://github.com/marcomontalbano/figma-export",
     "directory": "packages/cli"
   }
 }
