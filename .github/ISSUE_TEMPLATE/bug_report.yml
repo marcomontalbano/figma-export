@@ -24,7 +24,7 @@ body:
     id: figma_file
     attributes:
       label: Figma file link
-      description: Strongly recommended: share a reproducible Figma file link and remove or anonymize any sensitive information first.
+      description: Strongly recommended. Share a reproducible Figma file link and remove or anonymize any sensitive information first.
       placeholder: https://www.figma.com/file/fzYhvQpqwhZDUImRz431Qo
     validations:
       required: false
