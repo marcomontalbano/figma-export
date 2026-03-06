@@ -8,6 +8,7 @@ import outputComponentsAsSvgr from '../output-components-as-svgr/dist/index.js';
 import outputComponentsAsSvgstore from '../output-components-as-svgstore/dist/index.js';
 import outputStylesAsSass from '../output-styles-as-sass/dist/index.js';
 
+/** @type {import('../types').FigmaExportRC} */
 export default {
   commands: [
     [
@@ -26,6 +27,7 @@ export default {
       'components',
       {
         fileId: 'fzYhvQpqwhZDUImRz431Qo',
+        concurrency: 1,
         onlyFromPages: ['icons/octicons-by-github'],
         outputters: [
           outputComponentsAsEs6({
@@ -56,6 +58,7 @@ export default {
       'components',
       {
         fileId: 'fzYhvQpqwhZDUImRz431Qo',
+        concurrency: 1,
         onlyFromPages: ['icons', 'unit-test'],
         transformers: [],
         outputters: [
