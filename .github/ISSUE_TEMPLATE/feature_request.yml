@@ -1,8 +1,8 @@
 name: Feature request 💡
 description: Suggest an idea or improvement for figma-export.
 labels:
-  - Issue: needs triage
-  - Issue: enhancement
+  - "Issue: needs triage"
+  - "Issue: enhancement"
 body:
   - type: markdown
     attributes:

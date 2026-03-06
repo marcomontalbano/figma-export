@@ -3,8 +3,8 @@ description: |
   Something is broken and you have a reliable reproduction? Let us know here.
   For questions, please use the "Discussion" section.
 labels:
-  - Issue: needs triage
-  - Issue: bug
+  - "Issue: needs triage"
+  - "Issue: bug"
 body:
   - type: markdown
     attributes:
