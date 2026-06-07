@@ -26,9 +26,9 @@ export const addUseConfig = (prog: Sade, spinner: Ora) =>
         );
       }
 
-      import(pathToFileURL(configPath).href)
+      await import(pathToFileURL(configPath).href)
         .then((m) => m.default as FigmaExportRC)
-        .then(({ commands }) => {
+        .then(async ({ commands }) => {
           const baseCommandOptions: BaseCommandOptions = {
             token: process.env.FIGMA_TOKEN || '',
 
@@ -63,7 +63,7 @@ export const addUseConfig = (prog: Sade, spinner: Ora) =>
 
           spinner.start();
 
-          commandPromises
+          await commandPromises
             .reduce(
               (actualPromise, nextPromise) =>
                 actualPromise.finally(nextPromise),
@@ -79,6 +79,7 @@ export const addUseConfig = (prog: Sade, spinner: Ora) =>
 
               // eslint-disable-next-line no-console
               console.error(error);
+              process.exitCode = 1;
             });
         });
     });

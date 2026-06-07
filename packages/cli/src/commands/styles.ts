@@ -33,7 +33,7 @@ export const addStyles = (prog: Sade, spinner: Ora) =>
 
       spinner.start();
 
-      figmaExport
+      await figmaExport
         .styles({
           fileId,
           version: fileVersion,
@@ -57,6 +57,7 @@ export const addStyles = (prog: Sade, spinner: Ora) =>
           spinner.fail();
 
           // eslint-disable-next-line no-console
-          console.log(error);
+          console.error(error);
+          process.exitCode = 1;
         });
     });
