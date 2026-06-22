@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.3/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -12,6 +12,7 @@
       "!node_modules",
       "!.yarn",
       "!packages/website/out",
+      "!packages/website",
       "!**/.next",
       "!**/dist",
       "!**/lerna.json",
@@ -36,7 +37,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "performance": {
         "noImgElement": "off"
       }

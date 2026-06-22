@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@figma-export/types": "^6.4.0",
-    "svgstore": "~3.0.1"
+    "svgstore": "^3.0.1"
   },
   "engines": {
     "node": ">= 18.18"

@@ -39,4 +39,4 @@ const snakeCase = (str: string): string => str.replace(/[\W_]+/g, '_');
  */
 const kebabCase = (str: string): string => str.replace(/[\W_]+/g, '-');
 
-export { camelCase, pascalCase, snakeCase, kebabCase };
+export { camelCase, kebabCase, pascalCase, snakeCase };
