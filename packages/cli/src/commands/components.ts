@@ -61,7 +61,7 @@ export const addComponents = (prog: Sade, spinner: Ora) =>
 
         spinner.start();
 
-        figmaExport
+        await figmaExport
           .components({
             fileId,
             version: fileVersion,
@@ -91,6 +91,7 @@ export const addComponents = (prog: Sade, spinner: Ora) =>
 
             // eslint-disable-next-line no-console
             console.error(error);
+            process.exitCode = 1;
           });
       },
     );
