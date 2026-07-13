@@ -23,86 +23,86 @@ export default {
       },
     ],
 
-    [
-      'components',
-      {
-        fileId: 'fzYhvQpqwhZDUImRz431Qo',
-        concurrency: 1,
-        onlyFromPages: ['icons/octicons-by-github'],
-        outputters: [
-          outputComponentsAsEs6({
-            output: './output/es6-dataurl-octicons',
-            getVariableName: (options) =>
-              camelCase(`icon ${options.componentName}`),
-            useDataUrl: true,
-          }),
+    // [
+    //   'components',
+    //   {
+    //     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+    //     concurrency: 1,
+    //     onlyFromPages: ['icons/octicons-by-github'],
+    //     outputters: [
+    //       outputComponentsAsEs6({
+    //         output: './output/es6-dataurl-octicons',
+    //         getVariableName: (options) =>
+    //           camelCase(`icon ${options.componentName}`),
+    //         useDataUrl: true,
+    //       }),
 
-          outputComponentsAsSvgr({
-            output: './output/svgr-octicons',
-            getSvgrConfig: () => ({
-              plugins: ['@svgr/plugin-jsx'],
-              template: (
-                { componentName, props, jsx, exports },
-                { tpl },
-              ) => tpl`
-                const ${componentName} = (${props}) => (${jsx});
-                ${exports}
-              `,
-            }),
-          }),
-        ],
-      },
-    ],
+    //       outputComponentsAsSvgr({
+    //         output: './output/svgr-octicons',
+    //         getSvgrConfig: () => ({
+    //           plugins: ['@svgr/plugin-jsx'],
+    //           template: (
+    //             { componentName, props, jsx, exports },
+    //             { tpl },
+    //           ) => tpl`
+    //             const ${componentName} = (${props}) => (${jsx});
+    //             ${exports}
+    //           `,
+    //         }),
+    //       }),
+    //     ],
+    //   },
+    // ],
 
-    [
-      'components',
-      {
-        fileId: 'fzYhvQpqwhZDUImRz431Qo',
-        concurrency: 1,
-        onlyFromPages: ['icons', 'unit-test'],
-        transformers: [],
-        outputters: [
-          outputComponentsAsSvg({
-            output: './output/svg',
-          }),
+    // [
+    //   'components',
+    //   {
+    //     fileId: 'fzYhvQpqwhZDUImRz431Qo',
+    //     concurrency: 1,
+    //     onlyFromPages: ['icons', 'unit-test'],
+    //     transformers: [],
+    //     outputters: [
+    //       outputComponentsAsSvg({
+    //         output: './output/svg',
+    //       }),
 
-          outputComponentsAsSvgr({
-            output: './output/svgr',
-            getSvgrConfig: () => ({
-              plugins: ['@svgr/plugin-jsx'],
-              template: (
-                { componentName, props, jsx, exports },
-                { tpl },
-              ) => tpl`
-                const ${componentName} = (${props}) => (${jsx});
-                ${exports}
-              `,
-            }),
-          }),
+    //       outputComponentsAsSvgr({
+    //         output: './output/svgr',
+    //         getSvgrConfig: () => ({
+    //           plugins: ['@svgr/plugin-jsx'],
+    //           template: (
+    //             { componentName, props, jsx, exports },
+    //             { tpl },
+    //           ) => tpl`
+    //             const ${componentName} = (${props}) => (${jsx});
+    //             ${exports}
+    //           `,
+    //         }),
+    //       }),
 
-          outputComponentsAsEs6({
-            output: './output/es6-base64',
-            useBase64: true,
-          }),
-          outputComponentsAsEs6({
-            output: './output/es6-dataurl',
-            useDataUrl: true,
-          }),
+    //       outputComponentsAsEs6({
+    //         output: './output/es6-base64',
+    //         useBase64: true,
+    //       }),
+    //       outputComponentsAsEs6({
+    //         output: './output/es6-dataurl',
+    //         useDataUrl: true,
+    //       }),
 
-          outputComponentsAsSvgstore({
-            output: './public/output/svgstore',
-          }),
+    //       outputComponentsAsSvgstore({
+    //         output: './public/output/svgstore',
+    //       }),
 
-          outputComponentsAsSvgstore({
-            output: './public/output/svgstore-monochrome',
-            getIconId: (options) =>
-              `[unfilled] ${options.pageName}/${options.componentName}`,
-            svgstoreConfig: {
-              cleanSymbols: ['fill'],
-            },
-          }),
-        ],
-      },
-    ],
+    //       outputComponentsAsSvgstore({
+    //         output: './public/output/svgstore-monochrome',
+    //         getIconId: (options) =>
+    //           `[unfilled] ${options.pageName}/${options.componentName}`,
+    //         svgstoreConfig: {
+    //           cleanSymbols: ['fill'],
+    //         },
+    //       }),
+    //     ],
+    //   },
+    // ],
   ],
 };

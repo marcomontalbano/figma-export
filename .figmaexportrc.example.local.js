@@ -42,8 +42,8 @@ const styleOptions = {
 /** @type {import('./packages/types').ComponentsCommandOptions} */
 const componentOptions = {
   fileId: 'fzYhvQpqwhZDUImRz431Qo',
-  onlyFromPages: ['icons', 'unit-test', 'icons/octicons-by-github'],
-  // concurrency: 30,
+  onlyFromPages: ['icons'],
+  concurrency: 1,
   transformers: [
     transformSvgWithSvgo({
       plugins: [

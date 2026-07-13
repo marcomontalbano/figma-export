@@ -15,7 +15,8 @@
     "debug": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.local.js",
     "debug:components": "yarn build && node ./packages/cli/bin/run.js use-config .figmaexportrc.example.components.local.js",
     "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('You must use Yarn to install, not NPM')\"",
-    "clean": "rm -rf node_modules/ output/ */*/node_modules */*/dist */*/tsconfig.tsbuildinfo",
+    "clean": "yarn dlx rimraf --glob **/node_modules **/yarn.lock **/output **/dist **/tsconfig.tsbuildinfo",
+    "audit": "yarn npm audit --all",
     "build": "tsc --build packages/**/tsconfig.json",
     "lint": "yarn biome check .",
     "lint:fix": "yarn lint --fix",
@@ -29,6 +30,7 @@
     "website:serve": "yarn dlx serve packages/website/out/",
     "dep:major": "npx npm-check-updates -ws --root -u",
     "dep:minor": "yarn dep:major --target minor",
+    "dep:semver": "yarn dep:major --target semver",
     "ls-engines": "yarn dlx ls-engines",
     "version": "yarn && git add yarn.lock",
     "pre-commit": "lint-staged -c ./lint-staged.config.js",
@@ -36,19 +38,19 @@
   },
   "author": "Marco Montalbano <me@marcomontalbano.com>",
   "devDependencies": {
-    "@biomejs/biome": "2.3.3",
+    "@biomejs/biome": "2.5.0",
     "@svgr/plugin-jsx": "^8.1.0",
-    "@types/node": "~20.19.24",
-    "@vitest/coverage-istanbul": "^4.0.7",
+    "@types/node": "^20.19.43",
+    "@vitest/coverage-istanbul": "~4.0.18",
     "husky": "^9.1.7",
-    "lerna": "^9.0.0",
-    "lerna-changelog": "~2.2.0",
-    "lint-staged": "~16.2.6",
-    "ls-engines": "^0.9.3",
-    "nock": "v14.0.10",
-    "npm-check-updates": "^19.1.2",
-    "typescript": "~5.9.3",
-    "vitest": "^4.0.7"
+    "lerna": "^9.0.7",
+    "lerna-changelog": "^2.2.0",
+    "lint-staged": "^16.4.0",
+    "ls-engines": "^0.10.1",
+    "nock": "^14.0.16",
+    "npm-check-updates": "^19.6.6",
+    "typescript": "^5.9.3",
+    "vitest": "~4.0.18"
   },
   "engines": {
     "node": ">= 18.18"
@@ -65,5 +67,5 @@
       "PR: New Feature :rocket:": ":rocket: New Feature"
     }
   },
-  "packageManager": "yarn@4.10.3"
+  "packageManager": "yarn@4.17.1"
 }

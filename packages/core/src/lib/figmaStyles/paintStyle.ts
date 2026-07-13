@@ -130,4 +130,4 @@ const parse = (
   return undefined;
 };
 
-export { parse, extractColor };
+export { extractColor, parse };

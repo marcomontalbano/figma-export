@@ -1,6 +1,6 @@
 /.cache
 /dist
-/output
-/public/output
+# /output
+# /public/output
 /.next
 /out
