@@ -15,8 +15,10 @@
   "homepage": "https://figma-export.marcomontalbano.com/",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf dist output .next out",
-    "figma:export": "figma-export use-config .figmaexportrc.mjs",
+    "clean": "rimraf dist .next out",
+    "clean:bk": "rimraf dist output .next out",
+    "figma:export": "",
+    "figma:export:bk": "figma-export use-config .figmaexportrc.mjs",
     "next:dev": "next dev",
     "next:build": "next build",
     "dev": "run-s figma:export next:dev",
